@@ -24,10 +24,6 @@
           {
             "group": "Test Types",
             "pages": ["concepts/product/test/quality-tests", "concepts/product/test/red-teaming-tests"]
-          },
-          {
-            "group": "Mintlify Docs",
-            "pages": ["essentials/reusable-snippets", "essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
           }
         ]
       },
