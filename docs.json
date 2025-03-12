@@ -15,7 +15,7 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": ["introduction", "registration"]
+            "pages": ["introduction", "registration", "quickstart"]
           },
           {
             "group": "Essentials",
@@ -33,6 +33,15 @@
           {
             "group": "Endpoint Examples",
             "pages": ["api-reference/endpoint/get", "api-reference/endpoint/create", "api-reference/endpoint/delete", "api-reference/endpoint/webhook"]
+          }
+        ]
+      },
+      {
+        "tab": "SDK Reference",
+        "groups": [
+          {
+            "group": "SDK Documentation",
+            "pages": ["sdk/introduction"]
           }
         ]
       }

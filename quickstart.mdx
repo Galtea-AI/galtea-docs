@@ -1,0 +1,46 @@
+---
+title: "Quickstart"
+description: "All you need to get started"
+---
+
+## Introduction
+
+With **Galtea**, you can improve AI reliability, reduce risks, streamline compliance, and accelerates time to market registration. In this guide we explain all that you need to get started with basic evaluation and track the reliability of your LLM based products.
+
+### Logging in to the dashboard and creating a product
+
+The first step in tracking the quality and the reliability of your LLM based product is creating a product in the dashboard. For that you will need to login with your credential.
+
+### Register a version via the SDK
+
+The main advantage of the Galtea platform is the ability to track and compare different versions of an LLM based product. A new version consists of new prompts, different RAG parameters, or an end-to-end product with new components. Before we launch an evaluation we would like to register a new version to the platform 
+
+
+Once the product is created, we can continue our process via the `galtea-sdk` library. But in order to do that, you will need your API key. 
+
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key=API_KEY)
+products = galtea.products.list()
+print(products)
+```
+
+This should give you a list of products that you have created within your organization. For now you have only one product.
+
+### Create a test
+
+In order to compare the reliability of the LLM based product, we not only need to be able to compare between different versions, but we need subject each version to the same tests for a consistent comparison. For that we need to create a test.  
+
+### Choose or create a metric 
+
+```python
+from galtea import Galtea
+
+metrics = galtea.products.list()
+print(metics)
+```
+
+### Launch an evaluation
+
+Finally we are ready to launch an evaluation.
