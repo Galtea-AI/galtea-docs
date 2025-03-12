@@ -5,9 +5,16 @@ icon: "function"
 iconType: "solid"
 ---
 
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
+
 ## What are Metric Types?
 
 Metric types in Galtea define the specific criteria and methods used to evaluate the performance of your [product](/concepts/product). They determine how outputs are scored during [evaluation tasks](/concepts/product/evaluation/task), ensuring consistent and meaningful assessment.
+
+<Info>
+  Metric types are organization-wide and can be reused across multiple products.
+</Info>
 
 You can view and manage your metric types on the [Galtea dashboard](https://platform.galtea.ai/metrics).
 
@@ -19,26 +26,21 @@ When creating a metric type in Galtea, you'll need to provide the following info
   The name of the metric type. **Example**: "Factual Accuracy"
 </ResponseField>
 
-<Tabs>
-  <Tab title="Criteria">
-    <ResponseField name="Criteria" type="Text Area" required="conditional">
-      High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
-      citation."
-    </ResponseField>
-  </Tab>
-  <Tab title="Evaluation Steps">
-    <ResponseField name="Evaluation Steps" type="Text List" required="conditional">
-      A structured set of checks that determine how a metric assesses correctness. **Example**:
-      <ol>
-        <li>Check if the response contains facts that align with verified sources</li>
-        <li>Identify any contradictions between the response and established knowledge</li>
-        <li>Penalize statements that introduce speculation without citing a credible source</li>
-      </ol>
-    </ResponseField>
-  </Tab>
-</Tabs>
+<Note>You need to provide **either** Criteria **or** Evaluation Steps, but not both. Your choice depends on your preferred evaluation approach.</Note>
 
-<Note>The "Criteria" and "Evaluation Steps" fields are mutually exclusive. When creating a metric type, you'll be asked to choose between these validation methods, and only the selected field will be required.</Note>
+<ResponseField name="Criteria" type="Text Area" required="conditional">
+  High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
+  citation."
+</ResponseField>
+
+<ResponseField name="Evaluation Steps" type="Text List" required="conditional">
+  A structured set of checks that determine how a metric assesses correctness. **Example**:
+  <ol>
+    <li>Check if the response contains facts that align with verified sources</li>
+    <li>Identify any contradictions between the response and established knowledge</li>
+    <li>Penalize statements that introduce speculation without citing a credible source</li>
+  </ol>
+</ResponseField>
 
 ## Evaluation Criteria vs. Evaluation Steps
 
@@ -162,62 +164,9 @@ The following table highlights the key differences between evaluation criteria a
   </tbody>
 </table>
 
-## Using Metric Types in Evaluations
-
-Metric types play a crucial role in [evaluation tasks](/concepts/product/evaluation/task). When you create an evaluation task, you specify which metric type(s) to use for assessing the product's output.
-
-```python
-from galtea import Galtea
-
-galtea = Galtea(api_key=API_KEY)
-
-# Create an evaluation task using a specific metric type
-result = galtea.evaluations.create_task(
-    evaluation_id="eval_123",
-    metric_type="factual_accuracy",
-    input="What is the capital of France?",
-    actual_output="The capital of France is Paris.",
-    expected_output="Paris is the capital of France."
-)
-```
-
-## Predefined Metric Types
-
-Galtea provides several predefined metric types that you can use out of the box:
-
-<CardGroup cols={2}>
-  <Card title="Factual Accuracy" icon="check-double">
-    Evaluates whether the output contains factually correct information
-  </Card>
-  <Card title="Relevance" icon="bullseye">
-    Assesses how well the output addresses the input question or task
-  </Card>
-  <Card title="Clarity" icon="glasses">
-    Measures how clear, concise, and understandable the output is
-  </Card>
-  <Card title="Safety" icon="shield-halved">
-    Evaluates whether the output avoids harmful, offensive, or inappropriate content
-  </Card>
-</CardGroup>
-
-## Custom Metric Types
-
-You can also create custom metric types tailored to your specific evaluation needs:
-
-<Steps>
-  <Step title="Access the Metrics Dashboard">Navigate to the [Metrics section](https://platform.galtea.ai/metrics) in the Galtea dashboard</Step>
-  <Step title="Create a New Metric Type">Click the "New Metric Type" button and enter the required information</Step>
-  <Step title="Define Validation Method">Choose between "Criteria" or "Evaluation Steps" based on your preference</Step>
-  <Step title="Save and Test">Save your new metric type and test it in an evaluation task</Step>
-</Steps>
-
 ## Related Concepts
 
 <CardGroup cols={2}>
-  <Card title="Evaluation" icon="magnifying-glass-chart" href="/concepts/product/evaluation">
-    The link between a product version and a test
-  </Card>
-  <Card title="Evaluation Task" icon="clipboard-check" href="/concepts/product/evaluation/task">
-    The assessment of a test challenge using a metric type
-  </Card>
+  <EvaluationCard />
+  <EvaluationTaskCard />
 </CardGroup>
