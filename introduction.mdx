@@ -1,36 +1,60 @@
 ---
 title: Introduction
 description: "Welcome to Galtea, the platform that empowers enterprises by providing a comprehensive AI evaluation platform that improves AI reliability, reduces risks, streamlines compliance, and accelerates time to market."
+icon: "play"
 ---
+
+import ProductCard from '/snippets/cards/product-card.mdx';
+import VersionCard from '/snippets/cards/version-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
 
 ## Sign Up
 
-The first step to world-class documentation is setting up your editing environments.
+To get started with Galtea, you need to register your organization and create an account:
 
-<CardGroup cols={2}>
-  <Card title="Register" icon="pen-to-square" href="/registration">
-    Register your organization into Galtea's platform
+<Card title="Register" icon="pen-to-square" href="/registration">
+  Register your organization into Galtea's platform
+</Card>
+
+## Platform Access
+
+You can interact with Galtea through multiple channels:
+
+<CardGroup cols={3}>
+  <Card title="Web Platform" icon="globe" href="https://platform.galtea.ai/">
+    Access the full functionality through our web interface
   </Card>
-  <Card title="Access the Platform" icon="pen-to-square" href="https://platform.galtea.ai">
-    With the provided username and password, log in to the platform
+  <Card title="API" icon="code" href="/api-reference">
+    Integrate with our REST API for programmatic access
+  </Card>
+  <Card title="Python SDK" icon="python" href="/sdk">
+    Use our Python SDK for seamless integration
   </Card>
 </CardGroup>
 
-## Start Evaluating
+## Core Concepts
 
-Update your docs to your brand and add valuable content for the best user conversion.
+Galtea is built around several key concepts that work together to provide comprehensive evaluation of AI products:
 
 <CardGroup cols={2}>
-  <Card title="Customize Style" icon="palette" href="https://mintlify.com/docs/settings/global">
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card title="Reference APIs" icon="code" href="https://mintlify.com/docs/api-playground/openapi">
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card title="Add Components" icon="screwdriver-wrench" href="https://mintlify.com/docs/content/components/accordions">
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card title="Get Inspiration" icon="stars" href="https://mintlify.com/customers">
-    Check out our showcase of our favorite documentation
-  </Card>
+  <ProductCard />
+  <VersionCard />
+  <TestCard />
+  <EvaluationCard />
+  <MetricTypeCard />
 </CardGroup>
+
+## Evaluation Workflow
+
+The typical workflow in Galtea follows these steps:
+
+<Steps>
+  <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality</Step>
+  <Step title="Create Version">Define a new [Version](/concepts/product/version) of your [Product](/concepts/product) with specific parameters</Step>
+  <Step title="Create Test">Define a new [Test](/concepts/product/test) with challenges to evaluate your [Product](/concepts/product)</Step>
+  <Step title="Run Evaluations">Test the [Version](/concepts/product/version) against one [Test](/concepts/product/test) using [Evaluations](/concepts/product/evaluation) and custom [Metric Types](/concepts/metric-type)</Step>
+  <Step title="Analyze Results">Review and compare the performance of different [Versions](/concepts/product/version) using the built-in analytics</Step>
+  <Step title="Iterate">Create new [Version](/concepts/product/version) with improvements and repeat the evaluation process</Step>
+</Steps>

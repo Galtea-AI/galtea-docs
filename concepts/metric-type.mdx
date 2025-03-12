@@ -1,0 +1,172 @@
+---
+title: "Metric Type"
+description: "Ways to evaluate and score product performance"
+icon: "function"
+iconType: "solid"
+---
+
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
+
+## What are Metric Types?
+
+Metric types in Galtea define the specific criteria and methods used to evaluate the performance of your [product](/concepts/product). They determine how outputs are scored during [evaluation tasks](/concepts/product/evaluation/task), ensuring consistent and meaningful assessment.
+
+<Info>
+  Metric types are organization-wide and can be reused across multiple products.
+</Info>
+
+You can view and manage your metric types on the [Galtea dashboard](https://platform.galtea.ai/metrics).
+
+## Metric Type Properties
+
+When creating a metric type in Galtea, you'll need to provide the following information:
+
+<ResponseField name="Name" type="Text" required>
+  The name of the metric type. **Example**: "Factual Accuracy"
+</ResponseField>
+
+<Note>You need to provide **either** Criteria **or** Evaluation Steps, but not both. Your choice depends on your preferred evaluation approach.</Note>
+
+<ResponseField name="Criteria" type="Text Area" required="conditional">
+  High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
+  citation."
+</ResponseField>
+
+<ResponseField name="Evaluation Steps" type="Text List" required="conditional">
+  A structured set of checks that determine how a metric assesses correctness. **Example**:
+  <ol>
+    <li>Check if the response contains facts that align with verified sources</li>
+    <li>Identify any contradictions between the response and established knowledge</li>
+    <li>Penalize statements that introduce speculation without citing a credible source</li>
+  </ol>
+</ResponseField>
+
+## Evaluation Criteria vs. Evaluation Steps
+
+Understanding the difference between these two approaches is essential for creating effective metrics:
+
+<CardGroup cols={2}>
+  <Card title="Evaluation Criteria" icon="bullseye">
+    **What matters** in a response, defining the high-level qualities or standards
+  </Card>
+  <Card title="Evaluation Steps" icon="list-check">
+    **How to measure** a response's quality, providing specific assessment actions
+  </Card>
+</CardGroup>
+
+### Evaluation Criteria
+
+Evaluation criteria are high-level qualities or standards that define what makes a response good or bad. They outline fundamental aspects that should be assessed without specifying exactly how to measure them.
+
+<AccordionGroup>
+  <Accordion title="Purpose">
+    <ul>
+      <li>Ensure evaluations align with user needs and expectations</li>
+      <li>Establish a framework for selecting appropriate metrics</li>
+      <li>Guide AI model development by focusing on specific areas for improvement</li>
+    </ul>
+  </Accordion>
+  <Accordion title="Examples">
+    <ul>
+      <li>
+        <strong>Accuracy:</strong> The response must be factually correct and based on verified knowledge
+      </li>
+      <li>
+        <strong>Professionalism:</strong> The language should be respectful, clear, and aligned with professional communication standards
+      </li>
+      <li>
+        <strong>Relevance:</strong> The response must directly address the user's question without unnecessary information
+      </li>
+      <li>
+        <strong>Conciseness:</strong> The summary should be brief but still capture essential information
+      </li>
+      <li>
+        <strong>Completeness:</strong> All key details from the original document must be included
+      </li>
+      <li>
+        <strong>Fluency:</strong> The summary should be grammatically correct and easy to read
+      </li>
+    </ul>
+  </Accordion>
+</AccordionGroup>
+
+<Info>Evaluation criteria define **what** matters in a response, serving as the foundation for meaningful assessment.</Info>
+
+### Evaluation Steps
+
+Evaluation steps are the specific actions taken to measure how well a response meets the evaluation criteria. These steps break down the assessment into concrete, structured processes.
+
+<AccordionGroup>
+  <Accordion title="Purpose">
+    <ul>
+      <li>Provide a systematic method for evaluating responses</li>
+      <li>Reduce subjectivity by defining clear measurement techniques</li>
+      <li>Allow customization based on the priorities of an AI system</li>
+    </ul>
+  </Accordion>
+  <Accordion title="Example: Accuracy Steps">
+    <ol>
+      <li>Check if the response contains facts that align with verified sources (e.g., textbooks, official guidelines)</li>
+      <li>Identify any contradictions between the chatbot's response and established knowledge</li>
+      <li>Penalize statements that introduce speculation without citing a credible source</li>
+    </ol>
+  </Accordion>
+  <Accordion title="Example: Completeness Steps">
+    <ol>
+      <li>Compare the key points of the original document with the generated summary</li>
+      <li>Identify any missing crucial information that would affect the meaning</li>
+      <li>Score the summary based on how many critical details are retained from the original text</li>
+    </ol>
+  </Accordion>
+</AccordionGroup>
+
+<Info>Evaluation steps define **how** to measure a response's quality based on the evaluation criteria.</Info>
+
+## Comparing Evaluation Approaches
+
+The following table highlights the key differences between evaluation criteria and evaluation steps:
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Evaluation Criteria</th>
+      <th>Evaluation Steps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Definition**</td>
+      <td>High-level qualities that define what makes a response good or bad</td>
+      <td>Step-by-step actions to measure a response's quality</td>
+    </tr>
+    <tr>
+      <td>**Purpose**</td>
+      <td>Establish broad goals for evaluation</td>
+      <td>Provide a systematic method to assess responses</td>
+    </tr>
+    <tr>
+      <td>**Focus**</td>
+      <td>What should be measured</td>
+      <td>How to measure it</td>
+    </tr>
+    <tr>
+      <td>**Examples**</td>
+      <td>Accuracy, conciseness, relevance, fluency</td>
+      <td>Compare facts, check for contradictions, assess completeness</td>
+    </tr>
+    <tr>
+      <td>**Flexibility**</td>
+      <td>General principles that apply across many use cases</td>
+      <td>Specific steps that vary depending on the system</td>
+    </tr>
+  </tbody>
+</table>
+
+## Related Concepts
+
+<CardGroup cols={2}>
+  <EvaluationCard />
+  <EvaluationTaskCard />
+</CardGroup>

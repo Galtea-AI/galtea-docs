@@ -14,17 +14,21 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
-            "pages": ["introduction", "registration"]
+            "group": "Getting Started",
+            "pages": ["introduction", "registration", "quickstart"]
           },
           {
-            "group": "Essentials",
-            "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation", "essentials/reusable-snippets"]
+            "group": "Concepts",
+            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type"]
+          },
+          {
+            "group": "Test Types",
+            "pages": ["concepts/product/test/quality-tests", "concepts/product/test/red-teaming-tests"]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "API",
         "groups": [
           {
             "group": "API Documentation",
@@ -35,15 +39,19 @@
             "pages": ["api-reference/endpoint/get", "api-reference/endpoint/create", "api-reference/endpoint/delete", "api-reference/endpoint/webhook"]
           }
         ]
+      },
+      {
+        "tab": "SDK",
+        "groups": [
+          {
+            "group": "SDK Documentation",
+            "pages": ["sdk/introduction"]
+          }
+        ]
       }
     ],
     "global": {
       "anchors": [
-        {
-          "anchor": "Platform",
-          "href": "https://platform.galtea.ai",
-          "icon": "clipboard-list"
-        },
         {
           "anchor": "Blog",
           "href": "https://galtea.ai/blog/index.html",
@@ -60,20 +68,19 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:info@galtea.ai"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://platform.galtea.ai"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://linkedin.com/company/galtea-ai",
+      "website": "https://galtea.ai"
     }
   }
 }
