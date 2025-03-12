@@ -28,19 +28,19 @@ You can interact with Galtea through multiple channels:
 Galtea is built around several key concepts that work together to provide comprehensive evaluation of AI products:
 
 <CardGroup cols={2}>
-  <Card title="Product" icon="box" href="/concepts/product">
+  <Card title="Product" icon="box" iconType="solid" href="/concepts/product">
     A functionality or service being evaluated
   </Card>
-  <Card title="Version" icon="code-branch" href="/concepts/product/version">
+  <Card title="Version" icon="swatchbook" iconType="solid" href="/concepts/product/version">
     A specific iteration of a product
   </Card>
-  <Card title="Test" icon="vial" href="/concepts/product/test">
+  <Card title="Test" icon="clipboard-list" iconType="solid" href="/concepts/product/test">
     A set of challenges for evaluating product performance
   </Card>
-  <Card title="Evaluation" icon="magnifying-glass-chart" href="/concepts/product/evaluation">
+  <Card title="Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
     A link between a product version and a test
   </Card>
-  <Card title="Metric Type" icon="chart-simple" href="/concepts/metric-type">
+  <Card title="Metric Type" icon="function" iconType="solid" href="/concepts/metric-type">
     Ways to evaluate and score product performance
   </Card>
 </CardGroup>
@@ -49,11 +49,11 @@ Galtea is built around several key concepts that work together to provide compre
 
 The typical workflow in Galtea follows these steps:
 
-1. Create a [Product](/concepts/product) to represent your AI functionality
-2. Define a [Version](/concepts/product/version) of your product
-3. Create or select a [Test](/concepts/product/test) to evaluate your product
-4. Set up an [Evaluation](/concepts/product/evaluation) linking your version and test
-5. Execute [Evaluation Tasks](/concepts/product/evaluation/task) to assess performance
-6. Analyze the results using specified [Metric Types](/concepts/metric-type)
-
-This structured approach allows for comprehensive and consistent evaluation of AI products across different versions and use cases.
+<Steps>
+  <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality</Step>
+  <Step title="Create Version">Define a new [Version](/concepts/product/version) of your [Product](/concepts/product) with specific parameters</Step>
+  <Step title="Create Test">Define a new [Test](/concepts/product/test) with challenges to evaluate your [Product](/concepts/product)</Step>
+  <Step title="Run Evaluations">Test the [Version](/concepts/product/version) against one [Test](/concepts/product/test) using [Evaluations](/concepts/product/evaluation) and custom [Metric Types](/concepts/metric-type)</Step>
+  <Step title="Analyze Results">Review and compare the performance of different [Versions](/concepts/product/version) using the built-in analytics</Step>
+  <Step title="Iterate">Create new [Version](/concepts/product/version) with improvements and repeat the evaluation process</Step>
+</Steps>
