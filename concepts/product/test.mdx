@@ -7,7 +7,7 @@ iconType: "solid"
 
 ## What is a Test?
 
-A test in Galtea is a set of challenges designed to evaluate the performance of a [product](/concepts/product). Tests can assess various aspects such as quality, security, safety, and bias.
+A test in Galtea is a set of challenges designed to evaluate the performance of a [product](/concepts/product). A test file provides simulations of interactions with the product (and, in [quality tests](/concepts/product/test/quality-tests), expected outcomes for each interaction).
 
 ## Test Properties
 
@@ -18,7 +18,10 @@ When creating a test in Galtea, you'll need to provide the following information
 </ResponseField>
 
 <ResponseField name="Type" type="String" required>
-  The type of the test. **Possible values**: - [Quality](/concepts/product/test/quality-tests): Tests that evaluate the quality and correctness of outputs - [Red Teaming](/concepts/product/test/red-teaming-tests): Tests that evaluate security, safety, and bias aspects
+  The type of the test. 
+  Possible values:
+  - [Quality](/concepts/product/test/quality-tests): Tests that evaluate the quality and correctness of outputs
+  - [Red Teaming](/concepts/product/test/red-teaming-tests): Tests that evaluate security, safety, and bias aspects
 </ResponseField>
 
 <Tabs>
