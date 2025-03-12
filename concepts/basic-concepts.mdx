@@ -1,0 +1,59 @@
+---
+title: "Basic Concepts"
+description: "Core concepts of the Galtea platform"
+---
+
+## Overview
+
+Galtea enables organizations to assess their products using LLM-as-a-judge technologies. Evaluations can be conducted on any output based on custom criteria, resulting in a set of Galtea-predefined and user-defined metrics.
+
+## Platform Access
+
+You can interact with Galtea through multiple channels:
+
+<CardGroup cols={3}>
+  <Card title="Web Platform" icon="globe" href="https://platform.galtea.ai/">
+    Access the full functionality through our web interface
+  </Card>
+  <Card title="API" icon="code" href="/api-reference">
+    Integrate with our REST API for programmatic access
+  </Card>
+  <Card title="Python SDK" icon="python" href="/sdk">
+    Use our Python SDK for seamless integration
+  </Card>
+</CardGroup>
+
+## Core Concepts
+
+Galtea is built around several key concepts that work together to provide comprehensive evaluation of AI products:
+
+<CardGroup cols={2}>
+  <Card title="Product" icon="box" href="/concepts/product">
+    A functionality or service being evaluated
+  </Card>
+  <Card title="Version" icon="code-branch" href="/concepts/product/version">
+    A specific iteration of a product
+  </Card>
+  <Card title="Test" icon="vial" href="/concepts/product/test">
+    A set of challenges for evaluating product performance
+  </Card>
+  <Card title="Evaluation" icon="magnifying-glass-chart" href="/concepts/product/evaluation">
+    A link between a product version and a test
+  </Card>
+  <Card title="Metric Type" icon="chart-simple" href="/concepts/metric-type">
+    Ways to evaluate and score product performance
+  </Card>
+</CardGroup>
+
+## Evaluation Workflow
+
+The typical workflow in Galtea follows these steps:
+
+1. Create a [Product](/concepts/product) to represent your AI functionality
+2. Define a [Version](/concepts/product/version) of your product
+3. Create or select a [Test](/concepts/product/test) to evaluate your product
+4. Set up an [Evaluation](/concepts/product/evaluation) linking your version and test
+5. Execute [Evaluation Tasks](/concepts/product/evaluation/task) to assess performance
+6. Analyze the results using specified [Metric Types](/concepts/metric-type)
+
+This structured approach allows for comprehensive and consistent evaluation of AI products across different versions and use cases.

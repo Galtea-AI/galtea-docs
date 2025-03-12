@@ -1,0 +1,111 @@
+---
+title: "Evaluation Task"
+description: "The assessment of a specific test challenge using a metric type"
+icon: "clipboard-check"
+iconType: "solid"
+---
+
+## What is an Evaluation Task?
+
+An evaluation task in Galtea represents the assessment of a single challenge from a [test](/concepts/product/test) using a specific [metric type's](/concepts/metric-type) evaluation criteria. Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
+
+<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the input and the resulting output.</Note>
+
+## Task Properties
+
+To trigger an evaluation task in Galtea, you'll need to provide the following information:
+
+<ResponseField name="Evaluation" type="ID (text)" required>
+  The unique identifier of the evaluation that the task is part of. **Example**: "eval_v2_summarizer_legal_quality"
+</ResponseField>
+
+<ResponseField name="Metric Type" type="ID (text)" required>
+  The unique identifier of the metric type to be used in the evaluation task. **Example**: "factual_accuracy"
+</ResponseField>
+
+<ResponseField name="Input" type="String" required>
+  The input data used for inference on the LLM product's version. **Example**: "Summarize the following legal document: [document content]"
+</ResponseField>
+
+<ResponseField name="Actual Output" type="String" required>
+  The actual output produced by the product's version. **Example**: "This legal document outlines the terms of a lease agreement between..."
+</ResponseField>
+
+<ResponseField name="Expected Output" type="String">
+  The expected output for the evaluation task, extracted from the test file. **Example**: "The document is a lease agreement that specifies..."
+</ResponseField>
+
+<ResponseField name="Context" type="String">
+  Additional context provided to the product's version upon inference. **Example**: "The document is from a real estate transaction in California."
+</ResponseField>
+
+## Task Lifecycle
+
+Evaluation tasks follow a specific lifecycle:
+
+<Steps>
+  <Step title="Creation">When you trigger an evaluation task, it appears in the Evaluation's details page with a status of "pending"</Step>
+  <Step title="Processing">Galtea's evaluation system processes the task using the specified metric type</Step>
+  <Step title="Completion">Once processed, the status changes to "completed" and the result (score) is displayed</Step>
+  <Step title="Analysis">You can review detailed feedback and the evaluation rationale</Step>
+</Steps>
+
+## Using the SDK
+
+The Galtea SDK simplifies triggering evaluation tasks:
+
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key=API_KEY)
+
+# Trigger a single evaluation task
+result = galtea.evaluations.create_task(
+    evaluation_id="eval_123",
+    metric_type="factual_accuracy",  # You can use the name instead of the ID
+    input="What is the capital of France?",
+    actual_output="The capital of France is Paris.",
+    expected_output="Paris is the capital of France.",
+    context="Geographic information query"
+)
+
+# Trigger multiple evaluation tasks with different metric types
+results = galtea.evaluations.create_tasks(
+    evaluation_id="eval_123",
+    metric_types=["factual_accuracy", "relevance", "clarity"],
+    input="What is the capital of France?",
+    actual_output="The capital of France is Paris.",
+    expected_output="Paris is the capital of France.",
+    context="Geographic information query"
+)
+```
+
+## Interpreting Task Results
+
+Once an evaluation task is completed, you can access:
+
+<CardGroup cols={2}>
+  <Card title="Score" icon="chart-line">
+    A numerical value (typically 0-1 or 0-100) indicating performance
+  </Card>
+  <Card title="Feedback" icon="comment">
+    Detailed explanation of why the score was assigned
+  </Card>
+  <Card title="Raw Response" icon="file-code">
+    The complete evaluation data for advanced analysis
+  </Card>
+  <Card title="Improvement Suggestions" icon="lightbulb">
+    Recommendations for improving performance (when available)
+  </Card>
+</CardGroup>
+
+## Related Concepts
+
+<CardGroup cols={2}>
+  <Card title="Evaluation" icon="magnifying-glass-chart" href="/concepts/product/evaluation">
+    The container for evaluation tasks
+  </Card>
+  <Card title="Metric Type" icon="chart-simple" href="/concepts/metric-type">
+    The criteria used to evaluate performance
+  </Card>
+</CardGroup>

@@ -1,0 +1,80 @@
+---
+title: "Product"
+description: "A functionality or service evaluated by Galtea"
+icon: "cubes"
+iconType: "solid"
+---
+
+## What is a Product?
+
+A product in Galtea represents a functionality or service that you want to evaluate. Examples include "QA chat," "Summarization," or "Content Generation."
+
+<Note>Even if your organization has a single public-facing product (like a website or dashboard for all user interactions), you should define separate Galtea products for each distinct functionality you want to evaluate.</Note>
+
+You can view and manage your products on the [Galtea dashboard](https://platform.galtea.ai/products).
+
+## Product Properties
+
+When creating a product in Galtea, you'll need to provide the following information:
+
+<ResponseField name="Product Name" type="Text" required>
+  The name of your product. **Example**: "Document Summarizer"
+</ResponseField>
+
+<ResponseField name="Product Description" type="Text Area" required>
+  A detailed description of the product's intended use. **Example**: "An AI tool that generates concise summaries of legal documents while preserving key information."
+</ResponseField>
+
+<ResponseField name="RAG" type="Radio Group" required>
+  Indicates if the product uses Retrieval-Augmented Generation (RAG). **Possible values**: 'true', 'false'
+</ResponseField>
+
+<ResponseField name="Conversational" type="Radio Group" required>
+  Indicates if the product is a chatbot or designed as conversational AI. **Possible values**: 'true', 'false'
+</ResponseField>
+
+<ResponseField name="Function Calling" type="Radio Group" required>
+  Indicates if the product has function-calling capabilities. **Possible values**: 'true', 'false'
+</ResponseField>
+
+<ResponseField name="External User Interaction" type="Radio Group" required>
+  Indicates if the product is aimed at interacting with external users. **Possible values**: 'true', 'false'
+</ResponseField>
+
+<ResponseField name="Quality Testing Priority" type="Radio Group" required>
+  Indicates if quality and robustness testing is a priority for the product. **Possible values**: 'true', 'false'
+</ResponseField>
+
+<ResponseField name="Red Teaming Priority" type="Radio Group" required>
+  Indicates if red teaming (security, safety, and bias) is a priority for the product. **Possible values**: 'true', 'false'
+</ResponseField>
+
+<ResponseField name="Risk Level" type="Dropdown">
+  The risk level of the product under the EU AI Act. **Possible values**: - Not applicable: The product is not covered by the EU AI Act. - High: See the [EU AI Act high-risk systems](https://artificialintelligenceact.eu/chapter/3/) - Medium: Systems with moderate risk potential - Low: Systems with
+  minimal risk potential
+</ResponseField>
+
+<ResponseField name="Operator Type" type="Dropdown">
+  The operator type of the product under the EU AI Act. **Possible values**: - Not applicable: The product is not covered by the EU AI Act. - Provider: "a natural or legal person, public authority, agency or other body that develops an AI system or a general-purpose AI model or that has an AI system
+  or a general-purpose AI model developed and places it on the market or puts the AI system into service under its own name or trademark, whether for payment or free of charge" - User: An entity that uses the AI system under its authority except for personal non-professional activity - Importer: "a
+  natural or legal person located or established in the Union that places on the market an AI system that bears the name or trademark of a natural or legal person established in a third country" - Distributor: "a natural or legal person in the supply chain, other than the provider or the importer,
+  that makes an AI system available on the Union market"
+</ResponseField>
+
+<Info>Legal definitions are extracted from the [EU AI Act](https://artificialintelligenceact.eu/article/3/).</Info>
+
+## Related Concepts
+
+A product in Galtea is associated with:
+
+<CardGroup cols={3}>
+  <Card title="Versions" icon="code-branch" href="/concepts/product/version">
+    Different iterations of your product
+  </Card>
+  <Card title="Tests" icon="vial" href="/concepts/product/test">
+    Sets of challenges to evaluate your product
+  </Card>
+  <Card title="Evaluations" icon="magnifying-glass-chart" href="/concepts/product/evaluation">
+    Links between product versions and tests
+  </Card>
+</CardGroup>

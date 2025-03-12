@@ -1,0 +1,62 @@
+---
+title: "Evaluation"
+description: "A link between a product version and a test"
+icon: "badge-check"
+iconType: "solid"
+---
+
+## What is an Evaluation?
+
+An evaluation in Galtea is a link between a specific [version](/concepts/product/version) of a [product](/concepts/product) and a [test](/concepts/product/test). It serves as the container for all the evaluation tasks that assess how well the product version performs against the test challenges.
+
+## Creating an Evaluation
+
+To create an evaluation in Galtea, you need to specify:
+
+<ResponseField name="Version" type="ID (text)" required>
+  The unique identifier of the version to be used in the evaluation. **Example**: "v2_summarizer_gpt4"
+</ResponseField>
+
+<ResponseField name="Test" type="ID (text)" required>
+  The unique identifier of the test to be used in the evaluation. **Example**: "legal_docs_quality_test"
+</ResponseField>
+
+Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test challenges.
+
+## Evaluation Workflow
+
+<Steps>
+  <Step title="Create an Evaluation">Link a specific product version with a test</Step>
+  <Step title="Execute Evaluation Tasks">For each challenge in the test, run one or more evaluation tasks to assess performance using different [metric types](/concepts/metric-type)</Step>
+  <Step title="Review Results">Analyze the scores and feedback from evaluation tasks</Step>
+  <Step title="Compare with Other Versions">Compare results across different versions of the same product</Step>
+</Steps>
+
+## Evaluation Dashboard
+
+Once you've created an evaluation, you can access detailed information and results on the evaluation dashboard:
+
+The dashboard provides:
+
+- Overall performance metrics
+- Breakdown of scores by metric type
+- Detailed view of individual evaluation tasks
+- Comparative analysis with other versions (if available)
+- Export options for reporting
+
+## Types of Evaluations
+
+Depending on your test type, evaluations can focus on different aspects of your product:
+
+<Tabs>
+  <Tab title="Quality Evaluations">Based on [quality tests](/concepts/product/test/quality-tests), these evaluations assess the correctness, relevance, and overall quality of your product's outputs.</Tab>
+  <Tab title="Red Teaming Evaluations">Based on [red teaming tests](/concepts/product/test/red-teaming-tests), these evaluations assess your product's resilience against adversarial inputs and potential vulnerabilities.</Tab>
+</Tabs>
+
+## Evaluation Tasks
+
+The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single test challenge using a specific metric type.
+
+<Card title="Evaluation Task" icon="clipboard-check" href="/concepts/product/evaluation/task">
+  Learn more about evaluation tasks
+</Card>
