@@ -7,56 +7,52 @@ iconType: "solid"
 
 ## What is an Evaluation?
 
-An evaluation in Galtea is a link between a specific [version](/concepts/product/version) of a [product](/concepts/product) and a [test](/concepts/product/test). It serves as the container for all the evaluation tasks that assess how well the product version performs against the test challenges.
+An evaluation in Galtea is a link between a specific [version](/concepts/product/version) of a [product](/concepts/product) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/evaluation/task) that assess how well the product version performs against the test challenges.
+
+## Evaluation Workflow
+
+<Steps>
+  <Step title="Create an Evaluation">Link a specific [version](/concepts/product/version) with a [test](/concepts/product/test) to create an evaluation</Step>
+  <Step title="Execute Evaluation Tasks">For each challenge in the test, run one or more [evaluation tasks](/concepts/product/evaluation/task) to assess performance using different [metric types](/concepts/metric-type)</Step>
+  <Step title="Review Results">Compare results across different versions of the same product</Step>
+</Steps>
+
+## Evaluation Tasks
+
+The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single test challenge using specific [metric types](/concepts/metric-type).
+
+<Card title="Evaluation Task" icon="clipboard-check" href="/concepts/product/evaluation/task">
+  Learn more about evaluation tasks
+</Card>
+
+<Note>
+  Creating an evaluation does not automatically run evaluation tasks. You need to execute tasks separately to generate scores and insights.
+</Note>
+
+## Results Visualization
+
+Once you've created an evaluation, you can access detailed information and results on the [platform](https://platform.galtea.ai/).
+
+<Note>
+  To view evaluation results, you need to visit a product's page *Analytics* section. For detailed information about a particular evaluation, you can navigate to the *Evaluations* tab and select a specific evaluation.
+</Note>
+
+The platform provides:
+- Overview of a product's evaluations results per metric
+- Analytics comparing different versions of the product
+- Detailed view of individual evaluation tasks
 
 ## Creating an Evaluation
 
 To create an evaluation in Galtea, you need to specify:
 
 <ResponseField name="Version" type="ID (text)" required>
-  The unique identifier of the version to be used in the evaluation. **Example**: "v2_summarizer_gpt4"
+  The unique identifier of the version to be used in the evaluation.
 </ResponseField>
 
 <ResponseField name="Test" type="ID (text)" required>
-  The unique identifier of the test to be used in the evaluation. **Example**: "legal_docs_quality_test"
+  The unique identifier of the test to be used in the evaluation.
 </ResponseField>
 
 Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test challenges.
 
-## Evaluation Workflow
-
-<Steps>
-  <Step title="Create an Evaluation">Link a specific product version with a test</Step>
-  <Step title="Execute Evaluation Tasks">For each challenge in the test, run one or more evaluation tasks to assess performance using different [metric types](/concepts/metric-type)</Step>
-  <Step title="Review Results">Analyze the scores and feedback from evaluation tasks</Step>
-  <Step title="Compare with Other Versions">Compare results across different versions of the same product</Step>
-</Steps>
-
-## Evaluation Dashboard
-
-Once you've created an evaluation, you can access detailed information and results on the evaluation dashboard:
-
-The dashboard provides:
-
-- Overall performance metrics
-- Breakdown of scores by metric type
-- Detailed view of individual evaluation tasks
-- Comparative analysis with other versions (if available)
-- Export options for reporting
-
-## Types of Evaluations
-
-Depending on your test type, evaluations can focus on different aspects of your product:
-
-<Tabs>
-  <Tab title="Quality Evaluations">Based on [quality tests](/concepts/product/test/quality-tests), these evaluations assess the correctness, relevance, and overall quality of your product's outputs.</Tab>
-  <Tab title="Red Teaming Evaluations">Based on [red teaming tests](/concepts/product/test/red-teaming-tests), these evaluations assess your product's resilience against adversarial inputs and potential vulnerabilities.</Tab>
-</Tabs>
-
-## Evaluation Tasks
-
-The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single test challenge using a specific metric type.
-
-<Card title="Evaluation Task" icon="clipboard-check" href="/concepts/product/evaluation/task">
-  Learn more about evaluation tasks
-</Card>
