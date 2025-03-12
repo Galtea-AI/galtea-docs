@@ -14,12 +14,12 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Getting Started",
             "pages": ["introduction", "registration", "quickstart"]
           },
           {
             "group": "Concepts",
-            "pages": ["concepts/basic-concepts", "concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type"]
+            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type"]
           },
           {
             "group": "Test Types",
