@@ -11,7 +11,7 @@ import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of a single challenge from a [test](/concepts/product/test) using a specific [metric type's](/concepts/metric-type) evaluation criteria. Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
+An evaluation task in Galtea represents the assessment of a single challenge from a [test](/concepts/product/test) using a specific  evaluation criteria. Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
 
 <Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the input and the resulting output.</Note>
 
@@ -23,7 +23,7 @@ Evaluation tasks follow a specific lifecycle:
   <Step title="Inference">Perform inference on the LLM product to generate an output using the test's input and context</Step>
   <Step title="Creation">Trigger an evaluation task. It will appear in the Evaluation's details page with the status "pending"</Step>
   <Step title="Processing">Galtea's evaluation system processes the task using evaluation criteria of the selected metric type</Step>
-  <Step title="Completion">Once processed, the status changes to "completed" and the result (score) is available</Step>
+  <Step title="Completion">Once processed, the status changes to "completed" and the [results](#task-results-properties) are available</Step>
 </Steps>
 
 ## Related Concepts
@@ -34,7 +34,7 @@ Evaluation tasks follow a specific lifecycle:
   <MetricTypeCard />
 </CardGroup>
 
-## Task Properties
+## Task Creation Properties
 
 To trigger an evaluation task in Galtea, you'll need to provide the following information:
 
@@ -70,4 +70,28 @@ To trigger an evaluation task in Galtea, you'll need to provide the following in
   <Note>
     The *context* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
   </Note>
+</ResponseField>
+
+## Task Results Properties
+
+Once an evaluation task is completed, you can access the following information:
+
+<ResponseField name="Status" type="Enum">
+  The current status of the evaluation task.asd
+  Possible values:
+  - **Pending**: The task has been created but not yet processed.
+  - **Success**: The task was processed successfully.
+  - **Failed**: The task encountered an error during processing.
+</ResponseField>
+
+<ResponseField name="Score" type="Number">
+  The score assigned to the output by the metric type's evaluation criteria. **Example**: 0.85
+</ResponseField>
+
+<ResponseField name="Reason" type="Text">
+  The explanation of the score assigned to the output by the [metric type's](/concepts/metric-type) evaluation criteria.
+</ResponseField>
+
+<ResponseField name="Error" type="Text">
+  The error message if the task failed during processing.
 </ResponseField>
