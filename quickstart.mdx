@@ -8,20 +8,28 @@ icon: "rocket"
 
 With **Galtea**, you can improve AI reliability, reduce risks, streamline compliance, and accelerates time to market registration. In this guide we explain all that you need to get started with basic evaluation and track the reliability of your LLM based products.
 
-### Logging in to the dashboard and creating a product
+## Creating a product
 
 The first step in tracking the quality and the reliability of your LLM based product is creating a product in the dashboard. For that you will need to login with your credentials.
 
-![title](/images/login.jpg)
+![login to the platform](/images/login.png)
 
-As you click on Products > Create New Product, you will be presented with the product onboarding form. The stored metadata is used mostly for repoorting purposes, and if needed the description is used for generating synthetic test data. 
+As you click on Products > Create New Product, you will be presented with the product onboarding form. The stored metadata is used mostly for repoorting purposes, and the description is used during the process of generating synthetic test data when needed.
 
-### Register a version via the SDK
-
-The main advantage of the Galtea platform is the ability to track and compare different versions of an LLM based product. A new version consists of new prompts, different RAG parameters, or an end-to-end product with new components. Before we launch an evaluation we would like to register a new version to the platform 
+![product onboarding](/images/product-onboarding.png)
 
 
-Once the product is created, we can continue our process via the `galtea-sdk` library. But in order to do that, you will need your API key. 
+## Install the SDK and connect via an API key
+
+Once you create your product, now the rest of the process can be conveniently followed from the sdk. But in order to do that, you will need your API key, which can be acquired from Settings > Generate API key
+
+![get api key](/images/api-key.png)
+
+Once you have the API key, you will need to install the galtea library in your virtual environment
+
+```pip install galtea```
+
+Once installed, you can now check if the connection to the platform works correctly:
 
 ```python
 from galtea import Galtea
@@ -32,6 +40,11 @@ print(products)
 ```
 
 This should give you a list of products that you have created within your organization. For now you have only one product.
+
+## Registering a version
+
+The main advantage of the Galtea platform is the ability to track and compare different versions of an LLM based product. A new version consists of new prompts, different RAG parameters, or an end-to-end product with new components. Before we launch an evaluation we would like to register a new version to the platform 
+
 
 ### Create a test
 
