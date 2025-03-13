@@ -20,7 +20,8 @@ An evaluation task in Galtea represents the assessment of a single challenge fro
 Evaluation tasks follow a specific lifecycle:
 
 <Steps>
-  <Step title="Creation">When you trigger an evaluation task, it appears in the Evaluation's details page with a status of "pending"</Step>
+  <Step title="Inference">Perform inference on the LLM product to generate an output using the test's input and context</Step>
+  <Step title="Creation">Trigger an evaluation task. It will appear in the Evaluation's details page with the status "pending"</Step>
   <Step title="Processing">Galtea's evaluation system processes the task using evaluation criteria of the selected metric type</Step>
   <Step title="Completion">Once processed, the status changes to "completed" and the result (score) is available</Step>
 </Steps>
@@ -48,6 +49,9 @@ To trigger an evaluation task in Galtea, you'll need to provide the following in
 
 <ResponseField name="Input" type="String" required>
   The input data used for inference on the LLM product's version. **Example**: "How much does the iPhone 16 cost?"
+  <Note>
+    The *input* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
+  </Note>
 </ResponseField>
 
 <ResponseField name="Actual Output" type="String" required>
@@ -56,8 +60,14 @@ To trigger an evaluation task in Galtea, you'll need to provide the following in
 
 <ResponseField name="Expected Output" type="String">
   The expected output for the evaluation task, extracted from the test file. **Example**: "The iPhone 16 costs $999."
+  <Note>
+    The *expected output* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
+  </Note>
 </ResponseField>
 
 <ResponseField name="Context" type="String">
   Additional context provided to the product's version upon inference. **Example**: "[product catalog]"
+  <Note>
+    The *context* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
+  </Note>
 </ResponseField>
