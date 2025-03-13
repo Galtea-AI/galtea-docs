@@ -62,7 +62,27 @@ Normally we would put all the relevant information in the metadata, from the sys
 
 ## Create a test
 
-In order to compare the reliability of the LLM based product, we not only need to be able to compare between different versions, but we need subject each version to the same tests for a consistent comparison. For that we need to create a test. In order to do that:
+In order to compare the reliability of the LLM based product, we not only need to be able to compare between different versions, but we need subject each version to the same tests for a consistent comparison. For that we need to create a test in the platform. Based on your application they can be question answer pairs with the gold standard answers. Below are some examples 
+
+```
+import pandas as pd
+
+# Data
+d = [
+    {"input": "What is the Capital of France?",
+     "actual_output": "Paris",
+     "expected_output": "Paris"},
+    {"input": "What is the capital of Spain?",
+     "actual_output": "Barcelona",
+     "expected_output": "Madrid"}
+]
+
+# Create DataFrame
+df = pd.DataFrame(d)
+df.to_csv('tutorial_tests.csv')
+```
+
+Now that you have our tests in a file, you can push them to the platform.
 
 ```
 test = galtea.tests.create(
@@ -73,13 +93,14 @@ test = galtea.tests.create(
 )
 ```
 
-Uploading the file ensures that the tests launched are always the same hence ensuring that the metrics between the versions are comparable. Once a test file is uploaded, it can be downloaded from the platform via the sdk:
+Uploading the file ensures that the launched tests are always the same hence ensuring that the metrics between the versions are comparable. Once a test file is uploaded, there is the possibility to downloaded from the platform via the sdk:
 
 ```
-test.download('./')
+test_file_path = galtea.tests.download(test, output_directory="./")
+print(test_file_path)
 ```
 
-### Choose or create a metric 
+### Create a metric 
 
 Galtea platform comes out of the box with pre-defined metrics which can be accessed via sdk
 
@@ -99,6 +120,12 @@ metric_self_accuracy = galtea.metrics.create(name="accuracy_v0", criteria="Deter
 Finally we are ready to launch an evaluation. We start by creating an evaluation.
 
 ```
+evaluation = galtea.evaluations.create(test_id=test.id, version_id=version.id)
+```
+
+Once the evaluation is created we can send the evaluation tasks one by one via the sdk
+
+```
 galtea.evaluate(
   metrics=[metric_accuracy.name],
   evaluation_id=evaluation.id,
@@ -107,3 +134,5 @@ galtea.evaluate(
   expected_output="Madrid"
 )
 ```
+
+However it is recommended to use the test we have created which now already in the platform. Using the data frame.
