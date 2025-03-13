@@ -27,7 +27,9 @@ Once you create your product, now the rest of the process can be conveniently fo
 
 Once you have the API key, you will need to install the galtea library in your virtual environment
 
-```pip install galtea```
+```
+pip install galtea
+```
 
 Once installed, you can now check if the connection to the platform works correctly:
 
@@ -36,29 +38,72 @@ from galtea import Galtea
 
 galtea = Galtea(api_key=API_KEY)
 products = galtea.products.list()
+new_product_id = products[-1].id
 print(products)
 ```
 
-This should give you a list of products that you have created within your organization. For now you have only one product.
+This should give you a list of products that you have created within your organization. For now you have only one product, and we got the id of the last created product, in the variable
 
 ## Registering a version
 
-The main advantage of the Galtea platform is the ability to track and compare different versions of an LLM based product. A new version consists of new prompts, different RAG parameters, or an end-to-end product with new components. Before we launch an evaluation we would like to register a new version to the platform 
+The main advantage of the Galtea platform is the ability to track and compare different versions of an LLM based product. A new version consists of new prompts, different RAG parameters, or an end-to-end product with new components. Before we launch an evaluation we would like to register a new version to the platform.
 
+```
+version = galtea.versions.create(
+    name=f"test_version1",
+    product_id=new_product_id,
+    optional_props={
+        "description": "a new version for the tutorial"
+    }
+)
+```
 
-### Create a test
+Normally we would put all the relevant information in the metadata, from the system prompt to the other components such as guardrails, however for the tutorial we leave it empty for now.
 
-In order to compare the reliability of the LLM based product, we not only need to be able to compare between different versions, but we need subject each version to the same tests for a consistent comparison. For that we need to create a test.  
+## Create a test
+
+In order to compare the reliability of the LLM based product, we not only need to be able to compare between different versions, but we need subject each version to the same tests for a consistent comparison. For that we need to create a test. In order to do that:
+
+```
+test = galtea.tests.create(
+    name=f"example-test-tutorial",
+    type="QUALITY",
+    product_id=new_product_id,
+    test_file_path="tutorial_tests.csv"
+)
+```
+
+Uploading the file ensures that the tests launched are always the same hence ensuring that the metrics between the versions are comparable. Once a test file is uploaded, it can be downloaded from the platform via the sdk:
+
+```
+test.download('./')
+```
 
 ### Choose or create a metric 
 
-```python
-from galtea import Galtea
+Galtea platform comes out of the box with pre-defined metrics which can be accessed via sdk
 
-metrics = galtea.products.list()
-print(metics)
+```python
+metrics = galtea.metrics.list()
+print(metrics)
+```
+
+However you will want to define your own metrics for your specific use-case, which is what we will do for the tutorial.
+
+```
+metric_self_accuracy = galtea.metrics.create(name="accuracy_v0", criteria="Determine whether the actual output is equivalent to the expected output.")
 ```
 
 ### Launch an evaluation
 
-Finally we are ready to launch an evaluation.
+Finally we are ready to launch an evaluation. We start by creating an evaluation.
+
+```
+galtea.evaluate(
+  metrics=[metric_accuracy.name],
+  evaluation_id=evaluation.id,
+  input="What is the capital of Spain?",
+  actual_output="Barcelona", 
+  expected_output="Madrid"
+)
+```
