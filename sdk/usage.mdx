@@ -4,27 +4,20 @@ description: "Learn how to use the SDK in your codebases"
 icon: "code"
 ---
 
-## Usage
-
 Below are some examples of how to use the SDK to interact with the Galtea platform.
 
 ### Importing the SDK
 
 ```python
-from galtea import galtea
+from galtea import Galtea
+galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 ```
 
 ### Registering a Product
 
-Registering a product is the first step to start using the Galtea platform. A product represents a functionality or service that you want to evaluate.
-
-```python
-product = galtea.products.create(
-    name="Document Summarizer",
-    description="An AI tool that generates concise summaries of legal documents while preserving key information."
-)
-print(product.id)
-```
+Registering a product is the first step to start using the Galtea platform.
+A product represents a functionality or service AI-based that you want to evaluate.
+In this case, we don't allow to create a product from the sdk since it's a process that needs from some information that we show in our platform, therefore you need to do this from the platform (dashboard).
 
 ### Creating a Version
 
@@ -41,27 +34,15 @@ print(version.id)
 
 ### Creating a Test
 
-Tests are used to evaluate the performance of your product. You can create quality tests or red teaming tests depending on your evaluation needs.
+Tests are used to evaluate the performance of your product.
+You can create quality tests or red teaming tests depending on your evaluation needs.
 
 ```python
-import pandas as pd
-
-# Data
-data = [
-    {"input": "What is the capital of France?", "expected_output": "Paris"},
-    {"input": "What is the capital of Spain?", "expected_output": "Madrid"}
-]
-
-# Create DataFrame
-test_df = pd.DataFrame(data)
-test_df.to_csv('tutorial_tests.csv')
-
-# Upload test
 test = galtea.tests.create(
     name="example-test-tutorial",
     type="QUALITY",
     product_id=product.id,
-    test_file_path="tutorial_tests.csv"
+    ground_truth_file_path="path/to/knowledge_file.pdf"
 )
 print(test.id)
 ```
