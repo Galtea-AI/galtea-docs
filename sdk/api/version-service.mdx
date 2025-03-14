@@ -57,6 +57,14 @@ versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
   The ID of the product for which you want to list versions.
 </ResponseField>
 
+<ResponseField name="offset" type="int">
+  The number of versions to skip before starting to collect the result set.
+</ResponseField>
+
+<ResponseField name="limit" type="int">
+  The maximum number of versions to return.
+</ResponseField>
+
 ## Retrieving Version
 
 This method allows you to retrieve a specific version by its ID.

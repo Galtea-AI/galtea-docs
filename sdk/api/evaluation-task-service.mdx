@@ -19,7 +19,7 @@ This method allows you to create an evaluation task.
 ```python
 evaluation_task = galtea.evaluation_tasks.create(
     evaluation_id="YOUR_EVALUATION_ID",
-    metric_type="accuracy_v0",
+    metrics=["accuracy_v0", "coherence-v0"],
     input="What is the capital of Spain?",
     actual_output="Barcelona",
     expected_output="Madrid"
@@ -34,8 +34,8 @@ evaluation_task = galtea.evaluation_tasks.create(
   The ID of the evaluation you want to create a task for.
 </ResponseField>
 
-<ResponseField name="metric_type" type="string" required>
-  The type of metric to use for the evaluation.
+<ResponseField name="metrics" type="list[string]" required>
+  The metrics to use for the evaluation.
 </ResponseField>
 
 <ResponseField name="input" type="string" required>
@@ -62,6 +62,14 @@ evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_I
   The ID of the evaluation for which you want to list tasks.
 </ResponseField>
 
+<ResponseField name="offset" type="int">
+  The number of tasks to skip before starting to collect the result set.
+</ResponseField>
+
+<ResponseField name="limit" type="int">
+  The maximum number of tasks to return.
+</ResponseField>
+
 ## Retrieving Evaluation Task
 
 This method allows you to retrieve a specific evaluation task by its ID.
@@ -70,7 +78,7 @@ This method allows you to retrieve a specific evaluation task by its ID.
 evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
 ```
 
-<ResponseField name="task_id" type="string" required>
+<ResponseField name="evaluation_task_id" type="string" required>
   The ID of the task you want to retrieve.
 </ResponseField>
 
@@ -82,7 +90,7 @@ This method allows you to delete a specific evaluation task by its ID.
 galtea.evaluation_tasks.delete(task_id="YOUR_TASK_ID")
 ```
 
-<ResponseField name="task_id" type="string" required>
+<ResponseField name="evaluation_task_id" type="string" required>
   The ID of the task you want to delete.
 </ResponseField>
 

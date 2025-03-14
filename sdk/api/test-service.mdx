@@ -67,6 +67,14 @@ tests = galtea.tests.list(product_id="YOUR_PRODUCT_ID")
   The ID of the product for which you want to list tests.
 </ResponseField>
 
+<ResponseField name="offset" type="int">
+  The number of tests to skip before starting to collect the result set.
+</ResponseField>
+
+<ResponseField name="limit" type="int">
+  The maximum number of tests to return.
+</ResponseField>
+
 ## Retrieving Test
 
 This method allows you to retrieve a specific test by its ID.
