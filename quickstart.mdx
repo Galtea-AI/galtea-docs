@@ -43,7 +43,7 @@ The first step in tracking the quality and reliability of your AI product is to 
 
 ![login to the platform](/images/login.png)
 
-Navigate to **Products > Create New Product** and complete the product onboarding form. The product description is particularly important as it may be used during the generation of synthetic test data.
+Navigate to **[Products](https://platform.galtea.ai/products) > Create New Product** and complete the product onboarding form. The product description is particularly important as it may be used during the generation of synthetic test data.
 
 ![product onboarding](/images/product-onboarding.png)
 
@@ -57,7 +57,7 @@ After creating your product, we recommend to use the [Galtea SDK](/sdk) to progr
 
 <Steps>
   <Step title="Get your API key">
-    In the [Galtea platform](https://platform.galtea.ai/), navigate to **Settings > Generate API Key**
+    In the [Galtea platform](https://platform.galtea.ai/), navigate to **[Settings](https://platform.galtea.ai/settings) > Generate API Key**
     
     ![Get API key](/images/api-key.png)
   </Step>
@@ -98,6 +98,10 @@ version = galtea.versions.create(
 )
 ```
 
+<Info>
+  You can create versions using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/) dashboard.
+</Info>
+
 <Card title="Version Service API" icon="swatchbook" href="/sdk/api/version-service">
   Learn about all version properties and management capabilities
 </Card>
@@ -127,6 +131,10 @@ test = galtea.tests.create(
 )
 ```
 
+<Info>
+  Tests can be created using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/) dashboard.
+</Info>
+
 <Card title="Create a Custom Test" icon="clipboard-list" href="/sdk/examples/create-test">
   See complete examples of creating and uploading tests
 </Card>
@@ -141,6 +149,10 @@ metric = galtea.metrics.create(
     criteria="Determine whether the actual output is equivalent to the expected output."
 )
 ```
+
+<Info>
+  Metric types can be created using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/metrics) dashboard.
+</Info>
 
 <Card title="Metrics Service API" icon="function" href="/sdk/api/metrics-service">
   Learn about creating and managing evaluation metrics
@@ -166,6 +178,10 @@ galtea.evaluate(
     expected_output="Madrid"    # From test definition
 )
 ```
+
+<Info>
+  Evaluations can be created using either the SDK or the [Galtea platform](https://platform.galtea.ai/) dashboard, but evaluation tasks can only be created through the SDK.
+</Info>
 
 <Note>
   For real evaluations, you'll typically run your AI product against all inputs in your test set. The platform will asynchronously evaluate responses and make results available through the dashboard or SDK. For more information, see [evaluation tasks](/concepts/product/evaluation/task).
