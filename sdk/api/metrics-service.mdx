@@ -1,0 +1,65 @@
+---
+title: 'Metrics Service'
+description: "Exploring the Metrics Service API in the Galtea SDK"
+icon: "function"
+iconType: "solid"
+---
+
+The Metrics Service in the Galtea SDK allows you to manage [metric types](/concepts/metric-type) for evaluating your products.
+This Service is exposed by the `galtea.metrics` object and we will further explore its API down below.
+
+<Info>
+  Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
+</Info>
+
+## Create Metric
+
+This method allows you to create a metric.
+
+```python
+metric = galtea.metrics.create(
+    name="accuracy_v0",
+    criteria="Determine whether the actual output is equivalent to the expected output."
+)
+```
+
+<ResponseField name="name" type="string" required>
+  The name of the metric.
+</ResponseField>
+
+<ResponseField name="criteria" type="string" required>
+  The criteria for the metric.
+</ResponseField>
+
+## Listing Metrics
+
+This method allows you to list all metrics.
+
+```python
+metrics = galtea.metrics.list()
+```
+
+## Retrieving Metric
+
+This method allows you to retrieve a specific metric by its ID.
+
+```python
+metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
+```
+
+<ResponseField name="metric_id" type="string" required>
+  The ID of the metric you want to retrieve.
+</ResponseField>
+
+## Deleting Metric
+
+This method allows you to delete a specific metric by its ID.
+
+```python
+galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
+```
+
+<ResponseField name="metric_id" type="string" required>
+  The ID of the metric you want to delete.
+</ResponseField>
+

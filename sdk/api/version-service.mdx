@@ -1,0 +1,84 @@
+---
+title: 'Version Service'
+description: "Exploring the Version Service API in the Galtea SDK"
+icon: "swatchbook"
+iconType: "solid"
+---
+
+The Version Service in the Galtea SDK allows you to manage different iterations of your [products](/concepts/product) through [versions](/concepts/product/version).
+This Service is exposed by the `galtea.versions` object and we will further explore its API down below.
+
+<Info>
+  Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
+</Info>
+
+## Create Version
+
+This method allows you to create a version for your product.
+
+```python
+version = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+```
+
+<ResponseField name="name" type="string" required>
+  The name of the version.
+</ResponseField>
+
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to create a version for.
+</ResponseField>
+
+
+<ResponseField name="optional_props" type="dict[str, str]">
+  Additional properties for the version, possible keys include:
+    - **dataset_description**: Description of the dataset used
+    - **dataset_uri**: URI to the dataset
+    - **description**: Version description
+    - **endpoint**: API endpoint of the version
+    - **foundational_model**: Base model information
+    - **guardrails**: Guardrails configuration
+    - **provider**: Model provider
+    - **system_prompt**: Default system prompt of the model
+</ResponseField>
+
+## Listing Versions
+
+This method allows you to list all versions associated with a specific product.
+
+```python
+versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
+```
+
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to list versions.
+</ResponseField>
+
+## Retrieving Version
+
+This method allows you to retrieve a specific version by its ID.
+
+```python
+version = galtea.versions.get(version_id="YOUR_VERSION_ID")
+```
+
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to retrieve.
+</ResponseField>
+
+
+## Deleting Version
+
+This method allows you to delete a specific version by its ID.
+
+```python
+galtea.versions.delete(version_id="YOUR_VERSION_ID")
+```
+
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to delete.
+</ResponseField>
+

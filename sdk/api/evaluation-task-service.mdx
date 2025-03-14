@@ -1,0 +1,88 @@
+---
+title: 'Evaluation Task Service'
+description: "Exploring the Evaluation Task Service API in the Galtea SDK"
+icon: "clipboard-check"
+iconType: "solid"
+---
+
+The Evaluation Task Service in the Galtea SDK allows you to manage [evaluation tasks](/concepts/product/evaluation/task) for assessing your products.
+This Service is exposed by the `galtea.evaluation_tasks` object and we will further explore its API down below.
+
+<Info>
+  Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
+</Info>
+
+## Create Evaluation Task
+
+This method allows you to create an evaluation task.
+
+```python
+evaluation_task = galtea.evaluation_tasks.create(
+    evaluation_id="YOUR_EVALUATION_ID",
+    metric_type="accuracy_v0",
+    input="What is the capital of Spain?",
+    actual_output="Barcelona",
+    expected_output="Madrid"
+)
+```
+
+<Info>
+  See an example of running evaluation tasks in our [Run Evaluations example](/sdk/examples/create-evaluation).
+</Info>
+
+<ResponseField name="evaluation_id" type="string" required>
+  The ID of the evaluation you want to create a task for.
+</ResponseField>
+
+<ResponseField name="metric_type" type="string" required>
+  The type of metric to use for the evaluation.
+</ResponseField>
+
+<ResponseField name="input" type="string" required>
+  The input data for the evaluation task.
+</ResponseField>
+
+<ResponseField name="actual_output" type="string" required>
+  The actual output produced by the product.
+</ResponseField>
+
+<ResponseField name="expected_output" type="string">
+  The expected output for the evaluation task.
+</ResponseField>
+
+## Listing Evaluation Tasks
+
+This method allows you to list all evaluation tasks associated with a specific evaluation.
+
+```python
+evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
+```
+
+<ResponseField name="evaluation_id" type="string" required>
+  The ID of the evaluation for which you want to list tasks.
+</ResponseField>
+
+## Retrieving Evaluation Task
+
+This method allows you to retrieve a specific evaluation task by its ID.
+
+```python
+evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
+```
+
+<ResponseField name="task_id" type="string" required>
+  The ID of the task you want to retrieve.
+</ResponseField>
+
+## Deleting Evaluation Task
+
+This method allows you to delete a specific evaluation task by its ID.
+
+```python
+galtea.evaluation_tasks.delete(task_id="YOUR_TASK_ID")
+```
+
+<ResponseField name="task_id" type="string" required>
+  The ID of the task you want to delete.
+</ResponseField>
+

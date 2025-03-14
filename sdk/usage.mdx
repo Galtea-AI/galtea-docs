@@ -1,0 +1,117 @@
+---
+title: 'Usage'
+description: "Learn how to use the SDK in your codebases"
+icon: "code"
+---
+
+Below are some examples of how to use the SDK to interact with the Galtea platform.
+
+### Importing the SDK
+
+```python
+from galtea import Galtea
+
+galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
+
+<Note>
+    To initialize the `Galtea` class, you need to provide your API key obtained in the [settings page](https://platform.galtea.ai/settings) of the Galtea platform.
+</Note>
+
+### Registering a Product
+
+Registering a [product](/concepts/product) is the first step to start using the Galtea platform.
+In this case, we don't allow to create a product from the sdk, therefore you need to do this from the [platform](https://platform.galtea.ai/products).
+
+### Creating a Version
+
+With a [version](/concepts/product/version), you can track changes to your product over time and compare different implementations.
+
+```python
+# Create a version
+version = galtea.versions.create(
+    name="v1.0",
+    product_id=product.id,
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+```
+<Info>
+    More information about creating a version can be found [here](/sdk/api/version-service#create-version).
+</Info>
+
+### Creating a Test
+
+With a [Test](/concepts/product/test) you define the challenges to evaluate your [product](/concepts/product).
+You can create [quality](/concepts/product/test/quality-tests) or [red teaming](/concepts/product/test/red-teaming-tests) tests depending on your evaluation needs.
+
+```python
+# Create a test
+test = galtea.tests.create(
+    name="example-test-tutorial",
+    type="QUALITY",
+    product_id=product.id,
+    ground_truth_file_path="path/to/knowledge_file.pdf"
+)
+```
+
+<Info>
+    More information about creating a test can be found [here](/sdk/api/test-service#create-test).
+</Info>
+
+### Creating a Metric Type
+
+[Metric Types](/concepts/metric-type) help you define the criteria for evaluating the performance of your [product](/concepts/product).
+You can create custom [Metric Types](/concepts/metric-type) tailored to your specific use cases.
+
+```python
+# Create a metric type
+metric_self_accuracy = galtea.metrics.create(
+    name="accuracy_v0",
+    criteria="Determine whether the actual output is equivalent to the expected output."
+)
+```
+
+<Info>
+    More information about creating a metric can be found [here](/sdk/api/metrics-service#create-metric).
+</Info>
+
+### Launching an Evaluation
+
+[Evaluations](/concepts/product/evaluation) link a specific [version](/concepts/product/version) of a [product](/concepts/product) with a [test](/concepts/product/test).
+You can then execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the [product](/concepts/product) [version](/concepts/product/version) against the [test](/concepts/product/test) challenges using a specific [metric type](/concepts/metric-type) criteria.
+
+```python
+# Create an evaluation
+evaluation = galtea.evaluations.create(
+    test_id=test.id,
+    version_id=version.id
+)
+
+# Evaluate the product with an evaluation task
+galtea.evaluation_tasks.create(
+    metric_type=metric_self_accuracy.name,
+    evaluation_id=evaluation.id,
+    input="What is the capital of Spain?",
+    actual_output="Barcelona",
+    expected_output="Madrid"
+)
+```
+
+<Info>
+    More information about creating an evaluation can be found [here](/sdk/api/evaluation-service#create-evaluation).
+</Info>
+<Info>
+    More information about launching an evaluation task can be found [here](/sdk/api/evaluation-task-service#create-evaluation-task).
+</Info>
+
+### Retrieving Evaluation Results
+
+Once the [evaluation tasks](/concepts/product/evaluation/task) are completed, you can retrieve [them](/concepts/product/evaluation/task) to analyze the results.
+
+```python
+# Retrieve evaluation tasks
+evaluation_tasks = galtea.evaluation_tasks.list(evaluation.id)
+for task in evaluation_tasks:
+    evaluation_task = galtea.evaluation_tasks.get(task.id)
+    print(evaluation_task.score)
+```

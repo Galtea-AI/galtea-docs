@@ -1,0 +1,55 @@
+---
+title: 'Galtea'
+description: "Main entry point for the Galtea SDK"
+icon: "objects-column"
+---
+
+## Galtea
+
+The `Galtea` class is the main entry point for the Galtea SDK. It provides access to all the functionalities of the SDK.
+
+### Initialization
+
+To initialize the `Galtea` class, you need to provide your API key obtained in the [settings page](https://platform.galtea.ai/settings) of the Galtea platform.
+
+```python
+from galtea import Galtea
+
+# Initialize Galtea SDK
+galtea = Galtea(api_key="YOUR_API_KEY")
+```
+
+### Services
+
+The `Galtea` class provides access to the following services:
+
+- [`products`](/sdk/api/product-service): Access [product](/concepts/product) related functionalities.
+- [`versions`](/sdk/api/version-service): Access [version](/concepts/product/version) related functionalities.
+- [`tests`](/sdk/api/test-service): Access [test](/concepts/product/test) related functionalities.
+- [`metrics`](/sdk/api/metrics-service): Access [metric](/concepts/metric-type) related functionalities.
+- [`evaluations`](/sdk/api/evaluation-service): Access [evaluation](/concepts/product/evaluation) related functionalities.
+- [`evaluation_tasks`](/sdk/api/evaluation-task-service): Access [evaluation task](/concepts/product/evaluation/task) related functionalities.
+
+
+### Example
+
+```python
+from galtea import Galtea
+
+# Initialize Galtea SDK
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# List products
+products = galtea.products.list()
+print(products)
+```
+
+### Running Evaluation Tasks with multiple Metrics
+
+The method `evaluate` from the `Galtea` class allows you to use multiple metrics in a single *create* call of the evaluation task.
+
+<Info>
+  It is a wrapper of the `create` function from the [`evaluation tasks service`](/sdk/api/evaluation-task-service#create-evaluation-task) that helps create evaluation tasks in batch, one for each metric provided.
+</Info>
+
+You can see an example of how to use the `galtea.evaluate(...)` method [here](/sdk/examples/create-evaluation#batch-processing-evaluation-tasks).

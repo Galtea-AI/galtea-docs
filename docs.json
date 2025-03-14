@@ -44,8 +44,16 @@
         "tab": "SDK",
         "groups": [
           {
-            "group": "SDK Documentation",
-            "pages": ["sdk/introduction"]
+            "group": "SDK",
+            "pages": ["sdk/introduction", "sdk/installation", "sdk/usage"]
+          },
+          {
+            "group": "API",
+            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/metrics-service" , "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
+          },
+          {
+            "group": "Examples",
+            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation"]
           }
         ]
       }
