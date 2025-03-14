@@ -1,48 +1,103 @@
 ---
-title: 'Create Evaluation'
-description: "Example of how to create an evaluation using the SDK"
-icon: "page"
+title: 'Run Evaluations'
+description: "Learn how to create and run evaluations using the SDK"
+icon: "badge-check"
 ---
 
-## Creating an Evaluation
+## Creating and Running Evaluations
 
-This example demonstrates how to create an [evaluation](/concepts/product/evaluation) using the Galtea SDK.
+[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test](/concepts/product/test) challenges. This example demonstrates how to create an evaluation and run evaluation tasks.
 
-### Example Code
+  ```python
+  from galtea import Galtea
+
+  # Initialize Galtea SDK
+  galtea = Galtea(api_key="YOUR_API_KEY")
+
+  # Create an evaluation
+  evaluation = galtea.evaluations.create(
+      test_id="YOUR_TEST_ID",
+      version_id="YOUR_VERSION_ID"
+  )
+
+  print(f"Evaluation created with ID: {evaluation.id}")
+  ```
+  <Info>
+    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
+  </Info>
+
+## Running Evaluation Tasks
+
+Once you've created an evaluation, you can run individual [evaluation tasks](/concepts/product/evaluation/task) to test specific inputs.
 
 ```python
-from galtea import Galtea
-
-# Initialize Galtea SDK
-galtea = galtea.Galtea(api_key="YOUR_API_KEY")
-
-# Create Evaluation
-evaluation = galtea.evaluations.create(
-    test_id="YOUR_TEST_ID",
-    version_id="YOUR_VERSION_ID"
-)
-print(evaluation.id)
-
-# Evaluate a single task
-galtea.evaluate(
+# Run a single evaluation task
+task_result = galtea.evaluate(
     metrics=["accuracy_v0"],
     evaluation_id=evaluation.id,
     input="What is the capital of Spain?",
-    actual_output="Barcelona",
+    actual_output="Madrid",
     expected_output="Madrid"
 )
+
+print(f"Evaluation score: {task_result.score}")
 ```
 
-### Explanation
+<Note>
+  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
+</Note>
 
-1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key from the [settings page](https://platform.galtea.ai/settings).
-2. **Create Evaluation**: Use the [`galtea.evaluations.create`](/sdk/api/evaluation-service#create-evaluation) method to create an evaluation.
-3. **Evaluate Task**: Use the [`galtea.evaluate`](/sdk/api/evaluation-task-service#create-evaluation-task) method to evaluate a single task.
+## Batch Processing Evaluation Tasks
 
-### Additional Resources
+For efficiency, you can process multiple evaluation tasks at once:
 
-For more detailed information, refer to the [API Reference](/api-reference) and the [Quickstart Guide](/quickstart).
+```python
+import pandas as pd
 
-<Info>
-  Learn more about [evaluations](/concepts/product/evaluation) and [evaluation tasks](/concepts/product/evaluation/task) in our concepts documentation.
-</Info>
+# Load your test data
+test_data = pd.read_csv("geography_test.csv")
+
+# Process all test instances
+for index, row in test_data.iterrows():
+    # Your product's actual response to the input
+    actual_output = your_product_function(row['input'])
+    
+    # Run evaluation task
+    galtea.evaluate(
+        metrics=["accuracy_v0", "relevance_v0"],
+        evaluation_id=evaluation.id,
+        input=row['input'],
+        actual_output=actual_output,
+        expected_output=row['expected_output'],
+        context=row.get('context', None)
+    )
+
+print("All evaluation tasks submitted")
+```
+
+## Retrieving Evaluation Results
+
+After running evaluation tasks, you can retrieve the results:
+
+```python
+# Get all tasks for an evaluation
+tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
+
+# Analyze results
+total_score = 0
+for task in tasks:
+    task_detail = galtea.evaluation_tasks.get(task.id)
+    total_score += task_detail.score
+    print(f"Task {task.id}: Score = {task_detail.score}")
+
+avg_score = total_score / len(tasks) if tasks else 0
+print(f"Average evaluation score: {avg_score}")
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="code" href="/sdk/api/evaluation-service">
+    View the complete Evaluation Service API reference
+  </Card>
+</CardGroup>

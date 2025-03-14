@@ -1,70 +1,98 @@
 ---
-title: 'Create Custom Test'
-description: "Examples of how to create a custom test using the SDK"
-icon: "page"
+title: 'Create a Test'
+description: "Learn how to create and upload custom tests using the SDK"
+icon: "clipboard-list"
 ---
 
-## Already Created test file
+## Creating Tests with the SDK
 
-If you have a custom test already created consciusly, you can upload it to the Galtea platform using the SDK.
+[Tests](/concepts/product/test) define the challenges that will evaluate your [product's](/concepts/product) performance. The Galtea SDK provides methods to create both [quality tests](/concepts/product/test/quality-tests) and [red teaming tests](/concepts/product/test/red-teaming-tests).
 
-### Example Code
+<Tabs>
+  <Tab title="Upload Existing Test File">
+    If you already have a prepared test file, you can upload it directly to the Galtea platform.
 
-```python
-from galtea import Galtea
+    ```python
+    from galtea import Galtea
 
-# Upload test to Galtea Platform
-test = galtea.tests.create(
-    name="example-test-tutorial",
-    type="QUALITY",
-    product_id="YOUR_PRODUCT_ID",
-    test_file_path="tutorial_tests.csv"
-)
-```
+    # Initialize the SDK with your API key
+    galtea = Galtea(api_key="YOUR_API_KEY")
 
-In some ocasions we will need to create our own tests to control more what we are evaluating. This example demonstrates how to create a test and register in the platform using the SDK.
+    # Upload test to Galtea Platform
+    test = galtea.tests.create(
+        name="product-knowledge-test",
+        type="QUALITY",  # Options: "QUALITY" or "RED_TEAMING"
+        product_id="YOUR_PRODUCT_ID",
+        test_file_path="path/to/your/test_file.csv"
+    )
 
-### Explanation
+    print(f"Test created with ID: {test.id}")
+    ```
 
-1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key from the [settings page](https://platform.galtea.ai/settings).
-3. **Create Test**: Use the [`galtea.tests.create`](/sdk/api/test-service#create-test) method to upload the test file and create the test on the platform.
+    <Info>
+      The test file should follow the appropriate structure for either [quality tests](/concepts/product/test/quality-tests) or [red teaming tests](/concepts/product/test/red-teaming-tests).
+    </Info>
+  </Tab>
 
-## Creating a test from scratch
+  <Tab title="Create Test From Scratch">
+    When you need more control over your test content, you can create test files programmatically before uploading them.
 
-### Example Code
+    ```python
+    from galtea import Galtea
+    import pandas as pd
 
-```python
-from galtea import Galtea
-import pandas as pd
+    # Initialize the SDK with your API key
+    galtea = Galtea(api_key="YOUR_API_KEY")
 
-# Initialize Galtea SDK
-galtea = galtea.Galtea(api_key="YOUR_API_KEY")
+    # Prepare test data
+    test_data = [
+        {
+            "instance_id": 0,
+            "input": "What is the capital of France?", 
+            "expected_output": "Paris",
+            "tag": "geography",
+            "context": "N/A"
+        },
+        {
+            "instance_id": 1,
+            "input": "What is the capital of Spain?", 
+            "expected_output": "Madrid",
+            "tag": "geography",
+            "context": "N/A"
+        }
+    ]
 
-# Data
-data = [
-    {"input": "What is the capital of France?", "expected_output": "Paris"},
-    {"input": "What is the capital of Spain?", "expected_output": "Madrid"}
-]
+    # Create DataFrame and save to CSV
+    test_df = pd.DataFrame(test_data)
+    test_file_path = 'custom_geography_test.csv'
+    test_df.to_csv(test_file_path)
 
-# Create DataFrame
-test_df = pd.DataFrame(data)
-test_df.to_csv('tutorial_tests.csv')
+    # Upload test to Galtea Platform
+    test = galtea.tests.create(
+        name="geography-knowledge-test",
+        type="QUALITY",
+        product_id="YOUR_PRODUCT_ID",
+        test_file_path=test_file_path
+    )
 
-# Upload test to Galtea Platform
-test = galtea.tests.create(
-    name="example-test-tutorial",
-    type="QUALITY",
-    product_id="YOUR_PRODUCT_ID",
-    test_file_path="tutorial_tests.csv"
-)
-```
+    print(f"Test created with ID: {test.id}")
+    ```
 
-### Explanation
+    <Warning>
+      Make sure your test data follows the correct structure as specified in the [quality tests](/concepts/product/test/quality-tests) or [red teaming tests](/concepts/product/test/red-teaming-tests) documentation.
+    </Warning>
+  </Tab>
+</Tabs>
 
-1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key from the [settings page](https://platform.galtea.ai/settings).
-2. **Prepare Test Data**: Create a DataFrame with the test data and save it as a CSV file.
-3. **Create Test**: Use the [`galtea.tests.create`](/sdk/api/test-service#create-test) method to upload the test file and create the test on the platform.
+## Next Steps
 
-<Info>
-  Learn more about tests in our [concepts documentation](/concepts/product/test).
-</Info>
+After creating a test:
+
+<CardGroup cols={2}>
+  <Card title="Create an Evaluation" icon="badge-check" href="/sdk/examples/create-evaluation">
+    Run your test against a specific product version
+  </Card>
+  <Card title="API Reference" icon="code" href="/sdk/api/test-service">
+    View the complete Test Service API reference
+  </Card>
+</CardGroup>

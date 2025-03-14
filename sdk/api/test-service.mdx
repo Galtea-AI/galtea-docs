@@ -26,7 +26,7 @@ test = galtea.tests.create(
 ```
 
 <Info>
-  See a complete example of creating tests in our [Create Custom Test example](/sdk/examples/create-test).
+  See a complete example of creating tests in our [Create a Test example](/sdk/examples/create-test).
 </Info>
 
 <ResponseField name="name" type="string" required>
@@ -40,6 +40,10 @@ test = galtea.tests.create(
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to evaluate.
 </ResponseField>
+
+<Note>
+  You must provide either `test_file_path` or `ground_truth_file_path`, but not both.
+</Note>
 
 <ResponseField name="ground_truth_file_path" type="string">
   The path to the knowledge file (pdf format) in which We will find the information the source of truth for the model answers.
