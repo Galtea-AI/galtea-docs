@@ -167,7 +167,8 @@ Now you can see your results on the platform, within the evaluations tab or by d
 
 ```python
 evaluation_tasks = galtea.evaluation_tasks.list(evaluation.id)
-print(galtea.evaluation_tasks.get(evaluation_tasks[-1].id))
+evaluation_result = galtea.evaluation_tasks.get(evaluation_tasks[-1].id)
+print((evaluation_result.score, evaluation_result.reason))
 ```
 
 Congratulations! You did your first evaluation with **Galtea**, one of many evaluations to come. If you have any questions, you can contact us at [support@galtea.ai](mailto:support@galtea.ai).
