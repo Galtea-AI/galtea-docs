@@ -19,12 +19,13 @@ This method allows you to create a metric.
 
 ### Parameters
 
-- `name`
-  - The name of the metric.
-  - REQUIRED: yes
-- `criteria`
-  - The criteria for the metric.
-  - REQUIRED: yes
+<ResponseField name="name" type="string" required>
+  The name of the metric.
+</ResponseField>
+
+<ResponseField name="criteria" type="string" required>
+  The criteria for the metric.
+</ResponseField>
 
 ### Example Code
 
@@ -54,9 +55,9 @@ This method allows you to retrieve a specific metric by its ID.
 
 ### Parameters
 
-- `metric_id`
-  - The ID of the metric you want to retrieve.
-  - REQUIRED: yes
+<ResponseField name="metric_id" type="string" required>
+  The ID of the metric you want to retrieve.
+</ResponseField>
 
 ### Example Code
 
@@ -71,15 +72,17 @@ This method allows you to update a specific metric by its ID.
 
 ### Parameters
 
-- `metric_id`
-  - The ID of the metric you want to update.
-  - REQUIRED: yes
-- `name`
-  - The new name of the metric.
-  - REQUIRED: no
-- `optional_props`
-  - Additional properties for the metric (e.g., criteria).
-  - REQUIRED: no
+<ResponseField name="metric_id" type="string" required>
+  The ID of the metric you want to update.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The new name of the metric.
+</ResponseField>
+
+<ResponseField name="optional_props" type="object">
+  Additional properties for the metric (e.g., criteria).
+</ResponseField>
 
 ### Example Code
 
@@ -98,9 +101,9 @@ This method allows you to delete a specific metric by its ID.
 
 ### Parameters
 
-- `metric_id`
-  - The ID of the metric you want to delete.
-  - REQUIRED: yes
+<ResponseField name="metric_id" type="string" required>
+  The ID of the metric you want to delete.
+</ResponseField>
 
 ### Example Code
 

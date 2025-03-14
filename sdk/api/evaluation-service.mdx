@@ -19,12 +19,13 @@ This method allows you to create an evaluation.
 
 ### Parameters
 
-- `test_id`
-  - The ID of the test you want to use for the evaluation.
-  - REQUIRED: yes
-- `version_id`
-  - The ID of the version you want to evaluate.
-  - REQUIRED: yes
+<ResponseField name="test_id" type="string" required>
+  The ID of the test you want to use for the evaluation.
+</ResponseField>
+
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to evaluate.
+</ResponseField>
 
 ### Example Code
 
@@ -42,9 +43,9 @@ This method allows you to list all evaluations associated with a specific produc
 
 ### Parameters
 
-- `product_id`
-  - The ID of the product for which you want to list evaluations.
-  - REQUIRED: yes
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to list evaluations.
+</ResponseField>
 
 ### Example Code
 
@@ -60,9 +61,9 @@ This method allows you to retrieve a specific evaluation by its ID.
 
 ### Parameters
 
-- `evaluation_id`
-  - The ID of the evaluation you want to retrieve.
-  - REQUIRED: yes
+<ResponseField name="evaluation_id" type="string" required>
+  The ID of the evaluation you want to retrieve.
+</ResponseField>
 
 ### Example Code
 
@@ -77,12 +78,13 @@ This method allows you to update a specific evaluation by its ID.
 
 ### Parameters
 
-- `evaluation_id`
-  - The ID of the evaluation you want to update.
-  - REQUIRED: yes
-- `status`
-  - The new status of the evaluation.
-  - REQUIRED: no
+<ResponseField name="evaluation_id" type="string" required>
+  The ID of the evaluation you want to update.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The new status of the evaluation.
+</ResponseField>
 
 ### Example Code
 
@@ -100,9 +102,9 @@ This method allows you to delete a specific evaluation by its ID.
 
 ### Parameters
 
-- `evaluation_id`
-  - The ID of the evaluation you want to delete.
-  - REQUIRED: yes
+<ResponseField name="evaluation_id" type="string" required>
+  The ID of the evaluation you want to delete.
+</ResponseField>
 
 ### Example Code
 

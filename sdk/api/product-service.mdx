@@ -19,12 +19,13 @@ This method allows you to create a product.
 
 ### Parameters
 
-- `name`
-  - The name of the product.
-  - REQUIRED: yes
-- `description`
-  - A detailed description of the product.
-  - REQUIRED: yes
+<ResponseField name="name" type="string" required>
+  The name of the product.
+</ResponseField>
+
+<ResponseField name="description" type="string" required>
+  A detailed description of the product.
+</ResponseField>
 
 ### Example Code
 
@@ -54,9 +55,9 @@ This method allows you to retrieve a specific product by its ID.
 
 ### Parameters
 
-- `product_id`
-  - The ID of the product you want to retrieve.
-  - REQUIRED: yes
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to retrieve.
+</ResponseField>
 
 ### Example Code
 
@@ -71,15 +72,17 @@ This method allows you to update a specific product by its ID.
 
 ### Parameters
 
-- `product_id`
-  - The ID of the product you want to update.
-  - REQUIRED: yes
-- `name`
-  - The new name of the product.
-  - REQUIRED: no
-- `optional_props`
-  - Additional properties for the product (e.g., description).
-  - REQUIRED: no
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to update.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The new name of the product.
+</ResponseField>
+
+<ResponseField name="optional_props" type="object">
+  Additional properties for the product (e.g., description).
+</ResponseField>
 
 ### Example Code
 
@@ -98,9 +101,9 @@ This method allows you to delete a specific product by its ID.
 
 ### Parameters
 
-- `product_id`
-  - The ID of the product you want to delete.
-  - REQUIRED: yes
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to delete.
+</ResponseField>
 
 ### Example Code
 

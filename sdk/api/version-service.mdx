@@ -19,15 +19,17 @@ This method allows you to create a version for your product.
 
 ### Parameters
 
-- `name`
-  - The name of the version.
-  - REQUIRED: yes
-- `product_id`
-  - The ID of the product you want to create a version for.
-  - REQUIRED: yes
-- `optional_props`
-  - Additional properties for the version (e.g., description).
-  - REQUIRED: no
+<ResponseField name="name" type="string" required>
+  The name of the version.
+</ResponseField>
+
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to create a version for.
+</ResponseField>
+
+<ResponseField name="optional_props" type="object">
+  Additional properties for the version (e.g., description).
+</ResponseField>
 
 ### Example Code
 
@@ -46,9 +48,9 @@ This method allows you to list all versions associated with a specific product.
 
 ### Parameters
 
-- `product_id`
-  - The ID of the product for which you want to list versions.
-  - REQUIRED: yes
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to list versions.
+</ResponseField>
 
 ### Example Code
 
@@ -64,9 +66,9 @@ This method allows you to retrieve a specific version by its ID.
 
 ### Parameters
 
-- `version_id`
-  - The ID of the version you want to retrieve.
-  - REQUIRED: yes
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to retrieve.
+</ResponseField>
 
 ### Example Code
 
@@ -81,15 +83,17 @@ This method allows you to update a specific version by its ID.
 
 ### Parameters
 
-- `version_id`
-  - The ID of the version you want to update.
-  - REQUIRED: yes
-- `name`
-  - The new name of the version.
-  - REQUIRED: no
-- `optional_props`
-  - Additional properties for the version (e.g., description).
-  - REQUIRED: no
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to update.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The new name of the version.
+</ResponseField>
+
+<ResponseField name="optional_props" type="object">
+  Additional properties for the version (e.g., description).
+</ResponseField>
 
 ### Example Code
 
@@ -108,9 +112,9 @@ This method allows you to delete a specific version by its ID.
 
 ### Parameters
 
-- `version_id`
-  - The ID of the version you want to delete.
-  - REQUIRED: yes
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to delete.
+</ResponseField>
 
 ### Example Code
 
