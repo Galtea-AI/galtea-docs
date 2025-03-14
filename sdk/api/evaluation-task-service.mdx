@@ -36,6 +36,9 @@ evaluation_task = galtea.evaluation_tasks.create(
 
 <ResponseField name="metrics" type="list[string]" required>
   The metrics to use for the evaluation.
+  <Note>
+    The system will create a task for each metric given.
+  </Note>
 </ResponseField>
 
 <ResponseField name="input" type="string" required>
