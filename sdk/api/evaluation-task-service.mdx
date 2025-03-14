@@ -4,7 +4,7 @@ description: "Exploring the Evaluation Task Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-The Evaluation Task Service in the Galtea SDK allows you to manage evaluation tasks for assessing your products.
+The Evaluation Task Service in the Galtea SDK allows you to manage [evaluation tasks](/concepts/product/evaluation/task) for assessing your products.
 This Service is exposed by the `galtea.evaluation_tasks` object and we will further explore its API down below.
 
 <Info>
@@ -24,6 +24,10 @@ evaluation_task = galtea.evaluation_tasks.create(
     expected_output="Madrid"
 )
 ```
+
+<Info>
+  See an example of running evaluation tasks in our [Create Evaluation example](/sdk/examples/create-evaluation).
+</Info>
 
 <ResponseField name="evaluation_id" type="string" required>
   The ID of the evaluation you want to create a task for.

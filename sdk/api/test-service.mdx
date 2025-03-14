@@ -4,7 +4,7 @@ description: "Exploring the Test Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-The Test Service in the Galtea SDK allows you to manage tests for evaluating your products.
+The Test Service in the Galtea SDK allows you to manage [tests](/concepts/product/test) for evaluating your products.
 This Service is exposed by the `galtea.tests` object and we will further explore its API down below.
 
 <Info>
@@ -24,12 +24,16 @@ test = galtea.tests.create(
 )
 ```
 
+<Info>
+  See a complete example of creating tests in our [Create Custom Test example](/sdk/examples/create-test).
+</Info>
+
 <ResponseField name="name" type="string" required>
   The name of the test.
 </ResponseField>
 
 <ResponseField name="type" type="string" required>
-  The type of test (e.g., QUALITY, RED_TEAMING).
+  The type of test (e.g., [QUALITY](/concepts/product/test/quality-tests), [RED_TEAMING](/concepts/product/test/red-teaming-tests)).
 </ResponseField>
 
 <ResponseField name="product_id" type="string" required>

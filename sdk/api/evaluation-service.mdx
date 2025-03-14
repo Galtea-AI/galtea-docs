@@ -4,7 +4,7 @@ description: "Exploring the Evaluation Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-The Evaluation Service in the Galtea SDK allows you to manage evaluations for assessing your products.
+The Evaluation Service in the Galtea SDK allows you to manage [evaluations](/concepts/product/evaluation) for assessing your products.
 This Service is exposed by the `galtea.evaluations` object and we will further explore its API down below.
 
 <Info>
@@ -21,6 +21,9 @@ evaluation = galtea.evaluations.create(
     version_id="YOUR_VERSION_ID"
 )
 ```
+<Info>
+  See a complete example of creating an evaluation in our [Create Evaluation example](/sdk/examples/create-evaluation).
+</Info>
 
 <ResponseField name="test_id" type="string" required>
   The ID of the test you want to use for the evaluation.

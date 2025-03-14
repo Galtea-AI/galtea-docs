@@ -26,8 +26,8 @@ In some ocasions we will need to create our own tests to control more what we ar
 
 ### Explanation
 
-1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key.
-3. **Create Test**: Use the `galtea.tests.create` method to upload the test file and create the test on the platform.
+1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key from the [settings page](https://platform.galtea.ai/settings).
+3. **Create Test**: Use the [`galtea.tests.create`](/sdk/api/test-service#create-test) method to upload the test file and create the test on the platform.
 
 ## Creating a test from scratch
 
@@ -61,6 +61,10 @@ test = galtea.tests.create(
 
 ### Explanation
 
-1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key.
+1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key from the [settings page](https://platform.galtea.ai/settings).
 2. **Prepare Test Data**: Create a DataFrame with the test data and save it as a CSV file.
-3. **Create Test**: Use the `galtea.tests.create` method to upload the test file and create the test on the platform.
+3. **Create Test**: Use the [`galtea.tests.create`](/sdk/api/test-service#create-test) method to upload the test file and create the test on the platform.
+
+<Info>
+  Learn more about tests in our [concepts documentation](/concepts/product/test).
+</Info>

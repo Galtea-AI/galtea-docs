@@ -6,7 +6,7 @@ icon: "page"
 
 ## Creating an Evaluation
 
-This example demonstrates how to create an evaluation using the Galtea SDK.
+This example demonstrates how to create an [evaluation](/concepts/product/evaluation) using the Galtea SDK.
 
 ### Example Code
 
@@ -35,10 +35,14 @@ galtea.evaluate(
 
 ### Explanation
 
-1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key.
-2. **Create Evaluation**: Use the `galtea.evaluations.create` method to create an evaluation.
-3. **Evaluate Task**: Use the `galtea.evaluate` method to evaluate a single task.
+1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key from the [settings page](https://platform.galtea.ai/settings).
+2. **Create Evaluation**: Use the [`galtea.evaluations.create`](/sdk/api/evaluation-service#create-evaluation) method to create an evaluation.
+3. **Evaluate Task**: Use the [`galtea.evaluate`](/sdk/api/evaluation-task-service#create-evaluation-task) method to evaluate a single task.
 
 ### Additional Resources
 
 For more detailed information, refer to the [API Reference](/api-reference) and the [Quickstart Guide](/quickstart).
+
+<Info>
+  Learn more about [evaluations](/concepts/product/evaluation) and [evaluation tasks](/concepts/product/evaluation/task) in our concepts documentation.
+</Info>

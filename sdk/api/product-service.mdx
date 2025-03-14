@@ -4,31 +4,16 @@ description: "Exploring the Product Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-The Product Service in the Galtea SDK allows you to manage products that you want to evaluate.
+The Product Service in the Galtea SDK allows you to manage [products](/concepts/product) that you want to evaluate.
 This Service is exposed by the `galtea.products` object and we will further explore its API down below.
 
 <Info>
   Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
 </Info>
 
-## Create Product
-
-This method allows you to create a product.
-
-```python
-product = galtea.products.create(
-    name="Document Summarizer",
-    description="An AI tool that generates concise summaries of legal documents while preserving key information."
-)
-```
-
-<ResponseField name="name" type="string" required>
-  The name of the product.
-</ResponseField>
-
-<ResponseField name="description" type="string" required>
-  A detailed description of the product.
-</ResponseField>
+<Note>
+  It is not supported to create product from the sdk, therefore you need to do this from the [platform](https://platform.galtea.ai/products).
+</Note>
 
 ## Listing Products
 
@@ -85,4 +70,3 @@ galtea.products.delete(product_id="YOUR_PRODUCT_ID")
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to delete.
 </ResponseField>
-

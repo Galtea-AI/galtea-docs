@@ -23,12 +23,12 @@ galtea = Galtea(api_key="YOUR_API_KEY")
 
 The `Galtea` class provides access to the following services:
 
-- `products`: Access product-related functionalities through the products service.
-- `versions`: Access version-related functionalities through the versions service.
-- `tests`: Access test-related functionalities through the tests service.
-- `metrics`: Access metric-related functionalities through the metrics service.
-- `evaluations`: Access evaluation-related functionalities through the evaluations service.
-- `evaluation_tasks`: Access evaluation task-related functionalities through the evaluation tasks service.
+- [`products`](/sdk/api/product-service): Access [product](/concepts/product) related functionalities.
+- [`versions`](/sdk/api/version-service): Access [version](/concepts/product/version) related functionalities.
+- [`tests`](/sdk/api/test-service): Access [test](/concepts/product/test) related functionalities.
+- [`metrics`](/sdk/api/metrics-service): Access [metric](/concepts/metric-type) related functionalities.
+- [`evaluations`](/sdk/api/evaluation-service): Access [evaluation](/concepts/product/evaluation) related functionalities.
+- [`evaluation_tasks`](/sdk/api/evaluation-task-service): Access [evaluation task](/concepts/product/evaluation/task) related functionalities.
 
 ### Example
 
@@ -42,3 +42,7 @@ galtea = Galtea(api_key="YOUR_API_KEY")
 products = galtea.products.list()
 print(products)
 ```
+
+<Info>
+  Check our [usage guide](/sdk/usage) for more basic examples on how to use the SDK.
+</Info>
