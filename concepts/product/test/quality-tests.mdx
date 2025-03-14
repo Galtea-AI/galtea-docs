@@ -35,35 +35,65 @@ Quality tests have a specific structure designed to facilitate effective evaluat
   **Example**: "Excerpt from GDPR Article 15-20 documentation..."
 </ResponseField>
 
-## File Format
+## File Format and Example Quality Tests
 
-The recommended file format for quality tests is JSON. Here's an example of the structure:
+The recommended file format for quality tests is CSV. Here are examples of the structure and content:
 
-```json
-{
-  "inputs": [
-    {
-      "instance_id": 0,
-      "input": "¿Cuál es el sistema operativo del Samsung Galaxy A8 EE?",
-      "expected_output": "Android 8.1 + EMUI 8.1",
-      "tag": "original",
-      "context": "Noviembre 2018Catálogo \ndispositivos \nmóviles\nSamsung Galaxy A8 EE\n€/mes*11,49 Sistema Operativo : Android 8.0\nPantalla : 5.6 FHD+ (1080 x 2220) Super Amoled\nProcesador: Exynos7885 Octa Core (2.2 GHz Dual + 1.6 \nGHz Hexa)\nCámara: Principal 16 MP PDAF (F1.7) + Flash. Frontal \nDual 16 MP FF (F1.9) + 8 MP ( F1.9)\nMemoria : 4GB RAM + 32GB ROM (microSD hasta \n256GB)"
-    },
-    {
-      "instance_id": 0,
-      "input": "What is the Capital of France?",
-      "expected_output": "Paris",
-      "tag": "original"
-    },
-    {
-      "instance_id": 1,
-      "input": "What are three key provisions of the GDPR?",
-      "tag": "original",
-      "context": "GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area. It also addresses the transfer of personal data outside the EU and EEA areas. The GDPR aims primarily to give control to individuals over their personal data and to simplify the regulatory environment for international business by unifying the regulation within the EU."
-    }
-  ]
-}
-```
+<AccordionGroup>
+  <Accordion title="Basic Knowledge Questions">
+    <Tabs>
+      <Tab title="Raw CSV">
+        ```csv
+        ,instance_id,input,expected_output,tag,context
+        0,0,"What is the Capital of France?","Paris","original",""
+        1,1,"What is the largest planet in our solar system?","Jupiter","original",""
+        ```
+      </Tab>
+      <Tab title="Table View">
+        | # | Instance ID | Input | Expected Output | Tag | Context |
+        |---|------------|-------|-----------------|-----|---------|
+        | 0 | 0 | What is the Capital of France? | Paris | original | |
+        | 1 | 1 | What is the largest planet in our solar system? | Jupiter | original | |
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Technical Product Specifications">
+    <Tabs>
+      <Tab title="Raw CSV">
+        ```csv
+        ,instance_id,input,expected_output,tag,context
+        0,0,"¿Cuál es el sistema operativo del Samsung Galaxy A8 EE?","El sistema operativo del Samsung Galaxy A8 EE es Android 8.1.","original","Noviembre 2018Catálogo \ndispositivos \nmóviles\nSamsung Galaxy A8 EE\n€/mes*11,49 Sistema Operativo : Android 8.1 + EMUI 8.1\nPantalla : 6.1\" OLED Full View Resolución Full HD..."
+        1,1,"¿Cuántos megapíxeles tiene la cámara principal del Huawei P20?","La cámara principal del Huawei P20 tiene 20 MP + 12 MP.","original","Huawei P20\nSistema Operativo : Android 8.1 + \nEMUI 8.1\nPantalla : 5.8\" Full View Resolución \nFull HD (2244x1080p)\nCámara: 20 MP + 12MP FL8+ fl6. \nProcesador: Kirin 970 + IA (4x2,36 \n+ 4x1,8 GHz )"
+        ```
+      </Tab>
+      <Tab title="Table View">
+        | # | Instance ID | Input | Expected Output | Tag | Context |
+        |---|------------|-------|-----------------|-----|---------|
+        | 0 | 0 | ¿Cuál es el sistema operativo del Samsung Galaxy A8 EE? | El sistema operativo del Samsung Galaxy A8 EE es Android 8.1. | original | Noviembre 2018Catálogo dispositivos móviles Samsung Galaxy A8 EE €/mes*11,49 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 6.1" OLED Full View Resolución Full HD... |
+        | 1 | 1 | ¿Cuántos megapíxeles tiene la cámara principal del Huawei P20? | La cámara principal del Huawei P20 tiene 20 MP + 12 MP. | original | Huawei P20 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 5.8" Full View Resolución Full HD (2244x1080p) Cámara: 20 MP + 12MP FL8+ fl6. Procesador: Kirin 970 + IA (4x2,36 + 4x1,8 GHz ) |
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Compliance and Regulations">
+    <Tabs>
+      <Tab title="Raw CSV">
+        ```csv
+        ,instance_id,input,expected_output,tag,context
+        0,0,"What are three key provisions of the GDPR?","The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability.","original","GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area."
+        1,1,"What does CCPA stand for and who does it protect?","CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses.","original","The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States."
+        ```
+      </Tab>
+      <Tab title="Table View">
+        | # | Instance ID | Input | Expected Output | Tag | Context |
+        |---|------------|-------|-----------------|-----|---------|
+        | 0 | 0 | What are three key provisions of the GDPR? | The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability. | original | GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area. |
+        | 1 | 1 | What does CCPA stand for and who does it protect? | CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses. | original | The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States. |
+      </Tab>
+    </Tabs>
+  </Accordion>
+</AccordionGroup>
 
 <Note>
   This structure is the same as that generated by Galtea's test generator for quality tests. If you're having Galtea generate tests from a ground truth file, this is the format you'll receive.
@@ -77,31 +107,27 @@ You can create quality tests in Galtea through two methods:
   <Tab title="Generate from Ground Truth">
     <Steps>
       <Step title="Prepare your ground truth file">
-        Create a file containing all the information that the Product should **know and adhere to**.
+        Create a file containing all the information that the Product should **know and adhere to**
       </Step>
-      <Step title="Create a new test in Galtea">
+      <Step title="Configure the test">
         Select *Quality* as the test type and *Generated* as the test origin
       </Step>
-      <Step title="Upload your ground truth file">
-        Galtea will process this file and generate a set of test questions and ideal answers
-      </Step>
-      <Step title="Review and finalize">
-        Review the generated test cases and make any necessary adjustments
+      <Step title="Generate the test">
+        Galtea will process the Ground Truth and generate a *Test File* for you
       </Step>
     </Steps>
   </Tab>
   <Tab title="Upload Your Own Test">
     <Steps>
       <Step title="Create your test file">
-        Prepare a JSON file following the structure shown above
+        Prepare a CSV file following the structure shown above
       </Step>
-      <Step title="Create a new test in Galtea">
+      <Step title="Configure the test">
         Select "Quality" as the test type and "Uploaded" as the test origin
       </Step>
       <Step title="Upload your test file">
-        Galtea will validate the format and structure of your file
+        Select the file you created and upload it to Galtea
       </Step>
-      <Step title="Finalize">Complete the test creation process</Step>
     </Steps>
   </Tab>
 </Tabs>
