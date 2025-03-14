@@ -17,7 +17,12 @@ galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 
 This method allows you to create a product.
 
-### Parameters
+```python
+product = galtea.products.create(
+    name="Document Summarizer",
+    description="An AI tool that generates concise summaries of legal documents while preserving key information."
+)
+```
 
 <ResponseField name="name" type="string" required>
   The name of the product.
@@ -27,50 +32,37 @@ This method allows you to create a product.
   A detailed description of the product.
 </ResponseField>
 
-### Example Code
-
-```python
-product = galtea.products.create(
-    name="Document Summarizer",
-    description="An AI tool that generates concise summaries of legal documents while preserving key information."
-)
-print(product.id)
-```
-
 ## Listing Products
 
 This method allows you to list all products.
 
-### Example Code
-
 ```python
 products = galtea.products.list()
-for product in products:
-    print(product.name, product.id)
 ```
 
 ## Retrieving Product
 
 This method allows you to retrieve a specific product by its ID.
 
-### Parameters
+```python
+product = galtea.products.get(product_id="YOUR_PRODUCT_ID")
+```
 
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to retrieve.
 </ResponseField>
 
-### Example Code
-
-```python
-product = galtea.products.get(product_id="YOUR_PRODUCT_ID")
-print(product.name, product.description)
-```
-
 ## Updating Product
 
 This method allows you to update a specific product by its ID.
 
-### Parameters
+```python
+updated_product = galtea.products.update(
+    product_id="YOUR_PRODUCT_ID",
+    name="Updated Product Name",
+    optional_props={"description": "Updated product description"}
+)
+```
 
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to update.
@@ -84,31 +76,15 @@ This method allows you to update a specific product by its ID.
   Additional properties for the product (e.g., description).
 </ResponseField>
 
-### Example Code
-
-```python
-updated_product = galtea.products.update(
-    product_id="YOUR_PRODUCT_ID",
-    name="Updated Product Name",
-    optional_props={"description": "Updated product description"}
-)
-print(updated_product.name, updated_product.description)
-```
-
 ## Deleting Product
 
 This method allows you to delete a specific product by its ID.
 
-### Parameters
+```python
+galtea.products.delete(product_id="YOUR_PRODUCT_ID")
+```
 
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to delete.
 </ResponseField>
-
-### Example Code
-
-```python
-galtea.products.delete(product_id="YOUR_PRODUCT_ID")
-print("Product deleted successfully")
-```
 

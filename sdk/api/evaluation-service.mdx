@@ -17,7 +17,12 @@ galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 
 This method allows you to create an evaluation.
 
-### Parameters
+```python
+evaluation = galtea.evaluations.create(
+    test_id="YOUR_TEST_ID",
+    version_id="YOUR_VERSION_ID"
+)
+```
 
 <ResponseField name="test_id" type="string" required>
   The ID of the test you want to use for the evaluation.
@@ -27,56 +32,40 @@ This method allows you to create an evaluation.
   The ID of the version you want to evaluate.
 </ResponseField>
 
-### Example Code
-
-```python
-evaluation = galtea.evaluations.create(
-    test_id="YOUR_TEST_ID",
-    version_id="YOUR_VERSION_ID"
-)
-print(evaluation.id)
-```
-
 ## Listing Evaluations
 
 This method allows you to list all evaluations associated with a specific product.
 
-### Parameters
+```python
+evaluations = galtea.evaluations.list(product_id="YOUR_PRODUCT_ID")
+```
 
 <ResponseField name="product_id" type="string" required>
   The ID of the product for which you want to list evaluations.
 </ResponseField>
 
-### Example Code
-
-```python
-evaluations = galtea.evaluations.list(product_id="YOUR_PRODUCT_ID")
-for evaluation in evaluations:
-    print(evaluation.id, evaluation.status)
-```
-
 ## Retrieving Evaluation
 
 This method allows you to retrieve a specific evaluation by its ID.
 
-### Parameters
+```python
+evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
+```
 
 <ResponseField name="evaluation_id" type="string" required>
   The ID of the evaluation you want to retrieve.
 </ResponseField>
 
-### Example Code
-
-```python
-evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
-print(evaluation.id, evaluation.status)
-```
-
 ## Updating Evaluation
 
 This method allows you to update a specific evaluation by its ID.
 
-### Parameters
+```python
+updated_evaluation = galtea.evaluations.update(
+    evaluation_id="YOUR_EVALUATION_ID",
+    status="completed"
+)
+```
 
 <ResponseField name="evaluation_id" type="string" required>
   The ID of the evaluation you want to update.
@@ -86,30 +75,15 @@ This method allows you to update a specific evaluation by its ID.
   The new status of the evaluation.
 </ResponseField>
 
-### Example Code
-
-```python
-updated_evaluation = galtea.evaluations.update(
-    evaluation_id="YOUR_EVALUATION_ID",
-    status="completed"
-)
-print(updated_evaluation.id, updated_evaluation.status)
-```
-
 ## Deleting Evaluation
 
 This method allows you to delete a specific evaluation by its ID.
 
-### Parameters
+```python
+galtea.evaluations.delete(evaluation_id="YOUR_EVALUATION_ID")
+```
 
 <ResponseField name="evaluation_id" type="string" required>
   The ID of the evaluation you want to delete.
 </ResponseField>
-
-### Example Code
-
-```python
-galtea.evaluations.delete(evaluation_id="YOUR_EVALUATION_ID")
-print("Evaluation deleted successfully")
-```
 

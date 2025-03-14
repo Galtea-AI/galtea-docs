@@ -17,7 +17,15 @@ galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 
 This method allows you to create an evaluation task.
 
-### Parameters
+```python
+evaluation_task = galtea.evaluation_tasks.create(
+    evaluation_id="YOUR_EVALUATION_ID",
+    metric_type="accuracy_v0",
+    input="What is the capital of Spain?",
+    actual_output="Barcelona",
+    expected_output="Madrid"
+)
+```
 
 <ResponseField name="evaluation_id" type="string" required>
   The ID of the evaluation you want to create a task for.
@@ -39,59 +47,40 @@ This method allows you to create an evaluation task.
   The expected output for the evaluation task.
 </ResponseField>
 
-### Example Code
-
-```python
-evaluation_task = galtea.evaluation_tasks.create(
-    evaluation_id="YOUR_EVALUATION_ID",
-    metric_type="accuracy_v0",
-    input="What is the capital of Spain?",
-    actual_output="Barcelona",
-    expected_output="Madrid"
-)
-print(evaluation_task.id)
-```
-
 ## Listing Evaluation Tasks
 
 This method allows you to list all evaluation tasks associated with a specific evaluation.
 
-### Parameters
+```python
+evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
+```
 
 <ResponseField name="evaluation_id" type="string" required>
   The ID of the evaluation for which you want to list tasks.
 </ResponseField>
 
-### Example Code
-
-```python
-evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
-for task in evaluation_tasks:
-    print(task.id, task.status)
-```
-
 ## Retrieving Evaluation Task
 
 This method allows you to retrieve a specific evaluation task by its ID.
 
-### Parameters
+```python
+evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
+```
 
 <ResponseField name="task_id" type="string" required>
   The ID of the task you want to retrieve.
 </ResponseField>
 
-### Example Code
-
-```python
-evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
-print(evaluation_task.id, evaluation_task.status, evaluation_task.score)
-```
-
 ## Updating Evaluation Task
 
 This method allows you to update a specific evaluation task by its ID.
 
-### Parameters
+```python
+updated_task = galtea.evaluation_tasks.update(
+    task_id="YOUR_TASK_ID",
+    actual_output="Updated output"
+)
+```
 
 <ResponseField name="task_id" type="string" required>
   The ID of the task you want to update.
@@ -101,30 +90,15 @@ This method allows you to update a specific evaluation task by its ID.
   The new actual output for the task.
 </ResponseField>
 
-### Example Code
-
-```python
-updated_task = galtea.evaluation_tasks.update(
-    task_id="YOUR_TASK_ID",
-    actual_output="Updated output"
-)
-print(updated_task.id, updated_task.actual_output)
-```
-
 ## Deleting Evaluation Task
 
 This method allows you to delete a specific evaluation task by its ID.
 
-### Parameters
+```python
+galtea.evaluation_tasks.delete(task_id="YOUR_TASK_ID")
+```
 
 <ResponseField name="task_id" type="string" required>
   The ID of the task you want to delete.
 </ResponseField>
-
-### Example Code
-
-```python
-galtea.evaluation_tasks.delete(task_id="YOUR_TASK_ID")
-print("Evaluation task deleted successfully")
-```
 

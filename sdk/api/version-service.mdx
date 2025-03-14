@@ -17,7 +17,13 @@ galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 
 This method allows you to create a version for your product.
 
-### Parameters
+```python
+version = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+```
 
 <ResponseField name="name" type="string" required>
   The name of the version.
@@ -31,57 +37,41 @@ This method allows you to create a version for your product.
   Additional properties for the version (e.g., description).
 </ResponseField>
 
-### Example Code
-
-```python
-version = galtea.versions.create(
-    name="v1.0",
-    product_id="YOUR_PRODUCT_ID",
-    optional_props={"description": "Initial version with basic summarization capabilities"}
-)
-print(version.id)
-```
-
 ## Listing Versions
 
 This method allows you to list all versions associated with a specific product.
 
-### Parameters
+```python
+versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
+```
 
 <ResponseField name="product_id" type="string" required>
   The ID of the product for which you want to list versions.
 </ResponseField>
 
-### Example Code
-
-```python
-versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
-for version in versions:
-    print(version.name, version.id)
-```
-
 ## Retrieving Version
 
 This method allows you to retrieve a specific version by its ID.
 
-### Parameters
+```python
+version = galtea.versions.get(version_id="YOUR_VERSION_ID")
+```
 
 <ResponseField name="version_id" type="string" required>
   The ID of the version you want to retrieve.
 </ResponseField>
 
-### Example Code
-
-```python
-version = galtea.versions.get(version_id="YOUR_VERSION_ID")
-print(version.name, version.description)
-```
-
 ## Updating Version
 
 This method allows you to update a specific version by its ID.
 
-### Parameters
+```python
+updated_version = galtea.versions.update(
+    version_id="YOUR_VERSION_ID",
+    name="v1.1",
+    optional_props={"description": "Updated version with improved summarization"}
+)
+```
 
 <ResponseField name="version_id" type="string" required>
   The ID of the version you want to update.
@@ -95,31 +85,15 @@ This method allows you to update a specific version by its ID.
   Additional properties for the version (e.g., description).
 </ResponseField>
 
-### Example Code
-
-```python
-updated_version = galtea.versions.update(
-    version_id="YOUR_VERSION_ID",
-    name="v1.1",
-    optional_props={"description": "Updated version with improved summarization"}
-)
-print(updated_version.name, updated_version.description)
-```
-
 ## Deleting Version
 
 This method allows you to delete a specific version by its ID.
 
-### Parameters
+```python
+galtea.versions.delete(version_id="YOUR_VERSION_ID")
+```
 
 <ResponseField name="version_id" type="string" required>
   The ID of the version you want to delete.
 </ResponseField>
-
-### Example Code
-
-```python
-galtea.versions.delete(version_id="YOUR_VERSION_ID")
-print("Version deleted successfully")
-```
 

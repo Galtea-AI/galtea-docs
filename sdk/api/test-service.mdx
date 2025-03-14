@@ -17,7 +17,14 @@ galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 
 This method allows you to create a test for your product.
 
-### Parameters
+```python
+test = galtea.tests.create(
+    name="example-test-tutorial",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    test_file_path="tutorial_tests.csv"
+)
+```
 
 <ResponseField name="name" type="string" required>
   The name of the test.
@@ -41,69 +48,39 @@ This method allows you to create a test for your product.
   This file should contain the test cases you want to evaluate.
 </ResponseField>
 
-### Example Code
-
-```python
-galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
-# Upload test
-test = galtea.tests.create(
-    name="example-test-tutorial",
-    type="QUALITY",
-    product_id="YOUR_PRODUCT_ID",
-    test_file_path="tutorial_tests.csv"
-)
-print(test.id)
-```
-
 ## Listing Tests
 
 This method allows you to list all tests associated with a specific product.
 
-### Parameters
+```python
+tests = galtea.tests.list(product_id="YOUR_PRODUCT_ID")
+```
 
 <ResponseField name="product_id" type="string" required>
   The ID of the product for which you want to list tests.
 </ResponseField>
 
-### Example Code
-
-```python
-tests = galtea.tests.list(product_id="YOUR_PRODUCT_ID")
-for test in tests:
-    print(test.name, test.id)
-```
-
 ## Retrieving Test
 
 This method allows you to retrieve a specific test by its ID.
 
-### Parameters
+```python
+test = galtea.tests.get(test_id="YOUR_TEST_ID")
+```
 
 <ResponseField name="test_id" type="string" required>
   The ID of the test you want to retrieve.
 </ResponseField>
 
-### Example Code
-
-```python
-test = galtea.tests.get(test_id="YOUR_TEST_ID")
-print(test.name, test.type)
-```
-
 ## Deleting Test
 
 This method allows you to delete a specific test by its ID.
 
-### Parameters
+```python
+galtea.tests.delete(test_id="YOUR_TEST_ID")
+```
 
 <ResponseField name="test_id" type="string" required>
   The ID of the test you want to delete.
 </ResponseField>
-
-### Example Code
-
-```python
-galtea.tests.delete(test_id="YOUR_TEST_ID")
-print("Test deleted successfully")
-```
 

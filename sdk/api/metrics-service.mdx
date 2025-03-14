@@ -17,7 +17,12 @@ galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 
 This method allows you to create a metric.
 
-### Parameters
+```python
+metric = galtea.metrics.create(
+    name="accuracy_v0",
+    criteria="Determine whether the actual output is equivalent to the expected output."
+)
+```
 
 <ResponseField name="name" type="string" required>
   The name of the metric.
@@ -27,50 +32,37 @@ This method allows you to create a metric.
   The criteria for the metric.
 </ResponseField>
 
-### Example Code
-
-```python
-metric = galtea.metrics.create(
-    name="accuracy_v0",
-    criteria="Determine whether the actual output is equivalent to the expected output."
-)
-print(metric.id)
-```
-
 ## Listing Metrics
 
 This method allows you to list all metrics.
 
-### Example Code
-
 ```python
 metrics = galtea.metrics.list()
-for metric in metrics:
-    print(metric.name, metric.id)
 ```
 
 ## Retrieving Metric
 
 This method allows you to retrieve a specific metric by its ID.
 
-### Parameters
+```python
+metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
+```
 
 <ResponseField name="metric_id" type="string" required>
   The ID of the metric you want to retrieve.
 </ResponseField>
 
-### Example Code
-
-```python
-metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
-print(metric.name, metric.criteria)
-```
-
 ## Updating Metric
 
 This method allows you to update a specific metric by its ID.
 
-### Parameters
+```python
+updated_metric = galtea.metrics.update(
+    metric_id="YOUR_METRIC_ID",
+    name="updated-metric-name",
+    optional_props={"criteria": "Updated criteria description"}
+)
+```
 
 <ResponseField name="metric_id" type="string" required>
   The ID of the metric you want to update.
@@ -84,31 +76,15 @@ This method allows you to update a specific metric by its ID.
   Additional properties for the metric (e.g., criteria).
 </ResponseField>
 
-### Example Code
-
-```python
-updated_metric = galtea.metrics.update(
-    metric_id="YOUR_METRIC_ID",
-    name="updated-metric-name",
-    optional_props={"criteria": "Updated criteria description"}
-)
-print(updated_metric.name, updated_metric.criteria)
-```
-
 ## Deleting Metric
 
 This method allows you to delete a specific metric by its ID.
 
-### Parameters
+```python
+galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
+```
 
 <ResponseField name="metric_id" type="string" required>
   The ID of the metric you want to delete.
 </ResponseField>
-
-### Example Code
-
-```python
-galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
-print("Metric deleted successfully")
-```
 
