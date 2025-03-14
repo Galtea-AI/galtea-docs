@@ -4,9 +4,11 @@ description: "Learn how to create and run evaluations using the SDK"
 icon: "badge-check"
 ---
 
-## Creating and Running Evaluations
+[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test](/concepts/product/test) challenges by running individual [evaluation tasks](/concepts/product/evaluation/task).
 
-[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test](/concepts/product/test) challenges. This example demonstrates how to create an evaluation and run evaluation tasks.
+## Creating an Evaluation
+
+This is how to create an evaluation:
 
   ```python
   from galtea import Galtea
@@ -28,12 +30,12 @@ icon: "badge-check"
 
 ## Running Evaluation Tasks
 
-Once you've created an evaluation, you can run individual [evaluation tasks](/concepts/product/evaluation/task) to test specific inputs.
+Once you've created an evaluation, you can run individual [evaluation tasks](/concepts/product/evaluation/task):
 
 ```python
 # Run a single evaluation task
-task_result = galtea.evaluate(
-    metrics=["accuracy_v0"],
+task_result = galtea.evaluation_tasks.create(
+    metric_type="accuracy_v0",
     evaluation_id=evaluation.id,
     input="What is the capital of Spain?",
     actual_output="Madrid",
@@ -49,7 +51,7 @@ print(f"Evaluation score: {task_result.score}")
 
 ## Batch Processing Evaluation Tasks
 
-For efficiency, you can process multiple evaluation tasks at once:
+For efficiency, you can process multiple evaluation tasks at once or **"multiple metrics for a single task"** using a loop and the `galtea.evaluate` method:
 
 ```python
 import pandas as pd
@@ -74,6 +76,10 @@ for index, row in test_data.iterrows():
 
 print("All evaluation tasks submitted")
 ```
+
+<Info>
+  The `galtea.evaluate` method is a wrapper around the `evaluation_tasks.create` method that allows you to create multiple evaluation tasks in batch. **It does not create Evluation Tasks with multiple metrics** but rather creates multiple Evaluation Tasks with a single metric each, all in one go.
+</Info>
 
 ## Retrieving Evaluation Results
 
