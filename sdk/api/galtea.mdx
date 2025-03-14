@@ -30,6 +30,9 @@ The `Galtea` class provides access to the following services:
 - [`evaluations`](/sdk/api/evaluation-service): Access [evaluation](/concepts/product/evaluation) related functionalities.
 - [`evaluation_tasks`](/sdk/api/evaluation-task-service): Access [evaluation task](/concepts/product/evaluation/task) related functionalities.
 
+There is also a method in the `Galtea` class that wraps the `create` function from the [`evaluation_tasks`](/sdk/api/evaluation-task-service). We highly recommend using this method as it formats the response output and allows you to create an evaluation task directly from the `Galtea` class object:
+- [`galtea.evaluate()`](/sdk/api/evaluation-task-service#create-evaluation-task): Create an evaluation task and get the result.
+
 ### Example
 
 ```python
