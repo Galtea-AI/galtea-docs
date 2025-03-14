@@ -18,7 +18,7 @@ Quality tests have a specific structure designed to facilitate effective evaluat
 
 <ResponseField name="input" type="String" required>
   The question or prompt that the product is expected to respond to.
-  **Example**: "What are the key provisions of the GDPR related to data subject rights?"
+  **Example**: "What are three key provisions of the GDPR related to data subject rights?"
 </ResponseField>
 
 <ResponseField name="expected_output" type="String" required>
@@ -26,13 +26,13 @@ Quality tests have a specific structure designed to facilitate effective evaluat
   **Example**: "The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, the right to rectification, the right to restrict processing, the right to data portability, and the right to object to processing."
 </ResponseField>
 
-<ResponseField name="tag" type="String" required>
+<ResponseField name="tag" type="String">
   A categorization tag for the test instance. **Example**: "original"
 </ResponseField>
 
-<ResponseField name="context" type="String" optional>
+<ResponseField name="context" type="String">
   Additional context information to help with answering the question.
-  **Example**: "Excerpt from GDPR Article 15-20 documentation..."
+  **Example**: "GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area..."
 </ResponseField>
 
 ## File Format and Example Quality Tests
@@ -52,8 +52,9 @@ The recommended file format for quality tests is CSV. Here are examples of the s
       <Tab title="Table View">
         | # | Instance ID | Input | Expected Output | Tag | Context |
         |---|------------|-------|-----------------|-----|---------|
-        | 0 | 0 | What is the Capital of France? | Paris | original | |
-        | 1 | 1 | What is the largest planet in our solar system? | Jupiter | original | |
+        | 0 | 0 | What is the Capital of France? | Paris | original |  |
+        | 1 | 1 | What is the largest planet in our solar system? | Jupiter | original |  |
+        ...
       </Tab>
     </Tabs>
   </Accordion>
@@ -63,15 +64,15 @@ The recommended file format for quality tests is CSV. Here are examples of the s
       <Tab title="Raw CSV">
         ```csv
         ,instance_id,input,expected_output,tag,context
-        0,0,"¿Cuál es el sistema operativo del Samsung Galaxy A8 EE?","El sistema operativo del Samsung Galaxy A8 EE es Android 8.1.","original","Noviembre 2018Catálogo \ndispositivos \nmóviles\nSamsung Galaxy A8 EE\n€/mes*11,49 Sistema Operativo : Android 8.1 + EMUI 8.1\nPantalla : 6.1\" OLED Full View Resolución Full HD..."
-        1,1,"¿Cuántos megapíxeles tiene la cámara principal del Huawei P20?","La cámara principal del Huawei P20 tiene 20 MP + 12 MP.","original","Huawei P20\nSistema Operativo : Android 8.1 + \nEMUI 8.1\nPantalla : 5.8\" Full View Resolución \nFull HD (2244x1080p)\nCámara: 20 MP + 12MP FL8+ fl6. \nProcesador: Kirin 970 + IA (4x2,36 \n+ 4x1,8 GHz )"
+        0,0,"¿Cuál es el sistema operativo del Samsung Galaxy A8 EE?","El sistema operativo del Samsung Galaxy A8 EE es Android 8.1.","original","Noviembre 2018Catálogo dispositivos móviles Samsung Galaxy A8 EE... "
+        1,1,"¿Cuántos megapíxeles tiene la cámara principal del Huawei P20?","La cámara principal del Huawei P20 tiene 20 MP + 12 MP.","original","Huawei P20 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 5.8\" Full View Resolución Full HD... "
         ```
       </Tab>
       <Tab title="Table View">
         | # | Instance ID | Input | Expected Output | Tag | Context |
         |---|------------|-------|-----------------|-----|---------|
-        | 0 | 0 | ¿Cuál es el sistema operativo del Samsung Galaxy A8 EE? | El sistema operativo del Samsung Galaxy A8 EE es Android 8.1. | original | Noviembre 2018Catálogo dispositivos móviles Samsung Galaxy A8 EE €/mes*11,49 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 6.1" OLED Full View Resolución Full HD... |
-        | 1 | 1 | ¿Cuántos megapíxeles tiene la cámara principal del Huawei P20? | La cámara principal del Huawei P20 tiene 20 MP + 12 MP. | original | Huawei P20 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 5.8" Full View Resolución Full HD (2244x1080p) Cámara: 20 MP + 12MP FL8+ fl6. Procesador: Kirin 970 + IA (4x2,36 + 4x1,8 GHz ) |
+        | 0 | 0 | ¿Cuál es el sistema operativo del Samsung Galaxy A8 EE? | El sistema operativo del Samsung Galaxy A8 EE es Android 8.1. | original | Noviembre 2018Catálogo dispositivos móviles Samsung Galaxy A8 EE... |
+        | 1 | 1 | ¿Cuántos megapíxeles tiene la cámara principal del Huawei P20? | La cámara principal del Huawei P20 tiene 20 MP + 12 MP. | original | Huawei P20 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 5.8" Full View Resolución Full HD... |
       </Tab>
     </Tabs>
   </Accordion>
@@ -81,15 +82,15 @@ The recommended file format for quality tests is CSV. Here are examples of the s
       <Tab title="Raw CSV">
         ```csv
         ,instance_id,input,expected_output,tag,context
-        0,0,"What are three key provisions of the GDPR?","The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability.","original","GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area."
-        1,1,"What does CCPA stand for and who does it protect?","CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses.","original","The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States."
+        0,0,"What are three key provisions of the GDPR?","The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability.","original","GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area..."
+        1,1,"What does CCPA stand for and who does it protect?","CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses.","original","The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States..."
         ```
       </Tab>
       <Tab title="Table View">
         | # | Instance ID | Input | Expected Output | Tag | Context |
         |---|------------|-------|-----------------|-----|---------|
-        | 0 | 0 | What are three key provisions of the GDPR? | The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability. | original | GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area. |
-        | 1 | 1 | What does CCPA stand for and who does it protect? | CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses. | original | The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States. |
+        | 0 | 0 | What are three key provisions of the GDPR? | The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability. | original | GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area... |
+        | 1 | 1 | What does CCPA stand for and who does it protect? | CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses. | original | The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States... |
       </Tab>
     </Tabs>
   </Accordion>
@@ -98,6 +99,10 @@ The recommended file format for quality tests is CSV. Here are examples of the s
 <Note>
   This structure is the same as that generated by Galtea's test generator for quality tests. If you're having Galtea generate tests from a ground truth file, this is the format you'll receive.
 </Note>
+
+<Warning>
+  The contexts and the extent of the examples provided above are short extractions. In the actual CSV files the context can be much longer and the amount of challenges can be much higher.
+</Warning>
 
 ## Creating Quality Tests
 
@@ -128,6 +133,6 @@ You can create quality tests in Galtea through two methods:
       <Step title="Upload your test file">
         Select the file you created and upload it to Galtea
       </Step>
-    </Steps>
+          </Steps>
   </Tab>
 </Tabs>
