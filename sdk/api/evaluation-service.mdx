@@ -1,0 +1,52 @@
+---
+title: 'Evaluation Service'
+description: "Here we will show you some examples of how to use the SDK in your codebases"
+icon: "objects-column"
+---
+
+## Evaluation Service
+
+The Evaluation Service in the Galtea SDK allows you to manage evaluations for assessing your products. Below are some examples of how to use the Evaluation Service.
+
+### Creating an Evaluation
+
+```python
+evaluation = galtea.evaluations.create(
+    test_id="YOUR_TEST_ID",
+    version_id="YOUR_VERSION_ID"
+)
+print(evaluation.id)
+```
+
+### Listing Evaluations
+
+```python
+evaluations = galtea.evaluations.list(product_id="YOUR_PRODUCT_ID")
+for evaluation in evaluations:
+    print(evaluation.id, evaluation.status)
+```
+
+### Retrieving an Evaluation
+
+```python
+evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
+print(evaluation.id, evaluation.status)
+```
+
+### Updating an Evaluation
+
+```python
+updated_evaluation = galtea.evaluations.update(
+    evaluation_id="YOUR_EVALUATION_ID",
+    status="completed"
+)
+print(updated_evaluation.id, updated_evaluation.status)
+```
+
+### Deleting an Evaluation
+
+```python
+galtea.evaluations.delete(evaluation_id="YOUR_EVALUATION_ID")
+print("Evaluation deleted successfully")
+```
+

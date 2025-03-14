@@ -1,0 +1,55 @@
+---
+title: 'Evaluation Task Service'
+description: "Here we will show you some examples of how to use the SDK in your codebases"
+icon: "objects-column"
+---
+
+## Evaluation Task Service
+
+The Evaluation Task Service in the Galtea SDK allows you to manage evaluation tasks for assessing your products. Below are some examples of how to use the Evaluation Task Service.
+
+### Creating an Evaluation Task
+
+```python
+evaluation_task = galtea.evaluation_tasks.create(
+    evaluation_id="YOUR_EVALUATION_ID",
+    metric_type="accuracy_v0",
+    input="What is the capital of Spain?",
+    actual_output="Barcelona",
+    expected_output="Madrid"
+)
+print(evaluation_task.id)
+```
+
+### Listing Evaluation Tasks
+
+```python
+evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
+for task in evaluation_tasks:
+    print(task.id, task.status)
+```
+
+### Retrieving an Evaluation Task
+
+```python
+evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
+print(evaluation_task.id, evaluation_task.status, evaluation_task.score)
+```
+
+### Updating an Evaluation Task
+
+```python
+updated_task = galtea.evaluation_tasks.update(
+    task_id="YOUR_TASK_ID",
+    actual_output="Updated output"
+)
+print(updated_task.id, updated_task.actual_output)
+```
+
+### Deleting an Evaluation Task
+
+```python
+galtea.evaluation_tasks.delete(task_id="YOUR_TASK_ID")
+print("Evaluation task deleted successfully")
+```
+

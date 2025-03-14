@@ -1,0 +1,53 @@
+---
+title: 'Product Service'
+description: "Here we will show you some examples of how to use the SDK in your codebases"
+icon: "objects-column"
+---
+
+## Product Service
+
+The Product Service in the Galtea SDK allows you to manage products that you want to evaluate. Below are some examples of how to use the Product Service.
+
+### Creating a Product
+
+```python
+product = galtea.products.create(
+    name="Document Summarizer",
+    description="An AI tool that generates concise summaries of legal documents while preserving key information."
+)
+print(product.id)
+```
+
+### Listing Products
+
+```python
+products = galtea.products.list()
+for product in products:
+    print(product.name, product.id)
+```
+
+### Retrieving a Product
+
+```python
+product = galtea.products.get(product_id="YOUR_PRODUCT_ID")
+print(product.name, product.description)
+```
+
+### Updating a Product
+
+```python
+updated_product = galtea.products.update(
+    product_id="YOUR_PRODUCT_ID",
+    name="Updated Product Name",
+    optional_props={"description": "Updated product description"}
+)
+print(updated_product.name, updated_product.description)
+```
+
+### Deleting a Product
+
+```python
+galtea.products.delete(product_id="YOUR_PRODUCT_ID")
+print("Product deleted successfully")
+```
+

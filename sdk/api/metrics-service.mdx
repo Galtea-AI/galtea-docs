@@ -1,0 +1,53 @@
+---
+title: 'Metrics Service'
+description: "Here we will show you some examples of how to use the SDK in your codebases"
+icon: "objects-column"
+---
+
+## Metrics Service
+
+The Metrics Service in the Galtea SDK allows you to manage metrics for evaluating your products. Below are some examples of how to use the Metrics Service.
+
+### Creating a Metric
+
+```python
+metric = galtea.metrics.create(
+    name="accuracy_v0",
+    criteria="Determine whether the actual output is equivalent to the expected output."
+)
+print(metric.id)
+```
+
+### Listing Metrics
+
+```python
+metrics = galtea.metrics.list()
+for metric in metrics:
+    print(metric.name, metric.id)
+```
+
+### Retrieving a Metric
+
+```python
+metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
+print(metric.name, metric.criteria)
+```
+
+### Updating a Metric
+
+```python
+updated_metric = galtea.metrics.update(
+    metric_id="YOUR_METRIC_ID",
+    name="updated-metric-name",
+    optional_props={"criteria": "Updated criteria description"}
+)
+print(updated_metric.name, updated_metric.criteria)
+```
+
+### Deleting a Metric
+
+```python
+galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
+print("Metric deleted successfully")
+```
+

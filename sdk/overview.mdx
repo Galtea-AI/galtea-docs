@@ -1,0 +1,126 @@
+---
+title: 'SDK Overview'
+description: 'Overview of the Galtea Python SDK'
+---
+
+## Galtea Python SDK
+
+The Galtea Python SDK allows ML engineers, AI researchers, and data scientists to interact with the Galtea platform programmatically. It provides functionalities to register products, create tests, perform evaluations, and more.
+
+### Installation
+
+To install the Galtea Python SDK, use the following command:
+
+```bash
+pip install galtea
+```
+
+### Usage
+
+Below are some examples of how to use the SDK to interact with the Galtea platform.
+
+#### Importing the SDK
+
+```python
+from galtea import Galtea
+```
+
+### Registering a Product
+
+Registering a product is the first step to start using the Galtea platform. A product represents a functionality or service that you want to evaluate.
+
+```python
+product = galtea.products.create(
+    name="Document Summarizer",
+    description="An AI tool that generates concise summaries of legal documents while preserving key information."
+)
+print(product.id)
+```
+
+### Creating a Version
+
+A version represents a specific iteration of a product. You can track changes to your product over time and compare different implementations.
+
+```python
+version = galtea.versions.create(
+    name="v1.0",
+    product_id=product.id,
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+print(version.id)
+```
+
+### Creating a Test
+
+Tests are used to evaluate the performance of your product. You can create quality tests or red teaming tests depending on your evaluation needs.
+
+```python
+import pandas as pd
+
+# Data
+data = [
+    {"input": "What is the capital of France?", "expected_output": "Paris"},
+    {"input": "What is the capital of Spain?", "expected_output": "Madrid"}
+]
+
+# Create DataFrame
+test_df = pd.DataFrame(data)
+test_df.to_csv('tutorial_tests.csv')
+
+# Upload test
+test = galtea.tests.create(
+    name="example-test-tutorial",
+    type="QUALITY",
+    product_id=product.id,
+    test_file_path="tutorial_tests.csv"
+)
+print(test.id)
+```
+
+### Creating a Metric
+
+Metrics define the criteria for evaluating the performance of your product. You can create custom metrics tailored to your specific use case.
+
+```python
+metric_self_accuracy = galtea.metrics.create(
+    name="accuracy_v0",
+    criteria="Determine whether the actual output is equivalent to the expected output."
+)
+print(metric_self_accuracy.id)
+```
+
+### Launching an Evaluation
+
+Evaluations link a specific version of a product with a test. You can then execute evaluation tasks to assess the performance of the product version against the test challenges.
+
+```python
+evaluation = galtea.evaluations.create(
+    test_id=test.id,
+    version_id=version.id
+)
+print(evaluation.id)
+
+# Evaluate a single task
+galtea.evaluate(
+    metrics=[metric_self_accuracy.name],
+    evaluation_id=evaluation.id,
+    input="What is the capital of Spain?",
+    actual_output="Barcelona",
+    expected_output="Madrid"
+)
+```
+
+### Retrieving Evaluation Results
+
+Once the evaluation tasks are completed, you can retrieve the results to analyze the performance of your product.
+
+```python
+evaluation_tasks = galtea.evaluation_tasks.list(evaluation.id)
+for task in evaluation_tasks:
+    result = galtea.evaluation_tasks.get(task.id)
+    print(result)
+```
+
+### Additional Resources
+
+For more detailed information, refer to the [API Reference](/api-reference) and the [Quickstart Guide](/quickstart).

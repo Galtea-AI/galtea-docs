@@ -1,0 +1,44 @@
+---
+title: 'Create Evaluation'
+description: "Example of how to create an evaluation using the SDK"
+icon: "page"
+---
+
+## Creating an Evaluation
+
+This example demonstrates how to create an evaluation using the Galtea SDK.
+
+### Example Code
+
+```python
+from galtea import Galtea
+
+# Initialize Galtea SDK
+galtea = galtea.Galtea(api_key="YOUR_API_KEY")
+
+# Create Evaluation
+evaluation = galtea.evaluations.create(
+    test_id="YOUR_TEST_ID",
+    version_id="YOUR_VERSION_ID"
+)
+print(evaluation.id)
+
+# Evaluate a single task
+galtea.evaluate(
+    metrics=["accuracy_v0"],
+    evaluation_id=evaluation.id,
+    input="What is the capital of Spain?",
+    actual_output="Barcelona",
+    expected_output="Madrid"
+)
+```
+
+### Explanation
+
+1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key.
+2. **Create Evaluation**: Use the `galtea.evaluations.create` method to create an evaluation.
+3. **Evaluate Task**: Use the `galtea.evaluate` method to evaluate a single task.
+
+### Additional Resources
+
+For more detailed information, refer to the [API Reference](/api-reference) and the [Quickstart Guide](/quickstart).

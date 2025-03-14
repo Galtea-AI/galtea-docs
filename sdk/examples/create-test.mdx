@@ -1,0 +1,66 @@
+---
+title: 'Create Custom Test'
+description: "Examples of how to create a custom test using the SDK"
+icon: "page"
+---
+
+## Already Created test file
+
+If you have a custom test already created consciusly, you can upload it to the Galtea platform using the SDK.
+
+### Example Code
+
+```python
+from galtea import Galtea
+
+# Upload test to Galtea Platform
+test = galtea.tests.create(
+    name="example-test-tutorial",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    test_file_path="tutorial_tests.csv"
+)
+```
+
+In some ocasions we will need to create our own tests to control more what we are evaluating. This example demonstrates how to create a test and register in the platform using the SDK.
+
+### Explanation
+
+1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key.
+3. **Create Test**: Use the `galtea.tests.create` method to upload the test file and create the test on the platform.
+
+## Already Created test file
+
+### Example Code
+
+```python
+from galtea import Galtea
+import pandas as pd
+
+# Initialize Galtea SDK
+galtea = galtea.Galtea(api_key="YOUR_API_KEY")
+
+# Data
+data = [
+    {"input": "What is the capital of France?", "expected_output": "Paris"},
+    {"input": "What is the capital of Spain?", "expected_output": "Madrid"}
+]
+
+# Create DataFrame
+test_df = pd.DataFrame(data)
+test_df.to_csv('tutorial_tests.csv')
+
+# Upload test to Galtea Platform
+test = galtea.tests.create(
+    name="example-test-tutorial",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    test_file_path="tutorial_tests.csv"
+)
+```
+
+### Explanation
+
+1. **Initialize the SDK**: Replace `"YOUR_API_KEY"` with your actual API key.
+2. **Prepare Test Data**: Create a DataFrame with the test data and save it as a CSV file.
+3. **Create Test**: Use the `galtea.tests.create` method to upload the test file and create the test on the platform.

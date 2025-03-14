@@ -1,0 +1,54 @@
+---
+title: 'Version Service'
+description: "Here we will show you some examples of how to use the SDK in your codebases"
+icon: "objects-column"
+---
+
+## Version Service
+
+The Version Service in the Galtea SDK allows you to manage different iterations of your products. Below are some examples of how to use the Version Service.
+
+### Creating a Version
+
+```python
+version = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+print(version.id)
+```
+
+### Listing Versions
+
+```python
+versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
+for version in versions:
+    print(version.name, version.id)
+```
+
+### Retrieving a Version
+
+```python
+version = galtea.versions.get(version_id="YOUR_VERSION_ID")
+print(version.name, version.description)
+```
+
+### Updating a Version
+
+```python
+updated_version = galtea.versions.update(
+    version_id="YOUR_VERSION_ID",
+    name="v1.1",
+    optional_props={"description": "Updated version with improved summarization"}
+)
+print(updated_version.name, updated_version.description)
+```
+
+### Deleting a Version
+
+```python
+galtea.versions.delete(version_id="YOUR_VERSION_ID")
+print("Version deleted successfully")
+```
+

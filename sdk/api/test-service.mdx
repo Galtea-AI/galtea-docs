@@ -1,0 +1,68 @@
+---
+title: 'Test Service'
+description: "Here we will show you some examples of how to use the SDK in your codebases"
+icon: "objects-column"
+---
+
+## Test Service
+
+The Test Service in the Galtea SDK allows you to manage tests for evaluating your products. Below are some examples of how to use the Test Service.
+
+### Creating a Test
+
+```python
+import pandas as pd
+
+# Data
+data = [
+    {"input": "What is the capital of France?", "expected_output": "Paris"},
+    {"input": "What is the capital of Spain?", "expected_output": "Madrid"}
+]
+
+# Create DataFrame
+test_df = pd.DataFrame(data)
+test_df.to_csv('tutorial_tests.csv')
+
+# Upload test
+test = galtea.tests.create(
+    name="example-test-tutorial",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    test_file_path="tutorial_tests.csv"
+)
+print(test.id)
+```
+
+### Listing Tests
+
+```python
+tests = galtea.tests.list(product_id="YOUR_PRODUCT_ID")
+for test in tests:
+    print(test.name, test.id)
+```
+
+### Retrieving a Test
+
+```python
+test = galtea.tests.get(test_id="YOUR_TEST_ID")
+print(test.name, test.type)
+```
+
+### Updating a Test
+
+```python
+updated_test = galtea.tests.update(
+    test_id="YOUR_TEST_ID",
+    name="updated-test-name",
+    optional_props={"description": "Updated test description"}
+)
+print(updated_test.name, updated_test.description)
+```
+
+### Deleting a Test
+
+```python
+galtea.tests.delete(test_id="YOUR_TEST_ID")
+print("Test deleted successfully")
+```
+
