@@ -36,30 +36,6 @@ product = galtea.products.get(product_id="YOUR_PRODUCT_ID")
   The ID of the product you want to retrieve.
 </ResponseField>
 
-## Updating Product
-
-This method allows you to update a specific product by its ID.
-
-```python
-updated_product = galtea.products.update(
-    product_id="YOUR_PRODUCT_ID",
-    name="Updated Product Name",
-    optional_props={"description": "Updated product description"}
-)
-```
-
-<ResponseField name="product_id" type="string" required>
-  The ID of the product you want to update.
-</ResponseField>
-
-<ResponseField name="name" type="string">
-  The new name of the product.
-</ResponseField>
-
-<ResponseField name="optional_props" type="object">
-  Additional properties for the product (e.g., description).
-</ResponseField>
-
 ## Deleting Product
 
 This method allows you to delete a specific product by its ID.

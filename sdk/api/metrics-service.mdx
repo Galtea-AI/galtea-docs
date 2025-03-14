@@ -51,30 +51,6 @@ metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
   The ID of the metric you want to retrieve.
 </ResponseField>
 
-## Updating Metric
-
-This method allows you to update a specific metric by its ID.
-
-```python
-updated_metric = galtea.metrics.update(
-    metric_id="YOUR_METRIC_ID",
-    name="updated-metric-name",
-    optional_props={"criteria": "Updated criteria description"}
-)
-```
-
-<ResponseField name="metric_id" type="string" required>
-  The ID of the metric you want to update.
-</ResponseField>
-
-<ResponseField name="name" type="string">
-  The new name of the metric.
-</ResponseField>
-
-<ResponseField name="optional_props" type="object">
-  Additional properties for the metric (e.g., criteria).
-</ResponseField>
-
 ## Deleting Metric
 
 This method allows you to delete a specific metric by its ID.

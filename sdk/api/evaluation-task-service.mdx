@@ -74,25 +74,6 @@ evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
   The ID of the task you want to retrieve.
 </ResponseField>
 
-## Updating Evaluation Task
-
-This method allows you to update a specific evaluation task by its ID.
-
-```python
-updated_task = galtea.evaluation_tasks.update(
-    task_id="YOUR_TASK_ID",
-    actual_output="Updated output"
-)
-```
-
-<ResponseField name="task_id" type="string" required>
-  The ID of the task you want to update.
-</ResponseField>
-
-<ResponseField name="actual_output" type="string">
-  The new actual output for the task.
-</ResponseField>
-
 ## Deleting Evaluation Task
 
 This method allows you to delete a specific evaluation task by its ID.
