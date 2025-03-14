@@ -53,6 +53,7 @@ test = galtea.tests.create(
 <ResponseField name="test_file_path" type="string">
   The path to the custom test file.
   This file should contain the test cases you want to evaluate.
+  If given, the plaform won't generate a synthetic dataset based on the ground_truth provided, so we can use the test immediately.
 </ResponseField>
 
 ## Listing Tests
