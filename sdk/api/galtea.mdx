@@ -44,12 +44,9 @@ products = galtea.products.list()
 print(products)
 ```
 
-### Running Evaluation Tasks with multiple Metrics
+### Running Evaluation Tasks with logging
 
-The method `evaluate` from the `Galtea` class allows you to use multiple metrics in a single *create* call of the evaluation task.
+The method `evaluate` from the `Galtea` class is both a wrapper and a shortcut for the `create` function from the [`evaluation tasks service`](/sdk/api/evaluation-task-service#create-evaluation-task) that formats the output to make it prettier.
 
-<Info>
-  It is a wrapper of the `create` function from the [`evaluation tasks service`](/sdk/api/evaluation-task-service#create-evaluation-task) that helps create evaluation tasks in batch, one for each metric provided.
-</Info>
-
+It also accepts the same parameter as the `galtea.evaluation_tasks.create()`.
 You can see an example of how to use the `galtea.evaluate(...)` method [here](/sdk/examples/create-evaluation#batch-processing-evaluation-tasks).
