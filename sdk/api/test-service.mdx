@@ -1,28 +1,45 @@
 ---
 title: 'Test Service'
-description: "Here we will show you some examples of how to use the SDK in your codebases"
+description: "Exploring the Test Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-## Test Service
+The Test Service in the Galtea SDK allows you to manage tests for evaluating your products.
+This Service is exposed by the `galtea.tests` object and we will further explore its API down below.
 
-The Test Service in the Galtea SDK allows you to manage tests for evaluating your products. Below are some examples of how to use the Test Service.
+Remember that we will be using the `galtea` object, which is an instance of the `Galtea` class.
+```python
+from galtea import Galtea
+galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
 
-### Creating a Test
+## Create Test
+
+This method allows you to create a test for your product.
+
+### Parameters
+
+- `name`
+  - The name of the test.
+  - REQUIRED: yes
+- `type`
+  - The type of test (e.g., QUALITY, RED_TEAMING).
+  - REQUIRED: yes
+- `product_id`
+  - The ID of the product you want to evaluate.
+- `ground_truth_file_path`
+  - The path to the knowledge file (pdf format) in which We will find the information the source of truth for the model answers.
+  - We have to wait for the platform to generate a syntehtic dataset based on the ground_truth provided, so we need to wait for the test to be ready before we can use it.
+  - REQUIRED: NO
+- `test_file_path`
+  - The path to the custom test file.
+  - This file should contain the test cases you want to evaluate.
+  - REQUIRED: NO
+
+### Example Code
 
 ```python
-import pandas as pd
-
-# Data
-data = [
-    {"input": "What is the capital of France?", "expected_output": "Paris"},
-    {"input": "What is the capital of Spain?", "expected_output": "Madrid"}
-]
-
-# Create DataFrame
-test_df = pd.DataFrame(data)
-test_df.to_csv('tutorial_tests.csv')
-
+galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 # Upload test
 test = galtea.tests.create(
     name="example-test-tutorial",
@@ -33,7 +50,17 @@ test = galtea.tests.create(
 print(test.id)
 ```
 
-### Listing Tests
+## Listing Tests
+
+This method allows you to list all tests associated with a specific product.
+
+### Parameters
+
+- `product_id`
+  - The ID of the product for which you want to list tests.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 tests = galtea.tests.list(product_id="YOUR_PRODUCT_ID")
@@ -41,25 +68,34 @@ for test in tests:
     print(test.name, test.id)
 ```
 
-### Retrieving a Test
+## Retrieving Test
+
+This method allows you to retrieve a specific test by its ID.
+
+### Parameters
+
+- `test_id`
+  - The ID of the test you want to retrieve.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 test = galtea.tests.get(test_id="YOUR_TEST_ID")
 print(test.name, test.type)
 ```
 
-### Updating a Test
+## Deleting Test
 
-```python
-updated_test = galtea.tests.update(
-    test_id="YOUR_TEST_ID",
-    name="updated-test-name",
-    optional_props={"description": "Updated test description"}
-)
-print(updated_test.name, updated_test.description)
-```
+This method allows you to delete a specific test by its ID.
 
-### Deleting a Test
+### Parameters
+
+- `test_id`
+  - The ID of the test you want to delete.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 galtea.tests.delete(test_id="YOUR_TEST_ID")

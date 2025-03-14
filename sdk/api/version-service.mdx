@@ -1,14 +1,35 @@
 ---
 title: 'Version Service'
-description: "Here we will show you some examples of how to use the SDK in your codebases"
+description: "Exploring the Version Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-## Version Service
+The Version Service in the Galtea SDK allows you to manage different iterations of your products.
+This Service is exposed by the `galtea.versions` object and we will further explore its API down below.
 
-The Version Service in the Galtea SDK allows you to manage different iterations of your products. Below are some examples of how to use the Version Service.
+Remember that we will be using the `galtea` object, which is an instance of the `Galtea` class.
+```python
+from galtea import Galtea
+galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
 
-### Creating a Version
+## Create Version
+
+This method allows you to create a version for your product.
+
+### Parameters
+
+- `name`
+  - The name of the version.
+  - REQUIRED: yes
+- `product_id`
+  - The ID of the product you want to create a version for.
+  - REQUIRED: yes
+- `optional_props`
+  - Additional properties for the version (e.g., description).
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 version = galtea.versions.create(
@@ -19,7 +40,17 @@ version = galtea.versions.create(
 print(version.id)
 ```
 
-### Listing Versions
+## Listing Versions
+
+This method allows you to list all versions associated with a specific product.
+
+### Parameters
+
+- `product_id`
+  - The ID of the product for which you want to list versions.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
@@ -27,14 +58,40 @@ for version in versions:
     print(version.name, version.id)
 ```
 
-### Retrieving a Version
+## Retrieving Version
+
+This method allows you to retrieve a specific version by its ID.
+
+### Parameters
+
+- `version_id`
+  - The ID of the version you want to retrieve.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 version = galtea.versions.get(version_id="YOUR_VERSION_ID")
 print(version.name, version.description)
 ```
 
-### Updating a Version
+## Updating Version
+
+This method allows you to update a specific version by its ID.
+
+### Parameters
+
+- `version_id`
+  - The ID of the version you want to update.
+  - REQUIRED: yes
+- `name`
+  - The new name of the version.
+  - REQUIRED: no
+- `optional_props`
+  - Additional properties for the version (e.g., description).
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 updated_version = galtea.versions.update(
@@ -45,7 +102,17 @@ updated_version = galtea.versions.update(
 print(updated_version.name, updated_version.description)
 ```
 
-### Deleting a Version
+## Deleting Version
+
+This method allows you to delete a specific version by its ID.
+
+### Parameters
+
+- `version_id`
+  - The ID of the version you want to delete.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 galtea.versions.delete(version_id="YOUR_VERSION_ID")

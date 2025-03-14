@@ -1,14 +1,32 @@
 ---
 title: 'Product Service'
-description: "Here we will show you some examples of how to use the SDK in your codebases"
+description: "Exploring the Product Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-## Product Service
+The Product Service in the Galtea SDK allows you to manage products that you want to evaluate.
+This Service is exposed by the `galtea.products` object and we will further explore its API down below.
 
-The Product Service in the Galtea SDK allows you to manage products that you want to evaluate. Below are some examples of how to use the Product Service.
+Remember that we will be using the `galtea` object, which is an instance of the `Galtea` class.
+```python
+from galtea import Galtea
+galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
 
-### Creating a Product
+## Create Product
+
+This method allows you to create a product.
+
+### Parameters
+
+- `name`
+  - The name of the product.
+  - REQUIRED: yes
+- `description`
+  - A detailed description of the product.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 product = galtea.products.create(
@@ -18,7 +36,11 @@ product = galtea.products.create(
 print(product.id)
 ```
 
-### Listing Products
+## Listing Products
+
+This method allows you to list all products.
+
+### Example Code
 
 ```python
 products = galtea.products.list()
@@ -26,14 +48,40 @@ for product in products:
     print(product.name, product.id)
 ```
 
-### Retrieving a Product
+## Retrieving Product
+
+This method allows you to retrieve a specific product by its ID.
+
+### Parameters
+
+- `product_id`
+  - The ID of the product you want to retrieve.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 product = galtea.products.get(product_id="YOUR_PRODUCT_ID")
 print(product.name, product.description)
 ```
 
-### Updating a Product
+## Updating Product
+
+This method allows you to update a specific product by its ID.
+
+### Parameters
+
+- `product_id`
+  - The ID of the product you want to update.
+  - REQUIRED: yes
+- `name`
+  - The new name of the product.
+  - REQUIRED: no
+- `optional_props`
+  - Additional properties for the product (e.g., description).
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 updated_product = galtea.products.update(
@@ -44,7 +92,17 @@ updated_product = galtea.products.update(
 print(updated_product.name, updated_product.description)
 ```
 
-### Deleting a Product
+## Deleting Product
+
+This method allows you to delete a specific product by its ID.
+
+### Parameters
+
+- `product_id`
+  - The ID of the product you want to delete.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 galtea.products.delete(product_id="YOUR_PRODUCT_ID")

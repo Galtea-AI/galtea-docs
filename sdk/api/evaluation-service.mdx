@@ -1,14 +1,32 @@
 ---
 title: 'Evaluation Service'
-description: "Here we will show you some examples of how to use the SDK in your codebases"
+description: "Exploring the Evaluation Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-## Evaluation Service
+The Evaluation Service in the Galtea SDK allows you to manage evaluations for assessing your products.
+This Service is exposed by the `galtea.evaluations` object and we will further explore its API down below.
 
-The Evaluation Service in the Galtea SDK allows you to manage evaluations for assessing your products. Below are some examples of how to use the Evaluation Service.
+Remember that we will be using the `galtea` object, which is an instance of the `Galtea` class.
+```python
+from galtea import Galtea
+galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
 
-### Creating an Evaluation
+## Create Evaluation
+
+This method allows you to create an evaluation.
+
+### Parameters
+
+- `test_id`
+  - The ID of the test you want to use for the evaluation.
+  - REQUIRED: yes
+- `version_id`
+  - The ID of the version you want to evaluate.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 evaluation = galtea.evaluations.create(
@@ -18,7 +36,17 @@ evaluation = galtea.evaluations.create(
 print(evaluation.id)
 ```
 
-### Listing Evaluations
+## Listing Evaluations
+
+This method allows you to list all evaluations associated with a specific product.
+
+### Parameters
+
+- `product_id`
+  - The ID of the product for which you want to list evaluations.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 evaluations = galtea.evaluations.list(product_id="YOUR_PRODUCT_ID")
@@ -26,14 +54,37 @@ for evaluation in evaluations:
     print(evaluation.id, evaluation.status)
 ```
 
-### Retrieving an Evaluation
+## Retrieving Evaluation
+
+This method allows you to retrieve a specific evaluation by its ID.
+
+### Parameters
+
+- `evaluation_id`
+  - The ID of the evaluation you want to retrieve.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
 print(evaluation.id, evaluation.status)
 ```
 
-### Updating an Evaluation
+## Updating Evaluation
+
+This method allows you to update a specific evaluation by its ID.
+
+### Parameters
+
+- `evaluation_id`
+  - The ID of the evaluation you want to update.
+  - REQUIRED: yes
+- `status`
+  - The new status of the evaluation.
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 updated_evaluation = galtea.evaluations.update(
@@ -43,7 +94,17 @@ updated_evaluation = galtea.evaluations.update(
 print(updated_evaluation.id, updated_evaluation.status)
 ```
 
-### Deleting an Evaluation
+## Deleting Evaluation
+
+This method allows you to delete a specific evaluation by its ID.
+
+### Parameters
+
+- `evaluation_id`
+  - The ID of the evaluation you want to delete.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 galtea.evaluations.delete(evaluation_id="YOUR_EVALUATION_ID")

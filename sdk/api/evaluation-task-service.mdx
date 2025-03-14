@@ -1,14 +1,41 @@
 ---
 title: 'Evaluation Task Service'
-description: "Here we will show you some examples of how to use the SDK in your codebases"
+description: "Exploring the Evaluation Task Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-## Evaluation Task Service
+The Evaluation Task Service in the Galtea SDK allows you to manage evaluation tasks for assessing your products.
+This Service is exposed by the `galtea.evaluation_tasks` object and we will further explore its API down below.
 
-The Evaluation Task Service in the Galtea SDK allows you to manage evaluation tasks for assessing your products. Below are some examples of how to use the Evaluation Task Service.
+Remember that we will be using the `galtea` object, which is an instance of the `Galtea` class.
+```python
+from galtea import Galtea
+galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
 
-### Creating an Evaluation Task
+## Create Evaluation Task
+
+This method allows you to create an evaluation task.
+
+### Parameters
+
+- `evaluation_id`
+  - The ID of the evaluation you want to create a task for.
+  - REQUIRED: yes
+- `metric_type`
+  - The type of metric to use for the evaluation.
+  - REQUIRED: yes
+- `input`
+  - The input data for the evaluation task.
+  - REQUIRED: yes
+- `actual_output`
+  - The actual output produced by the product.
+  - REQUIRED: yes
+- `expected_output`
+  - The expected output for the evaluation task.
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 evaluation_task = galtea.evaluation_tasks.create(
@@ -21,7 +48,17 @@ evaluation_task = galtea.evaluation_tasks.create(
 print(evaluation_task.id)
 ```
 
-### Listing Evaluation Tasks
+## Listing Evaluation Tasks
+
+This method allows you to list all evaluation tasks associated with a specific evaluation.
+
+### Parameters
+
+- `evaluation_id`
+  - The ID of the evaluation for which you want to list tasks.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
@@ -29,14 +66,37 @@ for task in evaluation_tasks:
     print(task.id, task.status)
 ```
 
-### Retrieving an Evaluation Task
+## Retrieving Evaluation Task
+
+This method allows you to retrieve a specific evaluation task by its ID.
+
+### Parameters
+
+- `task_id`
+  - The ID of the task you want to retrieve.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 evaluation_task = galtea.evaluation_tasks.get(task_id="YOUR_TASK_ID")
 print(evaluation_task.id, evaluation_task.status, evaluation_task.score)
 ```
 
-### Updating an Evaluation Task
+## Updating Evaluation Task
+
+This method allows you to update a specific evaluation task by its ID.
+
+### Parameters
+
+- `task_id`
+  - The ID of the task you want to update.
+  - REQUIRED: yes
+- `actual_output`
+  - The new actual output for the task.
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 updated_task = galtea.evaluation_tasks.update(
@@ -46,7 +106,17 @@ updated_task = galtea.evaluation_tasks.update(
 print(updated_task.id, updated_task.actual_output)
 ```
 
-### Deleting an Evaluation Task
+## Deleting Evaluation Task
+
+This method allows you to delete a specific evaluation task by its ID.
+
+### Parameters
+
+- `task_id`
+  - The ID of the task you want to delete.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 galtea.evaluation_tasks.delete(task_id="YOUR_TASK_ID")

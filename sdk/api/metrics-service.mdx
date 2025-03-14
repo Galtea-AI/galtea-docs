@@ -1,14 +1,32 @@
 ---
 title: 'Metrics Service'
-description: "Here we will show you some examples of how to use the SDK in your codebases"
+description: "Exploring the Metrics Service API in the Galtea SDK"
 icon: "objects-column"
 ---
 
-## Metrics Service
+The Metrics Service in the Galtea SDK allows you to manage metrics for evaluating your products.
+This Service is exposed by the `galtea.metrics` object and we will further explore its API down below.
 
-The Metrics Service in the Galtea SDK allows you to manage metrics for evaluating your products. Below are some examples of how to use the Metrics Service.
+Remember that we will be using the `galtea` object, which is an instance of the `Galtea` class.
+```python
+from galtea import Galtea
+galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+```
 
-### Creating a Metric
+## Create Metric
+
+This method allows you to create a metric.
+
+### Parameters
+
+- `name`
+  - The name of the metric.
+  - REQUIRED: yes
+- `criteria`
+  - The criteria for the metric.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 metric = galtea.metrics.create(
@@ -18,7 +36,11 @@ metric = galtea.metrics.create(
 print(metric.id)
 ```
 
-### Listing Metrics
+## Listing Metrics
+
+This method allows you to list all metrics.
+
+### Example Code
 
 ```python
 metrics = galtea.metrics.list()
@@ -26,14 +48,40 @@ for metric in metrics:
     print(metric.name, metric.id)
 ```
 
-### Retrieving a Metric
+## Retrieving Metric
+
+This method allows you to retrieve a specific metric by its ID.
+
+### Parameters
+
+- `metric_id`
+  - The ID of the metric you want to retrieve.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
 print(metric.name, metric.criteria)
 ```
 
-### Updating a Metric
+## Updating Metric
+
+This method allows you to update a specific metric by its ID.
+
+### Parameters
+
+- `metric_id`
+  - The ID of the metric you want to update.
+  - REQUIRED: yes
+- `name`
+  - The new name of the metric.
+  - REQUIRED: no
+- `optional_props`
+  - Additional properties for the metric (e.g., criteria).
+  - REQUIRED: no
+
+### Example Code
 
 ```python
 updated_metric = galtea.metrics.update(
@@ -44,7 +92,17 @@ updated_metric = galtea.metrics.update(
 print(updated_metric.name, updated_metric.criteria)
 ```
 
-### Deleting a Metric
+## Deleting Metric
+
+This method allows you to delete a specific metric by its ID.
+
+### Parameters
+
+- `metric_id`
+  - The ID of the metric you want to delete.
+  - REQUIRED: yes
+
+### Example Code
 
 ```python
 galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
