@@ -4,6 +4,12 @@ description: "All you need to get started"
 icon: "rocket"
 ---
 
+import ProductCard from '/snippets/cards/product-card.mdx';
+import VersionCard from '/snippets/cards/version-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
+
 This guide will walk you through the essential steps to begin evaluating and monitoring the reliability of your LLM-based products.
 
 ## Creating a Product
@@ -109,7 +115,7 @@ However, it is recommended to use the test set you have already created and uplo
 # Evaluate each query with your model
 for _, row in test_df.iterrows():
     # Get response from your model (implementation depends on your setup)
-    model_response = your_model.generate_response(row["query"])
+    model_response = your_model.generate_response(row["input"])
 
     # Evaluate the response
     galtea.evaluate(
@@ -132,3 +138,14 @@ print(galtea.evaluation_tasks.get(evaluation_tasks[-1].id))
 ```
 
 Congratulations! You did your first evaluation with **Galtea**, one of many evaluations to come. If you have any questions, you can contact us at [support@galtea.ai](mailto:support@galtea.ai).
+
+## Related Concepts
+
+<CardGroup cols={3}>
+    <ProductCard />
+    <VersionCard />
+    <TestCard />
+    <EvaluationCard />
+    <EvaluationTaskCard />
+    <MetricTypeCard />
+</CardGroup>
