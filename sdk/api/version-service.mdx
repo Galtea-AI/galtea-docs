@@ -32,8 +32,17 @@ version = galtea.versions.create(
   The ID of the product you want to create a version for.
 </ResponseField>
 
-<ResponseField name="optional_props" type="object">
-  Additional properties for the version (e.g., description).
+
+<ResponseField name="optional_props" type="dict[str, str]">
+  Additional properties for the version, possible keys include:
+    - dataset_description: Description of the dataset used
+    - dataset_uri: URI to the dataset
+    - description: Version description
+    - endpoint: API endpoint of the version
+    - foundational_model: Base model information
+    - guardrails: Guardrails configuration
+    - provider: Model provider
+    - system_prompt: Default system prompt of the model
 </ResponseField>
 
 ## Listing Versions
@@ -60,29 +69,6 @@ version = galtea.versions.get(version_id="YOUR_VERSION_ID")
   The ID of the version you want to retrieve.
 </ResponseField>
 
-## Updating Version
-
-This method allows you to update a specific version by its ID.
-
-```python
-updated_version = galtea.versions.update(
-    version_id="YOUR_VERSION_ID",
-    name="v1.1",
-    optional_props={"description": "Updated version with improved summarization"}
-)
-```
-
-<ResponseField name="version_id" type="string" required>
-  The ID of the version you want to update.
-</ResponseField>
-
-<ResponseField name="name" type="string">
-  The new name of the version.
-</ResponseField>
-
-<ResponseField name="optional_props" type="object">
-  Additional properties for the version (e.g., description).
-</ResponseField>
 
 ## Deleting Version
 

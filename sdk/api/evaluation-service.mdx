@@ -58,25 +58,6 @@ evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
   The ID of the evaluation you want to retrieve.
 </ResponseField>
 
-## Updating Evaluation
-
-This method allows you to update a specific evaluation by its ID.
-
-```python
-updated_evaluation = galtea.evaluations.update(
-    evaluation_id="YOUR_EVALUATION_ID",
-    status="completed"
-)
-```
-
-<ResponseField name="evaluation_id" type="string" required>
-  The ID of the evaluation you want to update.
-</ResponseField>
-
-<ResponseField name="status" type="string">
-  The new status of the evaluation.
-</ResponseField>
-
 ## Deleting Evaluation
 
 This method allows you to delete a specific evaluation by its ID.
