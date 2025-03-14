@@ -17,6 +17,38 @@ This guide will walk you through the essential steps to begin evaluating and mon
 
 The first step in tracking the quality and reliability of your LLM-based product is to create a [product](concepts/product) in the dashboard. To do this, you will need to log in with your credentials.
 
+![login to the platform](/images/login.png)
+
+As you click on **Products > Create New Product**, you will be presented with the product onboarding form. The stored metadata is used mostly for reporting purposes, and the description is used during the process of generating synthetic test data when needed.
+
+![product onboarding](/images/product-onboarding.png)
+
+## Install the SDK and connect via an API key
+
+Once you have created your product, you can conveniently follow the rest of the process using the SDK. To do this, you will need your API key, which can be obtained from **Settings > Generate API Key**.
+
+![Get API key](/images/api-key.png)
+
+After acquiring the API key, install the Galtea library in your virtual environment:
+
+```sh
+pip install galtea
+```
+
+Once installed, you can verify the connection to the platform:
+
+```python
+from galtea import Galtea
+
+# Replace 'API_KEY' with your actual API key
+galtea = Galtea(api_key=API_KEY)
+products = galtea.products.list()
+new_product_id = products[-1].id
+print(products)
+```
+
+This should return a list of products that you have created within your organization. For now, you have only one product, and we have retrieved the ID of the last created product, stored in the variable `new_product_id`.
+
 ## Registering a Version
 
 One of the key advantages of the **Galtea platform** is the ability to track and compare different [versions](concepts/product/version) of an LLM-based product. A new version can include new prompts, different RAG parameters, or an entirely new end-to-end product with updated components. Before launching an evaluation, it is essential to register a new version on the platform.
@@ -135,7 +167,8 @@ Now you can see your results on the platform, within the evaluations tab or by d
 
 ```python
 evaluation_tasks = galtea.evaluation_tasks.list(evaluation.id)
-print(galtea.evaluation_tasks.get(evaluation_tasks[-1].id))
+evaluation_result = galtea.evaluation_tasks.get(evaluation_tasks[-1].id)
+print((evaluation_result.score, evaluation_result.reason))
 ```
 
 Congratulations! You did your first evaluation with **Galtea**, one of many evaluations to come. If you have any questions, you can contact us at [support@galtea.ai](mailto:support@galtea.ai).
