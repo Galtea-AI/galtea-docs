@@ -4,15 +4,21 @@ description: "All you need to get started"
 icon: "rocket"
 ---
 
-With **Galtea**, you can enhance AI reliability, mitigate risks, streamline compliance, and accelerate time to market registration. This guide will walk you through the essential steps to get started with basic evaluation and track the reliability of your LLM-based products.
+import ProductCard from '/snippets/cards/product-card.mdx';
+import VersionCard from '/snippets/cards/version-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
+
+This guide will walk you through the essential steps to begin evaluating and monitoring the reliability of your LLM-based products.
 
 ## Creating a Product
 
-The first step in tracking the quality and reliability of your LLM-based product is to create a product in the dashboard. To do this, you will need to log in with your credentials.
+The first step in tracking the quality and reliability of your LLM-based product is to create a [product](concepts/product) in the dashboard. To do this, you will need to log in with your credentials.
 
 ## Registering a Version
 
-One of the key advantages of the **Galtea platform** is the ability to track and compare different versions of an LLM-based product. A new version can include new prompts, different RAG parameters, or an entirely new end-to-end product with updated components. Before launching an evaluation, it is essential to register a new version on the platform.
+One of the key advantages of the **Galtea platform** is the ability to track and compare different [versions](concepts/product/version) of an LLM-based product. A new version can include new prompts, different RAG parameters, or an entirely new end-to-end product with updated components. Before launching an evaluation, it is essential to register a new version on the platform.
 
 ```python
 version = galtea.versions.create(
@@ -28,7 +34,7 @@ Typically, you would include all relevant information in the metadata, such as t
 
 ## Creating a Test
 
-To compare the reliability of an LLM-based product, you need to subject each version to the same tests for consistent comparison. This involves creating a test set on the platform. Depending on your application, these tests can be question-answer pairs with gold standard answers. Below is an example test set:
+To compare the reliability of an LLM-based product, you need to subject each version to the same tests for consistent comparison. This involves creating a [test](concepts/product/test) set on the platform. Depending on your application, these tests can be question-answer pairs with gold standard answers. Below is an example test set:
 
 ```python
 import pandas as pd
@@ -57,9 +63,8 @@ test = galtea.tests.create(
 )
 ```
 <Note>
-  The type of the tests could be `QUALITY` or `RED_TEAMING`. They have different formats and different uses. For more information check the relevant documentation on [quality](concepts/product/test/quality-tests) and [red teaming](concepts/product/test/red-teaming-tests).
+  The type of the tests could be `QUALITY` or `RED_TEAMING`. They have different formats and different uses. For more information check the relevant documentation on [quality tests](concepts/product/test/quality-tests) and [red teaming tests](concepts/product/test/red-teaming-tests).
 </Note>
-
 
 Uploading the file ensures that the tests remain consistent, making the metrics between versions comparable. Once a test file is uploaded, you can later download the same file from the platform via the SDK. This ensures that the tests are always the same.
 
@@ -70,7 +75,7 @@ print(test_file_path)
 
 ## Creating a Metric
 
-The metrics of galtea rely on LLM-as-a-Judge methodology and specifically uses the [GEval framework](https://doi.org/10.48550/arXiv.2303.16634). For this tutorial we will define our own metrics tailored to our specific use case. 
+The metrics of Galtea rely on the LLM-as-a-Judge methodology and specifically use the [GEval framework](https://doi.org/10.48550/arXiv.2303.16634). For this tutorial, we will define our own [metric](concepts/metric-type) tailored to our specific use case.
 
 ```python
 metric_self_accuracy = galtea.metrics.create(
@@ -79,11 +84,11 @@ metric_self_accuracy = galtea.metrics.create(
 )
 ```
 
-By doing this, we register the metric in the platform, in order for it to be reused later in the future for different tests.
+By doing this, we register the metric on the platform, allowing it to be reused later for different tests.
 
 ## Launching an Evaluation
 
-Finally, you are ready to launch an evaluation. The process begins by creating an evaluation:
+Finally, you are ready to launch an [evaluation](concepts/product/evaluation). The process begins by creating an evaluation:
 
 ```python
 evaluation = galtea.evaluations.create(test_id=test.id, version_id=version.id)
@@ -101,9 +106,8 @@ galtea.evaluate(
 )
 ```
 <Note>
-  In addition to doing evaluations on `input`, `actual_output` and `expected_output`; based on your metric you can  simply compare `input` vs `actual_output` or also do evaluations based on `context`. 
+  In addition to doing evaluations on `input`, `actual_output`, and `expected_output`; based on your metric you can simply compare `input` vs `actual_output` or also do evaluations based on `context`.
 </Note>
-
 
 However, it is recommended to use the test set you have already created and uploaded to the platform. You can query your AI product with the `input` field from the DataFrame and pass the result as the `actual_output`. This ensures consistency and accuracy in your evaluations.
 
@@ -111,11 +115,11 @@ However, it is recommended to use the test set you have already created and uplo
 # Evaluate each query with your model
 for _, row in test_df.iterrows():
     # Get response from your model (implementation depends on your setup)
-    model_response = your_model.generate_response(row["query"])
+    model_response = your_model.generate_response(row["input"])
 
     # Evaluate the response
     galtea.evaluate(
-        metrics=["metric_accuracy.name],
+        metrics=["metric_accuracy.name"],
         evaluation_id=evaluation.id,
         input=row["input"],
         actual_output=model_response,
@@ -126,11 +130,22 @@ for _, row in test_df.iterrows():
   For flexibility, in order to generate the `actual_output`s, we encourage you to launch the test inferences programmatically in your preferred manner. Whereas the actual evaluations are launched asynchronously from the platform, enabling convenient queuing and access to results as they become available. For more information, see [evaluation tasks](concepts/product/evaluation/task).
 </Note>
 
-Now you can see your results in the platform, within the evaluations tab or by doing:
+Now you can see your results on the platform, within the evaluations tab or by doing:
 
 ```python
 evaluation_tasks = galtea.evaluation_tasks.list(evaluation.id)
 print(galtea.evaluation_tasks.get(evaluation_tasks[-1].id))
 ```
 
-Congratulations! You did your first evaluation with **Galtea**, one of many evaluations to come. If you have any questions, you can contact us in [support@galtea.ai](mailto:support@galtea.ai).
+Congratulations! You did your first evaluation with **Galtea**, one of many evaluations to come. If you have any questions, you can contact us at [support@galtea.ai](mailto:support@galtea.ai).
+
+## Related Concepts
+
+<CardGroup cols={3}>
+    <ProductCard />
+    <VersionCard />
+    <TestCard />
+    <EvaluationCard />
+    <EvaluationTaskCard />
+    <MetricTypeCard />
+</CardGroup>
