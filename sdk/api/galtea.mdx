@@ -10,7 +10,7 @@ The `Galtea` class is the main entry point for the Galtea SDK. It provides acces
 
 ### Initialization
 
-To initialize the `Galtea` class, you need to provide your API key.
+To initialize the `Galtea` class, you need to provide your API key obtained in the [settings page](https://platform.galtea.ai/settings) of the Galtea platform.
 
 ```python
 from galtea import Galtea
@@ -19,16 +19,16 @@ from galtea import Galtea
 galtea = Galtea(api_key="YOUR_API_KEY")
 ```
 
-### Methods
+### Services
 
-The `Galtea` class provides the following methods:
+The `Galtea` class provides access to the following services:
 
-- `products`: Access product-related functionalities.
-- `versions`: Access version-related functionalities.
-- `tests`: Access test-related functionalities.
-- `metrics`: Access metric-related functionalities.
-- `evaluations`: Access evaluation-related functionalities.
-- `evaluation_tasks`: Access evaluation task-related functionalities.
+- `products`: Access product-related functionalities through the products service.
+- `versions`: Access version-related functionalities through the versions service.
+- `tests`: Access test-related functionalities through the tests service.
+- `metrics`: Access metric-related functionalities through the metrics service.
+- `evaluations`: Access evaluation-related functionalities through the evaluations service.
+- `evaluation_tasks`: Access evaluation task-related functionalities through the evaluation tasks service.
 
 ### Example
 
@@ -42,8 +42,3 @@ galtea = Galtea(api_key="YOUR_API_KEY")
 products = galtea.products.list()
 print(products)
 ```
-
-### Additional Resources
-
-For more detailed information, refer to the [API Reference](/api-reference) and the [Quickstart Guide](/quickstart).
-
