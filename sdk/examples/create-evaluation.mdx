@@ -51,7 +51,7 @@ print(f"Evaluation score: {task_result.score}")
 
 ## Batch Processing Evaluation Tasks
 
-For efficiency, you can process multiple evaluation tasks at once or **"multiple metrics for a single task"** using a loop and the `galtea.evaluate` method:
+For efficiency, you can process multiple evaluation tasks at once or **"multiple metrics for a single task"** using a loop and the `galtea.evaluation_tasks.create` method:
 
 ```python
 import pandas as pd
@@ -65,7 +65,7 @@ for index, row in test_data.iterrows():
     actual_output = your_product_function(row['input'])
     
     # Run evaluation task
-    galtea.evaluate(
+    galtea.evaluation_tasks.create(
         metrics=["accuracy_v0", "relevance_v0"],
         evaluation_id=evaluation.id,
         input=row['input'],
@@ -76,10 +76,6 @@ for index, row in test_data.iterrows():
 
 print("All evaluation tasks submitted")
 ```
-
-<Info>
-  The `galtea.evaluate` method is a wrapper around the `evaluation_tasks.create` method that formats the output for better readability. It accepts the same parameters as `galtea.evaluation_tasks.create()`.
-</Info>
 
 ## Retrieving Evaluation Results
 
