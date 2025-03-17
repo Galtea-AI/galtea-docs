@@ -35,7 +35,7 @@ Once you've created an evaluation, you can run individual [evaluation tasks](/co
 ```python
 # Run a single evaluation task
 task_result = galtea.evaluation_tasks.create(
-    metric_type="accuracy_v0",
+    metric=["accuracy_v0"],
     evaluation_id=evaluation.id,
     input="What is the capital of Spain?",
     actual_output="Madrid",

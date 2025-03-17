@@ -89,7 +89,7 @@ evaluation = galtea.evaluations.create(
 
 # Evaluate the product with an evaluation task
 galtea.evaluation_tasks.create(
-    metric_type=metric_self_accuracy.name,
+    metric=[metric_self_accuracy.name],
     evaluation_id=evaluation.id,
     input="What is the capital of Spain?",
     actual_output="Barcelona",
