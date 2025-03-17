@@ -43,10 +43,3 @@ galtea = Galtea(api_key="YOUR_API_KEY")
 products = galtea.products.list()
 print(products)
 ```
-
-### Running Evaluation Tasks with logging
-
-The method `evaluate` from the `Galtea` class is both a wrapper and a shortcut for the `create` function from the [`evaluation tasks service`](/sdk/api/evaluation-task-service#create-evaluation-task) that formats the output to make it prettier.
-
-It also accepts the same parameters as the `galtea.evaluation_tasks.create()` function.
-You can see an example of how to use the `galtea.evaluate(...)` method [here](/sdk/examples/create-evaluation#batch-processing-evaluation-tasks).
