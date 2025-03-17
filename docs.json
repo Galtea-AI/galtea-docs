@@ -28,19 +28,6 @@
         ]
       },
       {
-        "tab": "API",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": ["api-reference/introduction"]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": ["api-reference/endpoint/get", "api-reference/endpoint/create", "api-reference/endpoint/delete", "api-reference/endpoint/webhook"]
-          }
-        ]
-      },
-      {
         "tab": "SDK",
         "groups": [
           {
@@ -49,7 +36,7 @@
           },
           {
             "group": "API",
-            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/metrics-service" , "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
+            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
           },
           {
             "group": "Examples",
@@ -76,7 +63,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:info@galtea.ai"
+        "href": "mailto:support@galtea.ai"
       }
     ],
     "primary": {
