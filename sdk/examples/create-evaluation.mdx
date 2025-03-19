@@ -56,6 +56,31 @@ For efficiency, you can process multiple evaluation tasks at once or **"multiple
 ```python
 import pandas as pd
 
+# Load your test cases
+test_cases = galtea.tests_cases.list(test_id="YOUR_TEST_ID")
+
+# Process all test cases
+for test_case in test_cases:
+    # Your product's actual response to the input
+    actual_output = your_product_function(row['input'])
+    
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=["accuracy_v0", "relevance_v0"],
+        evaluation_id=evaluation.id,
+        input=test_case.input,
+        actual_output=actual_output,
+        expected_output=test_case.expected_output,
+        context=test_case.context,
+    )
+
+print("All evaluation tasks submitted")
+```
+### Using custom test file
+
+If you are using a custom test file that does not follow the test cases formats, you can load the test cases from the file and process them in a similar way:
+
+```python
 # Load your test data
 test_data = pd.read_csv("geography_test.csv")
 
@@ -68,12 +93,11 @@ for index, row in test_data.iterrows():
     galtea.evaluation_tasks.create(
         metrics=["accuracy_v0", "relevance_v0"],
         evaluation_id=evaluation.id,
-        input=row['input'],
+        input=row[input],
         actual_output=actual_output,
-        expected_output=row['expected_output'],
-        context=row.get('context', None)
+        expected_output=row[expected_output],
+        context=row[context],
     )
-
 print("All evaluation tasks submitted")
 ```
 

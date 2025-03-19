@@ -19,7 +19,7 @@
           },
           {
             "group": "Concepts",
-            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type"]
+            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test-case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type"]
           },
           {
             "group": "Test Types",
@@ -36,7 +36,7 @@
           },
           {
             "group": "API",
-            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
+            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
           },
           {
             "group": "Examples",
