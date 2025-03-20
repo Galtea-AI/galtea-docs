@@ -30,32 +30,11 @@ This is how to create an evaluation:
 
 ## Running Evaluation Tasks
 
-Once you've created an evaluation, you can run individual [evaluation tasks](/concepts/product/evaluation/task):
+Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
+
+For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
 
 ```python
-# Run a single evaluation task
-task_result = galtea.evaluation_tasks.create(
-    metric=["accuracy_v0"],
-    evaluation_id=evaluation.id,
-    input="What is the capital of Spain?",
-    actual_output="Madrid",
-    expected_output="Madrid"
-)
-
-print(f"Evaluation score: {task_result.score}")
-```
-
-<Note>
-  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
-</Note>
-
-## Batch Processing Evaluation Tasks
-
-For efficiency, you can process multiple evaluation tasks at once or **"multiple metrics for a single task"** using a loop and the `galtea.evaluation_tasks.create` method:
-
-```python
-import pandas as pd
-
 # Load your test cases
 test_cases = galtea.tests_cases.list(test_id="YOUR_TEST_ID")
 
@@ -68,17 +47,20 @@ for test_case in test_cases:
     galtea.evaluation_tasks.create(
         metrics=["accuracy_v0", "relevance_v0"],
         evaluation_id=evaluation.id,
-        input=test_case.input,
+        test_case_id=test_case.id,
         actual_output=actual_output,
-        expected_output=test_case.expected_output,
-        context=test_case.context,
     )
 
 print("All evaluation tasks submitted")
 ```
-### Using custom test file
 
-If you are using a custom test file that does not follow the test cases formats, you can load the test cases from the file and process them in a similar way:
+<Note>
+  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
+</Note>
+
+### Customized Test Cases for Evaluation Tasks
+
+If you want to fully customize the Evaluation Task, maybe because you are using a custom test file that does not follow the test cases formats, you can load the test cases from the file and set them in the evaluation task in a similar way:
 
 ```python
 # Load your test data
@@ -100,6 +82,12 @@ for index, row in test_data.iterrows():
     )
 print("All evaluation tasks submitted")
 ```
+
+<Warning>
+  This method is only recommended for advanced users who need to customize the evaluation tasks. For most cases, using the test cases provided by the test is the best approach.
+
+  Using this will limit the acces to analysis tools and metrics that are available when using the standard test cases.
+</Warning>
 
 ## Retrieving Evaluation Results
 
