@@ -63,11 +63,14 @@ print("All evaluation tasks submitted")
 If you want to fully customize the Evaluation Task, maybe because your Test File does not follow Galtea's format thus the test cases have not been created, you can load the test cases from the file and set them in the evaluation task in a similar way:
 
 ```python
+import pandas as pd
 # Load your test data
-test_data = pd.read_csv("geography_test.csv")
+test = galtea.tests.get(test_id="YOUR_TEST_ID")
+test_file_path = galtea.tests.download(test, "path/to/your/directory")
+df = pd.read_csv(json_file_path)
 
 # Process all test instances
-for index, row in test_data.iterrows():
+for index, row in df.iterrows():
     # Your product's actual response to the input
     actual_output = your_product_function(row['input'])
     
