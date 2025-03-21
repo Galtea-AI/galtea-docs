@@ -15,13 +15,19 @@ An evaluation in Galtea is a link between a specific [version](/concepts/product
 
 <Steps>
   <Step title="Create an Evaluation">Link a specific [version](/concepts/product/version) with a [test](/concepts/product/test) to create an evaluation</Step>
-  <Step title="Execute Evaluation Tasks">For each challenge in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/evaluation/task) to assess performance using different [metric types](/concepts/metric-type)</Step>
+  <Step title="Execute Evaluation Tasks">
+    For each [Test Case](/concepts/product/test/case) in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/evaluation/task) to assess performance using different [metric types](/concepts/metric-type)
+  
+    <Info>
+      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be used with the test case's *input* and *context*, and its *output* should be provided to the [evaluation tasks](/concepts/product/evaluation/task).
+    </Info>
+  </Step>
   <Step title="Review Results">Compare results across different versions of the same product</Step>
 </Steps>
 
 ## Evaluation Tasks
 
-The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single test challenge using specific [metric types](/concepts/metric-type).
+The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric types](/concepts/metric-type).
 
 <Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/evaluation/task">
   Learn more about evaluation tasks
@@ -56,7 +62,7 @@ To create an evaluation in Galtea, you need to specify:
   The unique identifier of the test to be used in the evaluation.
 </ResponseField>
 
-Once an evaluation is created, you can [execute](/concepts/product/evaluation/task) [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test challenges.
+Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test challenges.
 
 ## SDK Integration
 
