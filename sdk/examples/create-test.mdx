@@ -4,6 +4,12 @@ description: "Learn how to create and upload custom tests using the SDK"
 icon: "clipboard-list"
 ---
 
+<Info>
+  Tests can be generated automatically by Galtea providing a knowledge file as shown [here](/sdk/api/test-service#create-test).
+
+  In this guide, we will show you how to create custom [tests](/concepts/product/test), where you can define the [test cases](/concepts/product/test/case).
+</Info>
+
 ## Creating Tests with the SDK
 
 [Tests](/concepts/product/test) group the [test cases](/concepts/product/test/case) that will evaluate your [product's](/concepts/product) performance. The Galtea SDK provides methods to create both [quality tests](/concepts/product/test/quality-tests) and [red teaming tests](/concepts/product/test/red-teaming-tests).
@@ -29,9 +35,11 @@ icon: "clipboard-list"
     print(f"Test created with ID: {test.id}")
     ```
 
-    <Info>
-      The test file should follow the appropriate structure for either [quality tests](/concepts/product/test/quality-tests) or [red teaming tests](/concepts/product/test/red-teaming-tests).
-    </Info>
+    <Warning>
+      The test file should follow the appropriate structure for either [quality tests](/concepts/product/test/quality-tests#example-quality-tests-and-file-format) or [red teaming tests](/concepts/product/test/red-teaming-tests#example-red-teaming-tests-and-file-format).
+    
+      If the file is not correctly formatted, the test cases will not be created. But they can be created manually following [this example](/sdk/api/test-case-service#create-test-case).
+    </Warning>
   </Tab>
 
   <Tab title="Create Test From Scratch">
@@ -51,14 +59,14 @@ icon: "clipboard-list"
             "input": "What is the capital of France?", 
             "expected_output": "Paris",
             "tag": "geography",
-            "context": "N/A"
+            "context": ""
         },
         {
             "instance_id": 1,
             "input": "What is the capital of Spain?", 
             "expected_output": "Madrid",
             "tag": "geography",
-            "context": "N/A"
+            "context": ""
         }
     ]
 
@@ -79,7 +87,9 @@ icon: "clipboard-list"
     ```
 
     <Warning>
-      Make sure your test data follows the correct structure as specified in the [quality tests](/concepts/product/test/quality-tests) or [red teaming tests](/concepts/product/test/red-teaming-tests) documentation.
+      Make sure your test data follows the correct structure as specified in the [quality tests](/concepts/product/test/quality-tests#example-quality-tests-and-file-format) or [red teaming tests](/concepts/product/test/red-teaming-tests#example-red-teaming-tests-and-file-format) documentation.
+      
+      If the file is not correctly formatted, the test cases will not be created. But they can be created manually following [this example](/sdk/api/test-case-service#create-test-case).
     </Warning>
   </Tab>
 </Tabs>

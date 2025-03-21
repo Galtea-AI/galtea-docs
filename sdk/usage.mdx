@@ -87,14 +87,21 @@ evaluation = galtea.evaluations.create(
     version_id=version.id
 )
 
-# Evaluate the product with an evaluation task
-galtea.evaluation_tasks.create(
-    metrics=[metric_self_accuracy.name],
-    evaluation_id=evaluation.id,
-    input="What is the capital of Spain?",
-    actual_output="Barcelona",
-    expected_output="Madrid"
-)
+# Get test cases from the test
+test_cases = galtea.tests_cases.list(test_id=test.id)
+
+# Run evaluation tasks for each test case
+for test_case in test_cases:
+    # Your product's actual response to the input
+    actual_output = your_product_function(test_case.input, test_case.context)
+    
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=[metric_self_accuracy.name],
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=actual_output
+    )
 ```
 
 <Info>
