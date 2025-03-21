@@ -38,14 +38,14 @@ For efficiency, you can process *multiple evaluation tasks at once* using a loop
 # Load your test cases
 test_cases = galtea.tests_cases.list(test_id="YOUR_TEST_ID")
 
-# Process all test cases
+# Evaluate all test cases
 for test_case in test_cases:
     # Your product's actual response to the input
-    actual_output = your_product_function(row['input'])
+    actual_output = your_product_function(test_cases.input, test_cases.context)
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["accuracy_v0", "relevance_v0"],
+        metrics=["accuracy_v1", "relevance_v1"],
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=actual_output,
@@ -73,7 +73,7 @@ for index, row in test_data.iterrows():
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["accuracy_v0", "relevance_v0"],
+        metrics=["accuracy_v1", "relevance_v1"],
         evaluation_id=evaluation.id,
         input=row[input],
         actual_output=actual_output,

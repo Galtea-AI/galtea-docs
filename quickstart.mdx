@@ -7,6 +7,7 @@ icon: "rocket"
 import ProductCard from '/snippets/cards/product-card.mdx';
 import VersionCard from '/snippets/cards/version-card.mdx';
 import TestCard from '/snippets/cards/test-card.mdx';
+import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
@@ -65,8 +66,16 @@ After creating your product, we recommend to use the [Galtea SDK](/sdk) to progr
     ```sh
     pip install galtea
     ```
+
+    <Card title="SDK Installation Guide" icon="cube" href="/sdk/installation">
+      For detailed installation instructions and requirements
+    </Card>
+
   </Step>
   <Step title="Connect to the platform">
+
+    Using the [Galtea](/sdk/api/galtea) SDK object, you can easily connect to the platform:
+
     ```python
     from galtea import Galtea
     
@@ -78,10 +87,6 @@ After creating your product, we recommend to use the [Galtea SDK](/sdk) to progr
     ```
   </Step>
 </Steps>
-
-<Card title="SDK Installation Guide" icon="cube" href="/sdk/installation">
-  For detailed installation instructions and requirements
-</Card>
 
 ## 3. Register a Version
 
@@ -97,6 +102,10 @@ version = galtea.versions.create(
     }
 )
 ```
+
+<Note>
+  The product's ID can be found in the product's page in the [Galtea platform](https://platform.galtea.ai/) or by [listing products](/sdk/api/product-service#listing-products) using the SDK.
+</Note>
 
 <Info>
   You can create versions using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/) dashboard.
@@ -145,7 +154,7 @@ Metrics in Galtea define the criteria by which your product's outputs will be ev
 
 ```python
 metric = galtea.metrics.create(
-    name="accuracy_v0",
+    name="accuracy_v1",
     criteria="Determine whether the actual output is equivalent to the expected output."
 )
 ```
@@ -165,18 +174,25 @@ Finally, you're ready to launch an [evaluation](/concepts/product/evaluation) to
 ```python
 # Create an evaluation
 evaluation = galtea.evaluations.create(
-    test_id="YOUR_TEST_ID", 
-    version_id="YOUR_VERSION_ID"
+    test_id=test.id,
+    version_id=version.id
 )
 
-# Run an evaluation task
-galtea.evaluation_tasks.create(
-    metrics=["accuracy_v0"],
-    evaluation_id=evaluation.id,
-    input="What is the capital of Spain?",
-    actual_output="Barcelona",  # From your AI product
-    expected_output="Madrid"    # From test definition
-)
+# Load your test cases
+test_cases = galtea.tests_cases.list(test_id=test.id)
+
+# Evaluate all test cases
+for test_case in test_cases:
+    # Your product's actual response to the input
+    actual_output = your_product_function(test_cases.input, test_cases.context)
+    
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=["accuracy_v1"],
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=actual_output,
+    )
 ```
 
 <Info>
@@ -184,16 +200,18 @@ galtea.evaluation_tasks.create(
 </Info>
 
 <Note>
-  For real evaluations, you'll typically run your AI product against all inputs in your test set. The platform will asynchronously evaluate responses and make results available through the dashboard or SDK. For more information, see [evaluation tasks](/concepts/product/evaluation/task).
+  For real evaluations, you'll typically run your AI product against all sets of inputs and context in your test cases and then launch an Evaluation Task for each.
+  
+  The platform will asynchronously evaluate responses and make results available through the dashboard and the SDK. For more information, see [evaluation tasks](/concepts/product/evaluation/task).
 </Note>
 
 <Card title="Run Evaluations" icon="badge-check" href="/sdk/examples/create-evaluation">
   See complete examples of running and analyzing evaluations
 </Card>
 
-## View Results
+## 7. View Results
 
-You can view evaluation results through the SDK or on the platform:
+You can view evaluation results through the SDK or on the [Galtea platform](https://platform.galtea.ai/):
 
 ```python
 # Retrieve evaluation tasks
@@ -214,6 +232,7 @@ Congratulations! You've completed your first evaluation with Galtea. For more de
     <ProductCard />
     <VersionCard />
     <TestCard />
+    <TestCaseCard />
     <EvaluationCard />
     <EvaluationTaskCard />
     <MetricTypeCard />
