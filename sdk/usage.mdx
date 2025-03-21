@@ -41,7 +41,7 @@ version = galtea.versions.create(
 
 ### Creating a Test
 
-With a [Test](/concepts/product/test) you define the challenges to evaluate your [product](/concepts/product).
+With a [Test](/concepts/product/test) you define the [test cases](/concepts/product/test/case) to evaluate your [product](/concepts/product).
 You can create [quality](/concepts/product/test/quality-tests) or [red teaming](/concepts/product/test/red-teaming-tests) tests depending on your evaluation needs.
 
 ```python
@@ -78,7 +78,7 @@ metric_self_accuracy = galtea.metrics.create(
 ### Launching an Evaluation
 
 [Evaluations](/concepts/product/evaluation) link a specific [version](/concepts/product/version) of a [product](/concepts/product) with a [test](/concepts/product/test).
-You can then execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the [product](/concepts/product) [version](/concepts/product/version) against the [test](/concepts/product/test) challenges using a specific [metric type](/concepts/metric-type) criteria.
+You can then execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the [product](/concepts/product) [version](/concepts/product/version) against the [test cases](/concepts/product/test/case) using a specific [metric type](/concepts/metric-type) criteria.
 
 ```python
 # Create an evaluation
