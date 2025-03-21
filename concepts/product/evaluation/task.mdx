@@ -1,27 +1,28 @@
 ---
 title: "Evaluation Task"
-description: "The assessment of a specific test challenge using a metric type"
+description: "The assessment of a specific test case using a metric type"
 icon: "clipboard-check"
 iconType: "solid"
 ---
 
 import TestCard from '/snippets/cards/test-card.mdx';
+import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
 import SDKEvaluationTaskServiceCard from '/snippets/cards/sdk-evaluation-task-service-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of a single challenge from a [test](/concepts/product/test) using a specific  evaluation criteria. Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
+An evaluation task in Galtea represents the assessment of a single [test case](/concepts/product/test/case) from a [test](/concepts/product/test) using a specific [evaluation criteria](/concepts/metric-type). Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
 
-<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the input and the resulting output.</Note>
+<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the input (provided by the test case) and the resulting output.</Note>
 
 ## Task Lifecycle
 
 Evaluation tasks follow a specific lifecycle:
 
 <Steps>
-  <Step title="Inference">Perform inference on the LLM product to generate an output using the test's input and context</Step>
+  <Step title="Inference">Perform inference on the LLM product to generate an output using the test case's input and context</Step>
   <Step title="Creation">[Trigger an evaluation task](/sdk/examples/create-evaluation). It will appear in the Evaluation's details page with the status "pending"</Step>
   <Step title="Processing">Galtea's evaluation system processes the task using evaluation criteria of the selected metric type</Step>
   <Step title="Completion">Once processed, the status changes to "completed" and the [results](#task-results-properties) are available</Step>
@@ -31,6 +32,7 @@ Evaluation tasks follow a specific lifecycle:
 
 <CardGroup cols={3}>
   <TestCard />
+  <TestCaseCard />
   <EvaluationCard />
   <MetricTypeCard />
 </CardGroup>
@@ -47,36 +49,18 @@ To trigger an evaluation task in Galtea, you'll need to provide the following in
   The unique identifier of the evaluation that the task is part of.
 </ResponseField>
 
-<ResponseField name="Metric Type" type="ID (text)" required>
-  The unique identifier of the metric type to be used in the evaluation task.
-  <Info>The SDK allows you to use the metric type's name instead of the ID.</Info>
-</ResponseField>
-
-<ResponseField name="Input" type="String" required>
-  The input data used for inference on the LLM product's version. **Example**: "How much does the iPhone 16 cost?"
-  <Note>
-    The *input* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
-  </Note>
+<ResponseField name="Test Case" type="ID (text)" required>
+  The unique identifier of the test case to be evaluated.
 </ResponseField>
 
 <ResponseField name="Actual Output" type="String" required>
   The actual output produced by the product's version. **Example**: "The iPhone 16 costs $950."
 </ResponseField>
 
-<ResponseField name="Expected Output" type="String">
-  The expected output for the evaluation task, extracted from the test file. **Example**: "The iPhone 16 costs $999."
-  <Note>
-    The *expected output* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
-  </Note>
+<ResponseField name="Metric Type" type="ID (text)" required>
+  The unique identifier of the metric type to be used in the evaluation task.
+  <Info>The SDK allows you to use the metric type's name instead of the ID.</Info>
 </ResponseField>
-
-<ResponseField name="Context" type="String">
-  Additional context provided to the product's version upon inference. **Example**: "[product catalog]"
-  <Note>
-    The *context* should be the same across all [evaluations](/concepts/product/evaluation) linked to the same [test](/concepts/product/test) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
-  </Note>
-</ResponseField>
-
 ## Task Results Properties
 
 Once an evaluation task is completed, you can access the following information:
