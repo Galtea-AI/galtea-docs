@@ -9,12 +9,12 @@ import SDKTestCaseServiceCard from '/snippets/cards/sdk-test-case-service-card.m
 
 ## What is a Test Case?
 
-A test case in Galtea is a single challenge designed to evaluate the performance of a [product](/concepts/product).
-It represents a specific input sent to an AI model that can be used to assess the product's capabilities.
+A test case in Galtea is a challenge designed to evaluate the performance of a [product](/concepts/product).
+It represents a specific *input* and *context* sent to an AI model alongside an expected *output* that can be used to assess the product's capabilities.
 
-## Using Tests Cases in Evaluations
+## Using Test Cases in Evaluations
 
-Tests cases are used for [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of specific [versions](/concepts/product/version) of your product. 
+Test cases are used with [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of specific [versions](/concepts/product/version) of your product. 
 
 <Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
   Learn how to use tests in evaluations
@@ -41,7 +41,7 @@ When creating a test case in Galtea, you'll need to provide the following inform
 </ResponseField>
 
 <ResponseField name="context" type="string">
-  The context for the test case. This is the additional information that can help the model generate the expected output.
+  The context for the test case. This is the additional information that can help the model generate the expected output, also sent to your product's model alongside the input.
 </ResponseField>
 
 <ResponseField name="tag" type="string">
