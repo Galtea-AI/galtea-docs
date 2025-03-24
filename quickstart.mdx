@@ -171,6 +171,12 @@ metric = galtea.metrics.create(
 
 Finally, you're ready to launch an [evaluation](/concepts/product/evaluation) to assess how well your product version performs against the test cases:
 
+<Note>
+  For real evaluations, you'll typically run your AI product against all sets of inputs and context in your test cases and then launch an Evaluation Task for each.
+  
+  The platform will asynchronously evaluate responses and make results available through the dashboard and the SDK. For more information, see [evaluation tasks](/concepts/product/evaluation/task).
+</Note>
+
 ```python
 # Create an evaluation
 evaluation = galtea.evaluations.create(
@@ -198,12 +204,6 @@ for test_case in test_cases:
 <Info>
   Evaluations can be created using either the SDK or the [Galtea platform](https://platform.galtea.ai/) dashboard, but evaluation tasks can only be created through the SDK.
 </Info>
-
-<Note>
-  For real evaluations, you'll typically run your AI product against all sets of inputs and context in your test cases and then launch an Evaluation Task for each.
-  
-  The platform will asynchronously evaluate responses and make results available through the dashboard and the SDK. For more information, see [evaluation tasks](/concepts/product/evaluation/task).
-</Note>
 
 <Card title="Run Evaluations" icon="badge-check" href="/sdk/examples/create-evaluation">
   See complete examples of running and analyzing evaluations
