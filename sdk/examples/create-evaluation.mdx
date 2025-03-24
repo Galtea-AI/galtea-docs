@@ -4,7 +4,7 @@ description: "Learn how to create and run evaluations using the SDK"
 icon: "badge-check"
 ---
 
-[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test](/concepts/product/test) challenges by running individual [evaluation tasks](/concepts/product/evaluation/task).
+[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
 
 ## Creating an Evaluation
 
@@ -30,52 +30,67 @@ This is how to create an evaluation:
 
 ## Running Evaluation Tasks
 
-Once you've created an evaluation, you can run individual [evaluation tasks](/concepts/product/evaluation/task):
+Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
+
+For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
 
 ```python
-# Run a single evaluation task
-task_result = galtea.evaluation_tasks.create(
-    metric=["accuracy_v0"],
-    evaluation_id=evaluation.id,
-    input="What is the capital of Spain?",
-    actual_output="Madrid",
-    expected_output="Madrid"
-)
+# Load your test cases
+test_cases = galtea.tests_cases.list(test_id="YOUR_TEST_ID")
 
-print(f"Evaluation score: {task_result.score}")
+# Evaluate all test cases
+for test_case in test_cases:
+    # Your product's actual response to the input
+    actual_output = your_product_function(test_cases.input, test_cases.context)
+    
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=["accuracy_v1", "relevance_v1"],
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=actual_output,
+    )
+
+print("All evaluation tasks submitted")
 ```
 
 <Note>
   The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
 </Note>
 
-## Batch Processing Evaluation Tasks
+### Customized Test Cases for Evaluation Tasks
 
-For efficiency, you can process multiple evaluation tasks at once or **"multiple metrics for a single task"** using a loop and the `galtea.evaluation_tasks.create` method:
+If you want to fully customize the Evaluation Task, maybe because your Test File does not follow Galtea's format thus the test cases have not been created, you can load the test cases from the file and set them in the evaluation task in a similar way:
 
 ```python
 import pandas as pd
-
 # Load your test data
-test_data = pd.read_csv("geography_test.csv")
+test = galtea.tests.get(test_id="YOUR_TEST_ID")
+test_file_path = galtea.tests.download(test, "path/to/your/directory")
+df = pd.read_csv(json_file_path)
 
 # Process all test instances
-for index, row in test_data.iterrows():
+for index, row in df.iterrows():
     # Your product's actual response to the input
     actual_output = your_product_function(row['input'])
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["accuracy_v0", "relevance_v0"],
+        metrics=["accuracy_v1", "relevance_v1"],
         evaluation_id=evaluation.id,
-        input=row['input'],
+        input=row[input],
         actual_output=actual_output,
-        expected_output=row['expected_output'],
-        context=row.get('context', None)
+        expected_output=row[expected_output],
+        context=row[context],
     )
-
 print("All evaluation tasks submitted")
 ```
+
+<Warning>
+  This method is only recommended for advanced users who need to customize the evaluation tasks. For most cases, using the test cases provided by the test is the best approach.
+
+  Using this will limit the acces to analysis tools and metrics that are available when using the standard test cases.
+</Warning>
 
 ## Retrieving Evaluation Results
 

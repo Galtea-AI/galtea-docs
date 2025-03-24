@@ -41,7 +41,7 @@ version = galtea.versions.create(
 
 ### Creating a Test
 
-With a [Test](/concepts/product/test) you define the challenges to evaluate your [product](/concepts/product).
+With a [Test](/concepts/product/test) you define the [test cases](/concepts/product/test/case) to evaluate your [product](/concepts/product).
 You can create [quality](/concepts/product/test/quality-tests) or [red teaming](/concepts/product/test/red-teaming-tests) tests depending on your evaluation needs.
 
 ```python
@@ -66,7 +66,7 @@ You can create custom [Metric Types](/concepts/metric-type) tailored to your spe
 ```python
 # Create a metric type
 metric_self_accuracy = galtea.metrics.create(
-    name="accuracy_v0",
+    name="accuracy_v1",
     criteria="Determine whether the actual output is equivalent to the expected output."
 )
 ```
@@ -78,7 +78,7 @@ metric_self_accuracy = galtea.metrics.create(
 ### Launching an Evaluation
 
 [Evaluations](/concepts/product/evaluation) link a specific [version](/concepts/product/version) of a [product](/concepts/product) with a [test](/concepts/product/test).
-You can then execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the [product](/concepts/product) [version](/concepts/product/version) against the [test](/concepts/product/test) challenges using a specific [metric type](/concepts/metric-type) criteria.
+You can then execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the [product](/concepts/product) [version](/concepts/product/version) against the [test cases](/concepts/product/test/case) using a specific [metric type](/concepts/metric-type) criteria.
 
 ```python
 # Create an evaluation
@@ -87,14 +87,21 @@ evaluation = galtea.evaluations.create(
     version_id=version.id
 )
 
-# Evaluate the product with an evaluation task
-galtea.evaluation_tasks.create(
-    metric=[metric_self_accuracy.name],
-    evaluation_id=evaluation.id,
-    input="What is the capital of Spain?",
-    actual_output="Barcelona",
-    expected_output="Madrid"
-)
+# Get test cases from the test
+test_cases = galtea.tests_cases.list(test_id=test.id)
+
+# Run evaluation tasks for each test case
+for test_case in test_cases:
+    # Your product's actual response to the input
+    actual_output = your_product_function(test_case.input, test_case.context)
+    
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=[metric_self_accuracy.name],
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=actual_output
+    )
 ```
 
 <Info>

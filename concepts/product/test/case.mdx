@@ -1,0 +1,49 @@
+---
+title: "Test Case"
+description: "A single challenge for evaluating product performance"
+icon: "list"
+iconType: "solid"
+---
+
+import SDKTestCaseServiceCard from '/snippets/cards/sdk-test-case-service-card.mdx';
+
+## What is a Test Case?
+
+A test case in Galtea is a challenge designed to evaluate the performance of a [product](/concepts/product).
+It represents a specific *input* and *context* sent to an AI model alongside an expected *output* that can be used to assess the product's capabilities.
+
+## Using Test Cases in Evaluations
+
+Test cases are used with [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of specific [versions](/concepts/product/version) of your product. 
+
+<Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
+  Learn how to use tests in evaluations
+</Card>
+
+## SDK Integration
+
+<SDKTestCaseServiceCard />
+
+## Test Case Properties
+
+When creating a test case in Galtea, you'll need to provide the following information:
+
+<ResponseField name="test_id" type="string" required>
+  The ID of the test you want to create the test case for.
+</ResponseField>
+
+<ResponseField name="input" type="string" required>
+  The input data used for inference on the LLM product's version. **Example**: "How much does the iPhone 16 cost?"
+</ResponseField>
+
+<ResponseField name="expected_output" type="string">
+  The expected output for the evaluation task, extracted from the test file. **Example**: "The iPhone 16 costs $999."
+</ResponseField>
+
+<ResponseField name="context" type="string">
+  Additional context provided to the product's version upon inference alongside the input. **Example**: "[product catalog]"
+</ResponseField>
+
+<ResponseField name="tag" type="string">
+  The tag for the test case. This is a label that can help you categorize or identify the test case.
+</ResponseField>
