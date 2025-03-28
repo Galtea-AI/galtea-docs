@@ -1,0 +1,94 @@
+---
+title: 'GitHub Actions'
+description: "Learn how to integrate Galtea's evaluation capabilities into your GitHub Actions workflow"
+icon: "code-compare"
+---
+
+## Initial Setup
+
+<Note>
+    To initialize the `Galtea` class, you need to provide your API key obtained in the [settings page](https://platform.galtea.ai/settings) of the Galtea platform.
+</Note>
+
+
+Before you can use GitHub Actions with Galtea, you need to perform some credentials and variables configuration:
+
+- **Configure Repository Secrets and Variables**
+   - Go to your repository's "Settings" tab
+   - Navigate to "Secrets and variables" > "Actions"
+   - Add the following:
+     - Secret: `GALTEA_API_KEY` - Your Galtea API key
+     - Variable: `GALTEA_PRODUCT_ID` - Your Galtea Product ID
+   - Click "Add" after each entry
+
+## Dependencies
+
+Create a `requirements.txt` file in your repository and add the following dependencies:
+
+```txt
+galtea
+python-dotenv
+```
+
+## Create your GitHub Action
+
+Create a `.github/workflows/evaluate.yml` file in your repository with the following content:
+
+```yml
+name: Galtea Evaluation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  evaluate:
+    env:
+      GALTEA_API_KEY: ${{ secrets.GALTEA_API_KEY }}
+      GALTEA_PRODUCT_ID: ${{ vars.GALTEA_PRODUCT_ID }}
+      GITHUB_SHA: ${{ github.sha }}
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v4
+
+     - name: Setup Python
+       uses: actions/setup-python@v5
+       with:
+         python-version: '3.10'
+
+     - name: Install dependencies
+       run: |
+        pip install -r requirements.txt
+
+     - name: Run Evaluation
+       run: |
+        python test-script.py
+```
+
+## Create your Test Script
+
+Create a `test-script.py` file in your repository with the following content:
+
+```python
+from galtea import Galtea
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+
+version_name = f"version-{os.getenv('GITHUB_SHA')}"
+product_id = os.getenv("GALTEA_PRODUCT_ID")
+
+print("version_name", version_name)
+print("product_id", product_id)
+
+products = galtea.products.list()
+print(products)
+```
+
+
+> **Success!** 🎉 Your GitHub Actions workflow is now configured to run evaluations with Galtea. Each time you push changes, it will automatically evaluate your product using the latest version of your code.
