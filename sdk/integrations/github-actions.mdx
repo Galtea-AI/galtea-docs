@@ -25,7 +25,7 @@ Before you can use GitHub Actions with Galtea, you need to perform some credenti
 
 Create a `requirements.txt` file in your repository and add the dependencies required for your project. At minimum, you'll need galtea library:
 
-```txt
+```txt requirements.txt
 galtea
 python-dotenv
 ```
@@ -34,7 +34,7 @@ python-dotenv
 
 Create a `.github/workflows/evaluate.yml` file in your repository with the following content:
 
-```yml
+```yml .github/workflows/evaluate.yml
 name: Galtea Evaluation
 
 on:
@@ -64,14 +64,14 @@ jobs:
 
      - name: Run Evaluation
        run: |
-        python test-script.py
+        python evaluate.py
 ```
 
 ## Create your Test Script
 
-Create a `test-script.py` file in your repository with the following content:
+Create a `evaluate.py` file in your repository with the following content:
 
-```python
+```python evaluate.py
 from galtea import Galtea
 from dotenv import load_dotenv
 import os
