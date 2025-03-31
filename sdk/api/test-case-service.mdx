@@ -51,7 +51,7 @@ test_case = galtea.tests_cases.create(
 This method allows you to list all tests associated with a specific product.
 
 ```python
-tests = galtea.tests.list(test_id="YOUR_TEST_ID")
+tests = galtea.test_cases.list(test_id="YOUR_TEST_ID")
 ```
 <ResponseField name="test_id" type="string" required>
   The ID of the test you want to get the test cases from.
@@ -62,7 +62,7 @@ tests = galtea.tests.list(test_id="YOUR_TEST_ID")
 This method allows you to retrieve a specific test case by its ID.
 
 ```python
-test_case = galtea.tests.get(test_case_id="YOUR_TEST_ID")
+test_case = galtea.test_cases.get(test_case_id="YOUR_TEST_ID")
 ```
 <ResponseField name="test_case_id" type="string" required>
   The ID of the test case you want to retrieve.
@@ -73,7 +73,7 @@ test_case = galtea.tests.get(test_case_id="YOUR_TEST_ID")
 This method allows you to delete a specific test by its ID.
 
 ```python
-galtea.tests.delete(test_case_id="YOUR_TEST_ID")
+galtea.test_cases.delete(test_case_id="YOUR_TEST_ID")
 ```
 
 <ResponseField name="test_case_id" type="string" required>
