@@ -77,6 +77,20 @@ version = galtea.versions.get(version_id="YOUR_VERSION_ID")
   The ID of the version you want to retrieve.
 </ResponseField>
 
+## Retrieving Version By Name
+
+This method allows you to retrieve a specific version by its name.
+
+```python
+galtea.versions.get_by_name(product_id="YOUR_PRODUCT_ID", name="YOUR_VERSION_NAME")
+```
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to retrieve the version.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  The name of the version you want to retrieve.
+</ResponseField>
 
 ## Deleting Version
 

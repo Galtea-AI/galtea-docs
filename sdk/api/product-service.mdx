@@ -43,6 +43,16 @@ product = galtea.products.get(product_id="YOUR_PRODUCT_ID")
   The ID of the product you want to retrieve.
 </ResponseField>
 
+## Retrieving Product By Name
+This method allows you to retrieve a specific product by its name.
+
+```python
+product = galtea.products.get_by_name(name="YOUR_PRODUCT_NAME")
+```
+<ResponseField name="name" type="string" required>
+  The name of the product you want to retrieve.
+</ResponseField>
+
 ## Deleting Product
 
 This method allows you to delete a specific product by its ID.

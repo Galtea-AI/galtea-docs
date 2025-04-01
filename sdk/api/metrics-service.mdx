@@ -59,6 +59,16 @@ metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
   The ID of the metric you want to retrieve.
 </ResponseField>
 
+## Retrieving Metric By Name
+This method allows you to retrieve a specific metric by its name.
+
+```python
+metric = galtea.metrics.get_by_name(name="YOUR_METRIC_NAME")
+```
+<ResponseField name="name" type="string" required>
+  The name of the metric you want to retrieve.
+</ResponseField>
+
 ## Deleting Metric
 
 This method allows you to delete a specific metric by its ID.
