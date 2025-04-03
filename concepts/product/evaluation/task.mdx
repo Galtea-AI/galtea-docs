@@ -5,11 +5,11 @@ icon: "clipboard-check"
 iconType: "solid"
 ---
 
-import TestCard from '/snippets/cards/test-card.mdx';
-import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
 import SDKEvaluationTaskServiceCard from '/snippets/cards/sdk-evaluation-task-service-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 
 ## What is an Evaluation Task?
 
@@ -57,10 +57,18 @@ To trigger an evaluation task in Galtea, you'll need to provide the following in
   The actual output produced by the product's version. **Example**: "The iPhone 16 costs $950."
 </ResponseField>
 
+<ResponseField name="Retrieval Context" type="List[String]">
+  The context documents retrieved by a RAG (Retrieval-Augmented Generation) system that were used to generate the actual output.
+  <Note>
+    This field is only relevant for products that use retrieval-augmented generation.
+  </Note>
+</ResponseField>
+
 <ResponseField name="Metric Type" type="ID (text)" required>
   The unique identifier of the metric type to be used in the evaluation task.
   <Info>The SDK allows you to use the metric type's name instead of the ID.</Info>
 </ResponseField>
+
 ## Task Results Properties
 
 Once an evaluation task is completed, you can access the following information:
