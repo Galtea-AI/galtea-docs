@@ -88,6 +88,11 @@ evaluation_task = galtea.evaluation_tasks.create(
   <Note>
     The cost is calculated based on the pricing model of the LLM provider, ensure to check it and input the real numbers for accurate estimations.
   </Note>
+  <Warning>
+    If the cost information is properly configured in the [Model](/concepts/model) selected by the used [Version](/concepts/product/version), the system will automatically calculate the cost of the evaluation task and the `cost_info` does not need to be provided.
+
+    However, if the `cost_info` is provided, it will override the system's calculation.
+  </Warning>
 </ResponseField>
 
 <Warning>
