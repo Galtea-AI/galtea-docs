@@ -48,6 +48,15 @@ evaluation_task = galtea.evaluation_tasks.create(
   The actual output produced by the product.
 </ResponseField>
 
+<ResponseField name="retrieval_context" type="list[string]">
+  The context retrieved by your RAG system that was used to generate the actual output.
+  This allows evaluation of retrieval quality in RAG systems.
+  <Note>
+    Including retrieval context enables more comprehensive evaluation of RAG systems,
+    allowing for assessment of both retrieval and generation capabilities.
+  </Note>
+</ResponseField>
+
 <ResponseField name="latency" type="float">
   Time lapsed (in ms) from the moment the request was sent to the LLM to the moment the response was received.
   <Note>
