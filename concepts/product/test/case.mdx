@@ -41,9 +41,17 @@ When creating a test case in Galtea, you'll need to provide the following inform
 </ResponseField>
 
 <ResponseField name="context" type="string">
-  Additional context provided to the product's version upon inference alongside the input. **Example**: "[product catalog]"
+  Additional context provided to the product's version upon inference alongside the input. **Example**: "[previous messages of the conversation]"
+
+  It is test-case-specific and provides context to the model. Do not mistake for the system prompt/few-shot examples; those should be defined in the product's [version](/concepts/product/version) unless they change on an interaction basis.
 </ResponseField>
 
 <ResponseField name="tag" type="string">
   The tag for the test case. This is a label that can help you categorize or identify the test case.
+</ResponseField>
+
+<ResponseField name="source" type="string">
+  The original source text used to create the test case. This field is particularly useful for tracing the origin of the information used in the test case.
+
+  Typically, this is only filled if the test case is created by Galtea's [Test Case Generator](/sdk/api/test-service#create-test), but you can also use it to provide the source of the test case if you created it manually.
 </ResponseField>
