@@ -67,7 +67,8 @@ You can create custom [Metric Types](/concepts/metric-type) tailored to your spe
 # Create a metric type
 metric_self_accuracy = galtea.metrics.create(
     name="accuracy_v1",
-    criteria="Determine whether the actual output is equivalent to the expected output."
+    criteria="Determine whether the 'actual output' is equivalent to the 'expected output'."
+    evaluation_parameters=["input", "expected output", "actual output"],
 )
 ```
 
@@ -92,15 +93,19 @@ test_cases = galtea.tests_cases.list(test_id=test.id)
 
 # Run evaluation tasks for each test case
 for test_case in test_cases:
+    # Retrieve relevant context for RAG. This may not apply to all products.
+    retrieval_context = your_retriever_function(test_case.input)
+    
     # Your product's actual response to the input
-    actual_output = your_product_function(test_case.input, test_case.context)
+    actual_output = your_product_function(test_case.input, test_case.context, retrieval_context)
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
         metrics=[metric_self_accuracy.name],
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
-        actual_output=actual_output
+        actual_output=actual_output,
+        retrieval_context=[retrieval_context], 
     )
 ```
 
