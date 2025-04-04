@@ -20,6 +20,7 @@ This method allows you to create a metric.
 metric = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the actual output is equivalent to the expected output."
+    evaluation_parameters=["input", "expected output", "actual output"],
 )
 ```
 
@@ -39,16 +40,19 @@ metric = galtea.metrics.create(
 </ResponseField>
 
 <ResponseField name="evaluation_parameters" type="list[string]">
-  The evaluation parameters for the metric. possible values are:
-  - **input**: The original query or prompt sent to your product
+  The evaluation parameters that have been used to formulate the criteria or evaluation steps. possible values are:
+  - **input**: The original query or prompt sent to your product. This should always be provided.
   - **expected output**: The expected output or ideal response for the test case
   - **actual output**: The actual output produced by the product
   - **retrieval context**: The context retrieved by your RAG system that was used to generate the actual output
   - **context**: Additional background information provided with the input and related to the grodun truth
   <Note>
-    Available parameters that can be referenced in your evaluation criteria or steps to perform consistent assessments. Each parameter represents a specific component of the evaluation process that will be analyzed during metric calculation.
-    If not provided, only "input" will be used.
+    "Input will always need to be part of the evaluation params.
   </Note>
+
+  <Info>
+    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the **Actual Output** contains factually correct information that aligns with verified sources in the **Retrieval Context**."
+  </Info>
 </ResponseField>
 
 ## Listing Metrics

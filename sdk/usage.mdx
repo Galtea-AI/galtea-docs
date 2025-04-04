@@ -67,7 +67,8 @@ You can create custom [Metric Types](/concepts/metric-type) tailored to your spe
 # Create a metric type
 metric_self_accuracy = galtea.metrics.create(
     name="accuracy_v1",
-    criteria="Determine whether the actual output is equivalent to the expected output."
+    criteria="Determine whether the 'actual output' is equivalent to the 'expected output'."
+    evaluation_parameters=["input", "expected output", "actual output"],
 )
 ```
 
