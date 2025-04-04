@@ -18,6 +18,10 @@
             "pages": ["introduction", "registration", "quickstart"]
           },
           {
+            "group": "Playbooks",
+            "pages": ["playbooks/rag-eval", "playbooks/robustness-fairness", "playbooks/costs-latency-tracking"]
+          },
+          {
             "group": "Concepts",
             "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
           },

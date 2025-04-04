@@ -11,6 +11,9 @@ import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
+import RobustnessFairnessCard from '/snippets/cards/playbooks/robustness-fairness-card.mdx';
+import RAGCard from '/snippets/cards/playbooks/rag-card.mdx';
+import PerformanceCard from '/snippets/cards/playbooks/cost-latency-card.mdx';
 
 This guide will walk you through the essential steps to begin evaluating and monitoring the reliability of your AI products with Galtea.
 
@@ -227,7 +230,15 @@ For richer analysis and comparisons between versions, visit the Analytics sectio
 
 ## Next Steps
 
-Congratulations! You've completed your first evaluation with Galtea. For more detailed information:
+Congratulations! You've completed your first evaluation with Galtea. For more specialized tasks and explanations, check out our playbooks:
+
+<CardGroup cols={3}>
+  <RAGCard />
+  <RobustnessFairnessCard />
+  <PerformanceCard />
+</CardGroup>
+
+For more detailed information:
 
 <CardGroup cols={3}>
     <ProductCard />
