@@ -41,6 +41,10 @@
           {
             "group": "Examples",
             "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation"]
+          },
+          {
+            "group": "Integrations",
+            "pages": ["sdk/integrations/github-actions"]
           }
         ]
       }
