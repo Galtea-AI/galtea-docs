@@ -88,6 +88,26 @@ test = galtea.tests.get(test_id="YOUR_TEST_ID")
   The ID of the test you want to retrieve.
 </ResponseField>
 
+## Retrieving Test By Name
+This method allows you to retrieve a specific test by its name.
+
+
+```python
+test = galtea.tests.get_by_name(product_id="YOUR_PRODUCT_ID", name="YOUR_TEST_ID")
+```
+
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to retrieve the test.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  The name of the test you want to retrieve.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The type of test (e.g., [QUALITY](/concepts/product/test/quality-tests), [RED_TEAMING](/concepts/product/test/red-teaming-tests)).
+</ResponseField>
+
 ## Deleting Test
 
 This method allows you to delete a specific test by its ID.

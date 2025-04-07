@@ -40,12 +40,10 @@ When creating a version in Galtea, you'll need to provide the following informat
   A description of the version, typically highlighting what makes it different from other versions. **Example**: "Improved summarization algorithm with better fact retention"
 </ResponseField>
 
-<ResponseField name="Provider" type="Text">
-  The provider of the version or the underlying model. **Example**: "OpenAI" or "Anthropic" or "In-house"
-</ResponseField>
+<ResponseField name="Model" type="ID (text)">
+  The [model](/concepts/model) used in the version. **Example**: "GPT-4", "Claude 2", or "Llama 2-70B"
 
-<ResponseField name="Foundational Model" type="Text">
-  The foundational model used in the version. **Example**: "GPT-4", "Claude 2", or "Llama 2-70B"
+  This is used to calculate the cost of the inference for the version during [evaluation tasks](/concepts/product/evaluation/task).
 </ResponseField>
 
 <ResponseField name="System Prompt" type="Text">

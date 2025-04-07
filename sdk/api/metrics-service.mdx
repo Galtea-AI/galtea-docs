@@ -20,6 +20,7 @@ This method allows you to create a metric.
 metric = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the actual output is equivalent to the expected output."
+    evaluation_parameters=["input", "expected output", "actual output"],
 )
 ```
 
@@ -27,8 +28,31 @@ metric = galtea.metrics.create(
   The name of the metric.
 </ResponseField>
 
-<ResponseField name="criteria" type="string" required>
+<ResponseField name="criteria" type="string">
   The criteria for the metric.
+</ResponseField>
+
+<ResponseField name="evaluation_steps" type="list[string]">
+  The evaluation steps for the metric.
+  <Note>
+    You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.
+  </Note>
+</ResponseField>
+
+<ResponseField name="evaluation_parameters" type="list[string]">
+  The evaluation parameters that have been used to formulate the criteria or evaluation steps. possible values are:
+  - **input**: The original query or prompt sent to your product. This should always be provided.
+  - **expected output**: The expected output or ideal response for the test case
+  - **actual output**: The actual output produced by the product
+  - **retrieval context**: The context retrieved by your RAG system that was used to generate the actual output
+  - **context**: Additional background information provided with the input and related to the grodun truth
+  <Note>
+    "Input will always need to be part of the evaluation params.
+  </Note>
+
+  <Info>
+    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the **Actual Output** contains factually correct information that aligns with verified sources in the **Retrieval Context**."
+  </Info>
 </ResponseField>
 
 ## Listing Metrics
@@ -57,6 +81,16 @@ metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
 
 <ResponseField name="metric_id" type="string" required>
   The ID of the metric you want to retrieve.
+</ResponseField>
+
+## Retrieving Metric By Name
+This method allows you to retrieve a specific metric by its name.
+
+```python
+metric = galtea.metrics.get_by_name(name="YOUR_METRIC_NAME")
+```
+<ResponseField name="name" type="string" required>
+  The name of the metric you want to retrieve.
 </ResponseField>
 
 ## Deleting Metric

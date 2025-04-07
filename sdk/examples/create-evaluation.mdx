@@ -40,17 +40,21 @@ test_cases = galtea.tests_cases.list(test_id="YOUR_TEST_ID")
 
 # Evaluate all test cases
 for test_case in test_cases:
+    # Retrieve relevant context for RAG. This may not apply to all products.
+    retrieval_context = your_retriever_function(test_case.input)
+    
     # Your product's actual response to the input
     timeBeforeCall = datetime.now()
-    response = your_product_function(test_cases.input, test_cases.context)
+    response = your_product_function(test_case.input, test_case.context, retrieval_context)
     timeAfterCall = datetime.now()
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1"],
+        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response.output,
+        retrieval_context=[retrieval_context],  # Include retrieved context for evaluation
         ###################### Optional Parameters ######################
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
         usage_info={
@@ -90,17 +94,21 @@ df = pd.read_csv(json_file_path)
 
 # Process all test instances
 for index, row in df.iterrows():
+    # Retrieve relevant context for RAG
+    retrieval_context = your_retriever_function(row['input'])
+    
     # Your product's actual response to the input
-    actual_output = your_product_function(row['input'])
+    actual_output = your_product_function(row['input'], retrieval_context)
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1"],
+        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
         evaluation_id=evaluation.id,
-        input=row[input],
+        input=row['input'],
         actual_output=actual_output,
-        expected_output=row[expected_output],
-        context=row[context],
+        expected_output=row['expected_output'],
+        context=row['context'],
+        retrieval_context=[retrieval_context],  # Include retrieved context for evaluation
     )
 print("All evaluation tasks submitted")
 ```

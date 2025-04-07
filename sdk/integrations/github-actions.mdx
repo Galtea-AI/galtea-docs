@@ -47,6 +47,9 @@ jobs:
     env:
       GALTEA_API_KEY: ${{ secrets.GALTEA_API_KEY }}
       GALTEA_PRODUCT_ID: ${{ vars.GALTEA_PRODUCT_ID }}
+      GALTEA_TEST_NAME: ${{ vars.GALTEA_TEST_NAME }}
+      GALTEA_ACCURACY_METRIC_NAME: ${{ vars.GALTEA_ACCURACY_METRIC_NAME }}
+      GALTEA_COMPLETENESS_METRIC_NAME: ${{ vars.GALTEA_COMPLETENESS_METRIC_NAME }}
       GITHUB_SHA: ${{ github.sha }}
     runs-on: ubuntu-latest
     steps:
@@ -80,14 +83,30 @@ load_dotenv()
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
-version_name = f"version-{os.getenv('GITHUB_SHA')}"
-product_id = os.getenv("GALTEA_PRODUCT_ID")
+PRODUCT_ID = os.getenv("GALTEA_PRODUCT_ID")
+TEST_NAME = os.getenv("GALTEA_TEST_NAME")
+GALTEA_ACCURACY_METRIC_NAME = os.getenv("GALTEA_ACCURACY_METRIC_NAME")
+GALTEA_COMPLETENESS_METRIC_NAME = os.getenv("GALTEA_COMPLETENESS_METRIC_NAME")
 
-print("version_name", version_name)
-print("product_id", product_id)
-
-products = galtea.products.list()
-print(products)
+product = galtea.products.get(PRODUCT_ID)
+version = galtea.versions.create(
+    name=f"v1.X-{os.getenv('GITHUB_SHA')}",
+    product_id=PRODUCT_ID
+)
+test = galtea.tests.get_by_name(TEST_NAME)
+test_cases = galtea.test_cases.list(test.id)
+metrics = [
+    galtea.metrics.get_by_name(GALTEA_ACCURACY_METRIC_NAME),
+    galtea.metrics.get(GALTEA_COMPLETENESS_METRIC_NAME),
+]
+evaluation = galtea.evaluations.create(test_id=test.id, version_id=version.id)
+for test_case in test_cases:
+    galtea.evaluation_tasks.create(
+      metrics=metrics,
+      evaluation_id=evaluation.id,
+      actual_output=model_answer,
+      test_case_id=test_case.id
+    )
 ```
 
 
