@@ -44,7 +44,7 @@ When creating a metric type in Galtea, you'll need to provide the following info
 </ResponseField>
 
 <ResponseField name="Evaluation Parameters" type="Text List" required>
-  Available parameters that can be referenced in your evaluation criteria or steps to perform consistent assessments.
+  Standard parameters that define the inputs and outputs available during the evaluation process. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   <table>
     <thead className='text-left'>
       <tr>
@@ -77,7 +77,7 @@ When creating a metric type in Galtea, you'll need to provide the following info
   </table>
 
   <Note>
-    "Input will always need to be part of the evaluation params.
+    "Input" will always need to be part of the evaluation params.
   </Note>
 
   <Info>
@@ -86,6 +86,7 @@ When creating a metric type in Galtea, you'll need to provide the following info
 
   <Warning>
     To ensure accurate evaluation results, include only those parameters in your `evaluation_parameters` list that you've explicitly referenced in your criteria or evaluation steps.
+    You may refer to some parameters by other descriptive names like 'response' instead of 'actual output' and that is ok but you also need to include actual output to the evaluation_params list.
   </Warning>
 </ResponseField>
 
