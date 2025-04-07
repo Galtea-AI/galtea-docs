@@ -4,32 +4,120 @@ description: "Learn how to evaluate your RAG-based application based on your kno
 icon: "book"
 ---
 
-To install the Galtea Python SDK, use the following command:
+This playbook guides you through evaluating the quality and reliability of a Retrieval-Augmented Generation (RAG) system using Galtea, with a focus on assessing how well it answers based on your proprietary knowledge base.
 
-```bash
-pip install galtea
+If you’ve completed the [Quickstart](/quickstart), you’ve already set up the basic components: a product, a version, and initial tests. This guide builds on that foundation to help you evaluate the behavior of your RAG system under realistic scenarios.
+
+---
+
+### 🧠 Goal
+
+Evaluate how accurately your RAG system responds to inputs that should be answerable using your internal knowledge base. This is crucial for verifying that retrieval is working as intended and that the generation is grounded in correct information.
+
+---
+
+### 🛠️ Step-by-Step
+
+#### 1. **Prepare Your Knowledge Base**
+
+Start with a ground truth document or curated source of truth. This could be:
+- A product FAQ
+- An internal policy document
+- Any knowledge base your system is supposed to retrieve from
+
+You can use this document to either **generate synthetic test cases** or **verify your own**.
+
+#### 2. **Create or Upload a Test Set**
+
+Use the SDK to upload test cases directly, or let Galtea generate them from your knowledge document:
+
+```python
+test = galtea.tests.create(
+    name="rag-ground-truth-test",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    ground_truth_file_path="path/to/knowledge_base.pdf"
+)
 ```
 
-For more information, visit the [Galtea PyPI page](https://pypi.org/project/galtea/).
+This will generate inputs based on your document, along with expected answers. You can also review and customize these test cases before running evaluations.
 
-### Requirements
+---
 
-Ensure you have the following prerequisites:
+#### 3. **Run Your RAG System Locally**
 
-- Python 3.9 or higher
-- pip (Python package installer)
+For each test case, simulate how your application would process the input + context pair:
 
-### Setting Up Your Environment
+```python
+test_cases = galtea.tests_cases.list(test_id=test.id)
 
-1. **Create a Virtual Environment** (optional but recommended):
+for test_case in test_cases:
+    input_text = test_case.input
+    context = test_case.context
+    
+    actual_output = run_rag_pipeline(input_text, context)
+    
+    galtea.evaluation_tasks.create(
+        metrics=["accuracy_v1"],
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=actual_output,
+    )
+```
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+<Note>
+  Replace `run_rag_pipeline` with your own inference logic.
+</Note>
 
-2. **Install the SDK**:
+---
 
-    ```bash
-    pip install galtea
-    ```
+#### 4. **Customize Your Metric (Optional)**
+
+You may want to go beyond simple accuracy. For example, define a metric that penalizes hallucinations or evaluates citation quality:
+
+```python
+metric = galtea.metrics.create(
+    name="rag_faithfulness",
+    criteria="Check if the output is grounded in the provided context. Penalize hallucinated facts.",
+    evaluation_parameters=["input", "context", "expected output", "actual output"]
+)
+```
+
+---
+
+#### 5. **Run and Monitor Evaluations**
+
+Launch an evaluation and start processing test cases:
+
+```python
+evaluation = galtea.evaluations.create(
+    test_id=test.id,
+    version_id=version.id
+)
+```
+
+All tasks and scores will be visible in the dashboard for deeper analysis.
+
+---
+
+#### 6. **Analyze Results**
+
+Use the SDK or platform UI to track performance:
+
+```python
+tasks = galtea.evaluation_tasks.list(evaluation.id)
+for task in tasks:
+    result = galtea.evaluation_tasks.get(task.id)
+    print(f"Score: {result.score}, Reason: {result.reason}")
+```
+
+Compare different RAG configurations (e.g., different retrievers or chunking strategies) by registering new versions and repeating the process.
+
+---
+
+### ✅ Outcome
+
+By the end of this playbook, you’ll have:
+- A reliable benchmark for your RAG system
+- Reproducible tests that simulate real user questions
+- Versioned evaluations to track improvements or regressions over time
