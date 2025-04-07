@@ -63,7 +63,7 @@ evaluation_task = galtea.evaluation_tasks.create(
     You can get the latency in milliseconds with this code:
     ```python
       timeBeforeCall = datetime.now()
-      model_answer = "Android 8.0" # Replace with the actual model answer by calling it with the test case input and the test case context
+      model_answer = CALL_TO_YOUR_MODEL(test_case.input)
       timeAfterCall = datetime.now()
       latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000
     ``` 
