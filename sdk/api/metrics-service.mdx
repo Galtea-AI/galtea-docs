@@ -49,11 +49,11 @@ metric = galtea.metrics.create(
   </Warning>
 </ResponseField>
 
-<ResponseField name="criteria" type="string">
+<ResponseField name="criteria" type="string" required="conditional">
   The criteria for the metric.
 </ResponseField>
 
-<ResponseField name="evaluation_steps" type="list[string]">
+<ResponseField name="evaluation_steps" type="list[string]" required="conditional">
   The evaluation steps for the metric.
   <Note>
     You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.
