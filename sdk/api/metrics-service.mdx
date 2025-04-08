@@ -28,32 +28,39 @@ metric = galtea.metrics.create(
   The name of the metric.
 </ResponseField>
 
-<ResponseField name="criteria" type="string">
-  The criteria for the metric.
-</ResponseField>
-
-<ResponseField name="evaluation_steps" type="list[string]">
-  The evaluation steps for the metric.
-  <Note>
-    You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.
-  </Note>
-</ResponseField>
-
-<ResponseField name="evaluation_parameters" type="list[string]">
-  The evaluation parameters that have been used to formulate the criteria or evaluation steps. possible values are:
+<ResponseField name="evaluation_parameters" type="list[string]" required>
+    Standard parameters that define the inputs and outputs available during the evaluation process. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   - **input**: The original query or prompt sent to your product. This should always be provided.
   - **expected output**: The expected output or ideal response for the test case
   - **actual output**: The actual output produced by the product
   - **retrieval context**: The context retrieved by your RAG system that was used to generate the actual output
   - **context**: Additional background information provided with the input and related to the grodun truth
   <Note>
-    "Input will always need to be part of the evaluation params.
+    "Input" will always need to be part of the evaluation params.
   </Note>
 
   <Info>
     You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the **Actual Output** contains factually correct information that aligns with verified sources in the **Retrieval Context**."
   </Info>
+
+  <Warning>
+    To ensure accurate evaluation results, include only those parameters in your `evaluation_parameters` list that you've explicitly referenced in your criteria or evaluation steps.
+    You may refer to some parameters by other descriptive names like 'response' instead of 'actual output' and that is ok but you would also need to include actual output in the evaluation_params list.
+  </Warning>
 </ResponseField>
+
+<ResponseField name="criteria" type="string" required="conditional">
+  The criteria for the metric.
+</ResponseField>
+
+<ResponseField name="evaluation_steps" type="list[string]" required="conditional">
+  The evaluation steps for the metric.
+  <Note>
+    You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.
+  </Note>
+</ResponseField>
+
+
 
 ## Listing Metrics
 
