@@ -27,22 +27,6 @@ When creating a metric type in Galtea, you'll need to provide the following info
   The name of the metric type. **Example**: "Factual Accuracy"
 </ResponseField>
 
-<Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
-
-<ResponseField name="Criteria" type="Text" required="conditional">
-  High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
-  citation."
-</ResponseField>
-
-<ResponseField name="Evaluation Steps" type="Text List" required="conditional">
-  A structured set of checks that determine how a metric assesses correctness. **Example**:
-  <ol>
-    <li>Check if the response contains facts that align with verified sources</li>
-    <li>Identify any contradictions between the response and established knowledge</li>
-    <li>Penalize statements that introduce speculation without citing a credible source</li>
-  </ol>
-</ResponseField>
-
 <ResponseField name="Evaluation Parameters" type="Text List" required>
   Standard parameters that define the inputs and outputs available during the evaluation process. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   <table>
@@ -86,8 +70,23 @@ When creating a metric type in Galtea, you'll need to provide the following info
 
   <Warning>
     To ensure accurate evaluation results, include only those parameters in your `evaluation_parameters` list that you've explicitly referenced in your criteria or evaluation steps.
-    You may refer to some parameters by other descriptive names like 'response' instead of 'actual output' and that is ok but you also need to include actual output to the evaluation_params list.
+    You may refer to some parameters by other descriptive names like 'response' instead of 'actual output' and that is ok but you would also need to include actual output in the evaluation_params list.
   </Warning>
+</ResponseField>
+
+<ResponseField name="Criteria" type="Text" required="conditional">
+  High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
+  citation."
+</ResponseField>
+
+<ResponseField name="Evaluation Steps" type="Text List" required="conditional">
+  A structured set of checks that determine how a metric assesses correctness. **Example**:
+  <ol>
+    <li>Check if the 'actual output' contains facts that align with verified sources</li>
+    <li>Identify any contradictions between the 'actual output' and established knowledge</li>
+    <li>Penalize statements that introduce speculation without citing a credible source</li>
+  </ol>
+  <Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
 </ResponseField>
 
 ## Evaluation Criteria vs. Evaluation Steps
