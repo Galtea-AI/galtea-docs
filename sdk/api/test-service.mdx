@@ -48,12 +48,16 @@ test = galtea.tests.create(
 <ResponseField name="ground_truth_file_path" type="string">
   The path to the knowledge file (pdf format) in which We will find the information the source of truth for the model answers.
   We have to wait for the platform to generate a synthetic dataset based on the ground_truth provided, so we need to wait for the test to be ready before we can use it.
+
+  <Note>
+    The ground truth is also referenced as the knowledge base.
+  </Note>
 </ResponseField>
 
 <ResponseField name="test_file_path" type="string">
   The path to the custom test file.
   This file should contain the test cases you want to evaluate.
-  If given, the plaform won't generate a synthetic dataset based on the ground_truth provided, so we can use the test immediately.
+  If given, the platform won't generate a synthetic dataset based on the ground_truth provided, so we can use the test immediately.
 </ResponseField>
 
 ## Listing Tests

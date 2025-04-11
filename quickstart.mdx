@@ -4,13 +4,13 @@ description: "All you need to get started"
 icon: "rocket"
 ---
 
-import ProductCard from '/snippets/cards/product-card.mdx';
-import VersionCard from '/snippets/cards/version-card.mdx';
-import TestCard from '/snippets/cards/test-card.mdx';
-import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
+import ProductCard from '/snippets/cards/product-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import TestCaseCard from '/snippets/cards/test-case-card.mdx';
+import VersionCard from '/snippets/cards/version-card.mdx';
 
 This guide will walk you through the essential steps to begin evaluating and monitoring the reliability of your AI products with Galtea.
 
@@ -128,7 +128,7 @@ To compare the reliability of different versions, you need to subject each versi
   </Card>
 </CardGroup>
 
-You can either upload your own test file or have Galtea generate tests from a ground truth document:
+You can either upload your own test file or have Galtea generate tests from a knowledge base (ground truth) document:
 
 ```python
 test = galtea.tests.create(
