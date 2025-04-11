@@ -57,6 +57,13 @@ evaluation_task = galtea.evaluation_tasks.create(
   </Note>
 </ResponseField>
 
+<ResponseField name="scores" type="list[float | None]">
+  The scores for the evaluation task.
+  <Note>
+    This field is automatically populated by the system and should not be provided manually unless you are evaluating custom metrics.
+  </Note>
+</ResponseField>
+
 <ResponseField name="latency" type="float">
   Time lapsed (in ms) from the moment the request was sent to the LLM to the moment the response was received.
   <Note>
