@@ -32,7 +32,7 @@ This is how to create an evaluation:
 
 Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
 
-For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
+For now, you can only run a evaluation_task with the a single custom_metric at a time, so be careful with doing evaluations in batch with custom metrics.
 
 ```python
 # Load your test cases
@@ -54,7 +54,9 @@ for test_case in test_cases:
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response.output,
-        score=get_score_for_custom_metric(response.output), # local function that will get a score between 0.0 and 1.0 based on the response of the LLM and your definition of the metric. 
+        # Your function to get a score between 0.0 and 1.0 based on your criteria. 
+        score=get_score_for_custom_metric(response.output),
+        #################################################################
         retrieval_context=[retrieval_context],
         ###################### Optional Parameters ######################
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
