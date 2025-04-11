@@ -30,9 +30,9 @@ This is how to create an evaluation:
 
 ## Running Evaluation For Custom metrics
 
-Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
+Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task) and directly assign a self-calculated score:
 
-For now, you can only run a evaluation_task with the a single custom_metric at a time, so be careful with doing evaluations in batch with custom metrics.
+For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
 
 ```python
 # Load your test cases
@@ -50,12 +50,12 @@ for test_case in test_cases:
 
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["custom_metric_accuracy"],
+        metrics=["custom_metric_accuracy", "custom_metric_relevance"],
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response.output,
-        # Your function to get a score between 0.0 and 1.0 based on your criteria. 
-        score=get_score_for_custom_metric(response.output),
+        # Your functions to get a score between 0.0 and 1.0 based on your criteria. 
+        scores=[get_score_accuracy(response.output), get_score_relevance(response.output)],
         #################################################################
         retrieval_context=[retrieval_context],
         ###################### Optional Parameters ######################
