@@ -156,7 +156,7 @@ Metrics in Galtea define the criteria by which your product's outputs will be ev
 metric = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the 'actual output' is equivalent to the 'expected output'."
-    evaluation_parameters=["input", "expected output", "actual output"],
+    evaluation_params=["input", "expected output", "actual output"],
 )
 ```
 
@@ -186,12 +186,12 @@ evaluation = galtea.evaluations.create(
 )
 
 # Load your test cases
-test_cases = galtea.tests_cases.list(test_id=test.id)
+test_cases = galtea.test_cases.list(test_id=test.id)
 
 # Evaluate all test cases
 for test_case in test_cases:
     # Your product's actual response to the input
-    actual_output = your_product_function(test_cases.input, test_cases.context)
+    actual_output = your_product_function(test_case.input, test_case.context)
     
     # Run evaluation task
     galtea.evaluation_tasks.create(

@@ -20,7 +20,7 @@ This method allows you to create a metric.
 metric = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the actual output is equivalent to the expected output."
-    evaluation_parameters=["input", "expected output", "actual output"],
+    evaluation_params=["input", "expected output", "actual output"],
 )
 ```
 
@@ -28,7 +28,7 @@ metric = galtea.metrics.create(
   The name of the metric.
 </ResponseField>
 
-<ResponseField name="evaluation_parameters" type="list[string]" required>
+<ResponseField name="evaluation_params" type="list[string]" required>
     Standard parameters that define the inputs and outputs available during the evaluation process. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   - **input**: The original query or prompt sent to your product. This should always be provided.
   - **expected output**: The expected output or ideal response for the test case
@@ -44,7 +44,7 @@ metric = galtea.metrics.create(
   </Info>
 
   <Warning>
-    To ensure accurate evaluation results, include only those parameters in your `evaluation_parameters` list that you've explicitly referenced in your criteria or evaluation steps.
+    To ensure accurate evaluation results, include only those parameters in your `evaluation_params` list that you've explicitly referenced in your criteria or evaluation steps.
     You may refer to some parameters by other descriptive names like 'response' instead of 'actual output' and that is ok but you would also need to include actual output in the evaluation_params list.
   </Warning>
 </ResponseField>
@@ -83,10 +83,10 @@ metrics = galtea.metrics.list()
 This method allows you to retrieve a specific metric by its ID.
 
 ```python
-metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
+metric = galtea.metrics.get(metric_type_id="YOUR_METRIC_ID")
 ```
 
-<ResponseField name="metric_id" type="string" required>
+<ResponseField name="metric_type_id" type="string" required>
   The ID of the metric you want to retrieve.
 </ResponseField>
 
@@ -105,10 +105,10 @@ metric = galtea.metrics.get_by_name(name="YOUR_METRIC_NAME")
 This method allows you to delete a specific metric by its ID.
 
 ```python
-galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
+galtea.metrics.delete(metric_type_id="YOUR_METRIC_ID")
 ```
 
-<ResponseField name="metric_id" type="string" required>
+<ResponseField name="metric_type_id" type="string" required>
   The ID of the metric you want to delete.
 </ResponseField>
 
