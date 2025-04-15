@@ -83,10 +83,10 @@ metrics = galtea.metrics.list()
 This method allows you to retrieve a specific metric by its ID.
 
 ```python
-metric = galtea.metrics.get(metric_id="YOUR_METRIC_ID")
+metric = galtea.metrics.get(metric_type_id="YOUR_METRIC_ID")
 ```
 
-<ResponseField name="metric_id" type="string" required>
+<ResponseField name="metric_type_id" type="string" required>
   The ID of the metric you want to retrieve.
 </ResponseField>
 
@@ -105,10 +105,10 @@ metric = galtea.metrics.get_by_name(name="YOUR_METRIC_NAME")
 This method allows you to delete a specific metric by its ID.
 
 ```python
-galtea.metrics.delete(metric_id="YOUR_METRIC_ID")
+galtea.metrics.delete(metric_type_id="YOUR_METRIC_ID")
 ```
 
-<ResponseField name="metric_id" type="string" required>
+<ResponseField name="metric_type_id" type="string" required>
   The ID of the metric you want to delete.
 </ResponseField>
 
