@@ -1,0 +1,116 @@
+---
+title: 'Run evaluations with production data'
+description: "Learn how to create evaluation tasks from user queries in production for deeper analysis"
+icon: "badge-check"
+---
+
+[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against real user queries in production by running individual [evaluation tasks](/concepts/product/evaluation/task).
+
+## Creating an Evaluation for Test Cases
+
+This is how to create an evaluation for predetermined test cases:
+
+  ```python
+  from galtea import Galtea
+
+  # Initialize Galtea SDK
+  galtea = Galtea(api_key="YOUR_API_KEY")
+
+  # Create an evaluation
+  evaluation = galtea.evaluations.create(
+      test_id="YOUR_TEST_ID",
+      version_id="YOUR_VERSION_ID"
+  )
+
+  print(f"Evaluation created with ID: {evaluation.id}")
+  ```
+  <Info>
+    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
+  </Info>
+
+## Capturing Production Data for Analysis
+
+You can create evaluation tasks directly from real user queries in your production environment. All this data is stored for deeper analysis, allowing you to track performance over time:
+
+```python
+from datetime import datetime
+
+# When your product handles a real user query in production
+timeBeforeCall = datetime.now()
+response = your_product_function(user_query, context, retrieval_context)
+timeAfterCall = datetime.now()
+
+# Create an evaluation task from this production interaction
+evaluation_tasks = galtea.evaluation_tasks.create_from_production(
+  version_id=VERSION_ID,
+  metrics=["coherence", metric.name, "answer relevancy"],
+  input=user_query,
+  actual_output=response,
+  retrieval_context=retrieval_context,
+  context=context,
+  usage_info={
+    "input_tokens": response.input_tokens,
+    "output_tokens": response.output_tokens,
+    "cache_read_input_tokens": response.cache_read_input_tokens,
+  },
+  latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000
+)
+```
+
+<Info>
+  By capturing evaluation data from production, you build a valuable repository of real-world performance metrics that can be analyzed later to identify trends, issues, and opportunities for improvement.
+</Info>
+
+## Evaluating Multiple Test Cases
+
+For systematic evaluation against predefined test cases, you can process multiple evaluation tasks at once:
+
+```python
+# Load your test cases
+test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
+
+# Evaluate all test cases
+for test_case in test_cases:
+    # Retrieve relevant context for RAG. This may not apply to all products.
+    retrieval_context = your_retriever_function(test_case.input)
+    
+    # Your product's actual response to the input
+    timeBeforeCall = datetime.now()
+    response = your_product_function(test_case.input, test_case.context, retrieval_context)
+    timeAfterCall = datetime.now()
+
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=["custom_metric_accuracy", "custom_metric_relevance"],
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=response.output,
+        # Your functions to get a score between 0.0 and 1.0 based on your criteria. 
+        scores=[get_score_accuracy(response.output), get_score_relevance(response.output)],
+        #################################################################
+        retrieval_context=[retrieval_context],
+        ###################### Optional Parameters ######################
+        latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
+        usage_info={
+          "input_tokens": response.inputTokens,
+          "output_tokens": response.outputTokens,
+          "cache_read_input_tokens": response.cacheReadInputTokens,
+        },
+        cost_info={
+          "cost_per_input_token": 0.00002,
+          "cost_per_output_token": 0.00005,
+          "cost_per_cache_read_input_token": 0.00001,
+        },
+        #################################################################
+    )
+
+print("All evaluation tasks submitted")
+```
+
+<Note>
+  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
+</Note>
+<Info>
+  The `latency` and `usage_info` parameters are optional but highly recommended. 
+  They are stored alongside evaluation data and can be used to track the performance in latency and costs of your product over time.
+</Info>

@@ -40,7 +40,7 @@
           },
           {
             "group": "Examples",
-            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/create-evaluation-with-custom-metric"]
+            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/create-evaluation-with-production-data", "sdk/examples/create-evaluation-with-custom-metric"]
           },
           {
             "group": "Integrations",
