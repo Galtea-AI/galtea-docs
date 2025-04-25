@@ -30,7 +30,7 @@ timeAfterCall = datetime.now()
 
 # Create an evaluation task from this production interaction
 evaluation_tasks = galtea.evaluation_tasks.create_from_production(
-  version_name=VERSION_NAME,
+  version_id=VERSION_ID,
   metrics=["coherence", metric.name, "answer relevancy"],
   input=user_query,
   actual_output=response,
