@@ -1,0 +1,55 @@
+---
+title: 'Monitor production responses to user queries'
+description: "Learn how to create evaluation tasks from user queries in production for deeper analysis"
+icon: "badge-check"
+---
+
+[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against real user queries in production by running individual [evaluation tasks](/concepts/product/evaluation/task).
+
+## Instantiate the SDK
+
+To use the Galtea SDK, you need to initialize it with your API key. This is typically done at the beginning of your script:
+
+  ```python
+  from galtea import Galtea
+
+  galtea = Galtea(api_key="YOUR_API_KEY")
+  ```
+
+## Capturing Production Data for Analysis
+
+You can create evaluation tasks directly from real user queries in your production environment. All this data is stored for deeper analysis, allowing you to track performance over time:
+
+```python
+from datetime import datetime
+
+# When your product handles a real user query in production
+timeBeforeCall = datetime.now()
+response = your_product_function(user_query, context, retrieval_context)
+timeAfterCall = datetime.now()
+
+# Create an evaluation task from this production interaction
+evaluation_tasks = galtea.evaluation_tasks.create_from_production(
+  version_id=VERSION_ID,
+  metrics=["coherence", metric.name, "answer relevancy"],
+  input=user_query,
+  actual_output=response,
+  retrieval_context=retrieval_context,
+  context=context,
+  usage_info={
+    "input_tokens": response.input_tokens,
+    "output_tokens": response.output_tokens,
+    "cache_read_input_tokens": response.cache_read_input_tokens,
+  },
+  latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000
+)
+```
+
+<Info>
+  By capturing evaluation data from production, you build a valuable repository of real-world performance metrics that can be analyzed later to identify trends, issues, and opportunities for improvement.
+</Info>
+<Note>
+  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
+  
+  The `latency` and `usage_info` parameters are optional but highly recommended to keep track of the the real performance data of you product. 
+</Note>
