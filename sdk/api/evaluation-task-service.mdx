@@ -118,6 +118,27 @@ The benefits of this approach include:
 - **Performance tracking**: You can track the performance of your product over time, allowing you to identify trends and make data-driven decisions.
 - **Analysis of inputs and outputs**: You can analyze the inputs and outputs of your product in a real-world context, which can help you understand how it is being used and identify areas for improvement.
 
+```python
+evaluation_task = galtea.evaluation_tasks.create_from_production(
+    version_id="YOUR_VERSION_ID",
+    metrics=["accuracy_v1", "coherence-v1"],
+    input=user_query,
+    actual_output=model_answer,
+    retrieval_context=[retrieved_context],
+    context=conversation_context,
+    latency=latency,
+    usage_info={
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cache_read_input_tokens": cache_read_input_tokens,
+    },
+    cost_info={
+        "cost_per_input_token": cost_per_input_token,
+        "cost_per_output_token": cost_per_output_token,
+        "cost_per_cache_read_input_token": cost_per_cache_read_input_token,
+    },
+)
+```
 
 <ResponseField name="version_id" type="string" required>
   The ID of the version of the product you want to evaluate.
