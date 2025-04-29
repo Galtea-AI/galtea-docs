@@ -48,7 +48,7 @@ evaluation_task = galtea.evaluation_tasks.create(
   The actual output produced by the product.
 </ResponseField>
 
-<ResponseField name="retrieval_context" type="list[string]">
+<ResponseField name="retrieval_context" type="string">
   The context retrieved by your RAG system that was used to generate the actual output.
   This allows evaluation of retrieval quality in RAG systems.
   <Note>
@@ -124,7 +124,7 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
     metrics=["accuracy_v1", "coherence-v1"],
     input=user_query,
     actual_output=model_answer,
-    retrieval_context=[retrieved_context],
+    retrieval_context=retrieved_context,
     context=conversation_context,
     latency=latency,
     usage_info={
@@ -163,9 +163,8 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
   The context that was used to generate the actual output.
 </ResponseField>
 
-<ResponseField name="retrieval_context" type="list[string]">
-  The actual context retrieved by your RAG system that was used to generate the actual output.
-  This allows evaluation of retrieval quality in RAG systems.
+<ResponseField name="retrieval_context" type="string">
+  The context retrieved by your RAG system that was used to generate the actual output.
 </ResponseField>
 
 <ResponseField name="latency" type="float">
