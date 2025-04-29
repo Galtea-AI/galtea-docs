@@ -55,6 +55,11 @@
           "anchor": "Blog",
           "href": "https://galtea.ai/blog/index.html",
           "icon": "newspaper"
+        },
+        {
+          "anchor": "Changelog",
+          "href": "https://docs.galtea.ai/changelog",
+          "icon": "list-check"
         }
       ]
     }
