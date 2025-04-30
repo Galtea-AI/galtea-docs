@@ -58,7 +58,9 @@ evaluation_task = galtea.evaluation_tasks.create(
 </ResponseField>
 
 <ResponseField name="scores" type="list[float | None]">
-  The scores for the evaluation task.
+  Precomputed scores for the evaluation tasks, corresponding to the provided metrics. Must be a list of the same size as the `metrics` parameter, containing numbers between 0 and 1 or `None` values.
+    - Providing scores bypasses platform-based evaluation, storing the provided scores for later analysis. Useful for **custom metrics**.
+    - Use `None` as a placeholder for metrics that should be evaluated by the platform (e.g., `[0.5, None, 0.9]`).
   <Note>
     This field is automatically populated by the system and should not be provided manually unless you are evaluating custom metrics.
   </Note>
