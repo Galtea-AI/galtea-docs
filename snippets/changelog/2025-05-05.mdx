@@ -1,4 +1,12 @@
-<Update label="2025-05-05" description="Analytics Upgrades and SDK Safeguards">
+<Update label="2025-05-05" description="Analytics Upgrades and Red Teaming Test Improvements">
+## Improvements in Red Teaming Tests
+
+- **New "misuse" threat implemented**  
+  Now red teaming incorporates a new threat, misuse, which are queries that not necessaryly malicious however out-of-scope for you specific product. You can now test whether your product can successfully block these queries by marking "Mitre Atlas: Ambiguous prompts" in the threat list.
+
+- **Better "data leakage" and "toxicity" tests**  
+  The red teaming tests incorporate better your product meta data, to generate the most adequate test cases for "data leakage" and "toxicity".
+
 ## Analytics Page Upgrades
 
 We're continuing to expand the power of the Analytics page! This update introduces:
