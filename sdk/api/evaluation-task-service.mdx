@@ -57,6 +57,26 @@ evaluation_task = galtea.evaluation_tasks.create(
   </Note>
 </ResponseField>
 
+<ResponseField name="conversation turns" type="list[dict[string, string]]">
+  The conversation turns that were used to generate the actual output as additional context for the model. Basically the conversation history (without the current user_query / model_answer).
+  This allows evaluation of the model's performance in a conversational context.
+  There is a expected format for the conversation turns:
+  ```json
+  [
+    {"input": "What is the capital of France?", "actual_output": "Paris"},
+    {"input": "What is the population of it?", "actual_output": "two million"}
+  ]
+  ```
+
+  <Note>
+    Currently, this parameter is useful for these kind of default metrics available in the platform:
+    - **Role Adherence**: Measures how well the actual output adheres to a specified role.
+    - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
+    - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
+    - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+ </Note>
+</ResponseField>
+
 <ResponseField name="scores" type="list[float | None]">
   Precomputed scores for the evaluation tasks, corresponding to the provided metrics. Must be a list of the same size as the `metrics` parameter, containing numbers between 0 and 1 or `None` values.
     - Providing scores bypasses platform-based evaluation, storing the provided scores for later analysis. Useful for **custom metrics**.
@@ -128,6 +148,7 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
     actual_output=model_answer,
     retrieval_context=retrieved_context,
     context=conversation_context,
+    conversation_turns=[{"input": past_user_query, "actual_output": past_model_answer}],
     latency=latency,
     usage_info={
         "input_tokens": input_tokens,
@@ -167,6 +188,25 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
 
 <ResponseField name="retrieval_context" type="string">
   The context retrieved by your RAG system that was used to generate the actual output.
+</ResponseField>
+
+<ResponseField name="conversation turns" type="list[dict[string, string]]">
+  The conversation turns that were used to generate the actual output as additional context for the model. Basically the conversation history (without the current user_query / model_answer).
+  This allows evaluation of the model's performance in a conversational context.
+  There is a expected format for the conversation turns:
+  ```json
+  [
+    {"input": "What is the capital of France?", "actual_output": "Paris"},
+    {"input": "What is the population of it?", "actual_output": "two million"}
+  ]
+  ```
+  <Note>
+    Currently, this parameter is useful for these kind of default metrics available in the platform:
+    - **Role Adherence**: Measures how well the actual output adheres to a specified role.
+    - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
+    - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
+    - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+ </Note>
 </ResponseField>
 
 <ResponseField name="latency" type="float">
