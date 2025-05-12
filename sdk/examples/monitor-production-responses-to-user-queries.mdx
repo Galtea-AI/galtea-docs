@@ -57,7 +57,7 @@ evaluation_tasks = galtea.evaluation_tasks.create_from_production(
 
 ## Evaluating conversations
 
-To accurately **evaluate interactions within a dialogue**, certain metrics need access to the preceding turns of the conversation. This is handled by the conversation_turns parameter.
+To accurately **evaluate interactions within a dialogue**, certain metrics need access to the preceding turns of the conversation. This is handled by the [ `conversation_turns` parameter](/sdk/api/evaluation-task-service#param-conversation-turns-1).
 
 Currently, this parameter can only be used with the following metrics, which are available by default:
   - **Role Adherence**: Measures how well the actual output adheres to a specified role.
@@ -71,7 +71,7 @@ Currently, this parameter can only be used with the following metrics, which are
 The `conversation_turns` parameter expects a list of dictionaries. Each dictionary represents a **single, complete exchange** (one user query and the assistant's response to it) that occurred before the current interaction being sent to our platform.
 
 The required structure for each dictionary in the list is:
-```python
+```json
 {
   "input": "The user's query from that past turn",
   "actual_output": "The assistant's response from that past turn"

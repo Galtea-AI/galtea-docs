@@ -140,6 +140,10 @@ The benefits of this approach include:
 - **Performance tracking**: You can track the performance of your product over time, allowing you to identify trends and make data-driven decisions.
 - **Analysis of inputs and outputs**: You can analyze the inputs and outputs of your product in a real-world context, which can help you understand how it is being used and identify areas for improvement.
 
+<Info>
+  See an example of running evaluation tasks of your product in production in our [Monitor Production Responses to User Queries example](/sdk/examples/monitor-production-responses-to-user-queries).
+</Info>
+
 ```python
 evaluation_task = galtea.evaluation_tasks.create_from_production(
     version_id="YOUR_VERSION_ID",
@@ -207,6 +211,9 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
       - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
       - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
  </Note>
+ <Info>
+ See an example of evaluating conversations in our [Monitor Production Responses to User Queries example](/sdk/examples/monitor-production-responses-to-user-queries#evaluating-conversations).
+ </Info>
 </ResponseField>
 
 <ResponseField name="latency" type="float">
