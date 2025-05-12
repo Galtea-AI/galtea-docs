@@ -59,7 +59,7 @@ evaluation_tasks = galtea.evaluation_tasks.create_from_production(
 
 To accurately **evaluate interactions within a dialogue**, certain metrics need access to the preceding turns of the conversation. This is handled by the conversation_turns parameter.
 
-Currently, this parameter can only be used with the following metrics, which available in the platform:
+Currently, this parameter can only be used with the following metrics, which are available by default:
   - **Role Adherence**: Measures how well the actual output adheres to a specified role.
   - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
   - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
@@ -101,8 +101,7 @@ conversation_history = [
   {'role': 'assistant', 'content': 'Ye can do it!'},
 ]
 ```
-
-This could be the method definition to extract the conversation turns from the conversation history:
+Then, this would be a valid method to extract the conversation turns from the conversation history:
 ```python
 def extract_conversation_turns(messages: list[dict]) -> list[dict]:
   conversation_turns = []
