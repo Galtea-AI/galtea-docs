@@ -55,38 +55,75 @@ evaluation_tasks = galtea.evaluation_tasks.create_from_production(
   The `latency` and `usage_info` parameters are optional but highly recommended to keep track of the the real performance data of you product. 
 </Note>
 
-<Info>
-  The `conversation_turns` parameter allows you to create evaluation tasks with a real user conversation history.
-  Currently, this parameter can only be used with the following metrics, which available in the platform:
-    - **Role Adherence**: Measures how well the actual output adheres to a specified role.
-    - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
-    - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
-    - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+## Evaluating conversations
 
-How Can you convert your conversation history to the format that the conversation_turns parameter expects?
+To accurately **evaluate interactions within a dialogue**, certain metrics need access to the preceding turns of the conversation. This is handled by the conversation_turns parameter.
 
-Let's say you have a conversation history like this.
+Currently, this parameter can only be used with the following metrics, which available in the platform:
+  - **Role Adherence**: Measures how well the actual output adheres to a specified role.
+  - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
+  - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
+  - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+
+
+### Expected format
+
+The `conversation_turns` parameter expects a list of dictionaries. Each dictionary represents a **single, complete exchange** (one user query and the assistant's response to it) that occurred before the current interaction being sent to our platform.
+
+The required structure for each dictionary in the list is:
 ```python
-conversation_history = [ 
-  {'role': 'system',  'content': 'You speak like a pirate.'},
-  {'role': 'user', 'content': 'Can you teach me to swim?'},
-  {'role': 'assistant', 'content': 'Sure thing, matey! Then ye go swim with the shark.'}
-]
-extract_conversation_turns(conversation_history)
+{
+  "input": "The user's query from that past turn",
+  "actual_output": "The assistant's response from that past turn"
+}
 ```
 
-And this would be the method definition to extract the conversation turns:
+This is how it would look like in practice:
 ```python
-def extract_conversation_turns(messages):
+# Example: conversation_turns list passed to create_from_production
+[
+  {"input": "Hi, tell me about Galtea.", "actual_output": "Galtea is an AI evaluation platform."},
+  {"input": "What metrics does it support?", "actual_output": "It supports accuracy, relevance, safety metrics, and more."},
+  # ... other past turns in chronological order ...
+]
+```
+
+### Converting Your Application's History Format
+
+Let's say you have a conversation history like this.
+
+```python
+conversation_history = [
+  {'system': 'system', 'content': 'You are a pirate.'},
+  {'role': 'user', 'content': 'Can you teach me to swim?'},
+  {'role': 'assistant', 'content': 'Sure thing, matey! Then ye go swim with the shark.'},
+  {'role': 'user', 'content': 'I am not sure if I can swim with the shark.'},
+  {'role': 'assistant', 'content': 'Ye can do it!'},
+]
+```
+
+This could be the method definition to extract the conversation turns from the conversation history:
+```python
+def extract_conversation_turns(messages: list[dict]) -> list[dict]:
   conversation_turns = []
   user_query = None
   for message in messages:
-      if message['role'] == 'user':
-          user_query = message['content']
-      elif message['role'] == 'assistant' and user_query is not None:
-          conversation_turns.append({"input": user_query, "actual_output":message['content']})
-          user_query = None
-  
+    # Skip system messages or irrelevant roles if necessary
+    if message['role'] == 'system':
+        continue
+
+    if message['role'] == 'user':
+        # Store the user query temporarily
+        user_query = message['content']
+    elif message['role'] == 'assistant' and user_query is not None:
+        # Found an assistant response following a user query, form a turn
+        conversation_turns.append({
+            "input": user_query,
+            "actual_output": message['content']
+        })
+        # Reset user_query to wait for the next user message
+        user_query = None
+    # Handle edge cases: consecutive user/assistant messages if applicable
+
   return conversation_turns
 ```
-</Info>
