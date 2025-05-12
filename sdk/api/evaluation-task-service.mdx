@@ -6,7 +6,7 @@ iconType: "solid"
 ---
 
 The Evaluation Task Service in the Galtea SDK allows you to manage [evaluation tasks](/concepts/product/evaluation/task) for assessing your products.
-This Service is exposed by the `galtea.evaluation_tasks` object and we will further explore its API down below.
+- This service is exposed via the `galtea.evaluation_tasks` object; see its API below.
 
 <Info>
   Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
@@ -36,7 +36,7 @@ evaluation_task = galtea.evaluation_tasks.create(
 <ResponseField name="metrics" type="list[string]" required>
   The metrics to use for the evaluation.
   <Note>
-    The system will create a task for each metric given.
+    The system will create a task for each metric provided.
   </Note>
 </ResponseField>
 
@@ -58,9 +58,9 @@ evaluation_task = galtea.evaluation_tasks.create(
 </ResponseField>
 
 <ResponseField name="conversation turns" type="list[dict[string, string]]">
-  The conversation turns that were used to generate the actual output as additional context for the model. Basically the conversation history (without the current user_query / model_answer).
+  The conversation turns used to generate the actual output provide additional context for the model. This represents the conversation history, excluding the current user query and model answer.
   This allows evaluation of the model's performance in a conversational context.
-  There is a expected format for the conversation turns:
+  There is an expected format for the conversation turns:
   ```json
   [
     {"input": "What is the capital of France?", "actual_output": "Paris"},
@@ -69,7 +69,7 @@ evaluation_task = galtea.evaluation_tasks.create(
   ```
 
   <Note>
-    Currently, this parameter can only be used with the following metrics, which available in the platform:
+    Currently, this parameter can only be used with the following metrics, which are available on the platform:
       - **Role Adherence**: Measures how well the actual output adheres to a specified role.
       - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
       - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
@@ -132,7 +132,7 @@ evaluation_task = galtea.evaluation_tasks.create(
 
 ## Monitoring User Interactions in Production
 
-If you want to monitor the user interactions for your application in production, you can do it simply by creating an evaluation task from the `input`s that your users are introducing to your system.
+- If you want to monitor user interactions in production, do so simply by creating an evaluation task from the inputs that your users send to your system.
 This way, you can evaluate your product using real-world data and continuously improve its performance.
 The benefits of this approach include:
 - **Real-world data**: You can evaluate your product using real-world data, which can provide more accurate insights into its performance.
@@ -170,7 +170,7 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
 <ResponseField name="metrics" type="list[string]" required>
   The metrics to use for the evaluation.
   <Note>
-    The system will create a task for each metric given.
+    The system will create a task for each metric provided.
   </Note>
 </ResponseField>
 
@@ -191,17 +191,17 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
 </ResponseField>
 
 <ResponseField name="conversation turns" type="list[dict[string, string]]">
-  The conversation turns that were used to generate the actual output as additional context for the model. Basically the conversation history (without the current user_query / model_answer).
+  The conversation turns used to generate the actual output provide additional context for the model. This represents the conversation history, excluding the current user query and model answer.
   This allows evaluation of the model's performance in a conversational context.
-  There is a expected format for the conversation turns:
+  There is an expected format for the conversation turns:
   ```json
   [
-    {"input": "What is the capital of France?", "actual_output": "Paris"},
-    {"input": "What is the population of it?", "actual_output": "two million"}
+    {"input": "What is the capital of France?", "actual_output": "Paris."},
+    {"input": "What is the population of it?", "actual_output": "Two million."}
   ]
   ```
   <Note>
-    Currently, this parameter can only be used with the following metrics, which available in the platform:
+    Currently, this parameter can only be used with the following metrics, which are available to all organizations:
       - **Role Adherence**: Measures how well the actual output adheres to a specified role.
       - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
       - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
