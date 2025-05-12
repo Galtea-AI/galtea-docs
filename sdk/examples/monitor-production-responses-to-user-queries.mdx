@@ -36,6 +36,7 @@ evaluation_tasks = galtea.evaluation_tasks.create_from_production(
   actual_output=response,
   retrieval_context=retrieval_context,
   context=context,
+  conversation_turns=extract_conversation_turns(conversation_history),
   usage_info={
     "input_tokens": response.input_tokens,
     "output_tokens": response.output_tokens,
@@ -53,3 +54,39 @@ evaluation_tasks = galtea.evaluation_tasks.create_from_production(
   
   The `latency` and `usage_info` parameters are optional but highly recommended to keep track of the the real performance data of you product. 
 </Note>
+
+<Info>
+  The `conversation_turns` parameter allows you to create evaluation tasks with a real user conversation history.
+  For now, you can only use these default metrics for evaluating conversations:
+    - **Role Adherence**: Measures how well the actual output adheres to a specified role.
+    - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
+    - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
+    - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+
+How Can you convert your conversation history to the format that the conversation_turns parameter expects?
+
+Let's say you have a conversation history like this.
+```python
+conversation_history = [ 
+  {'role': 'system',  'content': 'You speak like a pirate.'},
+  {'role': 'user', 'content': 'Can you teach me to swim?'},
+  {'role': 'assistant', 'content': 'Sure thing, matey! Then ye go swim with the shark.'}
+]
+extract_conversation_turns(conversation_history)
+```
+
+And this would be the method definition to extract the conversation turns:
+```python
+def extract_conversation_turns(messages):
+  conversation_turns = []
+  user_query = None
+  for message in messages:
+      if message['role'] == 'user':
+          user_query = message['content']
+      elif message['role'] == 'assistant' and user_query is not None:
+          conversation_turns.append({"input": user_query, "actual_output":message['content']})
+          user_query = None
+  
+  return conversation_turns
+```
+</Info>
