@@ -18,12 +18,12 @@
             "pages": ["introduction", "registration", "quickstart"]
           },
           {
-            "group": "Concepts",
-            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
+            "group": "Examples",
+            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/create-evaluation-with-custom-metric"]
           },
           {
-            "group": "Test Types",
-            "pages": ["concepts/product/test/quality-tests", "concepts/product/test/red-teaming-tests"]
+            "group": "Integrations",
+            "pages": ["sdk/integrations/github-actions"]
           }
         ]
       },
@@ -37,16 +37,20 @@
           {
             "group": "API",
             "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
-          },
-          {
-            "group": "Examples",
-            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/create-evaluation-with-custom-metric"]
-          },
-          {
-            "group": "Integrations",
-            "pages": ["sdk/integrations/github-actions"]
           }
         ]
+      },
+      {
+      "tab": "Concepts",
+      "groups":[
+      {
+        "group": "Concepts",
+        "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
+      },
+      {
+        "group": "Test Types",
+        "pages": ["concepts/product/test/quality-tests", "concepts/product/test/red-teaming-tests"]
+      }]
       }
     ],
     "global": {
