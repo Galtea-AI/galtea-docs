@@ -28,6 +28,31 @@
         ]
       },
       {
+      "tab": "Concepts",
+      "groups":[
+      {
+        "group": "Concepts",
+        "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
+      },
+      {
+        "group": "Test Types", "pages":
+          [{"group": "Quality",
+          "icon": "star",
+          "pages": [
+            "concepts/product/test/quality-tests"
+            ]
+          },
+          {
+            "group": "Red Teaming",
+            "icon": "shield-check",
+            "pages": [
+              "concepts/product/test/red-teaming-tests"
+            ]
+          }
+          ]}
+      ]
+      },
+      {
         "tab": "SDK",
         "groups": [
           {
@@ -39,18 +64,6 @@
             "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
           }
         ]
-      },
-      {
-      "tab": "Concepts",
-      "groups":[
-      {
-        "group": "Concepts",
-        "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
-      },
-      {
-        "group": "Test Types",
-        "pages": ["concepts/product/test/quality-tests", "concepts/product/test/red-teaming-tests"]
-      }]
       }
     ],
     "global": {
