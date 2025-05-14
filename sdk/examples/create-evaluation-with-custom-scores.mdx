@@ -1,6 +1,6 @@
 ---
-title: 'Run evaluation with custom metrics'
-description: "Learn how to create and run evaluations for custom metrics using the SDK"
+title: 'Evaluate with your own scores'
+description: "Learn how to create and run fully-customized evaluations with custom metrics and self-calculated scores"
 icon: "screwdriver-wrench"
 ---
 
@@ -28,11 +28,11 @@ This is how to create an evaluation:
     An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
   </Info>
 
-## Running Evaluation For Custom metrics
+## Running Evaluation Tasks with Self-Calculated Scores
 
 Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task) and directly assign a self-calculated score:
 
-For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
+For efficiency, you can process *multiple evaluation tasks* using a loop and the `galtea.evaluation_tasks.create` method:
 
 ```python
 # Load your test cases
@@ -50,36 +50,24 @@ for test_case in test_cases:
 
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["custom_metric_accuracy", "custom_metric_relevance"],
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response.output,
-        # Your functions to get a score between 0.0 and 1.0 based on your criteria. 
-        scores=[get_score_accuracy(response.output), get_score_relevance(response.output)],
-        #################################################################
         retrieval_context=[retrieval_context],
-        ###################### Optional Parameters ######################
+
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
         usage_info={
           "input_tokens": response.inputTokens,
           "output_tokens": response.outputTokens,
           "cache_read_input_tokens": response.cacheReadInputTokens,
         },
-        cost_info={
-          "cost_per_input_token": 0.00002,
-          "cost_per_output_token": 0.00005,
-          "cost_per_cache_read_input_token": 0.00001,
-        },
-        #################################################################
-    )
 
-print("All evaluation tasks submitted")
+        metrics=["metric_accuracy", "metric_relevance"],
+        # Your functions to get a score between 0.0 and 1.0 based on your criteria. 
+        scores=[get_score_accuracy(response.output), get_score_relevance(response.output)],
+    )
 ```
 
 <Note>
   The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
 </Note>
-<Info>
-  The `latency` and `usage_info` parameters are optional but highly recommended to be used.
-  They can be used to track the performance in latency and costs of your product.
-</Info>

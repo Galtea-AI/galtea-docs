@@ -19,7 +19,7 @@
           },
           {
             "group": "Examples",
-            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/create-evaluation-with-custom-metric"]
+            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/create-evaluation-with-custom-scores"]
           },
           {
             "group": "Integrations",
