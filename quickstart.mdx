@@ -153,10 +153,11 @@ test = galtea.tests.create(
 Metrics in Galtea define the criteria by which your product's outputs will be evaluated. These [metric types](/concepts/metric-type) can be reused across different evaluations.
 
 ```python
-metric = galtea.metrics.create(
+# Create a metric type
+metric_self_accuracy = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the 'actual output' is equivalent to the 'expected output'.",
-    evaluation_params=["input", "expected output", "actual output"],
+    evaluation_params=["input", "expected output", "actual output"] # Ensure these match EvaluationParams values
 )
 ```
 
@@ -185,24 +186,32 @@ evaluation = galtea.evaluations.create(
     version_id=version.id
 )
 
-# Load your test cases (assuming 'test' object was created in step 4)
+# Get test cases from the test
 test_cases = galtea.test_cases.list(test_id=test.id)
 
-# Evaluate all test cases
+# Run evaluation tasks for each test case
 for test_case in test_cases:
+    # Retrieve relevant context for RAG. This may not apply to all products.
+    # your_retriever_function should return the context string or None
+    retrieval_context = your_retriever_function(test_case.input) 
+    
     # Your product's actual response to the input
-    actual_output = your_product_function(test_case.input, test_case.context)
+    # your_product_function should return the model's output string
+    actual_output = your_product_function(test_case.input, test_case.context, retrieval_context) 
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=[metric.name], # Use the created metric's name
+        metrics=[metric_self_accuracy.name], # Pass metric name as a string in a list
         evaluation_id=evaluation.id,
-        test_case_id=test_case.id, # Use test_case_id
-        actual_output=actual_output
+        test_case_id=test_case.id,
+        actual_output=actual_output,
+        retrieval_context=retrieval_context,
     )
 ```
 
-<Note>In this example, `your_product_function` is a placeholder for your model's inference logic. It should take the input and context from the `test_case` and return the model's output.</Note>
+<Note>
+  In this example, `your_retriever_function` is a placeholder for your RAG system's retrieval logic (if applicable), and `your_product_function` is a placeholder for your model's inference logic. `your_product_function` should take the input, context (from test case), and retrieval_context (if any) and return the model's output string.
+</Note>
 
 <Info>
   Evaluations can be created using either the SDK or the [Galtea platform](https://platform.galtea.ai/) dashboard, but evaluation tasks can only be created through the SDK.

@@ -32,7 +32,7 @@ A product in Galtea is associated with:
 
 <SDKProductServiceCard />
 
-While products cannot be created via the SDK (creation is done through the Galtea platform), you can use the SDK to list existing products, retrieve specific products by their ID or name, and delete products. See the [Product Service API documentation](/sdk/api/product-service) for more details.
+Products are created and managed through the Galtea platform. The SDK allows you to list existing products, retrieve specific products by their ID or name, and delete products. See the [Product Service API documentation](/sdk/api/product-service) for more details.
 
 ## Product Properties
 
@@ -75,22 +75,22 @@ When creating a product in Galtea, you'll need to provide the following informat
 <ResponseField name="Risk Level" type="Enum (string)" required>
   The risk level of the product under the EU AI Act.
   Possible values:
-  - GPAI // TODO: Add explanation of what this means
-  - GPAI_SYSTEMIC // TODO: Add explanation of what this means
-  - HIGH // TODO: Add explanation of what this means
-  - PROHIBITED // TODO: Add explanation of what this means
-  - SPECIAL_SYSTEM // TODO: Add explanation of what this means
+  - `GPAI`: General Purpose AI model.
+  - `GPAI_SYSTEMIC`: General Purpose AI model with systemic risk.
+  - `HIGH`: High-risk AI system.
+  - `PROHIBITED`: AI practice prohibited under the AI Act.
+  - `SPECIAL_SYSTEM`: System with special considerations under the AI Act.
 </ResponseField>
 
 <ResponseField name="Operator Type" type="Enum (string)" required>
   The operator type of the product under the EU AI Act.
   Possible values:
-  - AUTHORISED_REPRESENTATIVE // TODO: Add explanation of what this means
-  - DEPLOYER // TODO: Add explanation of what this means
-  - DISTRIBUTER // TODO: Add explanation of what this means
-  - IMPORTER // TODO: Add explanation of what this means
-  - PRODUCT_MANUFACTURER // TODO: Add explanation of what this means
-  - PROVIDER // TODO: Add explanation of what this means
+  - `AUTHORISED_REPRESENTATIVE`: An entity established in the EU, appointed by a provider from a third country, to act on their behalf regarding AI Act obligations.
+  - `DEPLOYER`: An entity that uses an AI system under its authority, except when the AI system is used in the course of a personal non-professional activity.
+  - `DISTRIBUTER`: An entity in the supply chain, other than the provider or importer, that makes an AI system available on the Union market.
+  - `IMPORTER`: An entity established in the EU that places on the market or puts into service an AI system bearing the name or trademark of a person established outside the Union.
+  - `PRODUCT_MANUFACTURER`: The manufacturer of a product that incorporates an AI system.
+  - `PROVIDER`: An entity that develops an AI system or that has an AI system developed and places it on the market or puts it into service under its own name or trademark.
 </ResponseField>
 
 <Info>Legal definitions are extracted from the [EU AI Act](https://artificialintelligenceact.eu/article/3/).</Info>
