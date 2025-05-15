@@ -45,7 +45,7 @@
                 <ul style="color: #444; font-size: 16px">
                   <li>
                     <strong>New "misuse" threat implemented:</strong><br />
-                    Now red teaming incorporates a new threat, misuse, which are queries that not necessaryly malicious however out-of-scope for you specific product. You can now test whether your product can successfully block these queries by marking "Mitre Atlas: Ambiguous prompts" in the threat
+                    Now red teaming incorporates a new threat, misuse, which are queries that not necessarily malicious however out-of-scope for you specific product. You can now test whether your product can successfully block these queries by marking "Mitre Atlas: Ambiguous prompts" in the threat
                     list.
                   </li>
                   <li>
@@ -58,6 +58,7 @@
                 <h3 style="color: #333">Bug Fixes</h3>
                 <ul style="color: #444; font-size: 16px">
                   <li><strong>Metric Range Fix:</strong> Default metrics now correctly show 100% as best and 0% as worst.</li>
+                  <li><strong>Test Creation with ".txt" Knowledge Base Files Fix:</strong> Due to a recent refactor, the creation of tests using knowledge base files with ".txt" extensions was not possible. This has been fixed and you can now create tests using ".txt" files again.</li>
                 </ul>
 
                 <br />
@@ -69,6 +70,8 @@
                 <h3 style="color: #333; margin-top: 40px">Coming Next</h3>
                 <p style="color: #444; font-size: 16px">Here’s what we’re working on next:</p>
                 <ul style="color: #444; font-size: 16px">
+                  <li><strong>Better attack strategies for red teaming:</strong> Red teaming tests will not only generate the threats to attack the product, but also vary the attacks to break the defenses and guardrails of the product, such as converting the prompt to base64, or to math questions.</li>
+                  <li><strong>Richer tests cases for quality assessment:</strong> Quality tests will generate harder to answer questions with richer answers that can connect multiple contexts.</li>
                   <li><strong>More Robust Permissions:</strong> A redesigned and more secure permission system is in the works.</li>
                   <li><strong>More Filter Improvements:</strong> We're continuing to refine filters to improve your analytics workflow.</li>
                 </ul>
