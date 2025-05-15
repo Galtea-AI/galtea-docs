@@ -41,7 +41,7 @@ evaluation_task = galtea.evaluation_tasks.create(
 </ResponseField>
 
 <ResponseField name="test_case_id" type="string" required>
-  The ID of the test case you want to use for the evaluation task.
+  The ID of the test case you want to use for the evaluation task. If `test_case_id` is provided, the `input`, `expected_output`, and `context` fields will be sourced from the specified test case. Providing these parameters directly alongside `test_case_id` will result in a deprecation warning from the SDK and is generally discouraged for consistency.
 </ResponseField>
 
 <ResponseField name="actual_output" type="string" required>
@@ -58,32 +58,13 @@ evaluation_task = galtea.evaluation_tasks.create(
 </ResponseField>
 
 <ResponseField name="conversation turns" type="list[dict[string, string]]">
-  The conversation turns used to generate the actual output provide additional context for the model. This represents the conversation history, excluding the current user query and model answer.
-  This allows evaluation of the model's performance in a conversational context.
-  There is an expected format for the conversation turns:
-  ```json
-  [
-    {"input": "What is the capital of France?", "actual_output": "Paris"},
-    {"input": "What is the population of it?", "actual_output": "two million"}
-  ]
-  ```
-
-  <Note>
-    Currently, this parameter can only be used with the following metrics, which are available on the platform:
-      - **Role Adherence**: Measures how well the actual output adheres to a specified role.
-      - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
-      - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
-      - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
- </Note>
+  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for evaluating conversational AI.
+  Example: `[{"input": "Hello", "actual_output": "Hi there!"}, {"input": "How are you?", "actual_output": "I'm doing well, thanks!"}]`
+  Currently, this parameter is primarily used with default conversational metrics like Role Adherence, Knowledge Retention, etc.
 </ResponseField>
 
 <ResponseField name="scores" type="list[float | None]">
-  Precomputed scores for the evaluation tasks, corresponding to the provided metrics. Must be a list of the same size as the `metrics` parameter, containing numbers between 0 and 1 or `None` values.
-    - Providing scores bypasses platform-based evaluation, storing the provided scores for later analysis. Useful for **custom metrics**.
-    - Use `None` as a placeholder for metrics that should be evaluated by the platform (e.g., `[0.5, None, 0.9]`).
-  <Note>
-    This field is automatically populated by the system and should not be provided manually unless you are evaluating custom metrics.
-  </Note>
+  A list of pre-calculated scores, corresponding to each metric in the `metrics` list. Each score must be between 0.0 and 1.0. Use `None` if you want Galtea to evaluate a specific metric. This is primarily for custom metrics evaluated externally. The list length must match the `metrics` list length.
 </ResponseField>
 
 <ResponseField name="latency" type="float">
@@ -119,10 +100,13 @@ evaluation_task = galtea.evaluation_tasks.create(
   </Note>
   <Warning>
     If the cost information is properly configured in the [Model](/concepts/model) selected by the used [Version](/concepts/product/version), the system will automatically calculate the cost of the evaluation task and the `cost_info` does not need to be provided.
-
     However, if the `cost_info` is provided, it will override the system's calculation.
   </Warning>
 </ResponseField>
+
+<Warning>
+  The `input`, `expected_output`, and `context` parameters are deprecated when `test_case_id` is provided. Prefer using `test_case_id` to link to a predefined test case. Providing these directly may lead to inconsistencies in tracking and is intended for specific ad-hoc scenarios or evaluation of production data not tied to a formal test.
+</Warning>
 
 <Warning>
   It is possible to create evaluation tasks with customized `input`, `expected_output`, and `context` fields by following [this example](/sdk/examples/create-evaluation#customized-test-cases-for-evaluation-tasks).
@@ -195,25 +179,12 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
 </ResponseField>
 
 <ResponseField name="conversation turns" type="list[dict[string, string]]">
-  The conversation turns used to generate the actual output provide additional context for the model. This represents the conversation history, excluding the current user query and model answer.
-  This allows evaluation of the model's performance in a conversational context.
-  There is an expected format for the conversation turns:
-  ```json
-  [
-    {"input": "What is the capital of France?", "actual_output": "Paris."},
-    {"input": "What is the population of it?", "actual_output": "Two million."}
-  ]
-  ```
-  <Note>
-    Currently, this parameter can only be used with the following metrics, which are available by default:
-      - **Role Adherence**: Measures how well the actual output adheres to a specified role.
-      - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
-      - **Conversation Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
-      - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
- </Note>
- <Info>
- See an example of evaluating conversations in our [Monitor Production Responses to User Queries example](/sdk/examples/monitor-production-responses-to-user-queries#evaluating-conversations).
- </Info>
+  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for evaluating conversational AI.
+  Example: `[{"input": "Hello", "actual_output": "Hi there!"}, {"input": "How are you?", "actual_output": "I'm doing well, thanks!"}]`
+  Currently, this parameter is primarily used with default conversational metrics like Role Adherence, Knowledge Retention, etc.
+  <Info>
+    See an example of evaluating conversations in our [Monitor Production Responses to User Queries example](/sdk/examples/monitor-production-responses-to-user-queries#evaluating-conversations).
+  </Info>
 </ResponseField>
 
 <ResponseField name="latency" type="float">
@@ -249,7 +220,6 @@ evaluation_task = galtea.evaluation_tasks.create_from_production(
   </Note>
   <Warning>
     If the cost information is properly configured in the [Model](/concepts/model) selected by the used [Version](/concepts/product/version), the system will automatically calculate the cost of the evaluation task and the `cost_info` does not need to be provided.
-
     However, if the `cost_info` is provided, it will override the system's calculation.
   </Warning>
 </ResponseField>

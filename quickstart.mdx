@@ -155,7 +155,7 @@ Metrics in Galtea define the criteria by which your product's outputs will be ev
 ```python
 metric = galtea.metrics.create(
     name="accuracy_v1",
-    criteria="Determine whether the 'actual output' is equivalent to the 'expected output'."
+    criteria="Determine whether the 'actual output' is equivalent to the 'expected output'.",
     evaluation_params=["input", "expected output", "actual output"],
 )
 ```
@@ -185,7 +185,7 @@ evaluation = galtea.evaluations.create(
     version_id=version.id
 )
 
-# Load your test cases
+# Load your test cases (assuming 'test' object was created in step 4)
 test_cases = galtea.test_cases.list(test_id=test.id)
 
 # Evaluate all test cases
@@ -195,12 +195,14 @@ for test_case in test_cases:
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1"],
+        metrics=[metric.name], # Use the created metric's name
         evaluation_id=evaluation.id,
-        test_case_id=test_case.id,
-        actual_output=actual_output,
+        test_case_id=test_case.id, # Use test_case_id
+        actual_output=actual_output
     )
 ```
+
+<Note>In this example, `your_product_function` is a placeholder for your model's inference logic. It should take the input and context from the `test_case` and return the model's output.</Note>
 
 <Info>
   Evaluations can be created using either the SDK or the [Galtea platform](https://platform.galtea.ai/) dashboard, but evaluation tasks can only be created through the SDK.

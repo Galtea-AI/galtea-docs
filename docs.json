@@ -28,29 +28,24 @@
         ]
       },
       {
-      "tab": "Concepts",
-      "groups":[
-      {
-        "group": "Concepts",
-        "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
-      },
-      {
-        "group": "Test Types", "pages":
-          [{"group": "Quality",
-          "icon": "star",
-          "pages": [
-            "concepts/product/test/quality-tests"
-            ]
+        "tab": "Concepts",
+        "groups": [
+          {
+            "group": "Concepts",
+            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
           },
           {
-            "group": "Red Teaming",
-            "icon": "shield-check",
+            "group": "Test Types",
             "pages": [
-              "concepts/product/test/red-teaming-tests"
+              { "group": "Quality", "icon": "star", "pages": ["concepts/product/test/quality-tests", "concepts/product/test/quality-evolutions"] },
+              {
+                "group": "Red Teaming",
+                "icon": "shield-check",
+                "pages": ["concepts/product/test/red-teaming-tests", "concepts/product/test/red-teaming-threats"]
+              }
             ]
           }
-          ]}
-      ]
+        ]
       },
       {
         "tab": "SDK",

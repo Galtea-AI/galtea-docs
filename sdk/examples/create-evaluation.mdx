@@ -54,7 +54,7 @@ for test_case in test_cases:
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response.output,
-        retrieval_context=[retrieval_context],  # Include retrieved context for evaluation
+        retrieval_context=retrieval_context,
         ###################### Optional Parameters ######################
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
         usage_info={
@@ -108,7 +108,7 @@ for index, row in df.iterrows():
         actual_output=actual_output,
         expected_output=row['expected_output'],
         context=row['context'],
-        retrieval_context=[retrieval_context],  # Include retrieved context for evaluation
+        retrieval_context=retrieval_context,
     )
 print("All evaluation tasks submitted")
 ```
@@ -116,7 +116,9 @@ print("All evaluation tasks submitted")
 <Warning>
   This method is only recommended for advanced users who need to customize the evaluation tasks. For most cases, using the test cases provided by the test is the best approach.
 
-  Using this will limit the acces to analysis tools and metrics that are available when using the standard test cases.
+  Note that providing `input`, `expected_output`, and `context` directly in `evaluation_tasks.create` (when a `test_case_id` would normally be used for test-based evaluations) is a legacy approach and might be deprecated in future SDK versions in favor of always linking to a `test_case_id` for formal tests.
+
+  Using this will limit the access to analysis tools and metrics that are available when using the standard test cases.
 </Warning>
 
 ## Retrieving Evaluation Results
