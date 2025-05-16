@@ -8,7 +8,7 @@ iconType: "solid"
 import VersionCard from '/snippets/cards/version-card.mdx';
 import TestCard from '/snippets/cards/test-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
-import SDKProductServiceCard from '/snippets/cards/sdk-product/service-card.mdx';
+import SDKProductServiceCard from '/snippets/cards/sdk-product-service-card.mdx';
 
 ## What is a Product?
 
@@ -30,13 +30,11 @@ A product in Galtea is associated with:
 
 ## SDK Integration
 
-<SDKProductServiceCard />
-
 **Products are created and managed through the Galtea platform.** The SDK allows you to list existing products, retrieve specific products by their ID or name, and delete products. See the [Product Service API documentation](/sdk/api/product/service) for more details.
 
-## Product Properties
+<SDKProductServiceCard />
 
-When creating a product in Galtea, you'll need to provide the following information:
+## Product Properties
 
 <ResponseField name="Product Name" type="Text" required>
   The name of your product.
