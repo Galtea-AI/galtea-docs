@@ -13,18 +13,20 @@ import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of a single [test case](/concepts/product/test/case) from a [test](/concepts/product/test) using a specific [evaluation criteria](/concepts/metric-type). Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
+An evaluation task in Galtea represents the assessment of a single [test case](/concepts/product/test/case) from a [test](/concepts/product/test) using a the evaluation criteria of a [metric](/concepts/metric-type). Multiple evaluation tasks make up an [evaluation](/concepts/product/evaluation).
 
-<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the input (provided by the test case) and the resulting output.</Note>
+<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the [test case](/concepts/product/test/case)'s data and the resulting output.</Note>
+
+The only way to **create** evaluation tasks is programmatically by using the [Galtea SDK](/sdk/api/evaluation-task/service).
 
 ## Task Lifecycle
 
 Evaluation tasks follow a specific lifecycle:
 
 <Steps>
-  <Step title="Inference">Perform inference on the LLM product to generate an output using the test case's input and context</Step>
+  <Step title="Inference">Perform inference on the LLM product to generate an output using the test case's data</Step>
   <Step title="Creation">[Trigger an evaluation task](/sdk/examples/create-evaluation). It will appear in the Evaluation's details page with the status "pending"</Step>
-  <Step title="Processing">Galtea's evaluation system processes the task using evaluation criteria of the selected metric type</Step>
+  <Step title="Processing">Galtea's evaluation system processes the task using the evaluation criteria of the selected metric type</Step>
   <Step title="Completion">Once processed, the status changes to "completed" and the [results](#task-results-properties) are available</Step>
 </Steps>
 
@@ -39,66 +41,44 @@ Evaluation tasks follow a specific lifecycle:
 
 ## SDK Integration
 
-<SDKEvaluationTaskServiceCard />
+The Galtea SDK allows you to create, view, and manage evaluation tasks programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
 
-## Task Creation Properties
+<CardGroup cols={2}>
+  <SDKEvaluationTaskServiceCard />
+  <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
+    Learn how to set up GitHub Actions to automatically evaluate new versions
+  </Card>
+</CardGroup>
+
+## Evaluation Task Properties
 
 To trigger an evaluation task in Galtea, you can provide the following information:
 
-<ResponseField name="Evaluation" type="ID (text)" required>
-  The unique identifier of the evaluation that the task is part of.
+<ResponseField name="Evaluation" type="Evaluation" required>
+  The evaluation to which this task belongs. 
 </ResponseField>
 
-<ResponseField name="Test Case" type="ID (text)" required>
-  The unique identifier of the test case to be evaluated.
+<ResponseField name="Test Case" type="Test Case" required>
+  The test case to be evaluated.
 </ResponseField>
 
-<ResponseField name="Input" type="string" deprecated>
-  The user query that your model needs to answer. Deprecated, it is now part of the test case.
+<ResponseField name="Metric Type" type="Metric Type" required>
+  The metric type used for the evaluation task. This defines the evaluation criteria and scoring method.
 </ResponseField>
 
-<ResponseField name="Expected Output" type="string" deprecated>
-  Expected output for the evaluation task. Deprecated, it is now part of the test case.
-</ResponseField>
-
-<ResponseField name="Context" type="string" deprecated>
-  Additional data provided to your LLM application. Deprecated, it is now part of the test case.
-</ResponseField>
-
-<ResponseField name="Actual Output" type="String" required>
+<ResponseField name="Actual Output" type="Text" required>
   The actual output produced by the product's version. **Example**: "The iPhone 16 costs $950."
 </ResponseField>
 
-<ResponseField name="Retrieval Context" type="string">
+<ResponseField name="Retrieval Context" type="Text">
   The context retrieved by your RAG system that was used to generate the actual output.
   <Note>
     Including retrieval context enables more comprehensive evaluation of RAG systems, allowing for assessment of both retrieval and generation capabilities.
   </Note>
 </ResponseField>
 
-<ResponseField name="Metric Type" type="ID (text)" required>
-  The unique identifier of the metric type to be used in the evaluation task.
-  <Info>The SDK allows you to use the metric type's name instead of the ID.</Info>
-</ResponseField>
-
-<ResponseField name="Conversation Turns" type="List[Dict[str, str]]">
-  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for evaluating conversational AI. If `test_case_id` is provided, this will be sourced from the test case. Can be provided for production monitoring evaluations.
-  Example: `[{"input": "Hello", "actual_output": "Hi there!"}, {"input": "How are you?", "actual_output": "I'm doing well, thanks!"}]`
-  Refer to the [SDK documentation](/sdk/api/evaluation-task/service#param-conversation-turns) for more details.
-</ResponseField>
-
 <ResponseField name="Latency" type="float">
   Time lapsed (in ms) from the moment the request was sent to the LLM to the moment the response was received.
-  <Note>
-    You can get the latency in milliseconds with this code:
-    ```python
-      from datetime import datetime
-      timeBeforeCall = datetime.now()
-      model_answer = CALL_TO_YOUR_MODEL(test_case.input) # Your model call
-      timeAfterCall = datetime.now()
-      latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000
-    ```
-  </Note>
 </ResponseField>
 
 <ResponseField name="Usage Info" type="Object">
@@ -109,7 +89,7 @@ To trigger an evaluation task in Galtea, you can provide the following informati
 </ResponseField>
 
 <ResponseField name="Cost Info" type="Object">
-  The costs associated with the LLM call. Use snake_case keys. May include:
+  The costs associated with the LLM call. May include:
   - **cost_per_input_token**: Cost for each input token read by the LLM.
   - **cost_per_output_token**: Cost for each output token generated by the LLM.
   - **cost_per_cache_read_input_token**: Cost for each input token read from cache.
@@ -121,12 +101,27 @@ To trigger an evaluation task in Galtea, you can provide the following informati
   </Warning>
 </ResponseField>
 
-### Monitoring Production Data
-Galtea SDK also supports creating evaluation tasks directly from your production environment using the `create_from_production` method. This is useful for ongoing monitoring and analysis of real user interactions. For detailed usage, refer to the [`create_from_production` documentation](/sdk/api/evaluation-task/service#monitoring-user-interactions-in-production).
+<ResponseField name="Input" type="Text" deprecated>
+  The user query that your model needs to answer. Deprecated, it is now part of the test case.
+</ResponseField>
 
-## Task Results Properties
+<ResponseField name="Expected Output" type="Text" deprecated>
+  Expected output for the evaluation task. Deprecated, it is now part of the test case.
+</ResponseField>
 
-Once an evaluation task is completed, you can access the following information:
+<ResponseField name="Context" type="Text" deprecated>
+  Additional data provided to your LLM application. Deprecated, it is now part of the test case.
+</ResponseField>
+
+<ResponseField name="Conversation Turns" type="List[Dict[Text, Text]]" deprecated>
+  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for evaluating conversational AI. If `test_case_id` is provided, this will be sourced from the test case. Can be provided for production monitoring evaluations.
+  Example: `[{"input": "Hello", "actual_output": "Hi there!"}, {"input": "How are you?", "actual_output": "I'm doing well, thanks!"}]`
+  Deprecated, it is now part of the test case.
+</ResponseField>
+
+### Evaluation Task Results Properties
+
+Once an evaluation task is created, you can access the following information:
 
 <ResponseField name="Status" type="Enum">
   The current status of the evaluation task.

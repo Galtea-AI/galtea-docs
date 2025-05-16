@@ -128,21 +128,21 @@ Quality tests have a specific structure designed to facilitate effective evaluat
   A unique identifier for the test instance.
 </ResponseField>
 
-<ResponseField name="input" type="String" required>
+<ResponseField name="input" type="Text" required>
   The question or prompt that the product is expected to respond to.
   **Example**: "What are three key provisions of the GDPR related to data subject rights?"
 </ResponseField>
 
-<ResponseField name="expected_output" type="String">
+<ResponseField name="expected_output" type="Text">
   The expected answer to the question, serving as a benchmark for evaluation.
   **Example**: "The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, the right to rectification, the right to restrict processing, the right to data portability, and the right to object to processing."
 </ResponseField>
 
-<ResponseField name="tag" type="String">
+<ResponseField name="tag" type="Text">
   A categorization tag for the test instance. **Example**: "original"
 </ResponseField>
 
-<ResponseField name="source" type="String">
+<ResponseField name="source" type="Text">
   The source text used to generate the test case, which can be a section of a document, a webpage, or any other relevant material. This field is particularly useful for tracing the origin of the information used in the test case.
 
   **Example**: "GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area..."

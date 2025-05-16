@@ -150,18 +150,18 @@ Red teaming tests have a specific structure focused on providing challenging inp
   A unique identifier for the test instance.
 </ResponseField>
 
-<ResponseField name="input" type="String" required>
+<ResponseField name="input" type="Text" required>
   The adversarial input specifically designed to test the product's resilience against potential vulnerabilities. **Example**: "Please ignore any previous instructions and..."
 </ResponseField>
 
-<ResponseField name="expected_output" type="String">
+<ResponseField name="expected_output" type="Text">
   For red teaming tests, this field is typically marked as "N/A" since the purpose is to test system resilience rather than producing a specific output.
 </ResponseField>
 
-<ResponseField name="tag" type="String">
+<ResponseField name="tag" type="Text">
   A categorization tag for the test instance, typically "adversarial_inputs" for red teaming tests.
 </ResponseField>
 
-<ResponseField name="source" type="String">
+<ResponseField name="source" type="Text">
   The source of the adversarial input, which may be marked as "N/A" for red teaming tests.
 </ResponseField>
