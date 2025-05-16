@@ -53,7 +53,7 @@ for test_case in test_cases:
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response.output,
-        retrieval_context=[retrieval_context],
+        retrieval_context=retrieval_context,
 
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
         usage_info={

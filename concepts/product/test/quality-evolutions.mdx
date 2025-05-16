@@ -1,4 +1,24 @@
 ---
+title: "Understanding Quality Test Variants"
+description: "How the 'variants' parameter enhances test coverage and robustness in Galtea Quality Tests."
+icon: ""
+---
+
+## Understanding Quality Test Variants
+
+When Galtea generates Quality Tests from a `ground_truth_file_path`, it can also create variations of the base test cases to enhance test coverage and robustness. This is controlled by the `variants` parameter in the SDK and API.
+
+### Available Variants
+
+- **paraphrased**: Generates questions that are rephrased versions of the original, testing the model's ability to understand different phrasings.
+- **typos**: Introduces common typographical errors into the questions, assessing the model's resilience to user mistakes.
+- **incorrect**: Generates questions that might be subtly incorrect or misleading based on the context, challenging the model's precision.
+- **cognitively_diverse**: Creates questions that require different cognitive approaches or levels of understanding, ensuring the model can handle a range of reasoning tasks.
+- **linguistic_diverse**: Produces questions with varied linguistic structures or vocabulary, testing the model's flexibility with language.
+
+These variants help assess your product's understanding and resilience by simulating real-world user behavior and edge cases. For more details on configuring variants, see the [Test Creation API documentation](/sdk/api/test/create).
+
+---
 title: "Evolve your Quality Tests"
 description: "In order to test diverse user behaviour, Galtea provides diverse evolutions of base test cases"
 icon: ""

@@ -50,6 +50,11 @@ The Galtea SDK allows you to create, view, and manage evaluation tasks programma
   </Card>
 </CardGroup>
 
+### Evaluation Tasks from Production
+
+For evaluation tasks created from production data you can use the SDK method [`create_from_production`](/sdk/api/evaluation-task/create-from-production).
+It allows the user to supply the conversation history and more data directly without the need of a `test_case_id`.
+
 ## Evaluation Task Properties
 
 To trigger an evaluation task in Galtea, you can provide the following information:
@@ -114,9 +119,7 @@ To trigger an evaluation task in Galtea, you can provide the following informati
 </ResponseField>
 
 <ResponseField name="Conversation Turns" type="List[Dict[Text, Text]]" deprecated>
-  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for evaluating conversational AI. If `test_case_id` is provided, this will be sourced from the test case. Can be provided for production monitoring evaluations.
-  Example: `[{"input": "Hello", "actual_output": "Hi there!"}, {"input": "How are you?", "actual_output": "I'm doing well, thanks!"}]`
-  Deprecated, it is now part of the test case.
+  For conversational AI, this field can store a list of previous turns in the conversation. Each turn is a dictionary with "input" and "actual_output" keys. 
 </ResponseField>
 
 ### Evaluation Task Results Properties
