@@ -38,7 +38,7 @@ Evaluating AI products with Galtea follows this pattern:
 
 Let's go through each step in more detail.
 
-## 1. Creating a Product
+## 1. Create a Product
 
 The first step in tracking the quality and reliability of your AI product is to create a [product](/concepts/product) in the Galtea dashboard.
 
@@ -88,7 +88,7 @@ After creating your product, we recommend to use the [Galtea SDK](/sdk) to progr
   </Step>
 </Steps>
 
-## 3. Register a Version
+## 3. Create a Version
 
 One of the key advantages of the [Galtea platform](https://platform.galtea.ai/) is the ability to track and compare different [versions](/concepts/product/version) of your AI product. A version captures the specific implementation details such as prompts, model parameters, or RAG configurations.
 
@@ -102,18 +102,26 @@ version = galtea.versions.create(
     }
 )
 ```
+<Info>
+  All `optional_props` can be found in the [Create Version](/sdk/api/version-service#create-version) API documentation.
+</Info>
 
 <Note>
-  The product's ID can be found in the product's page in the [Galtea platform](https://platform.galtea.ai/) or by [listing products](/sdk/api/product-service#listing-products) using the SDK.
+  The product's ID can be found in the product's page in the [Galtea platform](https://platform.galtea.ai/) or by [listing the products](/sdk/api/product-service#listing-products) using the SDK.
 </Note>
 
 <Info>
   You can create versions using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/) dashboard.
 </Info>
 
-<Card title="Version Service API" icon="swatchbook" href="/sdk/api/version-service">
-  Learn about all version properties and management capabilities
-</Card>
+<CardGroup cols={2}>
+  <Card title="Product Service API" icon="swatchbook" href="/sdk/api/product-service">
+    Learn about all product properties and management capabilities
+  </Card>
+  <Card title="Version Service API" icon="swatchbook" href="/sdk/api/version-service">
+    Learn about all version properties and management capabilities
+  </Card>
+</CardGroup>
 
 ## 4. Create a Test
 
