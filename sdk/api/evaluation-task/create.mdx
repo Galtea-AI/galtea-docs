@@ -4,11 +4,11 @@ description: "Create an evaluation task for a given evaluation."
 ---
 
 ## Returns
-Returns an EvaluationTask object for the given evaluation and test case.
+Returns a list of EvaluationTask objects for the given evaluation and test case. Returns `None` if an error occurs.
 
 ## Example
 ```python
-evaluation_task = galtea.evaluation_tasks.create(
+evaluation_tasks = galtea.evaluation_tasks.create(
     evaluation_id="YOUR_EVALUATION_ID",
     metrics=["accuracy_v1", "coherence-v1"],
     test_case_id="YOUR_TEST_CASE_ID",
@@ -29,9 +29,36 @@ evaluation_task = galtea.evaluation_tasks.create(
     The system will create a task for each metric provided.
   </Note>
 </ResponseField>
-<ResponseField name="test_case_id" type="string" required>
-  The ID of the test case you want to use for the evaluation task.
+<ResponseField name="test_case_id" type="string">
+  The ID of the test case you want to use for the evaluation task. While optional, using `test_case_id` is highly recommended as it allows for better tracking and reusability of test data. If not provided, you may need to supply `input`, `expected_output`, and `context` directly (see warning below).
 </ResponseField>
 <ResponseField name="actual_output" type="string" required>
   The actual output produced by the product.
 </ResponseField>
+<ResponseField name="scores" type="list[float | None]" optional>
+  Precomputed scores for the evaluation tasks, corresponding to the provided `metrics`. This list must be the same length as the `metrics` list. Each item should be a number between 0 and 1, or `None` if the platform should evaluate that specific metric. Useful for custom metrics. Example: `[0.8, None, 0.95]`.
+</ResponseField>
+<ResponseField name="retrieval_context" type="string" optional>
+  The context retrieved by your RAG system that was used to generate the `actual_output`.
+</ResponseField>
+<ResponseField name="conversation_turns" type="list[dict[string, string]]" optional>
+  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. Used for evaluating conversational AI.
+  Example: `[{"input": "Hello", "actual_output": "Hi there!"}, {"input": "How are you?", "actual_output": "I'm doing well, thanks!"}]`
+</ResponseField>
+<ResponseField name="latency" type="float" optional>
+  Time lapsed (in ms) from the moment the request was sent to the LLM to the moment the response was received.
+</ResponseField>
+<ResponseField name="usage_info" type="dict[str, float]" optional>
+  Token usage information for the LLM call. Keys must be snake_case.
+  Possible keys: `input_tokens`, `output_tokens`, `cache_read_input_tokens`.
+</ResponseField>
+<ResponseField name="cost_info" type="dict[str, float]" optional>
+  Cost information for the LLM call. Keys must be snake_case.
+  Possible keys: `cost_per_input_token`, `cost_per_output_token`, `cost_per_cache_read_input_token`.
+</ResponseField>
+<Warning>
+  The parameters `input`, `expected_output`, and `context` for `evaluation_tasks.create()` are deprecated.
+  It is highly recommended to use `test_case_id` instead. You can create a test case using `galtea.test_cases.create()` and then pass its ID.
+  This allows for better tracking and reusability of test data.
+  If `test_case_id` is not provided, you may need to provide these deprecated parameters.
+</Warning>

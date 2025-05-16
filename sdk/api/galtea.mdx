@@ -16,7 +16,7 @@ To initialize the `Galtea` class, you need to provide your API key obtained in t
 from galtea import Galtea
 
 # Initialize Galtea SDK
-galtea = Galtea(api_key="YOUR_API_KEY")
+galtea = Galtea(api_key="YOUR_API_KEY", supress_updatable_version_message=False)
 ```
 
 ### Services
@@ -26,7 +26,7 @@ The `Galtea` class provides access to the following services:
 - [`products`](/sdk/api/product/service): Access [product](/concepts/product) related functionalities.
 - [`versions`](/sdk/api/version/service): Access [version](/concepts/product/version) related functionalities.
 - [`tests`](/sdk/api/test/service): Access [test](/concepts/product/test) related functionalities.
-- [`test cases`](/sdk/api/test-case/service): Access [test cases](/concepts/product/test/case) related functionalities.
+- [`test_cases`](/sdk/api/test-case/service): Access [test cases](/concepts/product/test/case) related functionalities.
 - [`metrics`](/sdk/api/metrics/service): Access [metric](/concepts/metric-type) related functionalities.
 - [`evaluations`](/sdk/api/evaluation/service): Access [evaluation](/concepts/product/evaluation) related functionalities.
 - [`evaluation_tasks`](/sdk/api/evaluation-task/service): Access [evaluation task](/concepts/product/evaluation/task) related functionalities.
@@ -38,7 +38,7 @@ The `Galtea` class provides access to the following services:
 from galtea import Galtea
 
 # Initialize Galtea SDK
-galtea = Galtea(api_key="YOUR_API_KEY")
+galtea = Galtea(api_key="YOUR_API_KEY", supress_updatable_version_message=False)
 
 # List products
 products = galtea.products.list()
