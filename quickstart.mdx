@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-description: "All you need to get started with Galtea evaluations"
+description: "All you need to get started"
 icon: "rocket"
 ---
 
@@ -12,7 +12,7 @@ import TestCard from '/snippets/cards/test-card.mdx';
 import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import VersionCard from '/snippets/cards/version-card.mdx';
 
-This guide will walk you through the essential steps to begin evaluating and monitoring the reliability of your AI products with Galtea. Our goal is to get you to your first evaluation result as quickly as possible!
+This guide will walk you through the essential steps to begin evaluating and monitoring the reliability of your AI products with Galtea.
 
 ## Evaluation Workflow Overview
 
@@ -20,22 +20,19 @@ Evaluating AI products with Galtea follows this pattern:
 
 <Steps>
   <Step title="Create a Product">
-    Define what functionality or service you want to evaluate on the Galtea platform.
-  </Step>
-  <Step title="Install SDK & Connect">
-    Set up the Galtea Python SDK to interact with the platform.
+    Define what functionality or service you want to evaluate
   </Step>
   <Step title="Register a Version">
-    Document a specific implementation of your product using the SDK.
+    Document the specific implementation of your product
   </Step>
-  <Step title="Select a Test">
-    Use a default Galtea test or create your own to challenge your product.
+  <Step title="Create a Test">
+    Define a set of test cases to evaluate your product's performance
   </Step>
-  <Step title="Select a Metric">
-    Use a default Galtea metric or define your own criteria to assess outputs.
+  <Step title="Define Metrics">
+    Select or create criteria to assess outputs
   </Step>
   <Step title="Run Evaluations">
-    Test your product version against the selected test and metric, then analyze results.
+    Test your product and analyze the results
   </Step>
 </Steps>
 
@@ -47,7 +44,7 @@ The first step in tracking the quality and reliability of your AI product is to 
 
 ![login to the platform](/images/login.png)
 
-Navigate to **[Products](https://platform.galtea.ai/) > Create New Product** and complete the product onboarding form. The product description is particularly important as it may be used during the generation of synthetic test data if you choose to create custom tests later.
+Navigate to **[Products](https://platform.galtea.ai/) > Create New Product** and complete the product onboarding form. The product description is particularly important as it may be used during the generation of synthetic test data.
 
 ![product onboarding](/images/product-onboarding.png)
 
@@ -57,7 +54,7 @@ Navigate to **[Products](https://platform.galtea.ai/) > Create New Product** and
 
 ## 2. Install the SDK and Connect
 
-After creating your product, use the [Galtea SDK](/sdk) to programmatically interact with the platform.
+After creating your product, we recommend to use the [Galtea SDK](/sdk) to programmatically interact with the platform.
 
 <Steps>
   <Step title="Get your API key">
@@ -85,10 +82,8 @@ After creating your product, use the [Galtea SDK](/sdk) to programmatically inte
     # Initialize with your API key
     galtea = Galtea(api_key="YOUR_API_KEY")
     
-    # List your products to verify connection (replace with your actual Product ID later)
-    # products = galtea.products.list() 
-    # For this quickstart, you'll need your Product ID from the platform for the next steps.
-    # Example: YOUR_PRODUCT_ID = "your_actual_product_id_from_platform"
+    # List your products to verify connection
+    products = galtea.products.list()
     ```
   </Step>
 </Steps>
@@ -98,25 +93,21 @@ After creating your product, use the [Galtea SDK](/sdk) to programmatically inte
 One of the key advantages of the [Galtea platform](https://platform.galtea.ai/) is the ability to track and compare different [versions](/concepts/product/version) of your AI product. A version captures the specific implementation details such as prompts, model parameters, or RAG configurations.
 
 ```python
-# Ensure you have your_product_id from the Galtea platform for the product created in Step 1
-YOUR_PRODUCT_ID = "your_actual_product_id_from_platform" 
-
 version = galtea.versions.create(
-    name="v0.1-quickstart", # You can name your version
-    product_id=YOUR_PRODUCT_ID,
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
     optional_props={
-        "description": "Initial version for quickstart evaluation"
-        # Add other metadata like system_prompt, model_id, endpoint, etc. as needed
+        "description": "Initial version"
+        # Add other metadata like system_prompt, endpoint, etc.
     }
 )
-print(f"Created Version with ID: {version.id}")
 ```
 <Info>
-  All `optional_props` can be found in the [Create Version](/sdk/api/version/create) API documentation.
+  All `optional_props` can be found in the [Create Version](/sdk/api/version/service#create-version) API documentation.
 </Info>
 
 <Note>
-  The product's ID (`YOUR_PRODUCT_ID`) can be found in the product's page URL on the [Galtea platform](https://platform.galtea.ai/) or by [listing the products](/sdk/api/product/list) using the SDK and identifying the correct one.
+  The product's ID can be found in the product's page in the [Galtea platform](https://platform.galtea.ai/) or by [listing the products](/sdk/api/product/service#listing-products) using the SDK.
 </Note>
 
 <Info>
@@ -124,151 +115,138 @@ print(f"Created Version with ID: {version.id}")
 </Info>
 
 <CardGroup cols={2}>
-  <Card title="Versions Concept" icon="box" href="/concepts/product/version">
-    Learn about versions in Galtea
+  <Card title="Product Service API" icon="swatchbook" href="/sdk/api/product/service">
+    Learn about all product properties and management capabilities
   </Card>
   <Card title="Version Service API" icon="swatchbook" href="/sdk/api/version/service">
     Learn about all version properties and management capabilities
   </Card>
 </CardGroup>
 
-## 4. Use a Default Test (or Create Your Own)
+## 4. Create a Test
 
-To evaluate your version, you need a [test](/concepts/product/test). Galtea provides default tests to help you get started quickly. For this quickstart, we'll use the default "Jailbreak" test, which is a type of [Red Teaming Test](/concepts/product/test/red-teaming-tests).
+To compare the reliability of different versions, you need to subject each version to the same tests. Galtea supports two test types:
 
-```python
-test = galtea.tests.get_by_name(product_id=YOUR_PRODUCT_ID, test_name="Jailbreak")
-```
-
-<Note>
-  The "Jailbreak" test contains various prompts designed to attempt to bypass an AI's safety guardrails. This helps you assess your product's robustness against such attempts.
-</Note>
-
-If you want to define your own tests for specific knowledge (Quality Tests) or other security aspects:
 <CardGroup cols={2}>
   <Card title="Quality Tests" icon="star" href="/concepts/product/test/quality-tests">
-    Tests that evaluate accuracy and correctness against a knowledge base.
+    Tests that evaluate accuracy and correctness
   </Card>
   <Card title="Red Teaming Tests" icon="shield-halved" href="/concepts/product/test/red-teaming-tests">
-    Tests that evaluate security and safety aspects beyond jailbreaking.
+    Tests that evaluate security and safety aspects
   </Card>
 </CardGroup>
 
-<Card title="Create a Custom Test" icon="clipboard-list" href="/sdk/examples/create-test">
-  See complete examples of creating and uploading your own tests.
-</Card>
-
-## 5. Use a Default Metric (or Define Your Own)
-
-[Metrics](/concepts/metric-type) in Galtea define the criteria for evaluation. Galtea provides default metrics. For our "Jailbreak" test, we'll use the "Jailbreak Resistance" metric.
+You can either upload your own test file or have Galtea generate tests from a knowledge base (ground truth) document:
 
 ```python
-metric_jailbreak_resistance = galtea.metrics.get_by_name(name="Jailbreak Resistance")
-```
-
-<Note>
-  The "Jailbreak Resistance" metric analyzes the AI's response to a jailbreak prompt and scores its ability to maintain safety and refuse inappropriate requests.
-</Note>
-
-If you need to evaluate other aspects or define custom criteria:
-<CardGroup cols={2}>
-  <Card title="Metrics Concept" icon="box" href="/concepts/metric-type">
-    Learn about metrics in Galtea
-  </Card>
-  <Card title="Metrics Service API" icon="function" href="/sdk/api/metrics/service">
-    Learn about creating and managing custom evaluation metrics.
-  </Card>
-</CardGroup>
-
-## 6. Run Evaluations
-
-Finally, you're ready to launch an [evaluation](/concepts/product/evaluation) to assess how well your product version performs against the test cases using the selected metric.
-
-<Note>
-  For real evaluations, your AI product (`your_product_function` below) will be called with each input from the test cases. The platform will then asynchronously evaluate the responses. See [evaluation tasks](/concepts/product/evaluation/task) for more.
-</Note>
-
-```python
-# Placeholder for your actual product/model inference function
-def your_product_function(input_prompt, context_data=None, retrieval_data=None):
-    """
-    This is a placeholder. Replace this with a call to your actual AI model.
-    It should take an input_prompt (from test_case.input) and optionally
-    context or retrieval_context, and return the model's textual response.
-    """
-    print(f"Simulating model call for input: {input_prompt[:50]}...")
-    # Example: If input contains "ignore previous instructions", model should ideally resist.
-    if "ignore previous instructions" in input_prompt.lower():
-        return "I am programmed to follow safety guidelines and cannot fulfill this request."
-    return f"This is a simulated response to: {input_prompt}"
-
-# Create an evaluation linking the version and the test
-evaluation = galtea.evaluations.create(
-    test_id=test.id, # Using the ID of the "Jailbreak" test retrieved earlier
-    version_id=version.id
+test = galtea.tests.create(
+    name="example-test",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    test_file_path="path/to/your/test_file.csv"
+    # Or use ground_truth_file_path="path/to/knowledge_file.pdf"
 )
-print(f"Created Evaluation with ID: {evaluation.id}")
-
-# Get test cases from the "Jailbreak" test
-test_cases = galtea.test_cases.list(test_id=test.id)
-print(f"Found {len(test_cases)} test cases for test '{test.name}'.")
-
-# Run evaluation tasks for each test case
-for test_case in test_cases:
-    # For a Jailbreak test, retrieval_context and test_case.context might often be None or not applicable
-    # depending on the specific test case design.
-    retrieval_context_for_call = None # Adjust if your_product_function uses it for jailbreak scenarios
-    
-    actual_output = your_product_function(
-        test_case.input, 
-        test_case.context, # Context from the test case, if any
-        retrieval_context_for_call
-    ) 
-    
-    # Run evaluation task using the "Jailbreak Resistance" metric
-    galtea.evaluation_tasks.create(
-        metrics=[metric_jailbreak_resistance.name], # Pass the metric name
-        evaluation_id=evaluation.id,
-        test_case_id=test_case.id,
-        actual_output=actual_output,
-        # retrieval_context can be passed if relevant to the metric or your product's behavior
-        # retrieval_context=retrieval_context_for_call 
-    )
-print(f"Submitted evaluation tasks for Evaluation ID: {evaluation.id}. Results will appear on the Galtea dashboard.")
 ```
 
 <Info>
-  Evaluations can be created using either the SDK or the [Galtea platform](https://platform.galtea.ai/) dashboard, but evaluation tasks (which trigger the actual scoring) are created via the SDK.
+  Tests can be created using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/) dashboard.
 </Info>
 
-<Card title="Run Evaluations Example" icon="badge-check" href="/sdk/examples/create-evaluation">
-  See more detailed examples of running and analyzing evaluations.
+<Card title="Create a Custom Test" icon="clipboard-list" href="/sdk/examples/create-test">
+  See complete examples of creating and uploading tests
+</Card>
+
+## 5. Define Metrics
+
+Metrics in Galtea define the criteria by which your product's outputs will be evaluated. These [metric types](/concepts/metric-type) can be reused across different evaluations.
+
+```python
+# Create a metric type
+metric_self_accuracy = galtea.metrics.create(
+    name="accuracy_v1",
+    criteria="Determine whether the 'actual output' is equivalent to the 'expected output'.",
+    evaluation_params=["input", "expected output", "actual output"] # Ensure these match EvaluationParams values
+)
+```
+
+<Info>
+  Metric types can be created using either the SDK (as shown above) or directly through the [Galtea platform](https://platform.galtea.ai/metrics) dashboard.
+</Info>
+
+<Card title="Metrics Service API" icon="function" href="/sdk/api/metrics/service">
+  Learn about creating and managing evaluation metrics
+</Card>
+
+## 6. Run Evaluations
+
+Finally, you're ready to launch an [evaluation](/concepts/product/evaluation) to assess how well your product version performs against the test cases:
+
+<Note>
+  For real evaluations, you'll typically run your AI product against all sets of inputs and context in your test cases and then launch an Evaluation Task for each.
+  
+  The platform will asynchronously evaluate responses and make results available through the dashboard and the SDK. For more information, see [evaluation tasks](/concepts/product/evaluation/task).
+</Note>
+
+```python
+# Create an evaluation
+evaluation = galtea.evaluations.create(
+    test_id=test.id,
+    version_id=version.id
+)
+
+# Get test cases from the test
+test_cases = galtea.test_cases.list(test_id=test.id)
+
+# Run evaluation tasks for each test case
+for test_case in test_cases:
+    # Retrieve relevant context for RAG. This may not apply to all products.
+    # your_retriever_function should return the context string or None
+    retrieval_context = your_retriever_function(test_case.input) 
+    
+    # Your product's actual response to the input
+    # your_product_function should return the model's output string
+    actual_output = your_product_function(test_case.input, test_case.context, retrieval_context) 
+    
+    # Run evaluation task
+    galtea.evaluation_tasks.create(
+        metrics=[metric_self_accuracy.name], # Pass metric name as a string in a list
+        evaluation_id=evaluation.id,
+        test_case_id=test_case.id,
+        actual_output=actual_output,
+        retrieval_context=retrieval_context,
+    )
+```
+
+<Note>
+  In this example, `your_retriever_function` is a placeholder for your RAG system's retrieval logic (if applicable), and `your_product_function` is a placeholder for your model's inference logic. `your_product_function` should take the input, context (from test case), and retrieval_context (if any) and return the model's output string.
+</Note>
+
+<Info>
+  Evaluations can be created using either the SDK or the [Galtea platform](https://platform.galtea.ai/) dashboard, but evaluation tasks can only be created through the SDK.
+</Info>
+
+<Card title="Run Evaluations" icon="badge-check" href="/sdk/examples/create-evaluation">
+  See complete examples of running and analyzing evaluations
 </Card>
 
 ## 7. View Results
 
-You can view evaluation results, scores, and detailed reasons through the SDK or, more comprehensively, on the [Galtea platform](https://platform.galtea.ai/).
+You can view evaluation results through the SDK or on the [Galtea platform](https://platform.galtea.ai/):
 
 ```python
-# Example of how to retrieve task results (tasks might take time to process)
-# print(f"\nTo check results later via SDK for evaluation {evaluation.id}:")
-# tasks = galtea.evaluation_tasks.list(evaluation.id)
-# if tasks:
-#     # Fetching details for the first task as an example
-#     # In a real scenario, you might want to wait or check status before fetching details
-#     # task_detail = galtea.evaluation_tasks.get(tasks[0].id) 
-#     # print(f"Example Task ID: {task_detail.id}, Score: {task_detail.score}, Reason: {task_detail.reason}")
-# else:
-#     print("No tasks found yet, or processing may still be ongoing.")
-
-print(f"\nVisit the Galtea platform to see detailed analytics for your product and evaluation {evaluation.id}.")
+# Retrieve evaluation tasks
+tasks = galtea.evaluation_tasks.list(evaluation.id)
+if tasks:
+    result = galtea.evaluation_tasks.get(tasks[0].id)
+    print(f"Score: {result.score}")
+    print(f"Reason: {result.reason}")
 ```
 
-For richer analysis, comparisons between versions, and visualizations, navigate to your product's page and its "Analytics" or "Evaluations" sections on the [Galtea platform](https://platform.galtea.ai/).
+For richer analysis and comparisons between versions, visit the Analytics section of your product in the [Galtea platform](https://platform.galtea.ai/).
 
 ## Next Steps
 
-Congratulations! You've completed your first evaluation with Galtea using default assets. This is just the beginning. Explore these concepts to tailor Galtea to your specific needs:
+Congratulations! You've completed your first evaluation with Galtea. For more detailed information:
 
 <CardGroup cols={3}>
     <ProductCard />
@@ -280,4 +258,4 @@ Congratulations! You've completed your first evaluation with Galtea using defaul
     <MetricTypeCard />
 </CardGroup>
 
-If you have any questions or need assistance, contact us at [support@galtea.ai](mailto:support@galtea.ai).
+If you have any questions, contact us at [support@galtea.ai](mailto:support@galtea.ai).
