@@ -1,169 +1,45 @@
 ---
-title: "Understanding Quality Test Variants"
-description: "How the 'variants' parameter enhances test coverage and robustness in Galtea Quality Tests."
+title: "Quality Test Evolutions"
+description: "Galtea platform generates variations of test cases to enhance test coverage and robustness"
 icon: ""
 ---
 
-## Understanding Quality Test Variants
+## Understanding Quality Test Evolutions
 
 When Galtea generates Quality Tests from a `ground_truth_file_path`, it can also create variations of the base test cases to enhance test coverage and robustness. This is controlled by the `variants` parameter in the SDK and API.
 
-### Available Variants
-
-- **paraphrased**: Generates questions that are rephrased versions of the original, testing the model's ability to understand different phrasings.
-- **typos**: Introduces common typographical errors into the questions, assessing the model's resilience to user mistakes.
-- **incorrect**: Generates questions that might be subtly incorrect or misleading based on the context, challenging the model's precision.
-- **cognitively_diverse**: Creates questions that require different cognitive approaches or levels of understanding, ensuring the model can handle a range of reasoning tasks.
-- **linguistic_diverse**: Produces questions with varied linguistic structures or vocabulary, testing the model's flexibility with language.
-
-These variants help assess your product's understanding and resilience by simulating real-world user behavior and edge cases. For more details on configuring variants, see the [Test Creation API documentation](/sdk/api/test/create).
-
----
-title: "Evolve your Quality Tests"
-description: "In order to test diverse user behaviour, Galtea provides diverse evolutions of base test cases"
-icon: ""
----
-
-## What are Quality Tests?
-
-Quality tests in Galtea are designed to evaluate the quality, accuracy, and correctness of your [product's](/concepts/product) outputs. These tests typically consist of questions or prompts paired with ideal answers, allowing Galtea to assess how well your product's responses match the expected standard.
-
-## Creating Quality Tests
-
-You can create quality tests in Galtea through two methods:
-
-<Tabs>
-  <Tab title="Generate from Knowledge Base">
-    <Steps>
-      <Step title="Prepare your knowledge base file">
-        Create a file containing all the information that the Product should **know and adhere to**
-      </Step>
-      <Step title="Configure the test">
-        Select *Quality* as the test type and *Generated* as the test origin
-        <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea platform](https://platform.galtea.ai/)
-        </Info>
-      </Step>
-      <Step title="Generate the test">
-        Galtea will process the Knowledge Base and generate a *Test File* and *Test Cases* for you
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Upload Your Own Test">
-    <Steps>
-      <Step title="Create your test file">
-        Prepare a CSV file following the structure shown above
-      </Step>
-      <Step title="Configure the test">
-        Select "Quality" as the test type and "Uploaded" as the test origin
-        <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea platform](https://platform.galtea.ai/)
-        </Info>
-      </Step>
-      <Step title="Upload your test file">
-        Select the file you created and upload it to Galtea
-      </Step>
-          </Steps>
-  </Tab>
-</Tabs>
-
-## Example Quality Tests and File Format
-
-Here are examples of the content and its creation-document structure:
-
-<AccordionGroup>
-  <Accordion title="Basic Knowledge Questions">
-    <Tabs>
-      <Tab title="Table View">
-        | # | Instance ID | Input | Expected Output | Tag | Source |
-        |---|------------|-------|-----------------|-----|---------|
-        | 0 | 0 | What is the Capital of France? | Paris | original |  |
-        | 1 | 1 | What is the largest planet in our solar system? | Jupiter | original |  |
-        ...
-      </Tab>
-      <Tab title="Raw CSV">
-        ```csv
-        ,instance_id,input,expected_output,tag,source
-        0,0,"What is the Capital of France?","Paris","original",""
-        1,1,"What is the largest planet in our solar system?","Jupiter","original",""
-        ```
-      </Tab>
-    </Tabs>
-  </Accordion>
-
-  <Accordion title="Technical Product Specifications">
-    <Tabs>
-      <Tab title="Table View">
-        | # | Instance ID | Input | Expected Output | Tag | Source |
-        |---|------------|-------|-----------------|-----|---------|
-        | 0 | 0 | ¿Cuál es el sistema operativo del Samsung Galaxy A8 EE? | El sistema operativo del Samsung Galaxy A8 EE es Android 8.1. | original | Noviembre 2018Catálogo dispositivos móviles Samsung Galaxy A8 EE... |
-        | 1 | 1 | ¿Cuántos megapíxeles tiene la cámara principal del Huawei P20? | La cámara principal del Huawei P20 tiene 20 MP + 12 MP. | original | Huawei P20 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 5.8" Full View Resolución Full HD... |
-      </Tab>
-      <Tab title="Raw CSV">
-        ```csv
-        ,instance_id,input,expected_output,tag,source
-        0,0,"¿Cuál es el sistema operativo del Samsung Galaxy A8 EE?","El sistema operativo del Samsung Galaxy A8 EE es Android 8.1.","original","Noviembre 2018Catálogo dispositivos móviles Samsung Galaxy A8 EE... "
-        1,1,"¿Cuántos megapíxeles tiene la cámara principal del Huawei P20?","La cámara principal del Huawei P20 tiene 20 MP + 12 MP.","original","Huawei P20 Sistema Operativo : Android 8.1 + EMUI 8.1 Pantalla : 5.8\" Full View Resolución Full HD... "
-        ```
-      </Tab>
-    </Tabs>
-  </Accordion>
-
-  <Accordion title="Compliance and Regulations">
-    <Tabs>
-      <Tab title="Table View">
-        | # | Instance ID | Input | Expected Output | Tag | Source |
-        |---|------------|-------|-----------------|-----|---------|
-        | 0 | 0 | What are three key provisions of the GDPR? | The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability. | original | GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area... |
-        | 1 | 1 | What does CCPA stand for and who does it protect? | CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses. | original | The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States... |
-      </Tab>
-      <Tab title="Raw CSV">
-        ```csv
-        ,instance_id,input,expected_output,tag,source
-        0,0,"What are three key provisions of the GDPR?","The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, and the right to data portability.","original","GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area..."
-        1,1,"What does CCPA stand for and who does it protect?","CCPA stands for California Consumer Privacy Act. It protects California residents' rights regarding their personal information collected by businesses.","original","The California Consumer Privacy Act (CCPA) is a state statute intended to enhance privacy rights and consumer protection for residents of California, United States..."
-        ```
-      </Tab>
-    </Tabs>
-  </Accordion>
-</AccordionGroup>
-
-<Note>
-  This structure is the required by Galtea in order to automatically generate the [test cases](/concepts/product/test/case) for your [test](/concepts/product/test). If that format is not provided, you can still [manually create the test cases](/sdk/api/test-case/service#create-test-case).
-</Note>
-
 <Info>
-  For automatic processing, the file format must be `CSV`. 
+    In the [SDK](/sdk/api/test/create), the evolutions are known as `variants`, and the same parameter is used for both Quality Tests and Red Teaming Tests. However, the available options differ between the two types of tests.
 </Info>
 
-<Warning>
-  The extent of the examples provided above are short extractions. In the actual CSV files they can be much longer and the amount of test cases (rows) can be much higher.
-</Warning>
+### What Are Quality Test Evolutions?
 
-## Structure of Quality Tests
+Quality test evolutions (also called "variants") are systematic modifications of test cases that help evaluate your product's robustness against a wide range of real-world user behaviors and edge cases. By selecting different evolution types, you can generate test case variations that probe for weaknesses and ensure your product performs reliably under diverse conditions.
 
-Quality tests have a specific structure designed to facilitate effective evaluation:
+### Available Evolution Types
 
-<ResponseField name="instance_id" type="Number" required>
-  A unique identifier for the test instance.
-</ResponseField>
+Below is the full list of evolution types you can select, along with their descriptions:
 
-<ResponseField name="input" type="Text" required>
-  The question or prompt that the product is expected to respond to.
-  **Example**: "What are three key provisions of the GDPR related to data subject rights?"
-</ResponseField>
+| Evolution Type              | Description |
+|-----------------------------|-------------|
+| **Paraphrased**             | Rephrase the question to maintain the same meaning but use different wording. |
+| **Expanded Question**       | Expand the query by adding more details or making it broader. |
+| **Specific Focus Question** | Focus on a specific part of the context to generate a more detailed query. |
+| **Ambiguous**               | Lack of clarity or specificity in the query. |
+| **Incorrect**               | Factual inaccuracies or misunderstandings in the query. |
+| **Incomplete**              | Missing key details in the query. |
+| **Typos**                   | Misspelled words or accidental letter swaps in the query. |
+| **Slang**                   | Use of colloquial or informal expressions. |
+| **Abbreviations**           | Shortened forms of words or acronyms. |
+| **Unconventional Phrasing** | Rearranging words or using uncommon sentence structures. |
+| **Combined Topics**         | Combine multiple related topics into a single query. |
+| **Novel Phrasing**          | Use creative or novel phrasing not typically seen in training data. |
+| **Hypothetical Scenarios**  | Introduce hypothetical or edge-case scenarios related to the original query. |
+| **Informal**                | Incorporate vernacular, text speak, and abbreviations. Use informal, everyday language specific to a region or community, including slang and shorthand. |
+| **Linguistic Diverse**      | Mix languages or dialects within the same query, reflecting the user's bilingual or dialectal background. |
+| **Typographic Error**       | Introduce grammatical errors, misspellings, or unconventional sentence structures, including phonetic spellings and mixed-up letters. Considers neurodivergent forms of writing such as those associated with dyslexia or learning disabilities. |
+| **Cognitively Diverse**     | Present thoughts in a non-linear fashion, with rapid shifts in topics or ideas, reflecting variable attention spans. |
 
-<ResponseField name="expected_output" type="Text">
-  The expected answer to the question, serving as a benchmark for evaluation.
-  **Example**: "The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, the right to rectification, the right to restrict processing, the right to data portability, and the right to object to processing."
-</ResponseField>
+> **Note:** The available options in the Galtea UI may use slightly different names than the `variants` parameter in the SDK/API. For example, `paraphrased`, `typos`, `incorrect`, `cognitively_diverse`, and `linguistic_diverse` are directly supported as variants. Other evolution types may be available in the UI for future expansion or custom use cases.
 
-<ResponseField name="tag" type="Text">
-  A categorization tag for the test instance. **Example**: "original"
-</ResponseField>
-
-<ResponseField name="source" type="Text">
-  The source text used to generate the test case, which can be a section of a document, a webpage, or any other relevant material. This field is particularly useful for tracing the origin of the information used in the test case.
-
-  **Example**: "GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area..."
-</ResponseField>
+These evolutions help assess your product's understanding and resilience by simulating real-world user behavior and edge cases. For more details on configuring variants, see the [Test Creation API documentation](/sdk/api/test/create).
