@@ -25,8 +25,38 @@ You can **create**, view and manage your metric types on the [Galtea dashboard](
   The name of the metric type. **Example**: "Factual Accuracy"
 </ResponseField>
 
-<ResponseField name="Evaluation Parameters" type="Text List" required>
-  A list of strings indicating which parameters are relevant for this metric's evaluation criteria or steps. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment. The SDK expects these as strings (e.g., 'actual output').
+<ResponseField name="Validation method" type="Enum" required>
+  The method used to evaluate the metric. This can be either:
+
+  <Tabs>
+  <Tab title="None">
+    No validation method is applied. This means the metric type is not automatically evaluated by Galtea and is intended for [custom metrics](#custom-metrics).
+  </Tab>
+  <Tab title="Criteria">
+    <ResponseField name="Criteria" type="Text" required="conditional">
+      High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
+      citation."
+    </ResponseField>
+  </Tab>
+  <Tab title="Evaluation Steps">
+    <ResponseField name="Evaluation Steps" type="Text List" required="conditional">
+      A structured set of checks that determine how a metric assesses correctness. **Example**:
+      <ol>
+        <li>Check if the 'actual output' contains facts that align with verified sources</li>
+        <li>Identify any contradictions between the 'actual output' and established knowledge</li>
+        <li>Penalize statements that introduce speculation without citing a credible source</li>
+      </ol>
+      <Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
+    </ResponseField>
+  </Tab>
+</Tabs>
+</ResponseField>
+
+<ResponseField name="Evaluation Parameters" type="List[Enum]" required>
+  <Info>
+    This is not required if the validation method is set to "None".
+  </Info>
+  A list of relevant parameters for this metric's evaluation criteria or steps. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   <table>
     <thead className='text-left'>
       <tr>
@@ -59,40 +89,16 @@ You can **create**, view and manage your metric types on the [Galtea dashboard](
   </table>
 
   <Note>
-    `input` (lowercase) must always be included in this list. At least one other parameter is required.
+    `input` (lowercase) must always be included in this list.
   </Note>
 
   <Info>
-    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the **Actual Output** contains factually correct information that aligns with verified sources in the **Retrieval Context**."
+    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the *Actual Output* contains factually correct information that aligns with verified sources in the *Retrieval Context*."
   </Info>
 
   <Warning>
-    To ensure accurate evaluation results, include only those parameters in your `evaluation_params` list that you've explicitly referenced in your criteria or evaluation steps.
-    While you might refer to parameters like 'actual output' with synonyms (e.g., 'response') in your free-text criteria or steps, the `evaluation_params` list must use the exact predefined string values (e.g., 'actual output').
+    To ensure accurate evaluation results, include only parameters that you've explicitly referenced in your criteria or evaluation steps.
   </Warning>
-</ResponseField>
-
-<ResponseField name="Source" type="Text">
-  Indicates the origin or provider of the metric type (e.g., 'geval', 'deepeval'). For custom-defined metrics where Galtea evaluates, this defaults to 'geval'. If scores are provided directly, this field might be less relevant or not set.
-</ResponseField>
-
-<ResponseField name="Definition" type="Text">
-  A more technical definition or identifier for the metric, especially for Galtea's default metrics that map to specific underlying evaluators (e.g., a "toxicity" metric might have a definition like "toxicity_v2.0"). For custom metrics, this field might not be applicable.
-</ResponseField>
-
-<ResponseField name="Criteria" type="Text" required="conditional">
-  High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
-  citation."
-</ResponseField>
-
-<ResponseField name="Evaluation Steps" type="Text List" required="conditional">
-  A structured set of checks that determine how a metric assesses correctness. **Example**:
-  <ol>
-    <li>Check if the 'actual output' contains facts that align with verified sources</li>
-    <li>Identify any contradictions between the 'actual output' and established knowledge</li>
-    <li>Penalize statements that introduce speculation without citing a credible source</li>
-  </ol>
-  <Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
 </ResponseField>
 
 ## Evaluation Criteria vs. Evaluation Steps
@@ -179,7 +185,7 @@ Evaluation steps are the specific actions taken to measure how well a response m
 
 <Info>Evaluation steps define **how** to measure a response's quality based on the evaluation criteria, making explicit reference to specific evaluation parameters like **Input**, **Actual Output**, **Expected Output**, **Retrieval Context**, and **Context**.</Info>
 
-## Comparing Evaluation Approaches
+### Comparing Evaluation Approaches
 
 The following table highlights the key differences between evaluation criteria and evaluation steps:
 
@@ -220,7 +226,7 @@ The following table highlights the key differences between evaluation criteria a
   </tbody>
 </table>
 
-## Custom Metrics
+### Custom Metrics
 
 You have the flexibility to create custom metrics tailored to your specific use cases and evaluation preferences.
 This feature enables you to define a metric with a name, conduct evaluations locally, and directly assign scores.
@@ -229,13 +235,15 @@ This feature enables you to define a metric with a name, conduct evaluations loc
   The platform cannot automatically evaluate custom metrics, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
 </Info>
 
+## SDK Integration
+
+The Galtea SDK allows you to create, view, and manage metric types programmatically.
+
+<SDKMetricsServiceCard />
+
 ## Related Concepts
 
 <CardGroup cols={2}>
   <EvaluationCard />
   <EvaluationTaskCard />
 </CardGroup>
-
-## SDK Integration
-
-<SDKMetricsServiceCard />
