@@ -1,0 +1,44 @@
+---
+title: "Role Adherence"
+description: "Checks whether your chatbot stays within its defined role across the entire conversation."
+---
+
+The **Role Adherence** metric evaluates whether your LLM-based chatbot maintains consistency with its assigned role throughout a conversation. This role could be defined by system prompts (e.g., “you are a travel assistant”) or contextual constraints (e.g., tone, domain, responsibilities).
+
+This is especially important in enterprise and safety-sensitive applications, where the chatbot must not deviate from its designated behavior or scope.
+
+---
+
+## Evaluation Parameters
+
+To compute the `role_adherence` metric, the following inputs are required:
+
+- **`input`**: The current user message.
+- **`actual_output`**: The corresponding chatbot response.
+- **`conversational_turns`**: The entire preceding conversation history, including the system prompt or persona definition if applicable.
+
+These inputs allow the system to evaluate consistency with the assigned role over time.
+
+---
+
+## How Is It Calculated?
+
+The `role_adherence` score is computed through the following LLM-based steps:
+
+1. **Role Identification**: The system extracts the chatbot’s assigned role from the initial context or system prompt.
+2. **Deviation Check**: For each turn, the LLM determines whether the `actual_output` deviates from or contradicts the expected behavior of that role.
+
+The metric is computed as:
+
+$$
+\text{Role Adherence} = \frac{\text{Number of in-role responses}}{\text{Total number of evaluated responses}}
+$$
+
+Scores close to **1** indicate strong consistency with the chatbot's intended persona or function.
+
+---
+
+## Related Topics
+
+- [Knowledge Retention](/concepts/product/metrics/knowledge-retention)
+- [Conversation Completeness](/concepts/product/metrics/conversation-completeness)
