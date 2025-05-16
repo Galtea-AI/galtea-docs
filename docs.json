@@ -56,7 +56,44 @@
           },
           {
             "group": "API",
-            "pages": ["sdk/api/galtea", "sdk/api/product/service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
+            "pages": [
+              "sdk/api/galtea",
+              {
+                "group": "Product Service",
+                "icon": "box",
+                "pages": ["sdk/api/product/service", "sdk/api/product/list", "sdk/api/product/get", "sdk/api/product/get-by-name", "sdk/api/product/delete"]
+              },
+              {
+                "group": "Version Service",
+                "icon": "swatchbook",
+                "pages": ["sdk/api/version/service", "sdk/api/version/create", "sdk/api/version/list", "sdk/api/version/get", "sdk/api/version/get-by-name", "sdk/api/version/delete"]
+              },
+              {
+                "group": "Test Service",
+                "icon": "clipboard-list",
+                "pages": ["sdk/api/test/service", "sdk/api/test/create", "sdk/api/test/list", "sdk/api/test/get", "sdk/api/test/get-by-name", "sdk/api/test/delete", "sdk/api/test/download"]
+              },
+              {
+                "group": "Test Case Service",
+                "icon": "list",
+                "pages": ["sdk/api/test-case/service", "sdk/api/test-case/create", "sdk/api/test-case/list", "sdk/api/test-case/get", "sdk/api/test-case/delete"]
+              },
+              {
+                "group": "Metrics Service",
+                "icon": "function",
+                "pages": ["sdk/api/metrics/service", "sdk/api/metrics/create", "sdk/api/metrics/list", "sdk/api/metrics/get", "sdk/api/metrics/get-by-name", "sdk/api/metrics/delete"]
+              },
+              {
+                "group": "Evaluation Service",
+                "icon": "badge-check",
+                "pages": ["sdk/api/evaluation/service", "sdk/api/evaluation/create", "sdk/api/evaluation/list", "sdk/api/evaluation/get", "sdk/api/evaluation/delete"]
+              },
+              {
+                "group": "Evaluation Task Service",
+                "icon": "clipboard-check",
+                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/create-from-production", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
+              }
+            ]
           }
         ]
       }
