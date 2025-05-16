@@ -5,7 +5,7 @@ icon: "swatchbook"
 iconType: "solid"
 ---
 
-import SDKVersionServiceCard from '/snippets/cards/sdk-version-service-card.mdx';
+import SDKVersionServiceCard from '/snippets/cards/sdk-version/service-card.mdx';
 
 ## What is a Version?
 
@@ -26,7 +26,14 @@ One of the key benefits of tracking versions in Galtea is the ability to compare
 
 ## SDK Integration
 
-<SDKVersionServiceCard />
+The Galtea SDK allows you to create, view, and manage versions programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
+
+<CardGroup cols={2}>
+  <SDKVersionServiceCard />
+  <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
+    Learn how to set up GitHub Actions to automatically create new versions and evaluate them
+  </Card>
+</CardGroup>
 
 ## Version Properties
 
@@ -40,8 +47,8 @@ When creating a version in Galtea, you'll need to provide the following informat
   A description of the version, typically highlighting what makes it different from other versions. **Example**: "Improved summarization algorithm with better fact retention"
 </ResponseField>
 
-<ResponseField name="Model ID" type="ID (text)">
-  The ID of a [Model](/concepts/model) registered in Galtea. This is used for cost tracking and associating the version with a specific LLM's pricing and tokenization characteristics.
+<ResponseField name="Model" type="ID (text)" required>
+  The AI [Model](/concepts/model) used by this version. This is used for cost tracking and associating the version with a specific LLM's pricing and tokenization characteristics.
 
   This is used to calculate the cost of the inference for the version during [evaluation tasks](/concepts/product/evaluation/task).
 </ResponseField>

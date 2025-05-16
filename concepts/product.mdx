@@ -16,7 +16,7 @@ A product in Galtea represents a functionality or service that you want to evalu
 
 <Note>Even if your organization has a single public-facing product (like a website or dashboard for all user interactions), you should define separate Galtea products for each distinct functionality you want to evaluate.</Note>
 
-You can view and manage your products on the [Galtea dashboard](https://platform.galtea.ai/).
+You can **create**, view and manage your products on the [Galtea dashboard](https://platform.galtea.ai/).
 
 ## Related Concepts
 
@@ -32,7 +32,7 @@ A product in Galtea is associated with:
 
 <SDKProductServiceCard />
 
-Products are created and managed through the Galtea platform. The SDK allows you to list existing products, retrieve specific products by their ID or name, and delete products. See the [Product Service API documentation](/sdk/api/product/service) for more details.
+**Products are created and managed through the Galtea platform.** The SDK allows you to list existing products, retrieve specific products by their ID or name, and delete products. See the [Product Service API documentation](/sdk/api/product/service) for more details.
 
 ## Product Properties
 
@@ -72,26 +72,27 @@ When creating a product in Galtea, you'll need to provide the following informat
   Indicates if red teaming (security, safety, and bias) is a priority for the product.
 </ResponseField>
 
-<ResponseField name="Risk Level" type="Enum (string)" required>
+<ResponseField name="Risk Level" type="Enum" required>
   The risk level of the product under the EU AI Act.
   Possible values:
-  - `GPAI`: General Purpose AI model.
-  - `GPAI_SYSTEMIC`: General Purpose AI model with systemic risk.
-  - `HIGH`: High-risk AI system.
-  - `PROHIBITED`: AI practice prohibited under the AI Act.
-  - `SPECIAL_SYSTEM`: System with special considerations under the AI Act.
+  - `GPAI`: General-Purpose AI Model (Article 3(63), Title VIII A - Chapter 1).
+  - `GPAI Systemic`: General-Purpose AI Model with Systemic Risk (Article 52a, referring to criteria in Article 52c).
+  - `Special System`: AI Systems with Specific Transparency Obligations (Article 50).
+  - `High`: High-Risk AI System (Article 6, Annexes I & III).
+  - `Prohibited`: Prohibited AI Practices (Article 5).
+  <Info>Legal definitions available in the [Rules for trustworthy artificial intelligence in the EU](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng).</Info>
 </ResponseField>
 
-<ResponseField name="Operator Type" type="Enum (string)" required>
+<ResponseField name="Operator Type" type="Enum" required>
   The operator type of the product under the EU AI Act.
   Possible values:
-  - `AUTHORISED_REPRESENTATIVE`: An entity established in the EU, appointed by a provider from a third country, to act on their behalf regarding AI Act obligations.
-  - `DEPLOYER`: An entity that uses an AI system under its authority, except when the AI system is used in the course of a personal non-professional activity.
-  - `DISTRIBUTER`: An entity in the supply chain, other than the provider or importer, that makes an AI system available on the Union market.
-  - `IMPORTER`: An entity established in the EU that places on the market or puts into service an AI system bearing the name or trademark of a person established outside the Union.
-  - `PRODUCT_MANUFACTURER`: The manufacturer of a product that incorporates an AI system.
-  - `PROVIDER`: An entity that develops an AI system or that has an AI system developed and places it on the market or puts it into service under its own name or trademark.
+  - `Authorised Representative`: An entity established in the EU, appointed by a provider from a third country, to act on their behalf regarding AI Act obligations.
+  - `Deployer`: An entity that uses an AI system under its authority, except when the AI system is used in the course of a personal non-professional activity.
+  - `Distributer`: An entity in the supply chain, other than the provider or importer, that makes an AI system available on the Union market.
+  - `Importer`: An entity established in the EU that places on the market or puts into service an AI system bearing the name or trademark of a person established outside the Union.
+  - `Product Manufacturer`: The manufacturer of a product that incorporates an AI system.
+  - `Provider`: An entity that develops an AI system or that has an AI system developed and places it on the market or puts it into service under its own name or trademark.
+  <Info>Legal definitions available in the [EU AI Act](https://artificialintelligenceact.eu/article/3/).</Info>
 </ResponseField>
 
-<Info>Legal definitions are extracted from the [EU AI Act](https://artificialintelligenceact.eu/article/3/).</Info>
 
