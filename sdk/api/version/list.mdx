@@ -1,0 +1,23 @@
+---
+title: 'Listing Versions'
+description: "List all versions associated with a specific product."
+---
+
+## Returns
+Returns a list of Version objects for the given product.
+
+## Example
+```python
+versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID")
+```
+
+## Parameters
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to list versions.
+</ResponseField>
+<ResponseField name="offset" type="int">
+  The number of versions to skip before starting to collect the result set.
+</ResponseField>
+<ResponseField name="limit" type="int">
+  The maximum number of versions to return.
+</ResponseField>

@@ -1,0 +1,35 @@
+---
+title: 'Create Test Case'
+description: "Create a test case for your test."
+---
+
+## Returns
+Returns a TestCase object for the given parameters.
+
+## Example
+```python
+test_case = galtea.test_cases.create(
+    test_id="YOUR_TEST_ID",
+    input="What is the capital of France?",
+    expected_output="Paris",
+    context="France is a country in Europe\nIt is known for its art, fashion, and culture\nThe capital of France is Paris\nParis is known for its cafe culture and landmarks like the Eiffel Tower",
+    tag="capital city",
+)
+```
+
+## Parameters
+<ResponseField name="test_id" type="string" required>
+  The ID of the test you want to create the test case for.
+</ResponseField>
+<ResponseField name="input" type="string" required>
+  The input for the test case. This is the question or prompt you want to send to your model for a later evaluation.
+</ResponseField>
+<ResponseField name="expected_output" type="string">
+  The expected output for the input given. This is the correct answer or response you want to evaluate against.
+</ResponseField>
+<ResponseField name="context" type="string">
+  The context for the test case. This is the additional information that can help the model generate the expected output.
+</ResponseField>
+<ResponseField name="tag" type="string">
+  An optional tag to categorize or label the test case (e.g., "general_knowledge", "edge_cases", "customer_query").
+</ResponseField>

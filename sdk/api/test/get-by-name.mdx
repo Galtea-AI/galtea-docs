@@ -1,0 +1,20 @@
+---
+title: 'Retrieving Test By Name'
+description: "Retrieve a specific test by its name."
+---
+
+## Returns
+Returns a Test object for the given product and test name.
+
+## Example
+```python
+test = galtea.tests.get_by_name(product_id="YOUR_PRODUCT_ID", name="YOUR_TEST_ID")
+```
+
+## Parameters
+<ResponseField name="product_id" type="string" required>
+  The ID of the product for which you want to retrieve the test.
+</ResponseField>
+<ResponseField name="name" type="string" required>
+  The name of the test you want to retrieve.
+</ResponseField>

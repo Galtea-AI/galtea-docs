@@ -56,7 +56,7 @@
           },
           {
             "group": "API",
-            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
+            "pages": ["sdk/api/galtea", "sdk/api/product/service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
           }
         ]
       }

@@ -1,0 +1,17 @@
+---
+title: 'Retrieving Product By Name'
+description: "Retrieve a specific product by its name."
+---
+
+## Returns
+Returns a Product object for the given product name.
+
+## Example
+```python
+product = galtea.products.get_by_name(name="YOUR_PRODUCT_NAME")
+```
+
+## Parameters
+<ResponseField name="name" type="string" required>
+  The name of the product you want to retrieve.
+</ResponseField>

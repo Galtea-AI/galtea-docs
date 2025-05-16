@@ -1,0 +1,20 @@
+---
+title: 'Listing Metrics'
+description: "List all metric types."
+---
+
+## Returns
+Returns a list of Metric objects.
+
+## Example
+```python
+metrics = galtea.metrics.list()
+```
+
+## Parameters
+<ResponseField name="offset" type="int">
+  The number of metrics to skip before starting to collect the result set.
+</ResponseField>
+<ResponseField name="limit" type="int">
+  The maximum number of metrics to return.
+</ResponseField>

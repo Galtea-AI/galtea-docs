@@ -1,0 +1,17 @@
+---
+title: 'Listing Test Cases'
+description: "List all test cases associated with a specific test."
+---
+
+## Returns
+Returns a list of TestCase objects for the given test.
+
+## Example
+```python
+test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
+```
+
+## Parameters
+<ResponseField name="test_id" type="string" required>
+  The ID of the test you want to get the test cases from.
+</ResponseField>

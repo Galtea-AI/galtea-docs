@@ -1,0 +1,27 @@
+---
+title: 'Create Version'
+description: "Create a version for your product."
+---
+
+## Returns
+Returns a Version object for the given parameters.
+
+## Example
+```python
+version = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+```
+
+## Parameters
+<ResponseField name="name" type="string" required>
+  The name of the version.
+</ResponseField>
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to create a version for.
+</ResponseField>
+<ResponseField name="optional_props" type="dict[str, str]">
+  A dictionary of additional properties for the version. Keys should be in snake_case.
+</ResponseField>

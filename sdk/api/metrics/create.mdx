@@ -1,0 +1,33 @@
+---
+title: 'Create Metric'
+description: "Create a metric type for evaluating your products."
+---
+
+## Returns
+Returns a Metric object for the given parameters.
+
+## Example
+```python
+metric = galtea.metrics.create(
+    name="accuracy_v1",
+    criteria="Determine whether the actual output is equivalent to the expected output.",
+    evaluation_params=["input", "expected output", "actual output"],
+)
+```
+
+## Parameters
+<ResponseField name="name" type="string" required>
+  The name of the metric.
+</ResponseField>
+<ResponseField name="evaluation_params" type="list[string]" required>
+  A list of strings indicating which parameters are relevant for this metric's evaluation criteria or steps. The SDK expects these as strings (e.g., 'actual output'). Provide at least 'input' and one other parameter.
+</ResponseField>
+<ResponseField name="criteria" type="string" required="conditional">
+  The criteria for the metric.
+</ResponseField>
+<ResponseField name="evaluation_steps" type="list[string]" required="conditional">
+  The evaluation steps for the metric.
+  <Note>
+    You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.
+  </Note>
+</ResponseField>
