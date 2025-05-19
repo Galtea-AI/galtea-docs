@@ -36,7 +36,7 @@ evaluation_tasks = galtea.evaluation_tasks.create(
   The actual output produced by the product.
 </ResponseField>
 <ResponseField name="scores" type="list[float | None]" optional>
-  Precomputed scores for the evaluation tasks, corresponding to the provided `metrics`. This list must be the same length as the `metrics` list. Each item should be a number between 0 and 1, or `None` if the platform should evaluate that specific metric. Useful for custom metrics. Example: `[0.8, None, 0.95]`.
+  Precomputed scores for the evaluation tasks, corresponding to the provided `metrics`. This list must be the same length as the `metrics` list. Each item should be a number between 0 and 1, or `None` if the platform should evaluate that specific metric. Useful for deterministic metrics. Example: `[0.8, None, 0.95]`.
 </ResponseField>
 <ResponseField name="retrieval_context" type="string" optional>
   The context retrieved by your RAG system that was used to generate the `actual_output`.

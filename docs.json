@@ -37,7 +37,6 @@
           {
             "group": "Metrics",
             "pages": [
-              "concepts/product/metrics/metrics-overview",
               "concepts/product/metrics/geval",
               {
                 "group": "RAG metrics",

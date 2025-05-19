@@ -19,6 +19,38 @@ Metric types in Galtea define the specific criteria and methods used to evaluate
 
 You can **create**, view and manage your metric types on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/metrics/service).
 
+## Conceptual categories
+
+At Galtea, we use two types of metrics to evaluate large language model (LLM) outputs: **deterministic** and **non-deterministic**.
+
+- **Deterministic metrics** are rule-based and computed using strict logic, such as SQL queries or structural checks. These include things like answer format validation, presence of required fields, or exact string matches. Their results are consistent and reproducible. See more in [our example](/sdk/examples/create-evaluation-with-custom-scores).
+- **Non-deterministic metrics** are based on the methodology of LLM-as-a-judge. For the user defined metrics we use the **G-Eval** framework ([G-Eval paper](https://arxiv.org/abs/2303.16634)). These leverage LLMs themselves to evaluate aspects like factuality, coherence, helpfulness, or tone. Because they use LLMs under-the-hood, results can vary slightly. Galtea also maintains other LLM-as-a-judge metrics, for more straightforward cases of evaluation: Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, Contextual Relevancy for quality; Unbiased, Non-toxic for Red teaming.
+
+<Info>
+  The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
+</Info>
+
+## List of metrics available in the Galtea Platform
+
+<Note>
+  The following table provides a summary of the default metrics available in the Galtea platform. You can also create custom metrics tailored to your specific needs.
+</Note>
+
+| Metric | Category | Description |
+| --- | --- | --- |
+| **Answer Relevancy** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
+| **Faithfulness** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context |
+| **Contextual Precision** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
+| **Contextual Recall** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
+| **Contextual Relevancy** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
+| **Role Adherence** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
+| **Conversation Completeness** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
+| **Conversation Relevancy** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
+| **Knowledge Retention** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
+| **Non-Toxic** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
+| **Unbiased** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
+
+
 ## Metric Type Properties
 
 <ResponseField name="Name" type="Text" required>
@@ -30,7 +62,7 @@ You can **create**, view and manage your metric types on the [Galtea dashboard](
 
   <Tabs>
   <Tab title="None">
-    No validation method is applied. This means the metric type is not automatically evaluated by Galtea and is intended for [custom metrics](#custom-metrics).
+    No validation method is applied. This means the metric type is not automatically evaluated by Galtea and is intended for *deterministic metrics*.
   </Tab>
   <Tab title="Criteria">
     <ResponseField name="Criteria" type="Text" required="conditional">
@@ -225,15 +257,6 @@ The following table highlights the key differences between evaluation criteria a
     </tr>
   </tbody>
 </table>
-
-### Custom Metrics
-
-You have the flexibility to create custom metrics tailored to your specific use cases and evaluation preferences.
-This feature enables you to define a metric with a name, conduct evaluations locally, and directly assign scores.
-
-<Info>
-  The platform cannot automatically evaluate custom metrics, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
-</Info>
 
 ## SDK Integration
 
