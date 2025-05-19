@@ -23,7 +23,7 @@ Depending on your use case, you may also include:
 - **`expected_output`**: A reference or ground truth response (if your evaluation compares outputs to gold standards).
 - **`context`**: Additional background or retrieved information used by the model.
 
-These parameters are passed into an `LLMTestCase` and used as input for the G-Eval pipeline.
+These parameters should exists as a part of your [Test Case](/concepts/product/test/case) and are passed to the [Evaluation Task](/concepts/product/evaluation/task) automatically when an Evaluation Task is created.
 
 ---
 
@@ -34,9 +34,12 @@ The core of G-Eval is its support for natural language evaluation criteria and s
 - **Evaluation Criteria**: A free-text description of what constitutes a good response (e.g., *"The answer should be concise, accurate, and relevant to the user question."*).
 - **Evaluation Steps**: An optional list of reasoning steps that the evaluator should follow when scoring the output.
 
+<Note>You can only use either **Evaluation Criteria** or  **Evaluation Steps** when creating the metric. </Note>
+
 If you do not provide `evaluation_steps`, G-Eval will auto-generate them from your criteria using a chain-of-thought prompting strategy. This makes setup fast, but also introduces some variability.
 
 When you *do* provide `evaluation_steps`, the metric becomes more reliable and deterministic across runs—ideal for production use and reproducibility.
+
 
 ---
 
@@ -67,6 +70,6 @@ Use G-Eval when:
 Common use cases include:
 - Checking correctness of formatting specifications
 - Stylistic adherence in marketing copy
-- Ensuring detailed prompt adherence for specified restrictions
+- Ensuring detailed prompt adherence for relevant restrictions
 
 ---
