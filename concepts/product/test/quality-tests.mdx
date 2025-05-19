@@ -1,7 +1,7 @@
 ---
 title: "Quality Tests"
-description: "Tests that evaluate the quality and correctness of outputs"
-icon: "star"
+description: "Evaluate the quality and correctness of your outputs"
+icon: ""
 ---
 
 ## What are Quality Tests?
@@ -21,7 +21,7 @@ You can create quality tests in Galtea through two methods:
       <Step title="Configure the test">
         Select *Quality* as the test type and *Generated* as the test origin
         <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test-service#create-test) or the [Galtea platform](https://platform.galtea.ai/)
+          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
         </Info>
       </Step>
       <Step title="Generate the test">
@@ -37,7 +37,7 @@ You can create quality tests in Galtea through two methods:
       <Step title="Configure the test">
         Select "Quality" as the test type and "Uploaded" as the test origin
         <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test-service#create-test) or the [Galtea platform](https://platform.galtea.ai/)
+          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
         </Info>
       </Step>
       <Step title="Upload your test file">
@@ -109,7 +109,7 @@ Here are examples of the content and its creation-document structure:
 </AccordionGroup>
 
 <Note>
-  This structure is the required by Galtea in order to automatically generate the [test cases](/concepts/product/test/case) for your [test](/concepts/product/test). If that format is not provided, you can still [manually create the test cases](/sdk/api/test-case-service#create-test-case).
+  This structure is the required by Galtea in order to automatically generate the [test cases](/concepts/product/test/case) for your [test](/concepts/product/test). If that format is not provided, you can still [manually create the test cases](/sdk/api/test-case/service#create-test-case).
 </Note>
 
 <Info>
@@ -124,25 +124,25 @@ Here are examples of the content and its creation-document structure:
 
 Quality tests have a specific structure designed to facilitate effective evaluation:
 
-<ResponseField name="instance_id" type="Integer" required>
+<ResponseField name="instance_id" type="Number" required>
   A unique identifier for the test instance.
 </ResponseField>
 
-<ResponseField name="input" type="String" required>
+<ResponseField name="input" type="Text" required>
   The question or prompt that the product is expected to respond to.
   **Example**: "What are three key provisions of the GDPR related to data subject rights?"
 </ResponseField>
 
-<ResponseField name="expected_output" type="String">
+<ResponseField name="expected_output" type="Text">
   The expected answer to the question, serving as a benchmark for evaluation.
   **Example**: "The GDPR provides several key rights to data subjects, including: the right to access, the right to be forgotten, the right to rectification, the right to restrict processing, the right to data portability, and the right to object to processing."
 </ResponseField>
 
-<ResponseField name="tag" type="String">
+<ResponseField name="tag" type="Text">
   A categorization tag for the test instance. **Example**: "original"
 </ResponseField>
 
-<ResponseField name="source" type="String">
+<ResponseField name="source" type="Text">
   The source text used to generate the test case, which can be a section of a document, a webpage, or any other relevant material. This field is particularly useful for tracing the origin of the information used in the test case.
 
   **Example**: "GDPR Guidelines Document (2018): The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area..."

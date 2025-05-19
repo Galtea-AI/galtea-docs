@@ -9,12 +9,19 @@ import SDKTestCaseServiceCard from '/snippets/cards/sdk-test-case-service-card.m
 
 ## What is a Test Case?
 
-A test case in Galtea is a challenge designed to evaluate the performance of a [product](/concepts/product).
-It represents a specific *input* and *context* sent to an AI model alongside an expected *output* that can be used to assess the product's capabilities.
+A test case in Galtea is a challenge designed to evaluate the performance of a particular [version](/concepts/product/version) of a [product](/concepts/product).
+
+It represents a specific set of *inputs* that must be sent to the product's AI model to generate an output. It also can define an *expected output* that can be used to assess the product's capabilities.
+
+<Info>
+  Test cases are part of a [test](/concepts/product/test), so you'll need to create a test first. You can do this in the Galtea dashboard or using the SDK.
+</Info>
+
+You can **create**, view and manage your test cases on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/test-case/service).
 
 ## Using Test Cases in Evaluations
 
-Test cases are used with [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of specific [versions](/concepts/product/version) of your product. 
+Test cases are used with [evaluation tasks](/concepts/product/evaluation/task), but first wou will have to create an [evaluation](/concepts/product/evaluation) using the Galtea dashboard or the SDK.
 
 <Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
   Learn how to use tests in evaluations
@@ -22,36 +29,33 @@ Test cases are used with [evaluation tasks](/concepts/product/evaluation/task) t
 
 ## SDK Integration
 
+The Galtea SDK allows you to create, view, and manage test cases programmatically. 
+
 <SDKTestCaseServiceCard />
 
 ## Test Case Properties
 
-When creating a test case in Galtea, you'll need to provide the following information:
-
-<ResponseField name="test_id" type="string" required>
-  The ID of the test you want to create the test case for.
+<ResponseField name="Input" type="Text" required>
+  The input data used for inference on the LLM product's version. This is the question or prompt that will be sent to your AI model. **Example**: "What is the operating system of the Samsung Galaxy A8?"
 </ResponseField>
 
-<ResponseField name="input" type="string" required>
-  The input data used for inference on the LLM product's version. **Example**: "How much does the iPhone 16 cost?"
+<ResponseField name="Expected Output" type="Text">
+  The expected output for the evaluation task. This represents the ideal response you want your AI model to provide. **Example**: "The operating system of the Samsung Galaxy A8 is Android 8.1."
 </ResponseField>
 
-<ResponseField name="expected_output" type="string">
-  The expected output for the evaluation task, extracted from the test file. **Example**: "The iPhone 16 costs $999."
+<ResponseField name="Context" type="Text">
+  Test case-specific context that provides context to the model. It can be the past conversation or any other relevant information. Do not mistake for the system prompt/few-shot examples; those should be defined in the product's [version](/concepts/product/version) unless they change on an interaction basis.
 </ResponseField>
 
-<ResponseField name="context" type="string">
-  Additional context provided to the product's version upon inference alongside the input. **Example**: "[previous messages of the conversation]"
-
-  It is test-case-specific and provides context to the model. Do not mistake for the system prompt/few-shot examples; those should be defined in the product's [version](/concepts/product/version) unless they change on an interaction basis.
+<ResponseField name="Tag" type="Text">
+  A label that helps categorize the test case. This helps in organizing and filtering test cases within your test suite (e.g., "specification", "factual_knowledge", "edge_case").
 </ResponseField>
 
-<ResponseField name="tag" type="string">
-  The tag for the test case. This is a label that can help you categorize or identify the test case.
+<ResponseField name="Source" type="Text">
+  The original source text used to create the test case. This can be helpful for tracing where test cases originated from, especially when generating test cases from documentation or other reference materials.
 </ResponseField>
 
-<ResponseField name="source" type="string">
-  The original source text used to create the test case. This field is particularly useful for tracing the origin of the information used in the test case.
-
-  Typically, this is only filled if the test case is created by Galtea's [Test Case Generator](/sdk/api/test-service#create-test), but you can also use it to provide the source of the test case if you created it manually.
+<ResponseField name="Conversation Turns" type="List[Dict[Text, Text]]">
+  For conversational AI, this field can store a list of previous turns in the conversation. Each turn is a dictionary with "input" and "actual_output" keys. This data is primarily used when evaluating conversational metrics.
+  Example: `[{"input": "What's the weather like?", "actual_output": "It's sunny today!"}, {"input": "Great, any recommendations for outdoor activities?", "actual_output": None}]`
 </ResponseField>

@@ -5,8 +5,6 @@ icon: "microchip"
 iconType: "solid"
 ---
 
-import ModelCard from '/snippets/cards/model-card.mdx';
-
 ## What is a Model?
 
 A model in Galtea represents a Large Language Model (LLM) configuration with associated cost information. This allows the platform to track, estimate, and report on the costs of using different LLMs across your products and evaluations.
@@ -15,7 +13,7 @@ A model in Galtea represents a Large Language Model (LLM) configuration with ass
   Models are organization-wide and can be referenced across multiple products to ensure consistent cost tracking.
 </Info>
 
-You can view and manage your models on the [Galtea dashboard](https://platform.galtea.ai/models).
+You can **create**, view and manage your models on the [Galtea dashboard](https://platform.galtea.ai/).
 
 ## Use Cases for Models
 
@@ -68,13 +66,7 @@ When creating a model in Galtea, you'll need to provide the following informatio
   - "Anthropic" (uses [anthropic-tokenizer](https://lunary.ai/anthropic-tokenizer))
 </ResponseField>
 
-<ResponseField name="Source" type="Text" required>
+<ResponseField name="Source" type="Text">
   The provider or source of the pricing model. This can be a URL to the model's pricing page or documentation.
   For instance: https://openai.com/api/pricing/
 </ResponseField>
-
-## SDK Integration
-
-<CardGroup cols={2}>
-  <ModelCard />
-</CardGroup>

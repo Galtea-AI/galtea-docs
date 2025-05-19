@@ -1,0 +1,23 @@
+---
+title: 'Listing Evaluation Tasks'
+description: "List all evaluation tasks associated with a specific evaluation."
+---
+
+## Returns
+Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects for the given evaluation.
+
+## Example
+```python
+evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
+```
+
+## Parameters
+<ResponseField name="evaluation_id" type="string" required>
+  The ID of the evaluation for which you want to list tasks.
+</ResponseField>
+<ResponseField name="offset" type="int">
+  The number of tasks to skip before starting to collect the result set.
+</ResponseField>
+<ResponseField name="limit" type="int">
+  The maximum number of tasks to return.
+</ResponseField>

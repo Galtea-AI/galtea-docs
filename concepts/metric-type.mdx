@@ -17,18 +17,95 @@ Metric types in Galtea define the specific criteria and methods used to evaluate
   Metric types are organization-wide and can be reused across multiple products.
 </Info>
 
-You can view and manage your metric types on the [Galtea dashboard](https://platform.galtea.ai/metrics).
+You can **create**, view and manage your metric types on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/metrics/service).
+
+## Conceptual categories
+
+At Galtea, we use two types of metrics to evaluate large language model (LLM) outputs: **deterministic** and **non-deterministic**.
+
+- **Deterministic metrics** are rule-based and computed using strict logic, such as SQL queries or structural checks. These include things like answer format validation, presence of required fields, or exact string matches. Their results are consistent and reproducible. See more in [our example](/sdk/examples/create-evaluation-with-custom-scores).
+
+  Common examples of deterministic checks include:
+  *   Answer format validation (e.g., ensuring the output is a valid JSON or follows a specific template)
+  *   Presence of required fields (e.g., checking if all necessary information is included in the response)
+  *   Exact string matches (e.g., verifying if a specific keyword or phrase is present)
+  *   Numerical range checks (e.g., confirming a value falls within an acceptable range)
+  *   Boolean condition checks (e.g., ensuring a specific condition evaluates to true or false as expected)
+
+  <Info>
+    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
+  </Info>
+
+- **Non-deterministic metrics** are powered by the **G-Eval** evaluation framework, an LLM-as-a-judge methodology, originally introduced in the paper [“NLG Evaluation using GPT-4 with Better Human Alignment”](https://arxiv.org/abs/2303.16634). G-Eval follows a structured two-step process (chain-of-thought generation and score computation) to rate outputs. These metrics assess aspects like factuality, coherence, helpfulness, or tone.
+
+<Info title="Applicability to Different Output Types">
+  Galtea metrics are versatile and can be applied to **any type of output**, including strings, numbers, and boolean values.
+
+  *   **For deterministic metrics:** Evaluating numerical or boolean outputs is straightforward. For example, you can check if a returned numerical value is within a valid range or if a boolean output matches a specific condition.
+  *   **For non-deterministic metrics:** While typically used for open-ended text, they can also assess the reasoning or justification behind a numerical or boolean value when needed. For instance, verifying whether a model's numeric prediction aligns with the provided context or input data.
+</Info>
+
+## List of metrics available in the Galtea Platform
+
+<Note>
+  The following table provides a summary of the default metrics available in the Galtea platform. You can also create custom metrics tailored to your specific needs.
+</Note>
+
+| Metric | Category | Description |
+| --- | --- | --- |
+| **[Answer Relevancy](/concepts/product/metrics/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
+| **[Faithfulness](/concepts/product/metrics/faithfulness)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context. |
+| **[Contextual Precision](/concepts/product/metrics/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
+| **[Contextual Recall](/concepts/product/metrics/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
+| **[Contextual Relevancy](/concepts/product/metrics/contextual-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
+| **[Role Adherence](/concepts/product/metrics/role-adherence)** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
+| **[Conversational Completeness](/concepts/product/metrics/conversational-completeness)** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
+| **[Conversation Relevancy](/concepts/product/metrics/conversational-relevancy)** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
+| **[Knowledge Retention](/concepts/product/metrics/knowledge-retention)** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
+| **[Non-Toxic](/concepts/product/metrics/non-toxic)** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
+| **[Unbiased](/concepts/product/metrics/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
+
 
 ## Metric Type Properties
-
-When creating a metric type in Galtea, you'll need to provide the following information:
 
 <ResponseField name="Name" type="Text" required>
   The name of the metric type. **Example**: "Factual Accuracy"
 </ResponseField>
 
-<ResponseField name="Evaluation Parameters" type="Text List" required>
-  Standard parameters that define the inputs and outputs available during the evaluation process. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
+<ResponseField name="Validation method" type="Enum" required>
+  The method used to evaluate the metric. This can be either:
+
+  <Tabs>
+  <Tab title="None">
+    No validation method is applied. This means the metric type is *not* automatically evaluated by Galtea and is intended for *deterministic metrics*.
+  </Tab>
+  <Tab title="Criteria">
+    Used for *non-deterministic metrics*.
+    <ResponseField name="Criteria" type="Text" required="conditional">
+      High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
+      citation."
+    </ResponseField>
+  </Tab>
+  <Tab title="Evaluation Steps">
+    Used for *non-deterministic metrics*.
+    <ResponseField name="Evaluation Steps" type="Text List" required="conditional">
+      A structured set of checks that determine how a metric assesses correctness. **Example**:
+      <ol>
+        <li>Check if the 'actual output' contains facts that align with verified sources</li>
+        <li>Identify any contradictions between the 'actual output' and established knowledge</li>
+        <li>Penalize statements that introduce speculation without citing a credible source</li>
+      </ol>
+      <Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
+    </ResponseField>
+  </Tab>
+</Tabs>
+</ResponseField>
+
+<ResponseField name="Evaluation Parameters" type="List[Enum]" required>
+  <Info>
+    This is not required if the validation method is set to "None".
+  </Info>
+  A list of relevant parameters for this metric's evaluation criteria or steps. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   <table>
     <thead className='text-left'>
       <tr>
@@ -38,60 +115,50 @@ When creating a metric type in Galtea, you'll need to provide the following info
     </thead>
     <tbody>
       <tr>
-        <td>\***Input**</td>
-        <td>The original query or prompt sent to your product</td>
+        <td>**input**</td>
+        <td>The prompt or query sent to the model. (Always required in the list).</td>
       </tr>
       <tr>
-        <td>**Actual Output**</td>
-        <td>The response generated by your product that needs evaluation</td>
+        <td>**actual output**</td>
+        <td>The actual output generated by the model.</td>
       </tr>
       <tr>
-        <td>**Expected Output**</td>
-        <td>The ideal response</td>
+        <td>**expected output**</td>
+        <td>The ideal answer for the given input.</td>
       </tr>
       <tr>
-        <td>**Retrieval Context**</td>
-        <td>Information retrieved from knowledge bases to support RAG systems</td>
+        <td>**context**</td>
+        <td>Additional background information provided to the model alongside the input.</td>
       </tr>
       <tr>
-        <td>**Context**</td>
-        <td>Additional background information provided with the input and related to the grodun truth</td>
+        <td>**retrieval context**</td>
+        <td>The context retrieved by your RAG system before sending the user query to your LLM.</td>
       </tr>
     </tbody>
   </table>
 
   <Note>
-    "Input" will always need to be part of the evaluation params.
+    `input` (lowercase) must always be included in this list.
   </Note>
 
   <Info>
-    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the **Actual Output** contains factually correct information that aligns with verified sources in the **Retrieval Context**."
+    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the *Actual Output* contains factually correct information that aligns with verified sources in the *Retrieval Context*."
   </Info>
 
   <Warning>
-    To ensure accurate evaluation results, include only those parameters in your `evaluation_params` list that you've explicitly referenced in your criteria or evaluation steps.
-    You may refer to some parameters by other descriptive names like 'response' instead of 'actual output' and that is ok but you would also need to include actual output in the evaluation_params list.
+    To ensure accurate evaluation results, include only parameters that you've explicitly referenced in your criteria or evaluation steps.
   </Warning>
 </ResponseField>
 
-<ResponseField name="Criteria" type="Text" required="conditional">
-  High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
-  citation."
-</ResponseField>
+## G-Eval
 
-<ResponseField name="Evaluation Steps" type="Text List" required="conditional">
-  A structured set of checks that determine how a metric assesses correctness. **Example**:
-  <ol>
-    <li>Check if the 'actual output' contains facts that align with verified sources</li>
-    <li>Identify any contradictions between the 'actual output' and established knowledge</li>
-    <li>Penalize statements that introduce speculation without citing a credible source</li>
-  </ol>
-  <Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
-</ResponseField>
+<Note title="Our Evaluation Model">
+  The non-deterministic metrics, powered by LLM-as-a-judge (G-Eval), utilize models that have demonstrated the best performance in our internal benchmarks and testing. We are committed to continuously evolving and improving these evaluator models to ensure the highest quality assessments over time.
+</Note>
 
-## Evaluation Criteria vs. Evaluation Steps
+### Evaluation Criteria vs. Evaluation Steps
 
-Understanding the difference between these two approaches is essential for creating effective metrics:
+When using non-deterministic metrics, you can choose between two approaches: **evaluation criteria** and **evaluation steps**. Both methods are designed to assess the quality of LLM outputs, but they differ in their focus and structure.
 
 <CardGroup cols={2}>
   <Card title="Evaluation Criteria" icon="bullseye">
@@ -102,7 +169,7 @@ Understanding the difference between these two approaches is essential for creat
   </Card>
 </CardGroup>
 
-### Evaluation Criteria
+#### Evaluation Criteria
 
 Evaluation criteria are high-level qualities or standards that define what makes a response good or bad. They outline fundamental aspects that should be assessed without specifying exactly how to measure them.
 
@@ -140,7 +207,7 @@ Evaluation criteria are high-level qualities or standards that define what makes
 
 <Info>Evaluation criteria define **what** matters in a response, serving as the foundation for meaningful assessment.</Info>
 
-### Evaluation Steps
+#### Evaluation Steps
 
 Evaluation steps are the specific actions taken to measure how well a response meets the evaluation criteria. These steps break down the assessment into concrete, structured processes that reference evaluation parameters.
 
@@ -173,7 +240,9 @@ Evaluation steps are the specific actions taken to measure how well a response m
 
 <Info>Evaluation steps define **how** to measure a response's quality based on the evaluation criteria, making explicit reference to specific evaluation parameters like **Input**, **Actual Output**, **Expected Output**, **Retrieval Context**, and **Context**.</Info>
 
-## Comparing Evaluation Approaches
+<Note>When you *do* supply explicit `evaluation_steps`, G-Eval skips auto-generation—yielding more reliable, reproducible scores ideal for production.</Note>
+
+#### Comparing Evaluation Approaches
 
 The following table highlights the key differences between evaluation criteria and evaluation steps:
 
@@ -214,14 +283,17 @@ The following table highlights the key differences between evaluation criteria a
   </tbody>
 </table>
 
-## Custom Metrics
+### Evaluation Details
 
-You have the flexibility to create custom metrics tailored to your specific use cases and evaluation preferences.
-This feature enables you to define a metric with a name, conduct evaluations locally, and directly assign scores.
+**Two-step process**  
+1. Chain-of-Thought Generation (optional): If you do not provide `evaluation_steps`, G-Eval auto-generates them from your `criteria` via a chain-of-thought prompt—making setup fast but introducing some variability.  
+2. Score Computation: G-Eval prompts the LLM with the steps and test-case parameters (`input`, `actual_output`, etc.) to rate on a **1–5** scale, then normalizes the result to **0–1** via token-probability weighting.
 
-<Info>
-  The platform cannot automatically evaluate custom metrics, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
-</Info>
+## SDK Integration
+
+The Galtea SDK allows you to create, view, and manage metric types programmatically.
+
+<SDKMetricsServiceCard />
 
 ## Related Concepts
 
@@ -229,7 +301,3 @@ This feature enables you to define a metric with a name, conduct evaluations loc
   <EvaluationCard />
   <EvaluationTaskCard />
 </CardGroup>
-
-## SDK Integration
-
-<SDKMetricsServiceCard />
