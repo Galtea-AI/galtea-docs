@@ -19,7 +19,7 @@
           },
           {
             "group": "Examples",
-            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/create-evaluation-with-custom-scores"]
+            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/evaluating-conversations", "sdk/examples/create-evaluation-with-custom-scores"]
           },
           {
             "group": "Integrations",
@@ -42,30 +42,17 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": [
-                  "concepts/product/metrics/answer-relevancy",
-                  "concepts/product/metrics/faithfulness",
-                  "concepts/product/metrics/contextual-precision",
-                  "concepts/product/metrics/contextual-recall"
-                ]
+                "pages": ["concepts/product/metrics/answer-relevancy", "concepts/product/metrics/faithfulness", "concepts/product/metrics/contextual-precision", "concepts/product/metrics/contextual-recall"]
               },
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": [
-                  "concepts/product/metrics/knowledge-retention",
-                  "concepts/product/metrics/role-adherence",
-                  "concepts/product/metrics/conversational-completeness",
-                  "concepts/product/metrics/conversational-relevancy"
-                ]
+                "pages": ["concepts/product/metrics/knowledge-retention", "concepts/product/metrics/role-adherence", "concepts/product/metrics/conversational-completeness", "concepts/product/metrics/conversational-relevancy"]
               },
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": [
-                  "concepts/product/metrics/non-toxic",
-                  "concepts/product/metrics/unbiased"
-                ]
+                "pages": ["concepts/product/metrics/non-toxic", "concepts/product/metrics/unbiased"]
               }
             ]
           },
