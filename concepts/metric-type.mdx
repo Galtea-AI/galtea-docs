@@ -38,17 +38,17 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
 | Metric | Category | Description |
 | --- | --- | --- |
-| **Answer Relevancy** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
-| **Faithfulness** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context |
-| **Contextual Precision** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
-| **Contextual Recall** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
-| **Contextual Relevancy** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
-| **Role Adherence** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
-| **Conversation Completeness** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
-| **Conversation Relevancy** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
-| **Knowledge Retention** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
-| **Non-Toxic** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
-| **Unbiased** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
+| **[Answer Relevancy](/concepts/product/metrics/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
+| **[Faithfulness](/concepts/product/metrics/faithfulness)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context. |
+| **[Contextual Precision](/concepts/product/metrics/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
+| **[Contextual Recall](/concepts/product/metrics/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
+| **[Contextual Relevancy](/concepts/product/metrics/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
+| **[Role Adherence](/concepts/product/metrics/role-adherence)** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
+| **[Conversation Completeness](/concepts/product/metrics/conversational-completeness)** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
+| **[Conversation Relevancy](/concepts/product/metrics/conversational-relevancy)** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
+| **[Knowledge Retention](/concepts/product/metrics/knowledge-retention)** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
+| **[Non-Toxic](/concepts/product/metrics/non-toxic)** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
+| **[Unbiased](/concepts/product/metrics/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
 
 
 ## Metric Type Properties
@@ -135,7 +135,9 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   </Warning>
 </ResponseField>
 
-## Evaluation Criteria vs. Evaluation Steps
+## G-Eval
+
+### Evaluation Criteria vs. Evaluation Steps
 
 When using non-deterministic metrics, you can choose between two approaches: **evaluation criteria** and **evaluation steps**. Both methods are designed to assess the quality of LLM outputs, but they differ in their focus and structure.
 
@@ -148,7 +150,7 @@ When using non-deterministic metrics, you can choose between two approaches: **e
   </Card>
 </CardGroup>
 
-### Evaluation Criteria
+#### Evaluation Criteria
 
 Evaluation criteria are high-level qualities or standards that define what makes a response good or bad. They outline fundamental aspects that should be assessed without specifying exactly how to measure them.
 
@@ -186,7 +188,7 @@ Evaluation criteria are high-level qualities or standards that define what makes
 
 <Info>Evaluation criteria define **what** matters in a response, serving as the foundation for meaningful assessment.</Info>
 
-### Evaluation Steps
+#### Evaluation Steps
 
 Evaluation steps are the specific actions taken to measure how well a response meets the evaluation criteria. These steps break down the assessment into concrete, structured processes that reference evaluation parameters.
 
@@ -221,7 +223,7 @@ Evaluation steps are the specific actions taken to measure how well a response m
 
 <Note>When you *do* supply explicit `evaluation_steps`, G-Eval skips auto-generation—yielding more reliable, reproducible scores ideal for production.</Note>
 
-### Comparing Evaluation Approaches
+#### Comparing Evaluation Approaches
 
 The following table highlights the key differences between evaluation criteria and evaluation steps:
 
@@ -262,7 +264,7 @@ The following table highlights the key differences between evaluation criteria a
   </tbody>
 </table>
 
-### G-Eval Evaluation Details
+### Evaluation Details
 
 **Two-step process**  
 1. Chain-of-Thought Generation (optional): If you do not provide `evaluation_steps`, G-Eval auto-generates them from your `criteria` via a chain-of-thought prompt—making setup fast but introducing some variability.  
