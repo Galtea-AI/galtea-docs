@@ -1,0 +1,35 @@
+---
+title: 'Create Version'
+description: "Create a version for your product."
+---
+
+## Returns
+Returns a [Version](/concepts/product/version) object for the given parameters, or `None` if an error occurs.
+
+## Example
+```python
+version = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
+    optional_props={"description": "Initial version with basic summarization capabilities"}
+)
+```
+
+## Parameters
+<ResponseField name="name" type="string" required>
+  The name of the version.
+</ResponseField>
+<ResponseField name="product_id" type="string" required>
+  The ID of the product you want to create a version for.
+</ResponseField>
+<ResponseField name="optional_props" type="dict[str, str]">
+  A dictionary of additional properties for the version. Keys must be in snake_case.
+  Possible keys include:
+  - `description` (str): A textual description of the version.
+  - `system_prompt` (str): The system prompt used with the model for this version.
+  - `model_id` (str): Reference to a model configured in the Galtea Platform, which may include cost information.
+  - `dataset_description` (str): Description of the dataset used for training or fine-tuning this version.
+  - `dataset_uri` (str): A URI pointing to the dataset.
+  - `endpoint` (str): The API endpoint where this version of the model is accessible.
+  - `guardrails` (str): Configuration or description of safety guardrails applied to the model version.
+</ResponseField>

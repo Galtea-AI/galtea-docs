@@ -1,0 +1,21 @@
+---
+title: 'Listing Products'
+description: "This method allows you to list many products."
+---
+
+## Returns
+It returns a list of [Product](/concepts/product) objects that you have created in the [Galtea dashboard](https://platform.galtea.ai/). 
+
+## Example
+```python
+products = galtea.products.list()
+```
+
+## Parameters
+<ResponseField name="offset" type="int">
+  The number of products to skip before starting to collect the result set.
+</ResponseField>
+
+<ResponseField name="limit" type="int">
+  The maximum number of products to return.
+</ResponseField>

@@ -1,7 +1,7 @@
 ---
-title: 'Run Evaluations'
-description: "Learn how to create and run evaluations using the SDK"
-icon: "badge-check"
+title: 'Run Evaluation Tasks'
+description: "Learn how to create evaluations and run evaluation tasks using the SDK"
+icon: "clipboard-check"
 ---
 
 [Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
@@ -45,7 +45,7 @@ for test_case in test_cases:
     
     # Your product's actual response to the input
     timeBeforeCall = datetime.now()
-    response = your_product_function(test_case.input, test_case.context, retrieval_context)
+    response_data = your_product_function(test_case.input, test_case.context, retrieval_context)
     timeAfterCall = datetime.now()
     
     # Run evaluation task
@@ -53,20 +53,21 @@ for test_case in test_cases:
         metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
-        actual_output=response.output,
-        retrieval_context=[retrieval_context],  # Include retrieved context for evaluation
+        actual_output=response_data.output, # Assuming response_data has an 'output' attribute
+        retrieval_context=retrieval_context, # Should be a single string if applicable
         ###################### Optional Parameters ######################
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
         usage_info={
-          "input_tokens": response.inputTokens,
-          "output_tokens": response.outputTokens,
-          "cache_read_input_tokens": response.cacheReadInputTokens,
+          "input_tokens": response_data.input_tokens,
+          "output_tokens": response_data.output_tokens,
+          "cache_read_input_tokens": response_data.cache_read_input_tokens,
         },
         cost_info={
           "cost_per_input_token": 0.00002,
           "cost_per_output_token": 0.00005,
           "cost_per_cache_read_input_token": 0.00001,
         },
+        # scores=[0.8, None, 0.95] # Example: score for accuracy_v1, platform evaluates relevance_v1, score for context_accuracy
         #################################################################
     )
 
@@ -80,6 +81,10 @@ print("All evaluation tasks submitted")
   The `latency` and `usage_info` parameters are optional but highly recommended to be used.
   They can be used to track the performance in latency and costs of your product.
 </Info>
+
+<Warning>
+  Directly providing `input`, `expected_output`, or `context` to `galtea.evaluation_tasks.create` when a `test_case_id` is used is deprecated. These parameters will be sourced from the test case. This approach limits analytics and consistency.
+</Warning>
 
 ### Customized Test Cases for Evaluation Tasks
 
@@ -108,7 +113,7 @@ for index, row in df.iterrows():
         actual_output=actual_output,
         expected_output=row['expected_output'],
         context=row['context'],
-        retrieval_context=[retrieval_context],  # Include retrieved context for evaluation
+        retrieval_context=retrieval_context,
     )
 print("All evaluation tasks submitted")
 ```
@@ -116,7 +121,9 @@ print("All evaluation tasks submitted")
 <Warning>
   This method is only recommended for advanced users who need to customize the evaluation tasks. For most cases, using the test cases provided by the test is the best approach.
 
-  Using this will limit the acces to analysis tools and metrics that are available when using the standard test cases.
+  Note that providing `input`, `expected_output`, and `context` directly in `evaluation_tasks.create` (when a `test_case_id` would normally be used for test-based evaluations) is a legacy approach and might be deprecated in future SDK versions in favor of always linking to a `test_case_id` for formal tests.
+
+  Using this will limit the access to analysis tools and metrics that are available when using the standard test cases.
 </Warning>
 
 ## Retrieving Evaluation Results
@@ -141,7 +148,7 @@ print(f"Average evaluation score: {avg_score}")
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="API Reference" icon="code" href="/sdk/api/evaluation-service">
+  <Card title="API Reference" icon="code" href="/sdk/api/evaluation/service">
     View the complete Evaluation Service API reference
   </Card>
 </CardGroup>

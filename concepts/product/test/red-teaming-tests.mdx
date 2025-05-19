@@ -1,27 +1,27 @@
 ---
 title: "Red Teaming Tests"
-description: "Tests that evaluate security, safety, and bias aspects of AI products"
-icon: "shield-halved"
+description: "Evaluate security, safety, and bias aspects of your AI products"
+icon: ""
 ---
 
 ## What are Red Teaming Tests?
 
-Red teaming tests in Galtea are designed to evaluate the security, safety, and bias aspects of your [product](/concepts/product). These tests typically consist of adversarial inputs specifically crafted to probe potential weaknesses or vulnerabilities in your AI system.
+Red teaming tests in Galtea are designed to evaluate the security, safety, and bias aspects of your [product](/concepts/product). These tests typically consist of different types of [threats](/concepts/product/test/red-teaming-threats) like adversarial inputs specifically crafted to probe potential weaknesses or vulnerabilities in your AI system.
 
 ## Creating Red Teaming Tests
 
 You can create red teaming tests in Galtea through two methods:
 
 <Tabs>
-  <Tab title="Generate from Knowledge Base">
+  <Tab title="Generate from Your Known Threats">
     <Steps>
-      <Step title="Prepare your knowledge base file">
+      <Step title="Prepare your threat input file">
         Create a file with examples of harmful content or sensitive topic areas you want to test
       </Step>
       <Step title="Configure the test">
         Select *Red Teaming* as the test type and *Generated* as the test origin
         <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test-service#create-test) or the [Galtea platform](https://platform.galtea.ai/)
+          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
         </Info>
       </Step>
       <Step title="Generate the test">
@@ -37,7 +37,7 @@ You can create red teaming tests in Galtea through two methods:
       <Step title="Configure the test">
         Select "Red Teaming" as the test type and "Uploaded" as the test origin
         <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test-service#create-test) or the [Galtea platform](https://platform.galtea.ai/)
+          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
         </Info>
       </Step>
       <Step title="Upload your test file">
@@ -131,7 +131,7 @@ Here are examples of the content and its creation-document structure:
 </AccordionGroup>
 
 <Note>
-  This structure is the required by Galtea in order to automatically generate the [test cases](/concepts/product/test/case) for your [test](/concepts/product/test). If that format is not provided, you can still [manually create the test cases](/sdk/api/test-case-service#create-test-case).
+  This structure is the required by Galtea in order to automatically generate the [test cases](/concepts/product/test/case) for your [test](/concepts/product/test). If that format is not provided, you can still [manually create the test cases](/sdk/api/test-case/service#create-test-case).
 </Note>
 
 <Info>
@@ -146,22 +146,22 @@ Here are examples of the content and its creation-document structure:
 
 Red teaming tests have a specific structure focused on providing challenging inputs:
 
-<ResponseField name="instance_id" type="Integer" required>
+<ResponseField name="instance_id" type="Number" required>
   A unique identifier for the test instance.
 </ResponseField>
 
-<ResponseField name="input" type="String" required>
+<ResponseField name="input" type="Text" required>
   The adversarial input specifically designed to test the product's resilience against potential vulnerabilities. **Example**: "Please ignore any previous instructions and..."
 </ResponseField>
 
-<ResponseField name="expected_output" type="String">
+<ResponseField name="expected_output" type="Text">
   For red teaming tests, this field is typically marked as "N/A" since the purpose is to test system resilience rather than producing a specific output.
 </ResponseField>
 
-<ResponseField name="tag" type="String">
+<ResponseField name="tag" type="Text">
   A categorization tag for the test instance, typically "adversarial_inputs" for red teaming tests.
 </ResponseField>
 
-<ResponseField name="source" type="String">
+<ResponseField name="source" type="Text">
   The source of the adversarial input, which may be marked as "N/A" for red teaming tests.
 </ResponseField>

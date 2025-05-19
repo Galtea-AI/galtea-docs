@@ -18,12 +18,52 @@
             "pages": ["introduction", "registration", "quickstart"]
           },
           {
+            "group": "Examples",
+            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/evaluating-conversations", "sdk/examples/create-evaluation-with-custom-scores"]
+          },
+          {
+            "group": "Integrations",
+            "pages": ["sdk/integrations/github-actions"]
+          }
+        ]
+      },
+      {
+        "tab": "Concepts",
+        "groups": [
+          {
             "group": "Concepts",
             "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
           },
           {
+            "group": "Metrics",
+            "pages": [
+              {
+                "group": "RAG metrics",
+                "icon": "magnifying-glass-chart",
+                "pages": ["concepts/product/metrics/answer-relevancy", "concepts/product/metrics/faithfulness", "concepts/product/metrics/contextual-precision", "concepts/product/metrics/contextual-recall", "concepts/product/metrics/contextual-relevancy"]
+              },
+              {
+                "group": "Conversational",
+                "icon": "message",
+                "pages": ["concepts/product/metrics/knowledge-retention", "concepts/product/metrics/role-adherence", "concepts/product/metrics/conversational-completeness", "concepts/product/metrics/conversational-relevancy"]
+              },
+              {
+                "group": "Red Teaming",
+                "icon": "shield-check",
+                "pages": ["concepts/product/metrics/non-toxic", "concepts/product/metrics/unbiased"]
+              }
+            ]
+          },
+          {
             "group": "Test Types",
-            "pages": ["concepts/product/test/quality-tests", "concepts/product/test/red-teaming-tests"]
+            "pages": [
+              { "group": "Quality", "icon": "star", "pages": ["concepts/product/test/quality-tests", "concepts/product/test/quality-evolutions"] },
+              {
+                "group": "Red Teaming",
+                "icon": "shield-check",
+                "pages": ["concepts/product/test/red-teaming-tests", "concepts/product/test/red-teaming-threats"]
+              }
+            ]
           }
         ]
       },
@@ -36,15 +76,44 @@
           },
           {
             "group": "API",
-            "pages": ["sdk/api/galtea", "sdk/api/product-service", "sdk/api/version-service", "sdk/api/test-service", "sdk/api/test-case-service", "sdk/api/metrics-service", "sdk/api/evaluation-service", "sdk/api/evaluation-task-service"]
-          },
-          {
-            "group": "Examples",
-            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/create-evaluation-with-custom-metric"]
-          },
-          {
-            "group": "Integrations",
-            "pages": ["sdk/integrations/github-actions"]
+            "pages": [
+              "sdk/api/galtea",
+              {
+                "group": "Product",
+                "icon": "box",
+                "pages": ["sdk/api/product/service", "sdk/api/product/list", "sdk/api/product/get", "sdk/api/product/get-by-name", "sdk/api/product/delete"]
+              },
+              {
+                "group": "Version",
+                "icon": "swatchbook",
+                "pages": ["sdk/api/version/service", "sdk/api/version/create", "sdk/api/version/list", "sdk/api/version/get", "sdk/api/version/get-by-name", "sdk/api/version/delete"]
+              },
+              {
+                "group": "Test",
+                "icon": "clipboard-list",
+                "pages": ["sdk/api/test/service", "sdk/api/test/create", "sdk/api/test/list", "sdk/api/test/get", "sdk/api/test/get-by-name", "sdk/api/test/delete", "sdk/api/test/download"]
+              },
+              {
+                "group": "Test Case",
+                "icon": "list",
+                "pages": ["sdk/api/test-case/service", "sdk/api/test-case/create", "sdk/api/test-case/list", "sdk/api/test-case/get", "sdk/api/test-case/delete"]
+              },
+              {
+                "group": "Metric",
+                "icon": "function",
+                "pages": ["sdk/api/metrics/service", "sdk/api/metrics/create", "sdk/api/metrics/list", "sdk/api/metrics/get", "sdk/api/metrics/get-by-name", "sdk/api/metrics/delete"]
+              },
+              {
+                "group": "Evaluation",
+                "icon": "badge-check",
+                "pages": ["sdk/api/evaluation/service", "sdk/api/evaluation/create", "sdk/api/evaluation/list", "sdk/api/evaluation/get", "sdk/api/evaluation/delete"]
+              },
+              {
+                "group": "Evaluation Task",
+                "icon": "clipboard-check",
+                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/create-from-production", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
+              }
+            ]
           }
         ]
       }

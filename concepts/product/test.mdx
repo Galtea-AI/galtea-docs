@@ -9,7 +9,9 @@ import SDKTestServiceCard from '/snippets/cards/sdk-test-service-card.mdx';
 
 ## What is a Test?
 
-A test in Galtea is a set of test cases designed to evaluate the performance of a [product](/concepts/product). A test file provides simulations of interactions with the product (and, in [quality tests](/concepts/product/test/quality-tests), expected outcomes for each interaction).
+**A test in Galtea is a group of test cases** designed to evaluate the performance of a [product](/concepts/product). A test file provides simulations of interactions with the product (and, in [quality tests](/concepts/product/test/quality-tests), expected outcomes for each interaction).
+
+You can **create**, view and manage your tests on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/test/service).
 
 ## Test Origin
 
@@ -24,11 +26,15 @@ When creating a test in the Galtea dashboard, you'll be asked to specify the tes
   </Card>
 </CardGroup>
 
-Your selection will determine whether you need to provide a Knowledge Base File or a Test File.
+Your selection will determine whether you need to provide a *Knowledge Base File* or a *Test File*.
 
 <Info>
-  More information on how to create tests can be found in the [Quality Tests](/concepts/product/test/quality-tests) and [Red Teaming Tests](/concepts/product/test/red-teaming-tests) sections.
+  More information on how to create tests can be found in the [Create Quality Tests](/concepts/product/test/quality-tests) and [Create Red Teaming Tests](/concepts/product/test/red-teaming-tests) documentation.
 </Info>
+
+<Note>
+  It is important to note that the information you provide during **product onboarding**, such as the product's description and intended use, plays a valuable role when generating test cases. Galtea can leverage this metadata to generate more targeted and context-aware test cases when creating both quality and red teaming tests, leading to more effective and insightful evaluations.
+</Note>
 
 ## Test Types
 
@@ -45,28 +51,28 @@ Galtea supports two main types of tests:
 
 ## Using Tests in Evaluations
 
-Tests are used in [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of specific [versions](/concepts/product/version) of your product. 
-
+The [Test Cases](/concepts/product/test/case) of a Test are used in [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of specific [versions](/concepts/product/version) of your product against a set of [metrics](/concepts/metric-type).
 
 <Warning>
-  The data within the *Test File* should be reused across multiple [evaluations](/concepts/product/evaluation) of distinct [versions](/concepts/product/version) to ensure consistent comparison between different [product](/concepts/product)  [versions](/concepts/product/version). Meaning that distinct [evaluation tasks](/concepts/product/evaluation/task) of different [evaluations](/concepts/product/evaluation) should be composed of the same [input](/concepts/product/evaluation/task#param-input) and [context](/concepts/product/evaluation/task#param-context).
+  The [Test Cases](/concepts/product/test/case) of a Test should be reused across multiple [evaluations](/concepts/product/evaluation) of distinct [versions](/concepts/product/version) to ensure consistent comparison between different [product](/concepts/product) [versions](/concepts/product/version).
 </Warning>
 
-<Note>
-  There is no actual need of using the data in the *Test File* to run [evaluation tasks](/concepts/product/evaluation/task), but it is essential to ensure that the multiple [evaluations](/concepts/product/evaluation) that are linked to the same [test](/concepts/product/version) are composed of [evaluation tasks](/concepts/product/evaluation/task) that ran with the same [input](/concepts/product/evaluation/task#param-input) and [context](/concepts/product/evaluation/task#param-context).
-</Note>
-
-<Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
-  Learn how to use tests in evaluations
+<Card title="Using Tests in Evaluations" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
+  Learn how to use tests with evaluations
 </Card>
 
 ## SDK Integration
 
-<SDKTestServiceCard />
+The Galtea SDK allows you to create, view, and manage tests programmatically.
+
+<CardGroup cols={2}>
+  <SDKTestServiceCard />
+  <Card title="Create a Custom Test" icon="clipboard-list" href="/sdk/examples/create-test">
+    See how to create and upload custom tests using the SDK.
+  </Card>
+</CardGroup>
 
 ## Test Properties
-
-When creating a test in Galtea, you'll need to provide the following information:
 
 <ResponseField name="Test Name" type="Text" required>
   The name of the test. **Example**: "Legal Document Quality Test" or "Customer Support Safety Evaluation"
@@ -79,21 +85,37 @@ When creating a test in Galtea, you'll need to provide the following information
   - [Red Teaming](/concepts/product/test/red-teaming-tests): Tests that evaluate security, safety, and bias aspects
 </ResponseField>
 
-<Note>You need to provide **either** a *Knowledge Base File* **or** a *Test File*, but not both. Your choice depends on your test creation approach.</Note>
+<Tabs>
+  <Tab title="Generated">
+    <ResponseField name="Language" type="Text">
+      The language for generating synthetic test cases if `Knowledge Base File` is provided (e.g., 'english', 'spanish'). This should be the English name of the language. If not provided, Galtea attempts to infer the language from the knowledge base file. Supported languages include English, Spanish, Catalan, French, German, Portuguese, Italian, Dutch, Polish, Chinese, Korean, and Japanese.
+      <Note>This field only applies if tests are generated by Galtea (using `Knowledge Base File`).</Note>
+    </ResponseField>
+    <ResponseField name="Max Test Cases" type="Number">
+      The maximum number of test cases generated by Galtea. This helps control the size of the test dataset and associated costs.
+    </ResponseField>
+    <Tabs>
+      <Tab title="Quality">
+        <ResponseField name="Knowledge Base File" type="File" required>
+          The path to a local file (e.g., PDF, TXT, JSON, HTML, Markdown) containing the knowledge base. This file is uploaded to Galtea, which then generates test cases based on its content. Required if the test cases are to be generated by Galtea. **Example**: "path/to/your/knowledge_base.pdf"
+        </ResponseField>
+        <ResponseField name="Evolutions" type="List[Enum]">
+        {/* In the FrontEnd the variants are shown with the name of Evolutions when the type is Quality */}
+          Allows for the generation of variations of test cases (e.g., paraphrased questions, questions with typos). For more details on available evolutions, see [Quality Test Evolutions](/concepts/product/test/quality-evolutions).
+        </ResponseField>
+      </Tab>
+      <Tab title="Red Teaming">
+        <ResponseField name="Threat Types" type="List[Enum]" required>
+        {/* In the FrontEnd the variants are shown with the name of Threat Types when the type is Quality */}
+          Specifies which [threat categories](/concepts/product/test/red-teaming-threats) to generate test cases for.
+        </ResponseField>
+      </Tab>
+    </Tabs>
 
-<ResponseField name="Knowledge Base File" type="File" required="conditional">
-  The reference file used to generate the test. Required if the test cases have to be generated by Galtea. **Example**: A PDF containing a product catalog
-</ResponseField>
-
-<ResponseField name="Language" type="Text">
-  The language that will be used for the generation of the synthetic data. Defaults to the language used in the knowledge base file.
-  
-  **Available languages** are: "English", "Spanish", "Portugese", "Italian", "French", "German", "Korean", "Japanese" and "Chinese".
-  <Note>
-    This field only makes sense if the test is generated by Galtea.
-  </Note>
-</ResponseField>
-
-<ResponseField name="Test File" type="File" required="conditional">
-  The file containing the test data (the test cases). Essentially the "questions" and "answers", adversarial inputs, etc. Required if uploading a pre-made test. **Example**: A CSV file with a predefined set of test cases.
-</ResponseField>
+  </Tab>
+  <Tab title="Uploaded">
+    <ResponseField name="Test File" type="File" required>
+      The path to a local CSV file containing predefined test cases. This file is uploaded to Galtea. Required if you are providing your own set of test cases instead of having Galtea generate them. **Example**: "path/to/your/test_file.csv"
+    </ResponseField>
+  </Tab>
+</Tabs>

@@ -18,36 +18,40 @@ import ModelCard from '/snippets/cards/model-card.mdx';
     Register your organization into Galtea's platform
   </Card>
   <Card title="Quickstart" icon="rocket" href="/quickstart">
-    Understand how to execute evaluations to monitor the reliability of your products
+    Execute your first Evaluation in less than 5 minutes
   </Card>
 </CardGroup>
 
-## Evaluation Workflow
+## How It Works
 
 The typical workflow in Galtea follows these steps:
 
 <Steps>
   <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality</Step>
   <Step title="Create Version">Define a new [Version](/concepts/product/version) of your [Product](/concepts/product) with specific parameters</Step>
-  <Step title="Create Test">Define a new [Test](/concepts/product/test) with [Test Cases](/concepts/product/test/case) to evaluate your [Product](/concepts/product)</Step>
-  <Step title="Run Evaluations">Test the [Version](/concepts/product/version) against one [Test](/concepts/product/test) using [Evaluations](/concepts/product/evaluation) and custom [Metric Types](/concepts/metric-type)</Step>
-  <Step title="Analyze Results">Review and compare the performance of different [Versions](/concepts/product/version) using the built-in analytics</Step>
-  <Step title="Iterate">Create new [Version](/concepts/product/version) with improvements and repeat the evaluation process</Step>
+  <Step title="Create Test">Create a [Test](/concepts/product/test) with [Test Cases](/concepts/product/test/case) to evaluate your [Product](/concepts/product)</Step>
+  <Step title="Define an Evaluation">Establish an [Evaluation](/concepts/product/evaluation) that links the [Test](/concepts/product/test) and the specific [Version](/concepts/product/version) to be assessed</Step>
+  <Step title="Run Evaluations">Run each [Test Case](/concepts/product/test/case) against a [Version](/concepts/product/version) with [Evaluation Tasks](/concepts/product/evaluation/task) to evaluate a specific [Metric Type](/concepts/metric-type)</Step>
+  <Step title="Analyze Results">Review and compare the performance of different [Versions](/concepts/product/version) using the built-in analytics tools</Step>
+  <Step title="Iterate">Develop a new [Version](/concepts/product/version) of your [Product](/concepts/product) and repeat the process to compare the performance of the new [Version](/concepts/product/version) with the previous ones</Step>
 </Steps>
 
 ## Platform Access
 
 You can interact with Galtea through multiple channels:
 
-<CardGroup cols={3}>
+<CardGroup cols={4}>
   <Card title="Web Platform" icon="globe" href="https://platform.galtea.ai/">
-    Access the full functionality through our web interface
+    Manage your products and access insights via the dashboard.
   </Card>
-  <Card title="API" icon="code" href="/api-reference">
-    Integrate with our REST API for programmatic access
+  <Card title="Python SDK" icon="python" href="/sdk/introduction">
+    Seamlessly integrate our services using the Python SDK.
   </Card>
-  <Card title="Python SDK" icon="python" href="/sdk">
-    Use our Python SDK for seamless integration
+  <Card title="GitHub Actions" icon="github" href="/sdk/integrations/github-actions">
+    Automate your workflows by integrating with GitHub Actions.
+  </Card>
+  <Card title="REST API" icon="code">
+    Documentation is coming soon.
   </Card>
 </CardGroup>
 

@@ -1,0 +1,79 @@
+---
+title: 'Evaluating conversations'
+description: "Learn how to evaluate conversations with multiple turns using the Galtea SDK"
+icon: "comments"
+---
+
+
+To accurately **evaluate interactions within a dialogue**, certain metrics need access to the preceding turns of the conversation. This is handled by the [ `conversation_turns` parameter](/sdk/api/evaluation-task/create#param-conversation-turns).
+
+Currently, this parameter can only be used with the following metrics, which are available by default:
+  - **Role Adherence**: Measures how well the actual output adheres to a specified role.
+  - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
+  - **Conversational Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
+  - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+
+<Note>
+  The `conversation_turns` parameter is available both in the [create evaluation task](/sdk/api/evaluation-task/create) and [create evaluation task from production](/sdk/api/evaluation-task/create-from-production) methods.
+</Note>
+
+### Expected format
+
+The `conversation_turns` parameter expects a list of dictionaries. Each dictionary represents a **single, complete exchange** (one user query and the assistant's response to it) that occurred before the current interaction being sent to our platform.
+
+The required structure for each dictionary in the list is:
+```json
+{
+  "input": "The user's query from that past turn",
+  "actual_output": "The assistant's response from that past turn"
+}
+```
+
+This is how it would look like in practice:
+```python
+# Example: conversation_turns list passed to create_from_production
+[
+  {"input": "Hi, tell me about Galtea.", "actual_output": "Galtea is an AI evaluation platform."},
+  {"input": "What metrics does it support?", "actual_output": "It supports accuracy, relevance, safety metrics, and more."},
+  # ... other past turns in chronological order ...
+]
+```
+
+### Converting Your Application's History Format
+
+Let's say you have a conversation history like this.
+
+```python
+conversation_history = [
+  {'system': 'system', 'content': 'You are a pirate.'},
+  {'role': 'user', 'content': 'Can you teach me to swim?'},
+  {'role': 'assistant', 'content': 'Sure thing, matey! Then ye go swim with the shark.'},
+  {'role': 'user', 'content': 'I am not sure if I can swim with the shark.'},
+  {'role': 'assistant', 'content': 'Ye can do it!'},
+]
+```
+Then, this would be a valid method to extract the conversation turns from the conversation history:
+```python
+def extract_conversation_turns(messages: list[dict]) -> list[dict]:
+  conversation_turns = []
+  user_query = None
+  for message in messages:
+    # Skip system messages or irrelevant roles if necessary
+    if message['role'] == 'system':
+        continue
+
+    if message['role'] == 'user':
+        # Store the user query temporarily
+        user_query = message['content']
+    elif message['role'] == 'assistant' and user_query is not None:
+        # Found an assistant response following a user query, form a turn
+        conversation_turns.append({
+            "input": user_query,
+            "actual_output": message['content']
+        })
+        # Reset user_query to wait for the next user message
+        user_query = None
+    # Handle edge cases: consecutive user/assistant messages if applicable
+
+  return conversation_turns
+```

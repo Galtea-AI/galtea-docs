@@ -11,7 +11,7 @@ Below are some examples of how to use the SDK to interact with the Galtea platfo
 ```python
 from galtea import Galtea
 
-galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
+galtea = Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 ```
 
 <Note>
@@ -21,7 +21,7 @@ galtea = new Galtea(api_key="<YOUR_GALTEA_PLATFORM_API_KEY>")
 ### Registering a Product
 
 Registering a [product](/concepts/product) is the first step to start using the Galtea platform.
-In this case, we don't allow to create a product from the sdk, therefore you need to do this from the [platform](https://platform.galtea.ai/products).
+In this case, we don't allow to create a product from the sdk, therefore you need to do this from the [dashboard](https://platform.galtea.ai/).
 
 ### Creating a Version
 
@@ -36,7 +36,7 @@ version = galtea.versions.create(
 )
 ```
 <Info>
-    More information about creating a version can be found [here](/sdk/api/version-service#create-version).
+    More information about creating a version can be found [here](/sdk/api/version/service#create-version).
 </Info>
 
 ### Creating a Test
@@ -56,7 +56,7 @@ test = galtea.tests.create(
 ```
 
 <Info>
-    More information about creating a test can be found [here](/sdk/api/test-service#create-test).
+    More information about creating a test can be found [here](/sdk/api/test/service#create-test).
 </Info>
 
 ### Creating a Metric Type
@@ -74,7 +74,7 @@ metric_self_accuracy = galtea.metrics.create(
 ```
 
 <Info>
-    More information about creating a metric can be found [here](/sdk/api/metrics-service#create-metric).
+    More information about creating a metric can be found [here](/sdk/api/metrics/service#create-metric).
 </Info>
 
 ### Launching an Evaluation
@@ -111,10 +111,10 @@ for test_case in test_cases:
 ```
 
 <Info>
-    More information about creating an evaluation can be found [here](/sdk/api/evaluation-service#create-evaluation).
+    More information about creating an evaluation can be found [here](/sdk/api/evaluation/service#create-evaluation).
 </Info>
 <Info>
-    More information about launching an evaluation task can be found [here](/sdk/api/evaluation-task-service#create-evaluation-task).
+    More information about launching an evaluation task can be found [here](/sdk/api/evaluation-task/service#create-evaluation-task).
 </Info>
 
 ### Retrieving Evaluation Results

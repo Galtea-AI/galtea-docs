@@ -9,7 +9,9 @@ import SDKEvaluationServiceCard from '/snippets/cards/sdk-evaluation-service-car
 
 ## What is an Evaluation?
 
-An evaluation in Galtea is a link between a specific [version](/concepts/product/version) of a [product](/concepts/product) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/evaluation/task) that assess how well the product version performs against the test cases.
+An evaluation in Galtea is a link between a specific [version](/concepts/product/version) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/evaluation/task) that assess how well the product version performs against the test cases.
+
+You can **create**, view and manage your evaluations on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/evaluation/service).
 
 ## Evaluation Workflow
 
@@ -19,27 +21,27 @@ An evaluation in Galtea is a link between a specific [version](/concepts/product
     For each [Test Case](/concepts/product/test/case) in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/evaluation/task) to assess performance using different [metric types](/concepts/metric-type)
   
     <Info>
-      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be used with the test case's *input* and *context*, and its *output* should be provided to the [evaluation tasks](/concepts/product/evaluation/task).
+      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be called with the [test case](/concepts/product/test/case)'s data, and its *output* should be provided to the [evaluation tasks](/concepts/product/evaluation/task).
     </Info>
   </Step>
-  <Step title="Review Results">Compare results across different versions of the same product</Step>
+  <Step title="Review Results">Compare results across different versions of the same product using the [dashboard](https://platform.galtea.ai/)</Step>
 </Steps>
 
 ## Evaluation Tasks
 
-The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric types](/concepts/metric-type).
-
-<Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/evaluation/task">
-  Learn more about evaluation tasks
-</Card>
+The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric](/concepts/metric-type).
 
 <Note>
   Creating an evaluation does not automatically run *[evaluation tasks](/concepts/product/evaluation/task)*. You need to [execute *evaluation tasks*](/sdk/examples/create-evaluation) separately to generate scores and insights.
 </Note>
 
+<Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/evaluation/task">
+  Learn more about evaluation tasks
+</Card>
+
 ## Results Visualization
 
-Once you've created an evaluation, you can access detailed information and results on the [platform](https://platform.galtea.ai/).
+Once you've created an evaluation, you can access detailed information and results on the [dashboard](https://platform.galtea.ai/).
 
 <Info>
   To view evaluation results, you need to visit a product's page *Analytics* section. For detailed information about a particular evaluation, you can navigate to the *Evaluations* tab and select a specific evaluation.
@@ -50,21 +52,27 @@ The platform provides:
 - Analytics comparing different versions of the product
 - Detailed view of individual evaluation tasks
 
-## Creating an Evaluation
+## SDK Integration
 
-To create an evaluation in Galtea, you need to specify:
+The Galtea SDK allows you to create, view, and manage evaluations programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
 
-<ResponseField name="Version" type="ID (text)" required>
-  The unique identifier of the version to be used in the evaluation.
+<CardGroup cols={2}>
+  <SDKEvaluationServiceCard />
+  <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
+    Learn how to set up GitHub Actions to automatically evaluate new versions
+  </Card>
+</CardGroup>
+
+## Evaluation Properties
+
+<ResponseField name="Version" type="Version" required>
+  The version to be evaluated in the evaluation.
 </ResponseField>
 
-<ResponseField name="Test" type="ID (text)" required>
-  The unique identifier of the test to be used in the evaluation.
+<ResponseField name="Test" type="Test" required>
+  The test to be used in the evaluation.
 </ResponseField>
 
 Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test cases.
 
-## SDK Integration
-
-<SDKEvaluationServiceCard />
 

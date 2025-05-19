@@ -11,6 +11,8 @@ import SDKVersionServiceCard from '/snippets/cards/sdk-version-service-card.mdx'
 
 A version in Galtea represents a specific iteration of a [product](/concepts/product). Versions allow you to track changes to your product over time and compare different implementations against the same tests.
 
+You can **create**, view and manage your versions on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/version/service).
+
 ## Comparing Versions
 
 One of the key benefits of tracking versions in Galtea is the ability to compare different implementations of your product. This allows you to:
@@ -26,11 +28,16 @@ One of the key benefits of tracking versions in Galtea is the ability to compare
 
 ## SDK Integration
 
-<SDKVersionServiceCard />
+The Galtea SDK allows you to create, view, and manage versions programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
+
+<CardGroup cols={2}>
+  <SDKVersionServiceCard />
+  <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
+    Learn how to set up GitHub Actions to automatically create new versions and evaluate them
+  </Card>
+</CardGroup>
 
 ## Version Properties
-
-When creating a version in Galtea, you'll need to provide the following information:
 
 <ResponseField name="Version Name" type="Text" required>
   The name of the version. **Example**: "v1.2.0" or "GPT-4 Implementation"
@@ -40,8 +47,8 @@ When creating a version in Galtea, you'll need to provide the following informat
   A description of the version, typically highlighting what makes it different from other versions. **Example**: "Improved summarization algorithm with better fact retention"
 </ResponseField>
 
-<ResponseField name="Model ID" type="ID (text)">
-  The [model](/concepts/model) ID used in the version. You can search for models like: "GPT-4", "Claude 2", or "Llama 2-70B" in the platform and then grab their ID to associate it with the version.
+<ResponseField name="Model" type="Model" required>
+  The AI [Model](/concepts/model) used by this version. This is used for cost tracking and associating the version with a specific LLM's pricing and tokenization characteristics.
 
   This is used to calculate the cost of the inference for the version during [evaluation tasks](/concepts/product/evaluation/task).
 </ResponseField>
@@ -62,6 +69,6 @@ When creating a version in Galtea, you'll need to provide the following informat
   The guardrails applied to the version, separated by commas. **Example**: "content filtering, citation checking, legal compliance"
 </ResponseField>
 
-<ResponseField name="Endpoint Connection" type="Text">
+<ResponseField name="Endpoint" type="Text">
   The endpoint connection for the version. **Example**: "https://api.company.com/summarizer/v2"
 </ResponseField>
