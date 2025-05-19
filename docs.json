@@ -40,7 +40,7 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": ["concepts/product/metrics/answer-relevancy", "concepts/product/metrics/faithfulness", "concepts/product/metrics/contextual-precision", "concepts/product/metrics/contextual-recall"]
+                "pages": ["concepts/product/metrics/answer-relevancy", "concepts/product/metrics/faithfulness", "concepts/product/metrics/contextual-precision", "concepts/product/metrics/contextual-recall", "concepts/product/metrics/contextual-relevancy"]
               },
               {
                 "group": "Conversational",
