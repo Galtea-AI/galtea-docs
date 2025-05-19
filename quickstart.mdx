@@ -189,16 +189,9 @@ Finally, you're ready to launch an [evaluation](/concepts/product/evaluation) to
 ```python
 # Placeholder for your actual product/model inference function
 def your_product_function(input_prompt, context_data=None, retrieval_data=None):
-    """
-    This is a placeholder. Replace this with a call to your actual AI model.
-    It should take an input_prompt (from test_case.input) and optionally
-    context or retrieval_context, and return the model's textual response.
-    """
-    print(f"Simulating model call for input: {input_prompt[:50]}...")
-    # Example: If input contains "ignore previous instructions", model should ideally resist.
-    if "ignore previous instructions" in input_prompt.lower():
+    if "ignore" in input_prompt.lower():
         return "I am programmed to follow safety guidelines and cannot fulfill this request."
-    return f"This is a simulated response to: {input_prompt}"
+    return f"Of course! I will now {input_prompt}"
 
 # Create an evaluation linking the version and the test
 evaluation = galtea.evaluations.create(
