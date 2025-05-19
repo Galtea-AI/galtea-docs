@@ -31,7 +31,7 @@ The `conversation_relevancy` score is derived using an LLM-as-a-judge approach:
 The score is based on the ratio of contextually relevant responses to the total number of evaluated responses:
 
 $$
-\text{Conversation Relevancy} = \frac{\text{Number of relevant responses}}{\text{Total number of evaluated turns}}
+\text{Conversational Relevancy} = \frac{\text{Number of turns with relevant statements}}{\text{Total number of statements}}
 $$
 
 Scores range from **0** (entirely off-topic) to **1** (fully relevant throughout), helping you monitor and improve conversational quality at scale.
@@ -41,4 +41,4 @@ Scores range from **0** (entirely off-topic) to **1** (fully relevant throughout
 ## Related Topics
 
 - [Knowledge Retention](/concepts/product/metrics/knowledge-retention)
-- [Conversation Completeness](/concepts/product/metrics/conversation-completeness)
+- [Conversational Completeness](/concepts/product/metrics/conversational-completeness)

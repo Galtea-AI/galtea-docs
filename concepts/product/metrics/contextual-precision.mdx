@@ -30,7 +30,7 @@ The score is calculated as follows:
 The metric is computed using a simplified formula:
 
 $$
-\text{Contextual Precision} = \frac{\text{Number of relevant items in top-k}}{k}
+\text{Contextual Precision} = \frac{1}{\text{Number of relevant items}}\sum_{k=1}^{n}\left( \frac{\text{Number of relevant items in top-k}}{k}\right)
 $$
 
 Where **k** is a configurable cutoff (e.g., top 5 or top 10). This helps gauge whether the most useful content is easily accessible to the generator.

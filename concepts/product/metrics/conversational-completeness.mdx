@@ -1,11 +1,11 @@
 ---
-title: "Conversation Completeness"
+title: "Conversational Completeness"
 description: "Evaluates whether your chatbot can guide a user to successfully complete their task across multiple turns."
 ---
 
-## Conversation Completeness
+## Conversational Completeness
 
-The **Conversation Completeness** metric is one of several [non-deterministic Metric Types](/concepts/metric-type) Galtea uses to measure the ability of your LLM-based chatbot to guide a user through an end-to-end conversation that successfully satisfies their initial request or goal. It evaluates whether the dialogue includes all necessary steps and logical transitions needed to fulfill the user’s intent.
+The **Conversational Completeness** metric is one of several [non-deterministic Metric Types](/concepts/metric-type) Galtea uses to measure the ability of your LLM-based chatbot to guide a user through an end-to-end conversation that successfully satisfies their initial request or goal. It evaluates whether the dialogue includes all necessary steps and logical transitions needed to fulfill the user’s intent.
 
 This metric is especially relevant for transactional or task-based agents (e.g., booking systems, support bots).
 
@@ -31,7 +31,7 @@ The `conversation_completeness` score is computed using the following LLM-driven
 The score is then calculated as:
 
 $$
-\text{Conversation Completeness} = \frac{\text{Number of completed conversations}}{\text{Total number of evaluated conversations}}
+\text{Conversational Completeness} = \frac{\text{Number of satisfied user intents}}{\text{Total number of user intents}}
 $$
 
 Scores closer to **1** suggest a high rate of successful task completion and indicate that users can rely on the chatbot to reach their goals.
@@ -40,5 +40,5 @@ Scores closer to **1** suggest a high rate of successful task completion and ind
 
 ## Related Topics
 
-- [Conversation Relevancy](/concepts/product/metrics/conversation-relevancy)
+- [Conversational Relevancy](/concepts/product/metrics/conversational-relevancy)
 - [Role Adherence](/concepts/product/metrics/role-adherence)
