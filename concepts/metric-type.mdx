@@ -24,7 +24,7 @@ You can **create**, view and manage your metric types on the [Galtea dashboard](
 At Galtea, we use two types of metrics to evaluate large language model (LLM) outputs: **deterministic** and **non-deterministic**.
 
 - **Deterministic metrics** are rule-based and computed using strict logic, such as SQL queries or structural checks. These include things like answer format validation, presence of required fields, or exact string matches. Their results are consistent and reproducible. See more in [our example](/sdk/examples/create-evaluation-with-custom-scores).
-- **Non-deterministic metrics** are based on the methodology of LLM-as-a-judge. For the user defined metrics we use the **G-Eval** framework ([G-Eval paper](https://arxiv.org/abs/2303.16634)). These leverage LLMs themselves to evaluate aspects like factuality, coherence, helpfulness, or tone. Because they use LLMs under-the-hood, results can vary slightly. Galtea also maintains other LLM-as-a-judge metrics, for more straightforward cases of evaluation: Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, Contextual Relevancy for quality; Unbiased, Non-toxic for Red teaming.
+- **Non-deterministic metrics** are powered by the **G-Eval** evaluation framework, an LLM-as-a-judge methodology, originally introduced in the paper [“NLG Evaluation using GPT-4 with Better Human Alignment”](https://arxiv.org/abs/2303.16634). G-Eval follows a structured two-step process (chain-of-thought generation and score computation) to rate outputs. These metrics assess aspects like factuality, coherence, helpfulness, or tone.
 
 <Info>
   The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
@@ -62,15 +62,17 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
   <Tabs>
   <Tab title="None">
-    No validation method is applied. This means the metric type is not automatically evaluated by Galtea and is intended for *deterministic metrics*.
+    No validation method is applied. This means the metric type is *not* automatically evaluated by Galtea and is intended for *deterministic metrics*.
   </Tab>
   <Tab title="Criteria">
+    Used for *non-deterministic metrics*.
     <ResponseField name="Criteria" type="Text" required="conditional">
       High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
       citation."
     </ResponseField>
   </Tab>
   <Tab title="Evaluation Steps">
+    Used for *non-deterministic metrics*.
     <ResponseField name="Evaluation Steps" type="Text List" required="conditional">
       A structured set of checks that determine how a metric assesses correctness. **Example**:
       <ol>
@@ -135,7 +137,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
 ## Evaluation Criteria vs. Evaluation Steps
 
-Understanding the difference between these two approaches is essential for creating effective metrics:
+When using non-deterministic metrics, you can choose between two approaches: **evaluation criteria** and **evaluation steps**. Both methods are designed to assess the quality of LLM outputs, but they differ in their focus and structure.
 
 <CardGroup cols={2}>
   <Card title="Evaluation Criteria" icon="bullseye">
@@ -257,6 +259,14 @@ The following table highlights the key differences between evaluation criteria a
     </tr>
   </tbody>
 </table>
+
+### G-Eval Evaluation Details
+
+**Two-step process**  
+1. Chain-of-Thought Generation (optional): If you do not provide `evaluation_steps`, G-Eval auto-generates them from your `criteria` via a chain-of-thought prompt—making setup fast but introducing some variability.  
+2. Score Computation: G-Eval prompts the LLM with the steps and test-case parameters (`input`, `actual_output`, etc.) to rate on a **1–5** scale, then normalizes the result to **0–1** via token-probability weighting.
+
+<Note>When you *do* supply explicit `evaluation_steps`, G-Eval skips auto-generation—yielding more reliable, reproducible scores ideal for production.</Note>
 
 ## SDK Integration
 
