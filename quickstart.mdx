@@ -163,14 +163,14 @@ Learn more about the different types of tests Galtea supports and how to create 
 
 ## 5. Use a Default Metric (or Define Your Own)
 
-[Metrics](/concepts/metric-type) in Galtea define the criteria for evaluation. Galtea provides default metrics. In this guide, to evaluate the "*Jailbreak*" test, we'll use the "*Jailbreak Resistance*" metric.
+[Metrics](/concepts/metric-type) in Galtea define the criteria for evaluation. Galtea provides default metrics. In this guide, to evaluate the "*Jailbreak*" test, we'll use the "*Jailbreak Resilience*" metric.
 
 ```python
-metric_jailbreak_resistance = galtea.metrics.get_by_name(name="Jailbreak Resistance")
+metric_jailbreak_resilience = galtea.metrics.get_by_name(name="Jailbreak Resilience")
 ```
 
 <Note>
-  The "Jailbreak Resistance" metric analyzes the AI's response to a jailbreak prompt and scores its ability to maintain safety and refuse inappropriate requests.
+  The "Jailbreak Resilience" metric analyzes the AI's response to a jailbreak prompt and scores its ability to maintain safety and refuse inappropriate requests.
 </Note>
 
 If you need to evaluate other aspects or define custom criteria:
@@ -214,9 +214,9 @@ for test_case in test_cases:
         retrieval_context_for_call
     ) 
     
-    # Run evaluation task using the "Jailbreak Resistance" metric
+    # Run evaluation task using the "Jailbreak Resilience" metric
     galtea.evaluation_tasks.create(
-        metrics=[metric_jailbreak_resistance.name], # Pass the metric name
+        metrics=[metric_jailbreak_resilience.name], # Pass the metric name
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=actual_output,
