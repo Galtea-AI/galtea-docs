@@ -43,7 +43,7 @@ test = galtea.tests.create(
   For Red Teaming tests, the `variants` parameter can be used to specify which [threat categories](/concepts/product/test/red-teaming-threats) to generate test cases for.
 </ResponseField>
 <ResponseField name="strategies" type="list[string]" optional>
-  Specifies which [red teaming strategies](/concepts/product/test/red-teaming-strategies) to use when generating test cases. Strategies are techniques for modifying or obfuscating the prompts generated for each threat, such as encoding, obfuscation, or translation. This parameter is only applicable for Red Teaming tests.
+  Specifies a list of [red teaming strategies](/concepts/product/test/red-teaming-strategies) to apply when generating test cases for Red Teaming tests. Strategies are techniques for modifying or obfuscating the prompts generated for each threat (specified in `variants` for Red Teaming tests). This parameter is only applicable when `type` is `RED_TEAMING`.
   Example: `["base64", "leetspeak", "zero_width_insertion"]`.
 </ResponseField>
 <ResponseField name="max_test_cases" type="int" optional>
