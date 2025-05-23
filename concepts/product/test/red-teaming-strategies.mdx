@@ -25,6 +25,7 @@ Think of threats as the "what" and strategies as the "how" in adversarial testin
 
 Below are the main red teaming strategies available in Galtea:
 
+- **Original**: The unmodified prompt generated directly from the selected threat, without any additional obfuscation or transformation. This serves as the baseline for comparison in red teaming tests and is always included by default (it cannot be deselected).
 - **Base64**: Obfuscate prompts by encoding them in base64, requiring decoding before interpretation. *Helps evade simple keyword-based filters.*
 - **Hex**: Encode prompts in hexadecimal format to obscure their content. *Useful for bypassing string-matching filters.*
 - **Homoglyph**: Replace characters with visually similar Unicode characters to evade detection. *Can fool naive text-matching systems.*
