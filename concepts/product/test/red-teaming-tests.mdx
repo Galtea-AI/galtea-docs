@@ -6,7 +6,7 @@ icon: ""
 
 ## What are Red Teaming Tests?
 
-Red teaming tests in Galtea are designed to evaluate the security, safety, and bias aspects of your [product](/concepts/product). These tests typically consist of different types of [threats](/concepts/product/test/red-teaming-threats) like adversarial inputs specifically crafted to probe potential weaknesses or vulnerabilities in your AI system.
+Red teaming tests in Galtea are designed to evaluate the security, safety, and bias aspects of your [product](/concepts/product). These tests typically consist of different types of [threats](/concepts/product/test/red-teaming-threats) like adversarial inputs specifically crafted to probe potential weaknesses or vulnerabilities in your AI system. To further enhance the diversity and evasiveness of these tests, Galtea can apply various [Red Teaming Strategies](/concepts/product/test/red-teaming-strategies) to the prompts generated from these threats.
 
 ## Creating Red Teaming Tests
 
@@ -21,11 +21,11 @@ You can create red teaming tests in Galtea through two methods:
       <Step title="Configure the test">
         Select *Red Teaming* as the test type and *Generated* as the test origin
         <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
+          The test creation process can be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
         </Info>
       </Step>
       <Step title="Generate the test">
-        Galtea will process the Knowledge Base and generate a *Test File* and *Test Cases* with adversarial inputs for you
+        Galtea will process the Knowledge Base and generate a *Test File* containing *Test Cases* with adversarial inputs for you, potentially applying selected strategies to vary the attack vectors.
       </Step>
     </Steps>
   </Tab>
@@ -37,7 +37,7 @@ You can create red teaming tests in Galtea through two methods:
       <Step title="Configure the test">
         Select "Red Teaming" as the test type and "Uploaded" as the test origin
         <Info>
-          The test creation process acan be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
+          The test creation process can be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
         </Info>
       </Step>
       <Step title="Upload your test file">

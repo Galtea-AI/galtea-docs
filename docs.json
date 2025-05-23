@@ -61,7 +61,7 @@
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/product/test/red-teaming-tests", "concepts/product/test/red-teaming-threats"]
+                "pages": ["concepts/product/test/red-teaming-tests", "concepts/product/test/red-teaming-threats", "concepts/product/test/red-teaming-strategies"]
               }
             ]
           }
