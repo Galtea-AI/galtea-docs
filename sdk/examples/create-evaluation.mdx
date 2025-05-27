@@ -54,7 +54,7 @@ for test_case in test_cases:
         evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response_data.output, # Assuming response_data has an 'output' attribute
-        retrieval_context=retrieval_context, # Should be a single string if applicable
+        retrieval_context=retrieval_context, # Provide as a single string; join if your retriever returns a list
         ###################### Optional Parameters ######################
         latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
         usage_info={
