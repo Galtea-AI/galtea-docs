@@ -16,7 +16,7 @@ Basically, we will create prompts based on the selected threats and then apply t
 
 ## Threats vs. Strategies
 
-- **Threats** define the goal or target of the adversarial input (e.g., Jailbreak, Data Leakage).
+- **Threats** define the goal or target of the adversarial input (e.g., Misuse, Data Leakage).
 - **Strategies** define the method or technique used to craft or modify the prompt to achieve that threat (e.g., Base64 encoding, Leetspeak).
 
 Think of threats as the "what" and strategies as the "how" in adversarial testing.
@@ -33,25 +33,26 @@ Below are the main red teaming strategies available in Galtea:
 - **Morse Code**: Encode prompts using Morse code to obscure intent. *Requires decoding, making detection harder.*
 - **Rot13**: Apply the ROT13 cipher to shift letters and obfuscate the prompt. *Simple obfuscation to bypass basic checks.*
 - **Zero Width Insertion**: Insert zero-width characters to break up keywords that might be caught by simple string matching filters without affecting readability for humans.
-- **Backtranslation**: Translate prompts to another language and back to introduce subtle changes. *Can alter phrasing to evade detection.*
-- **Biblical**: Frame prompts in the style of religious or biblical texts to mask intent. *May bypass filters looking for direct requests.*
 - **Emoji Obfuscation**: Use emojis to replace or supplement words, making detection harder. *Obscures meaning for keyword-based systems.*
-- **Citation**: Add academic or formal citations to prompts to lend credibility or mask intent. *Can make harmful requests appear legitimate.*
-- **Prefix**: Add benign or misleading prefixes to prompts to bypass safety mechanisms. *Distracts or misleads content filters.*
-- **Math Prompt**: Express prompts using mathematical notation or equations to obfuscate meaning. *Can hide intent from standard text analysis.*
-- **Multilingual**: Mix multiple languages within a prompt to evade monolingual filters. *Useful for bypassing language-specific moderation.*
-- **Roleplay**: Frame prompts as roleplay scenarios to encourage unintended model behavior by making the harmful request seem like part of a game or character's persona.
+
+[comment]: # (- **Backtranslation**: Translate prompts to another language and back to introduce subtle changes. *Can alter phrasing to evade detection.*)
+[comment]: # (- **Biblical**: Frame prompts in the style of religious or biblical texts to mask intent. *May bypass filters looking for direct requests.*)
+[comment]: # (- **Citation**: Add academic or formal citations to prompts to lend credibility or mask intent. *Can make harmful requests appear legitimate.*)
+[comment]: # (- **Prefix**: Add benign or misleading prefixes to prompts to bypass safety mechanisms. *Distracts or misleads content filters.*)
+[comment]: # (- **Math Prompt**: Express prompts using mathematical notation or equations to obfuscate meaning. *Can hide intent from standard text analysis.*)
+[comment]: # (- **Multilingual**: Mix multiple languages within a prompt to evade monolingual filters. *Useful for bypassing language-specific moderation.*)
+[comment]: # (- **Roleplay**: Frame prompts as roleplay scenarios to encourage unintended model behavior by making the harmful request seem like part of a game or character's persona.)
 
 ## How Strategies Are Applied
 
 When you generate red teaming tests in Galtea, you can select one or more strategies. Each selected strategy is applied to all chosen threats, creating multiple variations of each threat prompt. This approach increases the diversity and effectiveness of your adversarial testing.
 
-> For example, if you select the "Jailbreak" threat and the "Base64" and "Leetspeak" strategies, Galtea will generate test cases that attempt to jailbreak your model using both base64-encoded and leetspeak-modified prompts.
+> For example, if you select the "Misuse" threat and the "Base64" and "Leetspeak" strategies, Galtea will generate test cases that attempt to use your model for unintended purposes using both base64-encoded and leetspeak-modified prompts.
 
 ## Selecting Strategies in the Platform
 
 When creating a red teaming test in the Galtea platform:
-- Choose your desired threats (e.g., Jailbreak, Data Leakage, etc.).
+- Choose your desired threats (e.g., Misuse, Data Leakage, etc.).
 - Select one or more red teaming strategies from the list.
 - If you specify a maximum number of test cases, Galtea will distribute this count across the combinations of selected threats and applied strategies.
 - The final number of generated test cases may vary depending on your max_test_cases setting (if used), the number of threat/strategy combinations, and potentially the ability to successfully apply certain strategies to certain threats.
