@@ -6,11 +6,34 @@ icon: "clipboard-check"
 
 [Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
 
-## Running Evaluation Tasks
 
-Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
+## Creating a Session to store the conversation
 
-For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
+To create an evaluation, you first need to create a session that will store the conversation turns and other relevant information. This session will be linked to the evaluation tasks you run later.
+
+  ```python
+  from galtea import Galtea
+
+  # Initialize Galtea SDK
+  galtea = Galtea(api_key="YOUR_API_KEY")
+
+  # Create an evaluation
+  evaluation = galtea.sessions.create(
+      id="YOUR_SESSION_ID",
+      version_id="YOUR_VERSION_ID",
+      context="This evaluation is for testing the product's performance against a set of test cases.",
+  )
+
+  print(f"Evaluation created with ID: {evaluation.id}")
+  ```
+  <Info>
+    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
+  </Info>
+
+
+## Storing inference Results
+
+Once you've created a session, you can store inference results from your product's responses to user queries. This is useful for tracking performance and analyzing how well your product handles different inputs.
 
 ```python
 # Load your test cases
@@ -18,36 +41,42 @@ test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
 
 # Evaluate all test cases
 for test_case in test_cases:
-    # Retrieve relevant context for RAG. This may not apply to all products.
-    retrieval_context = your_retriever_function(test_case.input)
-    
-    # Your product's actual response to the input
-    timeBeforeCall = datetime.now()
-    response_data = your_product_function(test_case.input, test_case.context, retrieval_context)
-    timeAfterCall = datetime.now()
-    
-    # Run evaluation task
-    galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        version_id=VERSION_ID, # The version of your product being evaluated
-        test_case_id=test_case.id,
-        actual_output=response_data.output, # Assuming response_data has an 'output' attribute
-        retrieval_context=retrieval_context, # Provide as a single string; join if your retriever returns a list
-        ###################### Optional Parameters ######################
-        latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
-        usage_info={
-          "input_tokens": response_data.input_tokens,
-          "output_tokens": response_data.output_tokens,
-          "cache_read_input_tokens": response_data.cache_read_input_tokens,
-        },
-        cost_info={
-          "cost_per_input_token": 0.00002,
-          "cost_per_output_token": 0.00005,
-          "cost_per_cache_read_input_token": 0.00001,
-        },
-        # scores=[0.8, None, 0.95] # Example: score for accuracy_v1, platform evaluates relevance_v1, score for context_accuracy
-        #################################################################
+    # store inference results
+    galtea.inference_results.create(
+      session_id=sesion.id,
+      input=user_query/test_case.input,
+      output=model_answer,
+      retrieval_context=retrieval_component_answer,
+      retrieval_context = your_retriever_function(test_case.input)
+      # OPTIONAL PARAMETERS #
+      timeBeforeCall = datetime.now()
+      response_data = your_product_function(test_case.input, test_case.context, retrieval_context)
+      timeAfterCall = datetime.now()
+      latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
+      usage_info={
+        "input_tokens": response_data.input_tokens,
+        "output_tokens": response_data.output_tokens,
+        "cache_read_input_tokens": response_data.cache_read_input_tokens,
+      },
+      cost_info={
+        "cost_per_input_token": 0.00002,
+        "cost_per_output_token": 0.00005,
+        "cost_per_cache_read_input_token": 0.00001,
+      },
     )
+
+print("All inference results submitted")
+```
+
+## Running Evaluation Tasks from a session
+
+Once you've created a session, you can run [evaluation tasks](/concepts/product/evaluation/task) using the `galtea.evaluation_tasks.create_from_session` method. This method allows you to evaluate the performance of your product against the test cases defined in the session.
+
+```python
+galtea.evaluation_tasks.create_from_session(
+    session_id=session.id,
+    metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
+)
 
 print("All evaluation tasks submitted")
 ```
