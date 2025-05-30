@@ -43,30 +43,20 @@ test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
 for test_case in test_cases:
     # store inference results
     galtea.inference_results.create(
-      session_id=sesion.id,
-      input=user_query/test_case.input,
+      session_id=session.id,
+      input=test_case.input,
       output=model_answer,
       retrieval_context=retrieval_component_answer,
-      retrieval_context = your_retriever_function(test_case.input)
-      # OPTIONAL PARAMETERS #
-      timeBeforeCall = datetime.now()
-      response_data = your_product_function(test_case.input, test_case.context, retrieval_context)
-      timeAfterCall = datetime.now()
-      latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
-      usage_info={
-        "input_tokens": response_data.input_tokens,
-        "output_tokens": response_data.output_tokens,
-        "cache_read_input_tokens": response_data.cache_read_input_tokens,
-      },
-      cost_info={
-        "cost_per_input_token": 0.00002,
-        "cost_per_output_token": 0.00005,
-        "cost_per_cache_read_input_token": 0.00001,
-      },
+      retrieval_context=your_retriever_function(test_case.input)
     )
 
 print("All inference results submitted")
 ```
+
+<Info>
+  The `latency` and `usage_info` parameters are optional but highly recommended to be used.
+  They can be used to track the performance in latency and costs of your product.
+</Info>
 
 ## Running Evaluation Tasks from a session
 
@@ -84,33 +74,6 @@ print("All evaluation tasks submitted")
 <Note>
   The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
 </Note>
-<Info>
-  The `latency` and `usage_info` parameters are optional but highly recommended to be used.
-  They can be used to track the performance in latency and costs of your product.
-</Info>
-
-<Warning>
-  Directly providing `input`, `expected_output`, or `context` to `galtea.evaluation_tasks.create` when a `test_case_id` is used is deprecated. These parameters will be sourced from the test case. This approach limits analytics and consistency.
-</Warning>
-
-## Retrieving Evaluation Results
-
-After running evaluation tasks, you can retrieve the results:
-
-```python
-# Get all tasks for an evaluation
-tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
-
-# Analyze results
-total_score = 0
-for task in tasks:
-    task_detail = galtea.evaluation_tasks.get(task.id)
-    total_score += task_detail.score
-    print(f"Task {task.id}: Score = {task_detail.score}")
-
-avg_score = total_score / len(tasks) if tasks else 0
-print(f"Average evaluation score: {avg_score}")
-```
 
 ## Next Steps
 
