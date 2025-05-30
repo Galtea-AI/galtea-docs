@@ -3,6 +3,7 @@ title: "Answer Relevancy"
 description: "Evaluates whether the generated answer is relevant to the user’s input in a RAG pipeline."
 ---
 
+
 The **Answer Relevancy** metric is one of several [non-deterministic Metric Types](/concepts/metric-type) Galtea uses to evaluate the quality of your RAG pipeline’s generator by measuring how well the `actual_output` addresses the user's original query (`input`). It helps determine whether the model is generating responses that are focused, appropriate, and directly useful in the context of the question.
 
 This is essential for ensuring the model doesn't drift into unrelated topics or provide verbose but irrelevant information.
@@ -34,6 +35,9 @@ $$
 $$
 
 Higher scores indicate that the generator is effectively aligned with user queries.
+
+<Note>This metric was incorporated to the Galtea platform from the open source library [deepeval](https://deepeval.com/), for more information you can also visit their [documentation](https://deepeval.com/docs/metrics-answer-relevancy).</Note>
+
 
 ---
 
