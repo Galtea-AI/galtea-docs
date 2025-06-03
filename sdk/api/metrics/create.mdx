@@ -4,9 +4,11 @@ description: "Create a metric type for evaluating your products."
 ---
 
 ## Returns
-Returns a [MetricType](/concepts/metric-type) object for the given parameters, or `None` if an error occurs.
+
+Returns a [MetricType](/concepts/metric-type) object.
 
 ## Example
+
 ```python
 metric = galtea.metrics.create(
     name="accuracy_v1",
@@ -16,6 +18,7 @@ metric = galtea.metrics.create(
 ```
 
 ## Parameters
+
 <ResponseField name="name" type="string" required>
   The name of the metric.
 </ResponseField>

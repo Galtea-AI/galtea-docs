@@ -1,0 +1,19 @@
+---
+title: 'List Inference Results'
+description: "List inference results for a session or across sessions"
+---
+
+## Returns
+
+Returns a list of [InferenceResult](/concepts/product/inference-result) objects.
+
+## Example
+```python
+inference_results = galtea.inference_results.list(session_id="YOUR_SESSION_ID")
+```
+
+## Parameters
+
+<ParamField path="session_id" type="string" required>
+  Filter inference results by session ID. If not provided, returns results from all sessions.
+</ParamField>

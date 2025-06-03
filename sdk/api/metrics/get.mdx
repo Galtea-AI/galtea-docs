@@ -1,10 +1,7 @@
 ---
-title: 'Retrieving Metric'
+title: 'Retrieve Metric'
 description: "Retrieve a specific metric by its ID."
 ---
-
-## Returns
-Returns a [MetricType](/concepts/metric-type) object for the given metric ID.
 
 ## Example
 ```python
@@ -15,3 +12,7 @@ metric = galtea.metrics.get(metric_type_id="YOUR_METRIC_ID")
 <ResponseField name="metric_type_id" type="string" required>
   The ID of the metric you want to retrieve.
 </ResponseField>
+
+## Returns
+
+Returns a [MetricType](/concepts/metric-type) object.

@@ -1,0 +1,105 @@
+---
+title: 'evaluation_tasks.create_from_session()'
+description: "Create evaluation tasks for all inference results in a session"
+---
+
+Create [evaluation tasks](/concepts/product/evaluation/task) for all [inference results](/concepts/product/inference-result) within a [session](/concepts/product/session). This method automatically generates evaluation tasks for each inference result in the session.
+
+## Returns
+
+Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects.
+
+## Example
+
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Create evaluation tasks for all inference results in a session
+tasks = galtea.evaluation_tasks.create_from_session(
+    session_id="customer-conversation-001",
+    metrics=["accuracy_v1", "relevance_v1", "helpfulness_v1"]
+)
+
+print(f"Created {len(tasks)} evaluation tasks")
+
+# With custom evaluator and metadata
+tasks = galtea.evaluation_tasks.create_from_session(
+    session_id="rag-session-001", 
+    metrics=["context_accuracy", "faithfulness"],
+    evaluator_id="custom-evaluator-1",
+    metadata={
+        "evaluation_batch": "batch-001",
+        "purpose": "A/B testing comparison"
+    }
+)
+
+# Monitor task completion
+for task in tasks:
+    print(f"Task {task.id}: {task.status} - Metric: {task.metric_type}")
+```
+
+## Parameters
+
+<ParamField path="session_id" type="string" required>
+  The ID of the session containing the inference results to evaluate.
+</ParamField>
+
+<ParamField path="metrics" type="array" required>
+  List of [metric types](/concepts/metric-type) to use for evaluation. Each inference result will be evaluated using all specified metrics.
+</ParamField>
+
+
+## Batch Evaluation Benefits
+
+Creating evaluation tasks from a session provides several advantages:
+
+<CardGroup cols={2}>
+  <Card title="Consistency" icon="check-circle">
+    All inference results are evaluated with the same metrics and settings
+  </Card>
+  <Card title="Efficiency" icon="zap">
+    Batch processing is more efficient than individual evaluations
+  </Card>
+  <Card title="Completeness" icon="list-check">
+    Ensures no inference results are missed in evaluation
+  </Card>
+  <Card title="Organization" icon="folder">
+    Groups related evaluations together for easier analysis
+  </Card>
+</CardGroup>
+
+## Monitoring Progress
+
+```python
+import time
+
+# Create tasks
+tasks = galtea.evaluation_tasks.create_from_session(
+    session_id="session-123",
+    metrics=["accuracy_v1", "relevance_v1"]
+)
+
+# Monitor completion
+while True:
+    # Refresh task status
+    updated_tasks = [
+        galtea.evaluation_tasks.get(id=task.id) 
+        for task in tasks
+    ]
+    
+    completed = [t for t in updated_tasks if t.status == "completed"]
+    failed = [t for t in updated_tasks if t.status == "failed"]
+    
+    print(f"Progress: {len(completed)}/{len(tasks)} completed, {len(failed)} failed")
+    
+    if len(completed) + len(failed) == len(tasks):
+        break
+        
+    time.sleep(5)  # Wait 5 seconds before checking again
+
+# Analyze results
+for task in completed:
+    print(f"Metric {task.metric_type}: Score {task.score}")
+```

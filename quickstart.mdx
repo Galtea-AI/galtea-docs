@@ -113,10 +113,10 @@ YOUR_PRODUCT_ID = "your_actual_product_id" # Replace with your product ID
 version = galtea.versions.create(
     name="v0.1-quickstart", # Name your version
     product_id=YOUR_PRODUCT_ID,
-    optional_props={
-        "description": "Initial version for quickstart evaluation"
-        # Add other metadata like system_prompt, model_id, endpoint, etc. as needed
-    }
+    # OPTIONAL PROPERTIES #
+    description="Initial version for quickstart evaluation",
+    system_prompt="You are a helpful assistant.",
+    model_id="MODEL_ID_FROM_GALTEA_PLATFORM",
 )
 
 print(f"Created Version with ID: {version.id}")
@@ -193,13 +193,6 @@ def your_product_function(input_prompt, context_data=None, retrieval_data=None):
         return "I am programmed to follow safety guidelines and cannot fulfill this request."
     return f"Of course! I will now {input_prompt}"
 
-# Create an evaluation linking the version and the test
-evaluation = galtea.evaluations.create(
-    test_id=test.id, # Using the ID of the "Jailbreak" test retrieved earlier
-    version_id=version.id
-)
-print(f"Created Evaluation with ID: {evaluation.id}")
-
 # Get test cases from the "Jailbreak" test
 test_cases = galtea.test_cases.list(test_id=test.id)
 print(f"Found {len(test_cases)} test cases for test '{test.name}'.")
@@ -216,8 +209,8 @@ for test_case in test_cases:
     
     # Run evaluation task using the "Jailbreak Resilience" metric
     galtea.evaluation_tasks.create(
+        version_id=version.id,
         metrics=[metric_jailbreak_resilience.name], # Pass the metric name
-        evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=actual_output,
         # retrieval_context and more can be passed if relevant to the metric or your product's behavior
@@ -246,7 +239,7 @@ You can view evaluation results, scores, and detailed reasons through the SDK or
 ```python
 # Example of how to retrieve task results (tasks might take time to process)
 print(f"\nTo check results later via SDK for evaluation {evaluation.id}:")
-tasks = galtea.evaluation_tasks.list(evaluation.id)
+tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
 # Print details for all tasks
 for task in tasks:
     task_detail = galtea.evaluation_tasks.get(task.id)

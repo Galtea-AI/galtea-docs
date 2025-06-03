@@ -1,18 +1,33 @@
 ---
 title: 'Create Evaluation Task'
-description: "Create an evaluation task for a given evaluation."
+description: "Create an evaluation task for a given version."
 ---
 
 ## Returns
-Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects for the given evaluation and test case. Returns `None` if an error occurs.
+
+Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects.
 
 ## Example
 ```python
+# Basic evaluation task
 evaluation_tasks = galtea.evaluation_tasks.create(
-    evaluation_id="YOUR_EVALUATION_ID",
+    version_id="YOUR_VERSION_ID",
     metrics=["accuracy_v1", "coherence-v1"],
     test_case_id="YOUR_TEST_CASE_ID",
     actual_output="Barcelona",
+)
+
+# Evaluation task with session grouping for conversational AI
+evaluation_tasks = galtea.evaluation_tasks.create(
+    version_id="YOUR_VERSION_ID",
+    metrics=["conversational_completeness", "coherence-v1"],
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output="I'd be happy to help you with that request.",
+    session_id="conversation_session_123",
+    conversation_turns=[
+        {"input": "Hello", "actual_output": "Hi there! How can I assist you today?"},
+        {"input": "I need help", "actual_output": "Of course! What specific help do you need?"}
+    ]
 )
 ```
 <Info>
@@ -20,8 +35,8 @@ evaluation_tasks = galtea.evaluation_tasks.create(
 </Info>
 
 ## Parameters
-<ResponseField name="evaluation_id" type="string" required>
-  The ID of the evaluation you want to create a task for.
+<ResponseField name="version_id" type="string" required>
+  The ID of the version you want to evaluate.
 </ResponseField>
 <ResponseField name="metrics" type="list[string]" required>
   The metrics to use for the evaluation.

@@ -1,6 +1,6 @@
 ---
 title: "Evaluation"
-description: "A link between a product version and a test"
+description: "A set of evaluation tasks (assessments) made to a group of inference results"
 icon: "badge-check"
 iconType: "solid"
 ---
@@ -9,70 +9,161 @@ import SDKEvaluationServiceCard from '/snippets/cards/sdk-evaluation-service-car
 
 ## What is an Evaluation?
 
-An evaluation in Galtea is a link between a specific [version](/concepts/product/version) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/evaluation/task) that assess how well the product version performs against the test cases.
+An evaluation in Galtea is **a set of evaluation tasks (assessments) made to a group of inference results** to measure your AI system's performance and quality.
 
-The only way to **create** evaluations is programmatically by using the [Galtea SDK](/sdk/api/evaluation/service), but they can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
+**Think of an evaluation as an assessment session** where:
+
+- **Target group defined**: You select a specific group of [inference results](/concepts/product/inference-result) to assess (from individual responses, complete [sessions](/concepts/product/session), or custom collections)
+- **Assessment tasks applied**: You run multiple [evaluation tasks](/concepts/product/evaluation/task) using different [metrics](/concepts/metric-type) to evaluate various aspects of performance
+- **Comprehensive insights generated**: The evaluation tasks collectively provide scores, feedback, and detailed analysis of your model's performance on the selected inference results
+
+Each evaluation represents one assessment initiative - whether you're evaluating a single conversation, comparing model versions, or analyzing performance across a specific time period. The evaluation becomes a container for all the assessment tasks and their results, providing a comprehensive view of how your AI system performed on the evaluated inference results.
+
+Evaluations are automatically created when you run your first evaluation task for a specific group of [inference results](/concepts/product/inference-result) using the [Galtea SDK](/sdk/api/evaluation-task/service). They can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
 
 ## Evaluation Workflow
 
 <Steps>
-  <Step title="Create an Evaluation">Link a specific [version](/concepts/product/version) with a [test](/concepts/product/test) to create an evaluation</Step>
-  <Step title="Execute Evaluation Tasks">
-    For each [Test Case](/concepts/product/test/case) in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/evaluation/task) to assess performance using different [metric types](/concepts/metric-type)
+  <Step title="Select Inference Results">
+    Choose the group of [inference results](/concepts/product/inference-result) you want to assess. These can be individual responses, complete [sessions](/concepts/product/session) representing full conversations, or custom collections from different contexts.
+  </Step>
+  <Step title="Run Assessment Tasks">
+    [Create and run evaluation tasks](/sdk/examples/create-evaluation) to assess different aspects of your selected inference results. Each evaluation task applies specific [metrics](/concepts/metric-type) to measure performance, quality, safety, or other criteria.
   
     <Info>
-      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be called with the [test case](/concepts/product/test/case)'s data, and its *output* should be provided to the [evaluation tasks](/concepts/product/evaluation/task).
+      Evaluation tasks are the actual assessments that analyze your [inference results](/concepts/product/inference-result). Multiple evaluation tasks can be applied to the same group of inference results to provide comprehensive assessment coverage.
     </Info>
   </Step>
-  <Step title="Review Results">Compare results across different versions of the same product using the [dashboard](https://platform.galtea.ai/)</Step>
+  <Step title="Review Assessment Results">
+    Analyze the collective results from all evaluation tasks in your evaluation. Compare performance across different versions, sessions, time periods, or assessment criteria using the [dashboard](https://platform.galtea.ai/).
+  </Step>
 </Steps>
+
+## Types of Evaluations
+
+### Single Response Assessment
+Evaluate individual inference results independently:
+```
+Evaluation: "Query Response Quality Check"
+└── Assessment Tasks:
+    ├── Accuracy evaluation task
+    ├── Relevance evaluation task
+    └── Safety evaluation task
+```
+
+### Conversation Assessment
+Evaluate entire conversations through session-based assessment:
+```
+Evaluation: "Customer Support Conversation Analysis"
+└── Assessment Tasks:
+    ├── Conversational coherence task
+    ├── Problem resolution effectiveness task
+    ├── User satisfaction assessment task
+    └── Context retention evaluation task
+```
+
+### Batch Performance Assessment
+Run comprehensive assessments across multiple inference results:
+```
+Evaluation: "Weekly Model Performance Analysis"
+└── Assessment Tasks:
+    ├── Overall accuracy across all results
+    ├── Consistency analysis across sessions
+    ├── Performance degradation detection
+    └── Comparative version analysis
+```
 
 ## Evaluation Tasks
 
-The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric](/concepts/metric-type).
+**Evaluation tasks are the core assessment components of an evaluation.** They are the specific assessments that analyze your [inference results](/concepts/product/inference-result) using defined [metrics](/concepts/metric-type) and criteria.
+
+**Each evaluation is essentially a collection of evaluation tasks that collectively assess a group of inference results:**
+
+- **Individual assessment focus**: Each evaluation task targets specific aspects (accuracy, safety, relevance, etc.) using particular [metrics](/concepts/metric-type)
+- **Collective comprehensive analysis**: Multiple evaluation tasks within the same evaluation provide a complete assessment picture
+- **Flexible scope**: Tasks can assess individual inference results, entire [sessions](/concepts/product/session), or custom groups
+- **Actionable insights**: Each task generates specific scores, reasoning, and detailed feedback
+
+**The relationship is**: An evaluation contains a group of [inference results](/concepts/product/inference-result) and a set of evaluation tasks that assess those results. The evaluation tasks are the actual assessments that generate measurements and insights.
 
 <Note>
-  Creating an evaluation does not automatically run *[evaluation tasks](/concepts/product/evaluation/task)*. You need to [execute *evaluation tasks*](/sdk/examples/create-evaluation) separately to generate scores and insights.
+  You create evaluations by running [evaluation tasks](/concepts/product/evaluation/task) through the [SDK](/sdk/examples/create-evaluation). The evaluation is automatically created as a container for your assessment tasks and their results.
 </Note>
 
 <Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/evaluation/task">
-  Learn more about evaluation tasks
+  Learn more about evaluation tasks and how they perform specific assessments on inference results
 </Card>
 
 ## Results Visualization
 
-Once you've created an evaluation, you can access detailed information and results on the [dashboard](https://platform.galtea.ai/).
+Once you've created an evaluation with its assessment tasks, you can access comprehensive results and insights on the [Galtea dashboard](https://platform.galtea.ai/).
 
 <Info>
-  To view evaluation results, you need to visit a product's page *Analytics* section. For detailed information about a particular evaluation, you can navigate to the *Evaluations* tab and select a specific evaluation.
+  To view evaluation results, visit a product's *Analytics* section. For detailed assessment information about a particular evaluation, navigate to the *Evaluations* tab and select a specific evaluation to see all its evaluation tasks, assessed [inference results](/concepts/product/inference-result), and [sessions](/concepts/product/session).
 </Info>
 
 The platform provides:
-- Overview of a product's evaluations results per metric
-- Analytics comparing different versions of the product
-- Detailed view of individual evaluation tasks
+- **Assessment overview**: Summary of all evaluation task results per metric across different groupings
+- **Comparative analytics**: Performance comparison across versions, sessions, and time periods  
+- **Detailed task analysis**: Individual [evaluation task](/concepts/product/evaluation/task) results and [inference result](/concepts/product/inference-result) assessments
+- **Conversation insights**: Session-level analysis for conversational and multi-turn evaluations
+- **Trend analysis**: Performance tracking over time and across different assessment criteria
 
 ## SDK Integration
 
-The Galtea SDK allows you to create, view, and manage evaluations programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
+The Galtea SDK allows you to create, manage, and analyze evaluations programmatically. This is particularly useful for organizations that want to automate their assessment process or integrate evaluation workflows into their CI/CD pipeline.
 
 <CardGroup cols={2}>
   <SDKEvaluationServiceCard />
   <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
-    Learn how to set up GitHub Actions to automatically evaluate new versions
+    Learn how to set up GitHub Actions to automatically run evaluation assessments for new versions
   </Card>
 </CardGroup>
 
 ## Evaluation Properties
 
-<ResponseField name="Version" type="Version" required>
-  The version to be evaluated in the evaluation.
+<ResponseField name="id" type="string" required>
+  Unique identifier for the evaluation.
 </ResponseField>
 
-<ResponseField name="Test" type="Test" required>
-  The test to be used in the evaluation.
+<ResponseField name="product_id" type="string" required>
+  The ID of the product this evaluation belongs to.
 </ResponseField>
 
-Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test cases.
+<ResponseField name="version_id" type="string" required>
+  The ID of the product version being evaluated.
+</ResponseField>
+
+<ResponseField name="inference_results" type="list[InferenceResult]" required>
+  The collection of [inference results](/concepts/product/inference-result) included in this evaluation.
+</ResponseField>
+
+<ResponseField name="session_id" type="string" optional>
+  Optional ID of the [session](/concepts/product/session) if this evaluation covers all inference results from a specific session.
+</ResponseField>
+
+<ResponseField name="created_at" type="datetime" required>
+  Timestamp when the evaluation was created.
+</ResponseField>
+
+<ResponseField name="updated_at" type="datetime" required>
+  Timestamp when the evaluation was last updated.
+</ResponseField>
+
+Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the included [inference results](/concepts/product/inference-result).
+
+## Related Concepts
+
+<CardGroup cols={3}>
+  <Card title="Inference Result" icon="brain" href="/concepts/product/inference-result">
+    Individual model outputs that are grouped in evaluations
+  </Card>
+  <Card title="Session" icon="comments" href="/concepts/product/session">
+    Grouping mechanism for related inference results
+  </Card>
+  <Card title="Evaluation Task" icon="clipboard-check" href="/concepts/product/evaluation/task">
+    Assessment tasks that generate scores for evaluations
+  </Card>
+</CardGroup>
 
 

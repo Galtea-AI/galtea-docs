@@ -1,0 +1,20 @@
+---
+title: 'Retrieve Inference Result'
+description: "Retrieve a specific inference result by its ID."
+---
+
+## Returns
+
+Returns an [InferenceResult](/concepts/inference-result) object.
+
+## Example
+
+```python
+inference_result = galtea.inference_results.get(inference_result_id="YOUR_INFERENCE_RESULT_ID")
+```
+
+## Parameters
+
+<ResponseField name="inference_result_id" type="string" required>
+  The ID of the inference result you want to retrieve.
+</ResponseField>

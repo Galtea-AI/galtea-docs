@@ -1,0 +1,102 @@
+---
+title: "Session"
+description: "A grouping mechanism for related inference results"
+icon: "comments"
+iconType: "solid"
+---
+
+## What is a Session?
+
+A session in Galtea represents a complete conversation between a user and an LLM. It captures the full conversational context and interaction flow, serving as a container that holds all related [inference results](/concepts/product/inference-result) from that conversation.
+
+**A session is fundamentally a conversational entity** that:
+
+- **Captures entire conversations**: Holds the complete dialogue between a user and your AI system
+- **Maintains conversational context**: Preserves the flow and continuity of multi-turn interactions
+- **Enables conversation-level analysis**: Allows evaluation of conversational quality, coherence, and user experience
+- **Groups related inference results**: Links all individual model responses within the same conversation
+
+Each session represents one complete user-AI interaction, whether it's a single query-response pair or a complex multi-turn conversation spanning many exchanges.
+
+## Session Properties
+
+<ResponseField name="id" type="string" required>
+  Unique identifier for the session. This typically represents a conversation ID or user interaction identifier.
+</ResponseField>
+
+<ResponseField name="version_id" type="string" required>
+  The ID of the product version that handled this conversation.
+</ResponseField>
+
+<ResponseField name="test_case_id" type="string" required>
+  Optional ID of the test case used for this session, if applicable.
+  <Note>
+    This property is not required when MONITORING real time interactions between your users and your product in production environment.
+  </Note>
+</ResponseField>
+
+<ResponseField name="context" type="string" optional>
+  Additional contextual information about the conversation (e.g., user metadata, conversation purpose, channel).
+</ResponseField>
+
+<ResponseField name="test_case_id" type="string" optional>
+  Optional ID of the test case if this session was created for evaluation purposes.
+</ResponseField>
+
+<ResponseField name="created_at" type="datetime" required>
+  Timestamp when the conversation session was initiated.
+</ResponseField>
+
+## How Sessions Work
+
+When your AI system engages in a conversation with a user, each exchange (user input and AI response) creates an [inference result](/concepts/product/inference-result). All inference results from the same conversation are automatically grouped into a session by providing the same `session_id` when creating each inference result.
+
+**The session represents the conversational thread that ties together all related exchanges:**
+
+1. **Conversation continuity**: Each turn in the conversation becomes an inference result linked to the same session
+2. **Context preservation**: The session maintains the conversational context across multiple model interactions
+3. **Conversation-level insights**: Enables analysis of conversation flow, completion, and overall user experience
+
+## Session-based Evaluations
+
+Sessions unlock powerful conversation-level evaluation capabilities:
+
+- **Conversational coherence**: Assess how well your AI maintains context and coherence throughout the entire conversation
+- **User experience analysis**: Evaluate conversation quality, user satisfaction, and goal completion
+- **Multi-turn interaction patterns**: Analyze how effectively your AI handles complex, multi-step user requests
+- **Context retention**: Measure your model's ability to remember and reference earlier parts of the conversation
+
+<Info>
+  When creating [evaluations](/concepts/product/evaluation) for inference results within a session, you can assess individual responses or evaluate the entire conversational flow as a cohesive interaction.
+</Info>
+
+## Use Cases
+
+### Conversational AI
+```
+Session: Customer Support Chat #1234
+├── Inference Result 1: User greeting
+├── Inference Result 2: Problem description
+├── Inference Result 3: Solution provided
+└── Inference Result 4: Follow-up question
+```
+
+### Multi-step Workflows
+```
+Session: Document Analysis Pipeline #5678
+├── Inference Result 1: Document classification
+├── Inference Result 2: Key entity extraction
+├── Inference Result 3: Summary generation
+└── Inference Result 4: Action recommendations
+```
+
+## Related Concepts
+
+<CardGroup cols={2}>
+  <Card title="Inference Result" icon="brain" href="/concepts/product/inference-result">
+    Individual model outputs that can be grouped into sessions
+  </Card>
+  <Card title="Evaluation" icon="badge-check" href="/concepts/product/evaluation">
+    Assessments that can be performed on sessions or individual inference results
+  </Card>
+</CardGroup>

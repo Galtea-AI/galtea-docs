@@ -1,10 +1,10 @@
 ---
-title: 'Listing Test Cases'
-description: "List all test cases associated with a specific test."
+title: 'List Test Cases'
+description: "List all test cases for a specific test."
 ---
 
 ## Returns
-Returns a list of [TestCase](/concepts/product/test/case) objects for the given test.
+Returns a list of [TestCase](/concepts/product/test/case) objects.
 
 ## Example
 ```python
@@ -25,3 +25,7 @@ paginated_test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID", offset=10,
 <ResponseField name="limit" type="int" optional>
   The maximum number of test cases to return.
 </ResponseField>
+
+## Returns
+
+Returns a list of [TestCase](/concepts/product/test/case) objects.

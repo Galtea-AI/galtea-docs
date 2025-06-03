@@ -3,9 +3,6 @@ title: 'Create Test Case'
 description: "Create a test case for your test."
 ---
 
-## Returns
-Returns a [TestCase](/concepts/product/test/case) object for the given parameters.
-
 ## Example
 ```python
 test_case = galtea.test_cases.create(
@@ -37,3 +34,7 @@ test_case = galtea.test_cases.create(
   A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for test cases designed for conversational AI.
   Example: `[{"input": "What is the capital of France?", "actual_output": "Paris"}, {"input": "What is the population of that city?", "actual_output": "2M"}]`
 </ResponseField>
+
+## Returns
+
+Returns a [TestCase](/concepts/product/test/case) object.

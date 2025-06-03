@@ -1,0 +1,30 @@
+---
+title: 'Delete inference result'
+description: "Delete a specific inference result"
+---
+
+<Warning>
+  Deleting an inference result will permanently remove it from the session.
+</Warning>
+
+## Returns
+
+Returns the deleted [InferenceResult](/concepts/product/inference-result) object.
+
+## Example
+
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Delete an inference result
+result = galtea.inference_results.delete(id="inf_result_123")
+
+print(f"Deleted inference result: {result.id}")
+```
+
+## Parameters
+<ResponseField name="id" type="string" required>
+  The ID of the inference result you want to delete.
+</ResponseField>

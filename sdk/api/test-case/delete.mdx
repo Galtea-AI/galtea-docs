@@ -1,17 +1,18 @@
 ---
-title: 'Deleting Test Case'
+title: 'Delete Test Case'
 description: "Delete a specific test case by its ID."
 ---
 
+## Returns
+
+Returns a deletion confirmation object and the deleted [TestCase](/concepts/product/test/case) object.
+
 ## Example
 ```python
-galtea.test_cases.delete(test_case_id="YOUR_TEST_ID")
+galtea.test_cases.delete(test_case_id="YOUR_TEST_CASE_ID")
 ```
 
 ## Parameters
 <ResponseField name="test_case_id" type="string" required>
   The ID of the test case you want to delete.
 </ResponseField>
-
-## Returns
-Returns `True` if deletion was successful, `False` otherwise.

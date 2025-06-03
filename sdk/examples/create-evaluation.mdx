@@ -6,31 +6,9 @@ icon: "clipboard-check"
 
 [Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
 
-## Creating an Evaluation
-
-This is how to create an evaluation:
-
-  ```python
-  from galtea import Galtea
-
-  # Initialize Galtea SDK
-  galtea = Galtea(api_key="YOUR_API_KEY")
-
-  # Create an evaluation
-  evaluation = galtea.evaluations.create(
-      test_id="YOUR_TEST_ID",
-      version_id="YOUR_VERSION_ID"
-  )
-
-  print(f"Evaluation created with ID: {evaluation.id}")
-  ```
-  <Info>
-    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
-  </Info>
-
 ## Running Evaluation Tasks
 
-Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
+You can run [evaluation tasks](/concepts/product/evaluation/task) directly by providing a `version_id`, which automatically creates a session to store the inference results:
 
 For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
 
@@ -50,8 +28,8 @@ for test_case in test_cases:
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
+        version_id="YOUR_VERSION_ID",
         metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=response_data.output, # Assuming response_data has an 'output' attribute
         retrieval_context=retrieval_context, # Provide as a single string; join if your retriever returns a list
@@ -107,8 +85,8 @@ for index, row in df.iterrows():
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
+        version_id="YOUR_VERSION_ID",
         metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        evaluation_id=evaluation.id,
         input=row['input'],
         actual_output=actual_output,
         expected_output=row['expected_output'],
@@ -131,8 +109,11 @@ print("All evaluation tasks submitted")
 After running evaluation tasks, you can retrieve the results:
 
 ```python
-# Get all tasks for an evaluation
-tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
+# Get tasks for a specific evaluation
+tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
+
+# Or get tasks for a specific session
+tasks = galtea.evaluation_tasks.list(session_id="YOUR_SESSION_ID")
 
 # Analyze results
 total_score = 0

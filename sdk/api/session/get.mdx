@@ -1,0 +1,19 @@
+---
+title: 'Retrieve Session'
+description: "Retrieve a specific session by ID"
+---
+
+## Returns
+
+Returns a [Session](/concepts/product/session) object.
+
+## Example
+
+```python
+session = galtea.sessions.get(id="SESSION_ID")
+```
+
+## PARAMETERS
+<ParamField path="id" type="string" required>
+  The unique identifier of the session to retrieve.
+</ParamField>

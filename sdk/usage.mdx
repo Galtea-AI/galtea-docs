@@ -32,7 +32,9 @@ With a [version](/concepts/product/version), you can track changes to your produ
 version = galtea.versions.create(
     name="v1.0",
     product_id=product.id,
-    optional_props={"description": "Initial version with basic summarization capabilities"}
+    description="Initial version with basic summarization capabilities",
+    system_prompt="You are a helpful assistant that summarizes text.",
+    model_id="YOUR_MODEL_ID",  # The ID of the model configured in the Galtea Platform for this version
 )
 ```
 <Info>
@@ -79,16 +81,10 @@ metric_self_accuracy = galtea.metrics.create(
 
 ### Launching an Evaluation
 
-[Evaluations](/concepts/product/evaluation) link a specific [version](/concepts/product/version) of a [product](/concepts/product) with a [test](/concepts/product/test).
-You can then execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the [product](/concepts/product) [version](/concepts/product/version) against the [test cases](/concepts/product/test/case) using a specific [metric type](/concepts/metric-type) criteria.
+[Evaluations](/concepts/product/evaluation) are collections of [inference results](/concepts/product/inference-result) that are assessed together through [evaluation tasks](/concepts/product/evaluation/task).
+You can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of your [inference results](/concepts/product/inference-result) against the [test cases](/concepts/product/test/case) using specific [metric type](/concepts/metric-type) criteria.
 
 ```python
-# Create an evaluation
-evaluation = galtea.evaluations.create(
-    test_id=test.id,
-    version_id=version.id
-)
-
 # Get test cases from the test
 test_cases = galtea.test_cases.list(test_id=test.id)
 
@@ -102,17 +98,14 @@ for test_case in test_cases:
     
     # Run evaluation task
     galtea.evaluation_tasks.create(
+        version_id=version.id,
         metrics=[metric_self_accuracy.name],
-        evaluation_id=evaluation.id,
         test_case_id=test_case.id,
         actual_output=actual_output,
-        retrieval_context=[retrieval_context], 
+        retrieval_context=retrieval_context, 
     )
 ```
 
-<Info>
-    More information about creating an evaluation can be found [here](/sdk/api/evaluation/service#create-evaluation).
-</Info>
 <Info>
     More information about launching an evaluation task can be found [here](/sdk/api/evaluation-task/service#create-evaluation-task).
 </Info>
@@ -122,8 +115,8 @@ for test_case in test_cases:
 Once the [evaluation tasks](/concepts/product/evaluation/task) are completed, you can retrieve [them](/concepts/product/evaluation/task) to analyze the results.
 
 ```python
-# Retrieve evaluation tasks
-evaluation_tasks = galtea.evaluation_tasks.list(evaluation.id)
+# Retrieve evaluation tasks for a version
+evaluation_tasks = galtea.evaluation_tasks.list(version_id=version.id)
 for task in evaluation_tasks:
     evaluation_task = galtea.evaluation_tasks.get(task.id)
     print(evaluation_task.score)

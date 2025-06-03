@@ -1,19 +1,27 @@
 ---
-title: 'Listing Evaluation Tasks'
-description: "List all evaluation tasks associated with a specific evaluation."
+title: 'List Evaluation Tasks'
+description: "List all evaluation tasks associated with a specific evaluation or version."
 ---
 
 ## Returns
-Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects for the given evaluation.
+
+Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects.
 
 ## Example
 ```python
+# List tasks for a specific evaluation
 evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id="YOUR_EVALUATION_ID")
+
+# List tasks for a specific session
+evaluation_tasks = galtea.evaluation_tasks.list(session_id="YOUR_SESSION_ID")
 ```
 
 ## Parameters
-<ResponseField name="evaluation_id" type="string" required>
-  The ID of the evaluation for which you want to list tasks.
+<ResponseField name="evaluation_id" type="string" conditional>
+  The ID of the evaluation for which you want to list tasks. Either this or `session_id` must be provided.
+</ResponseField>
+<ResponseField name="session_id" type="string" conditional>
+  The ID of the session for which you want to list all tasks. Either this or `evaluation_id` must be provided.
 </ResponseField>
 <ResponseField name="offset" type="int">
   The number of tasks to skip before starting to collect the result set.

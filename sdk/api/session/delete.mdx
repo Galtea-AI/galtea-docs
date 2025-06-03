@@ -1,0 +1,24 @@
+---
+title: 'Delete  Session'
+description: "Delete a session and all its inference results"
+---
+
+<Warning>
+  Deleting a session will permanently remove all inference results associated with it.
+</Warning>
+
+## Returns
+
+Returns the deleted [Session](/concepts/product/session) object.
+
+## Example
+
+```python
+galtea.sessions.delete(id="YOUR_SESSION_ID")
+```
+
+## Parameters
+
+<ParamField path="id" type="string" required>
+  The unique identifier of the session to delete.
+</ParamField>

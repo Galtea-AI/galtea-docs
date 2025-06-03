@@ -1,0 +1,40 @@
+---
+title: 'Create Session'
+description: "Create a new session for grouping inference results"
+---
+
+## Returns
+
+Returns a [Session](/concepts/product/session) object.
+
+## Example
+
+```python
+session = galtea.sessions.create(
+    id="customer-conv-20241201-001",
+    version_id="v2.1.0",
+    test_case_id="support-scenario-1",
+    context="Customer asking about billing issues - testing empathy and accuracy"
+)
+```
+
+## PARAMETERS
+
+<ResponseField name="id" type="string" required>
+  The unique identifier for the session. This should be a descriptive ID that helps you identify the session's purpose.
+</ResponseField>
+
+<ResponseField name="version_id" type="string" required>
+  The ID of the [version](/concepts/product/version) this session is associated with. This links the session to a specific model version.
+</ResponseField>
+
+<ResponseField name="test_case_id" type="string" required>
+  The ID of the [test case](/concepts/product/test-case) this session is associated with. This links the session to a specific test scenario.
+  <Note>
+    This property is not required when MONITORING real time interactions between your users and your product in production environment.
+  </Note>
+</ResponseField>
+
+<ResponseField name="context" type="string" optional>
+  A brief description of the session's context or purpose. This helps in understanding the session's intent.
+</ResponseField>

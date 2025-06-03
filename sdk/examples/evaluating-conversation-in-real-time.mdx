@@ -1,0 +1,90 @@
+---
+title: 'Evaluating a conversation in real time'
+description: "Learn how to create evaluations for conversations using sessions"
+icon: "clipboard-check"
+---
+
+[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
+
+## Creating a Session to store the conversation
+
+To create an evaluation, you first need to create a session that will store the conversation turns and other relevant information. This session will be linked to the evaluation tasks you run later.
+
+```python
+from galtea import Galtea
+
+# Initialize Galtea SDK
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Create a session
+session = galtea.sessions.create(
+    id="YOUR_SESSION_ID",
+    version_id="YOUR_VERSION_ID",
+    test_case_id="TEST_CASE_ID",
+    context="This evaluation is for testing the product's performance against a set of test cases.",
+)
+
+print(f"Session created with ID: {session.id}")
+```
+
+<Note>
+  For **monitoring scenarios** with real user-LLM interactions, the `test_case_id` parameter is not required when creating a session. You can omit it when tracking actual production conversations that don't correspond to predefined test cases.
+</Note>
+
+<Info>
+  A session groups related [inference results](/concepts/product/inference-result) together, enabling you to evaluate entire conversations or multi-turn interactions as a cohesive unit. Sessions are particularly suitable for **monitoring real user-LLM interactions** in production environments, allowing you to track and evaluate actual conversations between users and your AI system.
+</Info>
+
+## Storing inference Results
+
+Once you've created a session, you can store inference results from your product's responses to user queries. This is useful for tracking performance and analyzing how well your product handles different inputs.
+
+```python
+# Load your test cases
+test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
+
+# Evaluate all test cases
+for test_case in test_cases:
+    # store inference results
+    galtea.inference_results.create(
+        session_id=session.id,
+        input=test_case.input,
+        output=model_answer,
+        retrieval_context=your_retriever_function(test_case.input)
+    )
+
+print("All inference results submitted")
+```
+
+<Info>
+  The `latency` and `usage_info` parameters are optional but highly recommended to be used.
+  They can be used to track the performance in latency and costs of your product.
+</Info>
+
+## Running Evaluation Tasks from a session
+
+Once you've created a session, you can run [evaluation tasks](/concepts/product/evaluation/task) using the `galtea.evaluation_tasks.create_from_session` method. This method allows you to evaluate the performance of your product against the inference results stored in the session.
+
+```python
+galtea.evaluation_tasks.create_from_session(
+    session_id=session.id,
+    metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
+)
+
+print("All evaluation tasks submitted")
+```
+
+<Note>
+  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
+</Note>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="code" href="/sdk/api/evaluation/service">
+    View the complete Evaluation Service API reference
+  </Card>
+  <Card title="Session Concept" icon="comments" href="/concepts/product/session">
+    Learn more about sessions and how they group inference results
+  </Card>
+</CardGroup>
