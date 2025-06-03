@@ -129,6 +129,11 @@
           "anchor": "Changelog",
           "href": "https://docs.galtea.ai/changelog",
           "icon": "list-check"
+        },
+        {
+          "anchor": "Migration To V2",
+          "href": "https://docs.galtea.ai/migration-to-v2",
+          "icon": "right-left"
         }
       ]
     }

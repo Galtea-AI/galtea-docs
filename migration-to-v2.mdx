@@ -1,0 +1,294 @@
+---
+title: 'Migrating to Galtea SDK v2'
+description: "Guide for migrating your Galtea SDK integrations from v1.x to v2.0, focusing on changes to evaluation and evaluation task creation."
+icon: "arrow-right-arrow-left"
+---
+
+Welcome to Galtea SDK v2! This version introduces a streamlined workflow for creating evaluations and evaluation tasks, making it simpler to integrate Galtea into your development and monitoring processes.
+
+This guide will walk you through the necessary changes to update your existing SDK v1.x integrations.
+
+## Key Changes in v2.0
+
+The most significant changes in SDK v2.0 revolve around how evaluations and evaluation tasks are handled:
+
+1. **Version Creation**: The `galtea.versions.create()` method now accepts all version properties as direct parameters instead of requiring an `optional_properties` dictionary. This change simplifies the creation of versions by making it more explicit and easier to read.
+
+   - **New Parameters**: You can now pass `description`, `system_prompt`, `model_id`, and other properties directly as parameters when creating a version.
+   - **Example**:
+     ```python
+     version = galtea.versions.create(
+         name="v2.0",
+         product_id="YOUR_PRODUCT_ID",
+         description="Initial version with basic summarization capabilities",
+         system_prompt="You are a helpful assistant that summarizes text.",
+         model_id="YOUR_MODEL_ID"
+     )
+     ``` 
+
+2. **Implicit Evaluation Creation**: You no longer need to explicitly call `galtea.evaluations.create()` before creating evaluation tasks. Evaluations (which group [inference results](/concepts/product/inference-result) for assessment) are now automatically created or managed by the Galtea backend when the first evaluation task for a specific `version_id` and `test_case_id` (or `input` for production tasks) is submitted.
+
+3. **`version_id` in `evaluation_tasks.create()`**: The `galtea.evaluation_tasks.create()` method now requires a `version_id` parameter directly, replacing the previous need to pass an `evaluation_id`.
+
+4. **`evaluation_id` Removed from `evaluation_tasks.create()`**: Consequently, the `evaluation_id` parameter has been removed from `galtea.evaluation_tasks.create()`.
+
+These changes simplify your scripts and make the process more intuitive, aligning `evaluation_tasks.create()` more closely with `evaluation_tasks.create_from_production()`, which already used `version_id`.
+
+## What else is new in v2.0?
+
+1. **Session Object for Grouping Inference Results**: Now, all inference results are grouped under a [session](/concepts/product/session) object. You can explicitly create this session yourself, or let Galtea create it automatically for you when you submit inference results.
+
+  This session can be used to track conversations or interactions over multiple turns, making it easier to manage and evaluate complex user interactions.
+  
+    - **Session Creation**: You can create a session using `galtea.sessions.create()`, which allows you to specify the context and other metadata for the session.
+    - **Inference Results in Sessions**: When you submit inference results, you can associate them with a specific session, enabling better tracking of multi-turn conversations or user interactions.
+
+2. **Inference Results**: The `galtea.inference_results.create()` method allows you to store inference results directly in a session. This is useful for tracking complete conversations between a user and your product so that you can evaluate them later.
+
+3. **Create Evaluation Tasks from Sessions**: You can now create evaluation tasks directly from sessions. This is especially useful if you want to wait for a conversation to finish, or whenever you have a complete conversation ready to be evaluated. This enables batch evaluation of all inference results in a session, making it easier to assess real user interactions or multi-turn conversations.
+
+## Quick Migration Diff
+
+Here's a side-by-side comparison showing exactly what to change in your scripts:
+
+### ❌ Remove (SDK v1.x)
+```python
+# 1. Remove optional_properties parameter from galtea.versions.create()
+evaluation = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID",
+    optional_properties={  # ❌ Remove this parameter
+      "description": "Initial version with basic summarization capabilities",
+      "system_prompt": "You are a helpful assistant that summarizes text.",
+      "model_id": "YOUR_MODEL_ID"
+    }  # ❌ Remove this line
+)
+
+# 2. Remove explicit evaluation creation
+evaluation = galtea.evaluations.create(  # ❌ Remove this instantiation
+    test_id="YOUR_TEST_ID",
+    version_id=version.id
+)
+
+# 3. Remove evaluation_id parameter from evaluation_tasks.create()
+galtea.evaluation_tasks.create(
+    evaluation_id=evaluation.id,  # ❌ Remove this line
+    metrics=["your_metric"],
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output="Your output"
+)
+```
+
+### ✅ Add (SDK v2.0)
+```python
+# 1. Create version (now with all properties as direct parameters)
+version = galtea.versions.create(
+    name="v2.0",
+    product_id="YOUR_PRODUCT_ID",
+    description="Initial version with basic summarization capabilities",  # ✅ Add this line
+    system_prompt="You are a helpful assistant that summarizes text.",  # ✅ Add this line
+    model_id="YOUR_MODEL_ID"  # ✅ Add this line
+)
+
+# 2. Skip evaluation creation - it's automatic now!
+# (No galtea.evaluations.create() needed)
+
+# 3. Add version_id parameter to evaluation_tasks.create()
+galtea.evaluation_tasks.create(
+    version_id=version.id,  # ✅ Add this line
+    metrics=["your_metric"],
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output="Your output"
+)
+```
+
+### Complete Before/After Example
+
+<details>
+<summary>📜 **Before (SDK v1.x)** - Click to expand</summary>
+
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Create version
+version = galtea.versions.create(
+    name="v1.0",
+    product_id="YOUR_PRODUCT_ID"
+)
+
+# ❌ Step 1: Explicitly create evaluation
+evaluation = galtea.evaluations.create(
+    test_id="YOUR_TEST_ID",
+    version_id=version.id
+)
+
+# ❌ Step 2: Create tasks using evaluation_id
+galtea.evaluation_tasks.create(
+    evaluation_id=evaluation.id,
+    metrics=["accuracy_v1"],
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output="Barcelona"
+)
+```
+</details>
+
+<details>
+<summary>🎉 **After (SDK v2.0)** - Click to expand</summary>
+
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Create version (unchanged)
+version = galtea.versions.create(
+    name="v2.0",
+    product_id="YOUR_PRODUCT_ID"
+)
+
+# ✅ Step 1: Create tasks directly with version_id
+# (Evaluation is created automatically!)
+galtea.evaluation_tasks.create(
+    version_id=version.id,
+    metrics=["accuracy_v1"],
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output="Barcelona"
+)
+```
+</details>
+
+## How to Migrate Your Code
+
+Let's look at a typical v1.x workflow and how it translates to v2.0.
+
+### Old Workflow (SDK v1.x)
+
+In v1.x, you would first create an `Evaluation` object and then use its ID to create `EvaluationTask` objects:
+
+```python
+# SDK v1.x Example
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+YOUR_PRODUCT_ID = "your_product_id"
+YOUR_TEST_ID = "your_test_id"
+YOUR_TEST_CASE_ID = "your_test_case_id"
+YOUR_METRIC_NAME = "your_metric_name"
+
+# 1. Create a Version (the optional properties were wrapped in a dict)
+version = galtea.versions.create(
+    name="v2.0-example",
+    product_id=YOUR_PRODUCT_ID,
+    optional_properties={  # Optional properties can be set directly
+      "description": "Initial version with basic summarization capabilities",
+      "system_prompt": "You are a helpful assistant that summarizes text.",
+      "model_id": "YOUR_MODEL_ID"
+    }
+)
+print(f"Created Version: {version.id}")
+
+# 2. Explicitly create an Evaluation
+evaluation = galtea.evaluations.create(
+    test_id=YOUR_TEST_ID,
+    version_id=version.id
+)
+print(f"Created Evaluation: {evaluation.id}")
+
+# 3. Create Evaluation Tasks using evaluation_id
+# (Assuming your_product_function(input) returns the actual output)
+test_case = galtea.test_cases.get(YOUR_TEST_CASE_ID) # Fetch a test case
+actual_output = your_product_function(test_case.input)
+
+galtea.evaluation_tasks.create(
+    evaluation_id=evaluation.id,
+    metrics=[YOUR_METRIC_NAME],
+    test_case_id=test_case.id,
+    actual_output=actual_output
+)
+print(f"Submitted evaluation task for test case {test_case.id} under evaluation {evaluation.id}")
+```
+
+### New Workflow (SDK v2.0)
+
+In v2.0, your workflow is centered around the concept of a **session**. All inference results are now grouped under a session, which can be created explicitly by you (using `galtea.sessions.create()`) or implicitly by Galtea when you create a new evaluation task without a session and pass directly the conversation. This makes it easy to track and evaluate conversations or user interactions as a whole.
+
+You can store inference results in a session as they are generated, and when you are ready—such as after a conversation is complete—you can create evaluation tasks for all results in that session. This enables both real-time and batch evaluation of multi-turn conversations or user sessions.
+
+```python
+# SDK v2.0 Example
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+YOUR_PRODUCT_ID = "your_product_id"
+YOUR_SESSION_ID = "your_session_id"  # You can create this or let Galtea do it automatically
+YOUR_TEST_CASE_ID = "your_test_case_id"  # This implies a test_id
+YOUR_METRIC_NAME = "your_metric_name"
+
+# 1. Create a Session (optional, can be implicit)
+session = galtea.sessions.create(
+    id=YOUR_SESSION_ID,
+    product_id=YOUR_PRODUCT_ID,
+    context="Customer support conversation about returns"
+)
+print(f"Created Session: {session.id}")
+
+# 2. Store inference results in the session as the conversation progresses
+result = galtea.inference_results.create(
+    session_id=session.id,
+    input="What's your return policy?",
+    output="Our return policy allows returns within 30 days..."
+)
+print(f"Stored inference result: {result.id}")
+
+# ... (store more inference results as the conversation continues)
+
+# 3. When ready, create evaluation tasks for the whole conversation
+# This can be done after the conversation is finished, or at any point you want to evaluate
+
+galtea.evaluation_tasks.create_from_session(
+    session_id=session.id,
+    metrics=[YOUR_METRIC_NAME]
+)
+print(f"Submitted evaluation tasks for session {session.id}")
+```
+
+## What this means for "Evaluations"
+
+The concept of an "Evaluation" (a pairing of a Version and a Test) still exists within the Galtea platform. You will continue to see Evaluations in the Galtea Dashboard. The change is that its creation is now an implicit backend process triggered by your first evaluation task submission for a given `version_id` and `test_case_id` (which determines the `test_id`).
+
+- No more `evaluation_id` needed for `evaluation_tasks.create()`.
+- The backend uses the provided `version_id` and the `test_id` (derived from the `test_case_id`) to associate the task with the correct (implicitly created or existing) Evaluation.
+
+## Summary of Actions Required
+
+1. Remove `optional_properties` parameter in `galtea.versions.create()` calls. Segregate all version optional properties used within it into multiple parameters.
+
+2. **Remove** calls to `galtea.evaluations.create()` from your scripts where you subsequently call `galtea.evaluation_tasks.create()`.
+
+3. **Update** `galtea.evaluation_tasks.create()` calls:
+   - Remove the `evaluation_id` parameter.
+   - Add the `version_id` parameter, passing the ID of the version you are evaluating.
+
+4. **Ensure** you have a `test_case_id` when calling `galtea.evaluation_tasks.create()`, as the `test_id` will be inferred from it by the backend.
+
+## Quick Reference Table
+
+| Change Type | SDK v1.x | SDK v2.0 | Status |
+|-------------|----------|----------|---------|
+| **Version Creation** | `optional_properties` parameter | Direct parameters for optional version properties | 🔄 Replace |
+| **Evaluation Creation** | `galtea.evaluations.create()` required | Automatic (implicit) | ❌ Remove |
+| **evaluation_tasks.create()** | `evaluation_id` parameter | `version_id` parameter | 🔄 Replace |
+| **create_from_production()** | `version_id` parameter | `version_id` parameter | ✅ No change |
+| **Evaluation Dashboard** | Available | Available | ✅ No change |
+
+## Benefits of Migrating
+
+- **Simplified Workflow**: Fewer lines of code and one less explicit step to manage.
+- **Increased Consistency**: `evaluation_tasks.create()` now aligns more closely with the existing `evaluation_tasks.create_from_production()` pattern.
+- **Reduced Overhead**: Less state to manage in your client-side scripts.
+
+We believe these changes will make using the Galtea SDK more straightforward. If you have any questions or encounter any issues during migration, please don't hesitate to reach out to our support team at [support@galtea.ai](mailto:support@galtea.ai).
