@@ -12,9 +12,11 @@ The core workflow for running predefined tests against a version has been stream
 
 1.  **Simplified Version Creation**: The `galtea.versions.create()` method now accepts all properties as direct keyword arguments, removing the need for the `optional_props` dictionary.
 
-2.  **Implicit Evaluation Creation**: You no longer need to explicitly call `galtea.evaluations.create()` before creating evaluation tasks. An `Evaluation` (which links a `Test` and a `Version`) is now created automatically by the backend when the first evaluation task for that pair is submitted.
+2.  **Implicit Evaluation Creation**: You no longer need to explicitly call `galtea.evaluations.create()` before creating evaluation tasks.
 
-3.  **`evaluation_tasks.create()` Signature Change**: The `evaluation_id` parameter is removed and replaced by a required `version_id`. The backend will automatically determine the correct evaluation to associate the task with.
+3.  **`evaluation_tasks.create()` Signature Change**: The `evaluation_id` parameter is removed and replaced by a required `session_id`.
+
+4. **Added Sessions**: The new `galtea.sessions.create()` method allows you to create sessions to group multiple inference results (conversation turns) under a single session, making it easier to track multi-turn interactions.
 
 ### Migration Diff: Test-Case Workflow
 
@@ -44,8 +46,8 @@ evaluation = galtea.evaluations.create(
 # 3. Create tasks using evaluation_id
 galtea.evaluation_tasks.create(
     evaluation_id=evaluation.id,
-    metrics=["your_metric"],
     test_case_id="YOUR_TEST_CASE_ID",
+    metrics=["your_metric"],
     actual_output="This is the model's output."
 )
 ```
@@ -66,19 +68,23 @@ version = galtea.versions.create(
 # 2. Skip explicit evaluation creation (it's automatic!)
 
 # 3. Create tasks using version_id
-galtea.evaluation_tasks.create(
+galtea.evaluation_tasks.create_single_turn(
     version_id=version.id,
-    metrics=["your_metric"],
     test_case_id="YOUR_TEST_CASE_ID",
+    metrics=["your_metric"],
     actual_output="This is the model's output."
 )
 ```
+
+<Note>
+    This example showcases how to create single-turn evaluation tasks. If you want to evaluate multi-turn conversations, refer to the new session-based workflow in Part 2.
+</Note>
 
 ### Summary of Actions for Migration
 
 1.  In `galtea.versions.create()` calls, remove the `optional_props` dictionary and pass its contents as direct keyword arguments.
 2.  **Remove** all calls to `galtea.evaluations.create()`.
-3.  In `galtea.evaluation_tasks.create()` calls, **remove** the `evaluation_id` parameter and **add** the `version_id` parameter.
+3.  Rename the `galtea.evaluation_tasks.create()` calls to `galtea.evaluation_tasks.create_single_turn()` and **remove** the `evaluation_id` parameter and **add** the `version_id` parameter.
 
 ---
 
@@ -90,11 +96,11 @@ SDK v2.0 introduces a powerful new way to log and evaluate multi-turn conversati
 
 *   **Session**: A container for a sequence of interactions (a conversation) between a user and your AI product. You can create a session using `galtea.sessions.create()`.
 *   **Inference Result**: A single turn within a session, containing the `input` and `output`. You log these using `galtea.inference_results.create()`.
-*   **`evaluation_tasks.create_from_session()`**: A new method to run evaluations on all inference results within a given session. This allows for easy batch evaluation of entire conversations.
+*   **`evaluation_tasks.create()`**: A new way to run evaluations on all inference results within a given session. This allows for easy batch evaluation of entire conversations.
 
 ### Example of the New Session-Based Workflow
 
-This workflow is entirely new and does not directly replace the test-based workflow. You can use it alongside your existing tests.
+This workflow is entirely new and does not directly replace the test-based workflow.
 
 ```python
 # SDK v2.0 New Workflow Example
@@ -104,29 +110,48 @@ galtea = Galtea(api_key="YOUR_API_KEY")
 
 YOUR_PRODUCT_ID = "your_product_id"
 YOUR_VERSION_ID = "your_version_id"
+YOUR_TEST_CASE_ID = "your_test_case_id"
 YOUR_METRIC_NAME = "your_metric_name"
 
 # 1. Create a Session to group a conversation
 session = galtea.sessions.create(
-    version_id=YOUR_VERSION_ID
+    version_id=YOUR_VERSION_ID,
+    test_case_id=YOUR_TEST_CASE_ID,
 )
 print(f"Created Session: {session.id}")
 
 # 2. Log inference results (conversation turns) to the session
-galtea.inference_results.create(
-    session_id=session.id,
-    input="What's your return policy?",
-    output="Our return policy allows returns within 30 days of purchase."
-)
-galtea.inference_results.create(
-    session_id=session.id,
-    input="What if I lost the receipt?",
-    output="A proof of purchase is required for all returns."
-)
-print(f"Stored 2 inference results in session {session.id}")
+conversation_turns = [
+    {
+        "input": "What's your return policy?",
+        "output": "Our return policy allows returns within 30 days of purchase."
+    },
+    {
+        "input": "What if I lost the receipt?",
+        "output": "A proof of purchase is required for all returns."
+    },
+    {
+        "input": "Can I return items bought online to a physical store?",
+        "output": "Yes, you can return online purchases to any of our physical store locations."
+    },
+    {
+        "input": "What about exchanges?",
+        "output": "Exchanges follow the same 30-day policy and can be done in-store or online."
+    }
+]
+
+# Loop through conversation turns for efficient batch processing
+for turn in conversation_turns:
+    galtea.inference_results.create(
+        session_id=session.id,
+        input=turn["input"],
+        output=turn["output"]
+    )
+
+print(f"Stored {len(conversation_turns)} inference results in session {session.id}")
 
 # 3. When ready, create evaluation tasks for the entire session
-evaluation_tasks = galtea.evaluation_tasks.create_from_session(
+evaluation_tasks = galtea.evaluation_tasks.create(
     session_id=session.id,
     metrics=[YOUR_METRIC_NAME]
 )
@@ -136,7 +161,7 @@ print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.
 ### Benefits of the New Workflow
 
 *   **Track Full Conversations**: Accurately log and analyze multi-turn user interactions.
-*   **Production Monitoring**: Easily send production data to Galtea for continuous evaluation.
+*   **Production Monitoring**: Easily send production data to Galtea for continuous evaluation by removing the `test_case_id` parameter when creating sessions and addinf `is_production=True`.
 *   **Batch Evaluation**: Evaluate an entire conversation with a single command.
 
 If you have any questions or encounter any issues during migration, please don't hesitate to reach out to our support team at [support@galtea.ai](mailto:support@galtea.ai).
