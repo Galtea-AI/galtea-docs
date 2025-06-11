@@ -12,9 +12,9 @@ The core workflow for running predefined tests against a version has been stream
 
 1. **Implicit Evaluation Creation**: You no longer need to explicitly call `galtea.evaluations.create()` before creating evaluation tasks.
 
-2. **`evaluation_tasks.create()` Signature Change**: The `evaluation_id` parameter is removed and replaced with a required `session_id`. It is now used to create evaluation tasks with multi-turn capabilities.
+2. **`evaluation_tasks.create()` Repurposed**: The old `evaluation_tasks.create()` method has been replaced by the new `create_single_turn()` method for test-based evaluations. The name `create()` is now used exclusively for the new session-based workflow to evaluate all turns in a conversation.
 
-3. **New Single-Turn Task Creation**: The `galtea.evaluation_tasks.create_single_turn()` method is introduced for creating single-turn evaluation tasks directly linked to a version.
+3. **New Method `create_single_turn()`**: Use this method for single-turn, test-case-based evaluations. It now requires `version_id` instead of `evaluation_id`.
 
 4. **Simplified Version Creation**: The `galtea.versions.create()` method now accepts all properties as direct keyword arguments, removing the need for the `optional_props` dictionary.
 
@@ -79,14 +79,33 @@ galtea.evaluation_tasks.create_single_turn(
 ```
 
 <Note>
-    This example demonstrates how to create single-turn evaluation tasks. If you want to evaluate multi-turn conversations, refer to the new session-based workflow in Part 2.
+    This example demonstrates how to create single-turn evaluation tasks for test cases. For production data logging, include the `input` parameter and set `is_production=True`. If you want to evaluate multi-turn conversations, refer to the new session-based workflow in Part 2.
 </Note>
+
+### Production Data Logging with Single-Turn Tasks
+
+For production monitoring, you can also use `create_single_turn()` without a test case:
+
+```python
+# Production data logging (no test case required)
+galtea.evaluation_tasks.create_single_turn(
+    version_id=version.id,
+    input="User's actual input",
+    actual_output="Model's actual output",
+    metrics=["your_metric"],
+    is_production=True
+)
+```
 
 ### Summary of Actions for Migration
 
 1. In `galtea.versions.create()` calls, remove the `optional_props` dictionary and pass its contents as direct keyword arguments.
 2. **Remove** all calls to `galtea.evaluations.create()`.
 3. Rename `galtea.evaluation_tasks.create()` calls to `galtea.evaluation_tasks.create_single_turn()`, **remove** the `evaluation_id` parameter, and **add** the `version_id` parameter.
+
+<Note>
+    Ensure all your code, including any examples you may be referencing from the SDK repository, is updated. The `optional_props` dictionary is fully deprecated in v2.0, and some examples in the codebase may not yet reflect the v2.0 changes.
+</Note>
 
 ---
 
@@ -122,7 +141,7 @@ session = galtea.sessions.create(
 )
 print(f"Created Session: {session.id}")
 
-# 2. Log inference results (conversation turns) to the session
+# 2. Log all inference results in a single efficient batch call
 conversation_turns = [
     {
         "input": "What's your return policy?",
@@ -142,15 +161,21 @@ conversation_turns = [
     }
 ]
 
-# Loop through conversation turns for efficient batch processing
-for turn in conversation_turns:
-    galtea.inference_results.create(
-        session_id=session.id,
-        input=turn["input"],
-        output=turn["output"]
-    )
+# Use create_batch for efficient bulk processing
+galtea.inference_results.create_batch(
+    session_id=session.id,
+    conversation_turns=conversation_turns
+)
 
-print(f"Stored {len(conversation_turns)} inference results in session {session.id}")
+print(f"Stored {len(conversation_turns)} inference results in session {session.id} with a single call")
+
+# Or loop through conversation turns
+# for turn in conversation_turns:
+#     galtea.inference_results.create(
+#         session_id=session.id,
+#         input=turn["input"],
+#         output=turn["output"]
+#     )
 
 # 3. When ready, create evaluation tasks for the entire session
 evaluation_tasks = galtea.evaluation_tasks.create(
@@ -159,6 +184,10 @@ evaluation_tasks = galtea.evaluation_tasks.create(
 )
 print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.id}")
 ```
+
+<Note>
+    For better performance with multiple conversation turns, always use `create_batch()` instead of calling `create()` in a loop. This reduces network overhead and improves response times.
+</Note>
 
 ### Benefits of the New Workflow
 
