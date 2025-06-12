@@ -13,31 +13,26 @@ This is how to create an evaluation:
 
   ```python
   from galtea import Galtea
-
   # Initialize Galtea SDK
   galtea = Galtea(api_key="YOUR_API_KEY")
 
-  # Create an evaluation
-  evaluation = galtea.evaluations.create(
-      test_id="YOUR_TEST_ID",
-      version_id="YOUR_VERSION_ID"
-  )
+  # Assume you have a version_id and test_id
+  VERSION_ID = "YOUR_VERSION_ID"
+  TEST_ID = "YOUR_TEST_ID"
 
-  print(f"Evaluation created with ID: {evaluation.id}")
+  print(f"Running evaluation tasks for version: {VERSION_ID}")
   ```
   <Info>
-    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
+    Evaluations are created implicitly when you run evaluation tasks. This establishes the framework for assessing your product version.
   </Info>
 
 ## Running Evaluation Tasks with Self-Calculated Scores
 
-Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task) and directly assign a self-calculated score:
-
-For efficiency, you can process *multiple evaluation tasks* using a loop and the `galtea.evaluation_tasks.create` method:
+You can run [evaluation tasks](/concepts/product/evaluation/task) and directly assign self-calculated scores using the `create_single_turn` method:
 
 ```python
 # Load your test cases
-test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
+test_cases = galtea.test_cases.list(test_id=TEST_ID)
 
 # Evaluate all test cases
 for test_case in test_cases:
@@ -49,9 +44,9 @@ for test_case in test_cases:
     response = your_product_function(test_case.input, test_case.context, retrieval_context)
     timeAfterCall = datetime.now()
 
-    # Run evaluation task
-    galtea.evaluation_tasks.create(
-        evaluation_id=evaluation.id,
+    # Run evaluation task with custom scores
+    galtea.evaluation_tasks.create_single_turn(
+        version_id=VERSION_ID,
         test_case_id=test_case.id,
         actual_output=response.output,
         retrieval_context=retrieval_context,

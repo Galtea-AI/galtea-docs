@@ -1,0 +1,39 @@
+---
+title: 'Create Inference Result'
+description: "Create a new inference result log in a session."
+---
+
+## Returns
+Returns an [InferenceResult](/concepts/inference-result) object.
+
+## Example
+```python
+inference_result = galtea.inference_results.create(
+    session_id="YOUR_SESSION_ID",
+    input="What is the capital of France?",
+    output="Paris is the capital of France."
+)
+```
+
+## Parameters
+<ResponseField name="session_id" type="string" required>
+  The session ID to log the inference result to.
+</ResponseField>
+<ResponseField name="input" type="string" required>
+  The input text/prompt.
+</ResponseField>
+<ResponseField name="output" type="string" required>
+  The generated output/response.
+</ResponseField>
+<ResponseField name="retrieval_context" type="string" optional>
+  Context retrieved for RAG systems.
+</ResponseField>
+<ResponseField name="latency" type="float" optional>
+  Latency in milliseconds.
+</ResponseField>
+<ResponseField name="usage_info" type="dict" optional>
+  Token usage information (e.g., `{"input_tokens": 10, "output_tokens": 5}`).
+</ResponseField>
+<ResponseField name="cost_info" type="dict" optional>
+  Cost information (e.g., `{"cost_per_input_token": 0.0001}`).
+</ResponseField>

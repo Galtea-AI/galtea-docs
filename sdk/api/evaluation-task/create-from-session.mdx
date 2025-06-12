@@ -1,0 +1,39 @@
+---
+title: 'Create Evaluation Tasks from Session'
+description: "Create evaluation tasks for all inference results within a session."
+---
+
+This method evaluates an entire conversation stored in a [Session](/concepts/session) by creating evaluation tasks for each of its [Inference Results](/concepts/inference-result).
+
+## Returns
+Returns a list of [EvaluationTask](/concepts/product/evaluation/task) objects, one for each metric and each inference result in the session.
+
+## Example
+```python
+# First, create a session and log inference results
+session = galtea.sessions.create(version_id="YOUR_VERSION_ID")
+galtea.inference_results.create_batch(
+    session_id=session.id,
+    conversation_turns=[
+        {"input": "Hi", "output": "Hello!"},
+        {"input": "How are you?", "output": "I am fine, thank you."}
+    ]
+)
+
+# Now, evaluate the entire session
+evaluation_tasks = galtea.evaluation_tasks.create(
+    session_id=session.id,
+    metrics=["coherence", "conversational-relevancy"]
+)
+```
+
+## Parameters
+<ResponseField name="session_id" type="string" required>
+  The ID of the session containing the inference results to be evaluated.
+</ResponseField>
+<ResponseField name="metrics" type="list[string]" required>
+  A list of metric type names to use for the evaluation. Tasks will be created for each metric against each inference result.
+</ResponseField>
+<ResponseField name="scores" type="list[float | None]" optional>
+  A list of pre-computed scores corresponding to the `metrics` list. Use `None` for metrics that Galtea should evaluate. This is useful for providing scores from custom, deterministic metrics.
+</ResponseField>

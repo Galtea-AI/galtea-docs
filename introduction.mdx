@@ -27,13 +27,12 @@ import ModelCard from '/snippets/cards/model-card.mdx';
 The typical workflow in Galtea follows these steps:
 
 <Steps>
-  <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality</Step>
-  <Step title="Create Version">Define a new [Version](/concepts/product/version) of your [Product](/concepts/product) with specific parameters</Step>
-  <Step title="Create Test">Create a [Test](/concepts/product/test) with [Test Cases](/concepts/product/test/case) to evaluate your [Product](/concepts/product)</Step>
-  <Step title="Define an Evaluation">Establish an [Evaluation](/concepts/product/evaluation) that links the [Test](/concepts/product/test) and the specific [Version](/concepts/product/version) to be assessed</Step>
-  <Step title="Run Evaluations">Run each [Test Case](/concepts/product/test/case) against a [Version](/concepts/product/version) with [Evaluation Tasks](/concepts/product/evaluation/task) to evaluate a specific [Metric Type](/concepts/metric-type)</Step>
-  <Step title="Analyze Results">Review and compare the performance of different [Versions](/concepts/product/version) using the built-in analytics tools</Step>
-  <Step title="Iterate">Develop a new [Version](/concepts/product/version) of your [Product](/concepts/product) and repeat the process to compare the performance of the new [Version](/concepts/product/version) with the previous ones</Step>
+  <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality.</Step>
+  <Step title="Create Version">Define a new [Version](/concepts/product/version) of your product with specific parameters.</Step>
+  <Step title="Create Test">Create a [Test](/concepts/product/test) with [Test Cases](/concepts/product/test/case) to evaluate your product.</Step>
+  <Step title="Run Evaluation Tasks">Execute [Evaluation Tasks](/concepts/product/evaluation/task) for each test case against your product version. An [Evaluation](/concepts/product/evaluation) is created implicitly on the first task run for a given version/test pair.</Step>
+  <Step title="Analyze Results">Review and compare the performance of different versions using the built-in analytics tools.</Step>
+  <Step title="Iterate">Develop a new version of your product and repeat the process to track improvements and regressions.</Step>
 </Steps>
 
 ## Platform Access

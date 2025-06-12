@@ -13,7 +13,7 @@ test_case = galtea.test_cases.create(
     input="What is the capital of France?",
     expected_output="Paris",
     context="France is a country in Europe\nIt is known for its art, fashion, and culture\nThe capital of France is Paris\nParis is known for its cafe culture and landmarks like the Eiffel Tower",
-    tag="capital city",
+    variant="geography_question",
 )
 ```
 
@@ -30,8 +30,8 @@ test_case = galtea.test_cases.create(
 <ResponseField name="context" type="string" optional>
   The context for the test case. This is the additional information that can help the model generate the expected output.
 </ResponseField>
-<ResponseField name="tag" type="string" optional>
-  An optional tag to categorize or label the test case (e.g., "general_knowledge", "edge_cases", "customer_query").
+<ResponseField name="variant" type="string" optional>
+  An optional variant to categorize or label the test case (e.g., "original", "paraphrased").
 </ResponseField>
 <ResponseField name="conversation_turns" type="list[dict[str, str]]" optional>
   A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for test cases designed for conversational AI.

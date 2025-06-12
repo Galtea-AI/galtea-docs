@@ -1,154 +1,60 @@
 ---
 title: 'Run Evaluation Tasks'
-description: "Learn how to create evaluations and run evaluation tasks using the SDK"
+description: "Learn how to run evaluation tasks using the SDK's test-based workflow"
 icon: "clipboard-check"
 ---
 
-[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
-
-## Creating an Evaluation
-
-This is how to create an evaluation:
-
-  ```python
-  from galtea import Galtea
-
-  # Initialize Galtea SDK
-  galtea = Galtea(api_key="YOUR_API_KEY")
-
-  # Create an evaluation
-  evaluation = galtea.evaluations.create(
-      test_id="YOUR_TEST_ID",
-      version_id="YOUR_VERSION_ID"
-  )
-
-  print(f"Evaluation created with ID: {evaluation.id}")
-  ```
-  <Info>
-    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
-  </Info>
+To evaluate a product version, you run individual [evaluation tasks](/concepts/product/evaluation/task) against a set of [test cases](/concepts/product/test/case). An [Evaluation](/concepts/product/evaluation) is created implicitly to group these tasks.
 
 ## Running Evaluation Tasks
 
-Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
-
-For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
+You can loop through your test cases and create evaluation tasks for each one. This allows you to assess performance across multiple metrics simultaneously.
 
 ```python
+from galtea import Galtea
+from datetime import datetime
+
+# Initialize Galtea SDK
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Assume you have a version_id and test_id
+VERSION_ID = "YOUR_VERSION_ID"
+TEST_ID = "YOUR_TEST_ID"
+
 # Load your test cases
-test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
+test_cases = galtea.test_cases.list(test_id=TEST_ID)
+
+# Your product's inference function (placeholder)
+def your_product_function(input_prompt, context=None):
+    # In a real scenario, this would call your model
+    return f"Model response to: {input_prompt}"
 
 # Evaluate all test cases
 for test_case in test_cases:
-    # Retrieve relevant context for RAG. This may not apply to all products.
-    retrieval_context = your_retriever_function(test_case.input)
-    
     # Your product's actual response to the input
-    timeBeforeCall = datetime.now()
-    response_data = your_product_function(test_case.input, test_case.context, retrieval_context)
-    timeAfterCall = datetime.now()
+    actual_output = your_product_function(test_case.input, test_case.context)
     
     # Run evaluation task
-    galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        evaluation_id=evaluation.id,
+    galtea.evaluation_tasks.create_single_turn(
+        version_id=VERSION_ID,
         test_case_id=test_case.id,
-        actual_output=response_data.output, # Assuming response_data has an 'output' attribute
-        retrieval_context=retrieval_context, # Provide as a single string; join if your retriever returns a list
-        ###################### Optional Parameters ######################
-        latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
-        usage_info={
-          "input_tokens": response_data.input_tokens,
-          "output_tokens": response_data.output_tokens,
-          "cache_read_input_tokens": response_data.cache_read_input_tokens,
-        },
-        cost_info={
-          "cost_per_input_token": 0.00002,
-          "cost_per_output_token": 0.00005,
-          "cost_per_cache_read_input_token": 0.00001,
-        },
-        # scores=[0.8, None, 0.95] # Example: score for accuracy_v1, platform evaluates relevance_v1, score for context_accuracy
-        #################################################################
+        metrics=["accuracy_v1", "relevance_v1"],
+        actual_output=actual_output,
     )
 
-print("All evaluation tasks submitted")
+print("All evaluation tasks submitted.")
 ```
 
 <Note>
-  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
+  The `metrics` parameter specifies which metric types to use. An `Evaluation` is automatically created behind the scenes to link this `version_id` and `test_id`.
 </Note>
-<Info>
-  The `latency` and `usage_info` parameters are optional but highly recommended to be used.
-  They can be used to track the performance in latency and costs of your product.
-</Info>
 
-<Warning>
-  Directly providing `input`, `expected_output`, or `context` to `galtea.evaluation_tasks.create` when a `test_case_id` is used is deprecated. These parameters will be sourced from the test case. This approach limits analytics and consistency.
-</Warning>
+## Retrieving Results
 
-### Customized Test Cases for Evaluation Tasks
-
-If you want to fully customize the Evaluation Task, maybe because your Test File does not follow Galtea's format thus the test cases have not been created, you can load the test cases from the file and set them in the evaluation task in a similar way:
+After running tasks, you can retrieve the results from the platform or view them on the dashboard.
 
 ```python
-import pandas as pd
-# Load your test data
-test = galtea.tests.get(test_id="YOUR_TEST_ID")
-test_file_path = galtea.tests.download(test, "path/to/your/directory")
-df = pd.read_csv(json_file_path)
-
-# Process all test instances
-for index, row in df.iterrows():
-    # Retrieve relevant context for RAG
-    retrieval_context = your_retriever_function(row['input'])
-    
-    # Your product's actual response to the input
-    actual_output = your_product_function(row['input'], retrieval_context)
-    
-    # Run evaluation task
-    galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        evaluation_id=evaluation.id,
-        input=row['input'],
-        actual_output=actual_output,
-        expected_output=row['expected_output'],
-        context=row['context'],
-        retrieval_context=retrieval_context,
-    )
-print("All evaluation tasks submitted")
+# The evaluation is created implicitly, so you need to find it by listing evaluations for the product.
+# This part is best done by navigating to the Galtea dashboard to see the results.
+print(f"View results on the Galtea dashboard for your product.")
 ```
-
-<Warning>
-  This method is only recommended for advanced users who need to customize the evaluation tasks. For most cases, using the test cases provided by the test is the best approach.
-
-  Note that providing `input`, `expected_output`, and `context` directly in `evaluation_tasks.create` (when a `test_case_id` would normally be used for test-based evaluations) is a legacy approach and might be deprecated in future SDK versions in favor of always linking to a `test_case_id` for formal tests.
-
-  Using this will limit the access to analysis tools and metrics that are available when using the standard test cases.
-</Warning>
-
-## Retrieving Evaluation Results
-
-After running evaluation tasks, you can retrieve the results:
-
-```python
-# Get all tasks for an evaluation
-tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
-
-# Analyze results
-total_score = 0
-for task in tasks:
-    task_detail = galtea.evaluation_tasks.get(task.id)
-    total_score += task_detail.score
-    print(f"Task {task.id}: Score = {task_detail.score}")
-
-avg_score = total_score / len(tasks) if tasks else 0
-print(f"Average evaluation score: {avg_score}")
-```
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="API Reference" icon="code" href="/sdk/api/evaluation/service">
-    View the complete Evaluation Service API reference
-  </Card>
-</CardGroup>
