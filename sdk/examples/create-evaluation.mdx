@@ -1,53 +1,75 @@
 ---
-title: 'Run Evaluation Tasks'
-description: "Learn how to run evaluation tasks using the SDK's test-based workflow"
+title: 'Run a Test-Based Evaluation'
+description: "Learn how to run evaluation tasks for a single-turn, test-based workflow."
 icon: "clipboard-check"
 ---
 
-To evaluate a product version, you run individual [evaluation tasks](/concepts/product/evaluation/task) against a set of [test cases](/concepts/product/test/case).
+To evaluate a product version against a predefined [Test](/concepts/product/test), you can loop through its [Test Cases](/concepts/product/test/case) and run an evaluation task for each one. This workflow is ideal for regression testing and standardized quality checks.
 
-## Running Evaluation Tasks
+<Info>
+  An [Evaluation](/concepts/product/evaluation) is created **implicitly** the first time you run an evaluation task for a specific `version_id` and `test_id` combination. You do not need to create it manually.
+</Info>
 
-You can loop through your test cases and create evaluation tasks for each one. This allows you to assess performance across multiple metrics simultaneously.
+### Workflow
+
+<Steps>
+    <Step title="Select a Test and Version">
+        Identify the `test_id` and `version_id` you want to evaluate.
+    </Step>
+    <Step title="Iterate Through Test Cases">
+        Fetch all test cases associated with the test using `galtea.test_cases.list()`.
+    </Step>
+    <Step title="Generate and Evaluate Output">
+        For each test case, call your product to get its output, then use `galtea.evaluation_tasks.create_single_turn()` to create the evaluation tasks.
+    </Step>
+</Steps>
+
+### Example
+
+This example demonstrates how to run an evaluation on all test cases from a specific test.
 
 ```python
 from galtea import Galtea
-from datetime import datetime
+import os
 
 # Initialize Galtea SDK
-galtea = Galtea(api_key="YOUR_API_KEY")
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
-# Assume you have a version_id and test_id
-VERSION_ID = "YOUR_VERSION_ID"
-TEST_ID = "YOUR_TEST_ID"
+# --- Configuration ---
+# Replace with your actual IDs
+YOUR_VERSION_ID = "your_version_id"
+YOUR_TEST_ID = "your_test_id"
+METRICS_TO_EVALUATE = ["factual-accuracy", "coherence"] 
 
-# Load your test cases
-test_cases = galtea.test_cases.list(test_id=TEST_ID)
-
-# Your product's inference function (placeholder)
-def your_product_function(input_prompt, context=None):
-    # In a real scenario, this would call your model
+# --- Your Product's Logic (Placeholder) ---
+# In a real scenario, this would call your actual AI model or API
+def your_product_function(input_prompt: str, context: str = None) -> str:
+    # Your model's inference logic goes here
+    # For this example, we'll return a simple placeholder response
     return f"Model response to: {input_prompt}"
 
-# Evaluate all test cases
+# 1. Fetch the test cases for the specified test
+test_cases = galtea.test_cases.list(test_id=YOUR_TEST_ID)
+print(f"Found {len(test_cases)} test cases for Test ID: {YOUR_TEST_ID}")
+
+# 2. Loop through each test case and run an evaluation task
 for test_case in test_cases:
-    # Your product's actual response to the input
-    actual_output = your_product_function(test_case.input, test_case.context)
+    # Get your product's actual response to the input
+    actual_output = your_product_function(test_case.input)
     
-    # Run evaluation task
+    # Create the evaluation task
+    # An evaluation is created implicitly on the first call
     galtea.evaluation_tasks.create_single_turn(
-        version_id=VERSION_ID,
+        version_id=YOUR_VERSION_ID,
         test_case_id=test_case.id,
-        metrics=["accuracy_v1", "relevance_v1"],
+        metrics=METRICS_TO_EVALUATE,
         actual_output=actual_output,
     )
 
-print("All evaluation tasks submitted.")
+print(f"\nAll evaluation tasks submitted for Version ID: {YOUR_VERSION_ID}")
+
 ```
 
-<Note>
-    The `metrics` parameter specifies which metric types to use.
-</Note>
 <Info>
     A [session](/concepts/product/session) and [evaluation](/concepts/product/evaluation) is automatically created behind the scenes to link this `version_id` and `test_id` with the provided [inference result](/concepts/product/inference-result) (the `actual_output` and the [Test Case](/concepts/product/test/case)'s input).
 </Info>

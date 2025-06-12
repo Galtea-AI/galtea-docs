@@ -33,73 +33,47 @@ Certain metrics are specifically designed for conversational analysis and requir
 
 ### Example
 
-Here is a complete example of logging and evaluating a multi-turn conversation.
+This example demonstrates logging and evaluating a multi-turn conversation from a test case.
 
 ```python
 from galtea import Galtea
+import os
 
-galtea = Galtea(api_key="YOUR_API_KEY")
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
-YOUR_PRODUCT_ID = "your_product_id"
 YOUR_VERSION_ID = "your_version_id"
 YOUR_TEST_CASE_ID = "your_test_case_id"
-YOUR_METRIC_NAME = "your_metric_name"
+CONVERSATIONAL_METRICS = ["role-adherence", "knowledge-retention"]
 
-# 1. Create a Session to group a conversation
+# 1. Create a Session linked to a test case
 session = galtea.sessions.create(
     version_id=YOUR_VERSION_ID,
     test_case_id=YOUR_TEST_CASE_ID,
 )
 print(f"Created Session: {session.id}")
 
-# 2. Suppose you have already the conversation with multiple turns.
+# 2. Log the conversation turns.
+# In a real scenario, you would dynamically collect these from your product's interaction.
 conversation_turns = [
-    {
-        "input": "What's your return policy?",
-        "output": "Our return policy allows returns within 30 days of purchase."
-    },
-    {
-        "input": "What if I lost the receipt?",
-        "output": "A proof of purchase is required for all returns."
-    },
-    {
-        "input": "Can I return items bought online to a physical store?",
-        "output": "Yes, you can return online purchases to any of our physical store locations."
-    },
-    {
-        "input": "What about exchanges?",
-        "output": "Exchanges follow the same 30-day policy and can be done in-store or online."
-    }
+    {"input": "What's your return policy?", "output": "Our return policy allows returns within 30 days."},
+    {"input": "What if I lost the receipt?", "output": "A proof of purchase is required for all returns."},
 ]
 
-# Use create_batch for efficient bulk processing
+# Use create_batch for efficiency
 galtea.inference_results.create_batch(
     session_id=session.id,
     conversation_turns=conversation_turns
 )
 
-# Or loop through conversation turns. 
-    # for turn in conversation_turns:
-    #
-    #     Creating Inference Results one by one is necessary if you want to log them as they happen.
-    #     galtea.inference_results.create(
-    #         session_id=session.id,
-    #         input=turn["input"],
-    #         output=turn["output"]
-    #     )
-
-print(f"Stored {len(conversation_turns)} inference results in session {session.id} with a single call")
-
-# 3. When ready, create evaluation tasks for the entire session
+# 3. Evaluate the entire session at once
 evaluation_tasks = galtea.evaluation_tasks.create(
     session_id=session.id,
-    metrics=[YOUR_METRIC_NAME]
+    metrics=CONVERSATIONAL_METRICS
 )
 print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.id}")
 ```
-
 <Note>
-For better performance with multiple conversation turns, it is highly recommended to use `create_batch()` instead of calling `create()` for each inference result in a loop.
+  This workflow can also be used for production monitoring by creating a session with `is_production=True` and omitting the `test_case_id`. See the [Monitor Production Responses](/sdk/examples/monitor-production-responses-to-user-queries) guide for an example.
 </Note>
 
 ## Learn More

@@ -1,31 +1,103 @@
 ---
-title: 'Evaluate with your own scores'
-description: "Learn how to create and run fully-customized evaluations with self-calculated scores"
+title: 'Evaluate with Custom Scores'
+description: "Learn how to run evaluations with your own pre-calculated scores."
 icon: "vial-circle-check"
 iconType: "solid"
 ---
 
+Galtea allows you to provide your own pre-calculated scores for evaluation tasks. This is particularly useful for:
+-   **Deterministic Metrics**: When you have custom, rule-based logic to score outputs (e.g., checking for specific keywords, validating JSON structure).
+-   **Integrating External Models**: When you use your own models for evaluation and want to store their scores in Galtea.
 
-You can run [evaluation tasks](/concepts/product/evaluation/task) and directly assign self-calculated scores using the `create_single_turn` method:
+### Single-Turn Evaluation with Custom Scores
+
+For individual test cases or production logs, you can provide scores directly to the `create_single_turn` method.
 
 ```python
-# Load your test cases
-test_cases = galtea.test_cases.list(test_id=TEST_ID)
+from galtea import Galtea
+import os
 
-# Evaluate all test cases
-for test_case in test_cases:
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+
+# --- Configuration ---
+VERSION_ID = "your_version_id"
+TEST_CASE_ID = "your_test_case_id"
+
+# --- Your Custom Scoring Logic (Placeholders) ---
+def get_score_accuracy(output):
+    return 1.0 if "correct keyword" in output else 0.0
+
+def get_score_relevance(output):
+    return 0.8 # Placeholder for a more complex relevance score
+
+# Your product's response
+actual_output = "This response contains the correct keyword."
+
+# Run evaluation task with your custom scores
+# The scores in the list correspond to the metrics in the `metrics` list
+galtea.evaluation_tasks.create_single_turn(
+    version_id=VERSION_ID,
+    test_case_id=TEST_CASE_ID,
+    actual_output=actual_output,
+    metrics=["custom-accuracy", "custom-relevance"],
+    scores=[get_score_accuracy(actual_output), get_score_relevance(actual_output)],
+)
+
+print("Evaluation task with custom scores submitted.")
+```
+
+### Multi-Turn Conversation with Custom Scores
+
+When evaluating a multi-turn conversation, you can provide per-turn custom scores by looping through the conversation and creating a single-turn task for each interaction.
+
+<Note>
+This approach is recommended for multi-turn custom scoring as it provides turn-level granularity. While `evaluation_tasks.create(session_id=...)` accepts a `scores` parameter, it applies the same score list to *every turn*, which is usually not desired.
+</Note>
+
+```python
+from galtea import Galtea
+import os
+
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+
+# --- Configuration ---
+VERSION_ID = "your_version_id"
+
+# 1. Create a session to contain the conversation
+session = galtea.sessions.create(version_id=VERSION_ID, is_production=True)
+
+# 2. Your conversation data and custom scoring logic
+conversation_turns = [
+    {"input": "What is the order status?", "output": "Your order #123 has shipped."},
+    {"input": "When will it arrive?", "output": "It is expected to arrive in 3-5 business days."}
+]
+
+def score_turn_relevance(turn_output):
+    # Your relevance logic here
+    return 0.9 if "order" in turn_output else 0.2
+
+# 3. Log each turn and create an evaluation task with its custom score
+for turn in conversation_turns:
+    # Log the inference result to the session
+    galtea.inference_results.create(
+        session_id=session.id,
+        input=turn["input"],
+        output=turn["output"]
+    )
     
-    # Your product's actual response to the input
-    response = your_product_function(test_case.input, test_case.context)
-
-    # Run evaluation task with custom scores
+    # Calculate custom score for this specific turn
+    relevance_score = score_turn_relevance(turn["output"])
+    
+    # Create a single-turn evaluation task for this turn
     galtea.evaluation_tasks.create_single_turn(
         version_id=VERSION_ID,
-        test_case_id=test_case.id,
-        actual_output=response.output,
-
-        metrics=["Accuracy", "Relevance"],
-        # Your functions to get a score between 0.0 and 1.0 based on your criteria. 
-        scores=[get_score_accuracy(response.output), get_score_relevance(response.output)],
+        # Link to production data via input/output
+        input=turn["input"],
+        actual_output=turn["output"],
+        metrics=["custom-turn-relevance"],
+        scores=[relevance_score],
+        is_production=True
     )
+
+print(f"Logged and evaluated {len(conversation_turns)} turns for session {session.id} with custom scores.")
 ```
