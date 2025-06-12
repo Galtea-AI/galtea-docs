@@ -18,9 +18,8 @@ VERSION_ID = "YOUR_ACTIVE_VERSION_ID"
 
 # In your application's request handler...
 def handle_user_query(user_query):
-    # ... your logic to get a response from your model ...
-    # model_response = your_product_function(user_query)
-    model_response = "This is the model's live response."
+    # Your logic to get a response from your model
+    model_response = your_product_function(user_query)
     
     # Log and evaluate the interaction in Galtea
     galtea.evaluation_tasks.create_single_turn(
@@ -32,15 +31,4 @@ def handle_user_query(user_query):
     )
     
     return model_response
-
-# Example call
-handle_user_query("What are your shipping options?")
 ```
-
-<Info>
-  By capturing evaluation data from production, you build a valuable repository of real-world performance metrics that can be analyzed on the Galtea dashboard to identify trends, issues, and opportunities for improvement.
-</Info>
-
-<Note>
-  This example focuses on single-turn production monitoring. For evaluating multi-turn conversations, please see our guide on [Evaluating Conversations](/sdk/examples/evaluating-conversations).
-</Note>

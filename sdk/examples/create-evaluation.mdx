@@ -4,7 +4,7 @@ description: "Learn how to run evaluation tasks using the SDK's test-based workf
 icon: "clipboard-check"
 ---
 
-To evaluate a product version, you run individual [evaluation tasks](/concepts/product/evaluation/task) against a set of [test cases](/concepts/product/test/case). An [Evaluation](/concepts/product/evaluation) is created implicitly to group these tasks.
+To evaluate a product version, you run individual [evaluation tasks](/concepts/product/evaluation/task) against a set of [test cases](/concepts/product/test/case).
 
 ## Running Evaluation Tasks
 
@@ -46,15 +46,8 @@ print("All evaluation tasks submitted.")
 ```
 
 <Note>
-  The `metrics` parameter specifies which metric types to use. An `Evaluation` is automatically created behind the scenes to link this `version_id` and `test_id`.
+    The `metrics` parameter specifies which metric types to use.
 </Note>
-
-## Retrieving Results
-
-After running tasks, you can retrieve the results from the platform or view them on the dashboard.
-
-```python
-# The evaluation is created implicitly, so you need to find it by listing evaluations for the product.
-# This part is best done by navigating to the Galtea dashboard to see the results.
-print(f"View results on the Galtea dashboard for your product.")
-```
+<Info>
+    A [session](/concepts/product/session) and [evaluation](/concepts/product/evaluation) is automatically created behind the scenes to link this `version_id` and `test_id` with the provided [inference result](/concepts/product/inference-result) (the `actual_output` and the [Test Case](/concepts/product/test/case)'s input).
+</Info>

@@ -4,13 +4,15 @@ description: "All you need to get started with Galtea evaluations"
 icon: "rocket"
 ---
 
+import ProductCard from '/snippets/cards/product-card.mdx';
+import VersionCard from '/snippets/cards/version-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import SessionCard from '/snippets/cards/session-card.mdx';
+import InferenceResultCard from '/snippets/cards/inference-result-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
-import ProductCard from '/snippets/cards/product-card.mdx';
-import TestCard from '/snippets/cards/test-card.mdx';
-import TestCaseCard from '/snippets/cards/test-case-card.mdx';
-import VersionCard from '/snippets/cards/version-card.mdx';
+import ModelCard from '/snippets/cards/model-card.mdx';
 
 This guide will walk you through the steps to begin evaluating and monitoring the reliability of your AI products with Galtea as quickly as possible.
 
@@ -124,7 +126,7 @@ print(f"Submitted evaluation tasks for version {version.id} using test '{test.na
 You can view results on the [Galtea dashboard](https://platform.galtea.ai/). Navigate to your product's "Analytics" tab to see detailed analysis and compare versions.
 
 ```python
-print(f"View results at: https://platform.galtea.ai/product/{YOUR_PRODUCT_ID}/analytics")
+print(f"View results at: https://platform.galtea.ai/product/{YOUR_PRODUCT_ID}?tab=1")
 ```
 
 ## Next Steps
@@ -132,13 +134,15 @@ print(f"View results at: https://platform.galtea.ai/product/{YOUR_PRODUCT_ID}/an
 Congratulations! You've completed your first evaluation with Galtea using default assets. This is just the beginning. Explore these concepts to tailor Galtea to your specific needs:
 
 <CardGroup cols={3}>
-    <ProductCard />
-    <VersionCard />
-    <TestCard />
-    <TestCaseCard />
-    <EvaluationCard />
-    <EvaluationTaskCard />
-    <MetricTypeCard />
+  <ProductCard />
+  <VersionCard />
+  <TestCard />
+  <SessionCard />
+  <InferenceResultCard />
+  <EvaluationCard />
+  <EvaluationTaskCard />
+  <MetricTypeCard />
+  <ModelCard />
 </CardGroup>
 
 If you have any questions or need assistance, contact us at [support@galtea.ai](mailto:support@galtea.ai).

@@ -1,32 +1,10 @@
 ---
 title: 'Evaluate with your own scores'
-description: "Learn how to create and run fully-customized evaluations self-calculated scores"
+description: "Learn how to create and run fully-customized evaluations with self-calculated scores"
 icon: "vial-circle-check"
 iconType: "solid"
 ---
 
-## Creating an Evaluation
-
-[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
-
-This is how to create an evaluation:
-
-  ```python
-  from galtea import Galtea
-  # Initialize Galtea SDK
-  galtea = Galtea(api_key="YOUR_API_KEY")
-
-  # Assume you have a version_id and test_id
-  VERSION_ID = "YOUR_VERSION_ID"
-  TEST_ID = "YOUR_TEST_ID"
-
-  print(f"Running evaluation tasks for version: {VERSION_ID}")
-  ```
-  <Info>
-    Evaluations are created implicitly when you run evaluation tasks. This establishes the framework for assessing your product version.
-  </Info>
-
-## Running Evaluation Tasks with Self-Calculated Scores
 
 You can run [evaluation tasks](/concepts/product/evaluation/task) and directly assign self-calculated scores using the `create_single_turn` method:
 
@@ -36,34 +14,18 @@ test_cases = galtea.test_cases.list(test_id=TEST_ID)
 
 # Evaluate all test cases
 for test_case in test_cases:
-    # Retrieve relevant context for RAG. This may not apply to all products.
-    retrieval_context = your_retriever_function(test_case.input)
     
     # Your product's actual response to the input
-    timeBeforeCall = datetime.now()
-    response = your_product_function(test_case.input, test_case.context, retrieval_context)
-    timeAfterCall = datetime.now()
+    response = your_product_function(test_case.input, test_case.context)
 
     # Run evaluation task with custom scores
     galtea.evaluation_tasks.create_single_turn(
         version_id=VERSION_ID,
         test_case_id=test_case.id,
         actual_output=response.output,
-        retrieval_context=retrieval_context,
 
-        latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
-        usage_info={
-          "input_tokens": response.inputTokens,
-          "output_tokens": response.outputTokens,
-          "cache_read_input_tokens": response.cacheReadInputTokens,
-        },
-
-        metrics=["metric_accuracy", "metric_relevance"],
+        metrics=["Accuracy", "Relevance"],
         # Your functions to get a score between 0.0 and 1.0 based on your criteria. 
         scores=[get_score_accuracy(response.output), get_score_relevance(response.output)],
     )
 ```
-
-<Note>
-  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
-</Note>

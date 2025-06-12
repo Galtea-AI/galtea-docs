@@ -4,6 +4,11 @@ description: "Learn how to evaluate multi-turn conversations using Galtea's sess
 icon: "comments"
 ---
 
+import SessionCard from '/snippets/cards/session-card.mdx';
+import InferenceResultCard from '/snippets/cards/inference-result-card.mdx';
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
+
 To accurately evaluate interactions within a dialogue, you can use Galtea's session-based workflow. This approach allows you to log an entire conversation and then run evaluations on all of its turns at once.
 
 Certain metrics are specifically designed for conversational analysis and require the full context:
@@ -33,20 +38,21 @@ Here is a complete example of logging and evaluating a multi-turn conversation.
 ```python
 from galtea import Galtea
 
-# Initialize Galtea SDK
 galtea = Galtea(api_key="YOUR_API_KEY")
 
+YOUR_PRODUCT_ID = "your_product_id"
 YOUR_VERSION_ID = "your_version_id"
+YOUR_TEST_CASE_ID = "your_test_case_id"
+YOUR_METRIC_NAME = "your_metric_name"
 
-# 1. Create a Session for the conversation
-# For production monitoring, set is_production=True and omit test_case_id
+# 1. Create a Session to group a conversation
 session = galtea.sessions.create(
     version_id=YOUR_VERSION_ID,
-    is_production=True
+    test_case_id=YOUR_TEST_CASE_ID,
 )
 print(f"Created Session: {session.id}")
 
-# 2. Log all inference results in a single efficient batch call
+# 2. Suppose you have already the conversation with multiple turns.
 conversation_turns = [
     {
         "input": "What's your return policy?",
@@ -71,17 +77,36 @@ galtea.inference_results.create_batch(
     session_id=session.id,
     conversation_turns=conversation_turns
 )
-print(f"Stored {len(conversation_turns)} inference results in session {session.id}.")
+
+# Or loop through conversation turns. 
+    # for turn in conversation_turns:
+    #
+    #     Creating Inference Results one by one is necessary if you want to log them as they happen.
+    #     galtea.inference_results.create(
+    #         session_id=session.id,
+    #         input=turn["input"],
+    #         output=turn["output"]
+    #     )
+
+print(f"Stored {len(conversation_turns)} inference results in session {session.id} with a single call")
 
 # 3. When ready, create evaluation tasks for the entire session
 evaluation_tasks = galtea.evaluation_tasks.create(
     session_id=session.id,
-    metrics=["knowledge-retention", "conversational-relevancy"]
+    metrics=[YOUR_METRIC_NAME]
 )
-print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.id}.")
-
-# You can now view the results in the Galtea dashboard.
+print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.id}")
 ```
+
 <Note>
 For better performance with multiple conversation turns, it is highly recommended to use `create_batch()` instead of calling `create()` for each inference result in a loop.
 </Note>
+
+## Learn More
+
+<CardGroup cols={2}>
+  <SessionCard />
+  <InferenceResultCard />
+  <EvaluationCard />
+  <EvaluationTaskCard />
+</CardGroup>
