@@ -1,0 +1,55 @@
+---
+title: "Session"
+description: "A group of inference results that make up a full conversation"
+icon: "comments"
+iconType: "solid"
+---
+
+import SDKSessionServiceCard from '/snippets/cards/sdk-session-service-card.mdx';
+
+## What is a Session?
+
+A session in Galtea is a container for a sequence of interactions that form a complete conversation between a user and an AI product. It groups together multiple [inference results](//concepts/product/inference-result), allowing for the evaluation of multi-turn dialogues and the analysis of production data.
+
+You can **create**, view and manage your sessions programmatically using the [Galtea SDK](/sdk/api/session/service).
+
+## Use Cases for Sessions
+
+<CardGroup cols={2}>
+  <Card title="Evaluate Conversations" icon="comments">
+    Assess how well your model maintains context and coherence over multiple turns.
+  </Card>
+  <Card title="Monitor Production Data" icon="chart-line">
+    Log real-world user interactions for continuous monitoring and analysis.
+  </Card>
+  <Card title="Debug Complex Interactions" icon="bug">
+    Trace the full history of a conversation to identify where and why a model failed.
+  </Card>
+  <Card title="Batch Evaluations" icon="layer-group">
+    Run evaluations on an entire conversation's worth of inference results with a single command.
+  </Card>
+</CardGroup>
+
+## SDK Integration
+
+The Galtea SDK allows you to create, view, and manage sessions programmatically. This is particularly useful for logging production data or for evaluating complex conversational flows.
+
+<SDKSessionServiceCard />
+
+## Session Properties
+
+<ResponseField name="Version" type="Version" required>
+  The version associated with the session.
+</ResponseField>
+
+<ResponseField name="Test Case" type="Test Case" optional>
+  The test case associated with the session. This is typically used for non-production evaluations.
+</ResponseField>
+
+<ResponseField name="Context" type="dict" optional>
+  A flexible key-value store for user-defined context.
+</ResponseField>
+
+<ResponseField name="is_production" type="boolean" optional>
+  A flag to indicate if the session is from a production environment. Defaults to `False`.
+</ResponseField>

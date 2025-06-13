@@ -29,6 +29,10 @@ When creating a test in the Galtea dashboard, you'll be asked to specify the tes
 Your selection will determine whether you need to provide a *Knowledge Base File* or a *Test File*.
 
 <Info>
+  The SDK parameter `variants` is used to specify "Evolutions" for Quality tests and "Threats" for Red Teaming tests. Similarly, the `strategies` parameter is used for Red Teaming tests to apply different attack modifications.
+</Info>
+
+<Info>
   More information on how to create tests can be found in the [Create Quality Tests](/concepts/product/test/quality-tests) and [Create Red Teaming Tests](/concepts/product/test/red-teaming-tests) documentation.
 </Info>
 
@@ -103,11 +107,12 @@ The Galtea SDK allows you to create, view, and manage tests programmatically.
         {/* In the FrontEnd the variants are shown with the name of Evolutions when the type is Quality */}
           Allows for the generation of variations of test cases (e.g., paraphrased questions, questions with typos). For more details on available evolutions, see [Quality Test Evolutions](/concepts/product/test/quality-evolutions).
         </ResponseField>
-      </Tab>
-      <Tab title="Red Teaming">
-        <ResponseField name="Threat Types" type="List[Enum]" required>
-        {/* In the FrontEnd the variants are shown with the name of Threat Types when the type is Quality */}
-          Specifies which [threat categories](/concepts/product/test/red-teaming-threats) to generate test cases for.
+      </Tab>      <Tab title="Red Teaming">
+        <ResponseField name="Threats" type="List[Enum]" required>
+          Specifies which [threat categories](/concepts/product/test/red-teaming-threats) to generate test cases for. This corresponds to the `variants` parameter in the SDK.
+        </ResponseField>
+        <ResponseField name="Strategies" type="List[Enum]">
+          A list of [red teaming strategies](/concepts/product/test/red-teaming-strategies) to modify prompts for each threat. This corresponds to the `strategies` parameter in the SDK.
         </ResponseField>
       </Tab>
     </Tabs>

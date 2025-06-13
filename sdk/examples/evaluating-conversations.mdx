@@ -1,79 +1,86 @@
 ---
-title: 'Evaluating conversations'
-description: "Learn how to evaluate conversations with multiple turns using the Galtea SDK"
+title: 'Evaluating Conversations'
+description: "Learn how to evaluate multi-turn conversations using Galtea's session-based workflow."
 icon: "comments"
 ---
 
+import SessionCard from '/snippets/cards/session-card.mdx';
+import InferenceResultCard from '/snippets/cards/inference-result-card.mdx';
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
 
-To accurately **evaluate interactions within a dialogue**, certain metrics need access to the preceding turns of the conversation. This is handled by the [ `conversation_turns` parameter](/sdk/api/evaluation-task/create#param-conversation-turns).
+To accurately evaluate interactions within a dialogue, you can use Galtea's session-based workflow. This approach allows you to log an entire conversation and then run evaluations on all of its turns at once.
 
-Currently, this parameter can only be used with the following metrics, which are available by default:
-  - **Role Adherence**: Measures how well the actual output adheres to a specified role.
-  - **Knowledge Retention**: Assesses the model's ability to retain and use information from previous turns in the conversation.
+Certain metrics are specifically designed for conversational analysis and require the full context:
+  - **Role Adherence**: Measures how well the AI stays within its defined role.
+  - **Knowledge Retention**: Assesses the model's ability to remember and use information from previous turns.
   - **Conversational Completeness**: Evaluates whether the conversation has reached a natural and informative conclusion.
-  - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic and user needs.
+  - **Conversation Relevancy**: Assesses whether each turn in the conversation is relevant to the ongoing topic.
 
+### The Session-Based Workflow
+
+<Steps>
+    <Step title="Create a Session">
+        A [Session](/concepts/product/session) acts as a container for all the turns in a single conversation. You create one at the beginning of an interaction.
+    </Step>
+    <Step title="Log Inference Results">
+        Each user input and model output pair is an [Inference Result](//concepts/product/inference-result). You can log these turns individually or in a single batch call after the conversation ends. Using a batch call is more efficient.
+    </Step>
+    <Step title="Evaluate the Session">
+        Once the session is logged, you can create evaluation tasks for the entire conversation using the `evaluation_tasks.create()` method. This will generate tasks for each turn against the specified metrics.
+    </Step>
+</Steps>
+
+### Example
+
+This example demonstrates logging and evaluating a multi-turn conversation from a test case.
+
+```python
+from galtea import Galtea
+import os
+
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+
+YOUR_VERSION_ID = "your_version_id"
+YOUR_TEST_CASE_ID = "your_test_case_id"
+CONVERSATIONAL_METRICS = ["role-adherence", "knowledge-retention"]
+
+# 1. Create a Session linked to a test case
+session = galtea.sessions.create(
+    version_id=YOUR_VERSION_ID,
+    test_case_id=YOUR_TEST_CASE_ID,
+)
+print(f"Created Session: {session.id}")
+
+# 2. Log the conversation turns.
+# In a real scenario, you would dynamically collect these from your product's interaction.
+conversation_turns = [
+    {"input": "What's your return policy?", "output": "Our return policy allows returns within 30 days."},
+    {"input": "What if I lost the receipt?", "output": "A proof of purchase is required for all returns."},
+]
+
+# Use create_batch for efficiency
+galtea.inference_results.create_batch(
+    session_id=session.id,
+    conversation_turns=conversation_turns
+)
+
+# 3. Evaluate the entire session at once
+evaluation_tasks = galtea.evaluation_tasks.create(
+    session_id=session.id,
+    metrics=CONVERSATIONAL_METRICS
+)
+print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.id}")
+```
 <Note>
-  The `conversation_turns` parameter is available both in the [create evaluation task](/sdk/api/evaluation-task/create) and [create evaluation task from production](/sdk/api/evaluation-task/create-from-production) methods.
+  This workflow can also be used for production monitoring by creating a session with `is_production=True` and omitting the `test_case_id`. See the [Monitor Production Responses](/sdk/examples/monitor-production-responses-to-user-queries) guide for an example.
 </Note>
 
-### Expected format
+## Learn More
 
-The `conversation_turns` parameter expects a list of dictionaries. Each dictionary represents a **single, complete exchange** (one user query and the assistant's response to it) that occurred before the current interaction being sent to our platform.
-
-The required structure for each dictionary in the list is:
-```json
-{
-  "input": "The user's query from that past turn",
-  "actual_output": "The assistant's response from that past turn"
-}
-```
-
-This is how it would look like in practice:
-```python
-# Example: conversation_turns list passed to create_from_production
-[
-  {"input": "Hi, tell me about Galtea.", "actual_output": "Galtea is an AI evaluation platform."},
-  {"input": "What metrics does it support?", "actual_output": "It supports accuracy, relevance, safety metrics, and more."},
-  # ... other past turns in chronological order ...
-]
-```
-
-### Converting Your Application's History Format
-
-Let's say you have a conversation history like this.
-
-```python
-conversation_history = [
-  {'system': 'system', 'content': 'You are a pirate.'},
-  {'role': 'user', 'content': 'Can you teach me to swim?'},
-  {'role': 'assistant', 'content': 'Sure thing, matey! Then ye go swim with the shark.'},
-  {'role': 'user', 'content': 'I am not sure if I can swim with the shark.'},
-  {'role': 'assistant', 'content': 'Ye can do it!'},
-]
-```
-Then, this would be a valid method to extract the conversation turns from the conversation history:
-```python
-def extract_conversation_turns(messages: list[dict]) -> list[dict]:
-  conversation_turns = []
-  user_query = None
-  for message in messages:
-    # Skip system messages or irrelevant roles if necessary
-    if message['role'] == 'system':
-        continue
-
-    if message['role'] == 'user':
-        # Store the user query temporarily
-        user_query = message['content']
-    elif message['role'] == 'assistant' and user_query is not None:
-        # Found an assistant response following a user query, form a turn
-        conversation_turns.append({
-            "input": user_query,
-            "actual_output": message['content']
-        })
-        # Reset user_query to wait for the next user message
-        user_query = None
-    # Handle edge cases: consecutive user/assistant messages if applicable
-
-  return conversation_turns
-```
+<CardGroup cols={2}>
+  <SessionCard />
+  <InferenceResultCard />
+  <EvaluationCard />
+  <EvaluationTaskCard />
+</CardGroup>

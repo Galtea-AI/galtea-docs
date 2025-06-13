@@ -101,18 +101,16 @@ metric_names = [
     GALTEA_COMPLETENESS_METRIC_NAME
 ]
 
-evaluation = galtea.evaluations.create(test_id=test.id, version_id=version.id)
-
 # Placeholder for where the model's answer would be generated
 # In a real scenario, this would involve calling your model with test_case.input, etc.
 model_answer = "This is a placeholder model answer."
 
 for test_case in test_cases:
-    galtea.evaluation_tasks.create(
+    galtea.evaluation_tasks.create_single_turn(
+      version_id=version.id,
+      test_case_id=test_case.id,
       metrics=metric_names,
-      evaluation_id=evaluation.id,
-      actual_output=model_answer,
-      test_case_id=test_case.id
+      actual_output=model_answer
     )
 ```
 

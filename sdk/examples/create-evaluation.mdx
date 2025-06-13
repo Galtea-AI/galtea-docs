@@ -1,154 +1,75 @@
 ---
-title: 'Run Evaluation Tasks'
-description: "Learn how to create evaluations and run evaluation tasks using the SDK"
+title: 'Run a Test-Based Evaluation'
+description: "Learn how to run evaluation tasks for a single-turn, test-based workflow."
 icon: "clipboard-check"
 ---
 
-[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against a set of [test cases](/concepts/product/test/case) by running individual [evaluation tasks](/concepts/product/evaluation/task).
+To evaluate a product version against a predefined [Test](/concepts/product/test), you can loop through its [Test Cases](/concepts/product/test/case) and run an evaluation task for each one. This workflow is ideal for regression testing and standardized quality checks.
 
-## Creating an Evaluation
-
-This is how to create an evaluation:
-
-  ```python
-  from galtea import Galtea
-
-  # Initialize Galtea SDK
-  galtea = Galtea(api_key="YOUR_API_KEY")
-
-  # Create an evaluation
-  evaluation = galtea.evaluations.create(
-      test_id="YOUR_TEST_ID",
-      version_id="YOUR_VERSION_ID"
-  )
-
-  print(f"Evaluation created with ID: {evaluation.id}")
-  ```
-  <Info>
-    An evaluation links a specific version of your product to a test. This establishes the framework for running individual evaluation tasks.
-  </Info>
-
-## Running Evaluation Tasks
-
-Once you've created an evaluation, you can run [evaluation tasks](/concepts/product/evaluation/task):
-
-For efficiency, you can process *multiple evaluation tasks at once* using a loop and the `galtea.evaluation_tasks.create` method:
-
-```python
-# Load your test cases
-test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID")
-
-# Evaluate all test cases
-for test_case in test_cases:
-    # Retrieve relevant context for RAG. This may not apply to all products.
-    retrieval_context = your_retriever_function(test_case.input)
-    
-    # Your product's actual response to the input
-    timeBeforeCall = datetime.now()
-    response_data = your_product_function(test_case.input, test_case.context, retrieval_context)
-    timeAfterCall = datetime.now()
-    
-    # Run evaluation task
-    galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        evaluation_id=evaluation.id,
-        test_case_id=test_case.id,
-        actual_output=response_data.output, # Assuming response_data has an 'output' attribute
-        retrieval_context=retrieval_context, # Provide as a single string; join if your retriever returns a list
-        ###################### Optional Parameters ######################
-        latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000,
-        usage_info={
-          "input_tokens": response_data.input_tokens,
-          "output_tokens": response_data.output_tokens,
-          "cache_read_input_tokens": response_data.cache_read_input_tokens,
-        },
-        cost_info={
-          "cost_per_input_token": 0.00002,
-          "cost_per_output_token": 0.00005,
-          "cost_per_cache_read_input_token": 0.00001,
-        },
-        # scores=[0.8, None, 0.95] # Example: score for accuracy_v1, platform evaluates relevance_v1, score for context_accuracy
-        #################################################################
-    )
-
-print("All evaluation tasks submitted")
-```
-
-<Note>
-  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
-</Note>
 <Info>
-  The `latency` and `usage_info` parameters are optional but highly recommended to be used.
-  They can be used to track the performance in latency and costs of your product.
+  An [Evaluation](/concepts/product/evaluation) is created **implicitly** the first time you run an evaluation task for a specific `version_id` and `test_id` combination. You do not need to create it manually.
 </Info>
 
-<Warning>
-  Directly providing `input`, `expected_output`, or `context` to `galtea.evaluation_tasks.create` when a `test_case_id` is used is deprecated. These parameters will be sourced from the test case. This approach limits analytics and consistency.
-</Warning>
+### Workflow
 
-### Customized Test Cases for Evaluation Tasks
+<Steps>
+    <Step title="Select a Test and Version">
+        Identify the `test_id` and `version_id` you want to evaluate.
+    </Step>
+    <Step title="Iterate Through Test Cases">
+        Fetch all test cases associated with the test using `galtea.test_cases.list()`.
+    </Step>
+    <Step title="Generate and Evaluate Output">
+        For each test case, call your product to get its output, then use `galtea.evaluation_tasks.create_single_turn()` to create the evaluation tasks.
+    </Step>
+</Steps>
 
-If you want to fully customize the Evaluation Task, maybe because your Test File does not follow Galtea's format thus the test cases have not been created, you can load the test cases from the file and set them in the evaluation task in a similar way:
+### Example
+
+This example demonstrates how to run an evaluation on all test cases from a specific test.
 
 ```python
-import pandas as pd
-# Load your test data
-test = galtea.tests.get(test_id="YOUR_TEST_ID")
-test_file_path = galtea.tests.download(test, "path/to/your/directory")
-df = pd.read_csv(json_file_path)
+from galtea import Galtea
+import os
 
-# Process all test instances
-for index, row in df.iterrows():
-    # Retrieve relevant context for RAG
-    retrieval_context = your_retriever_function(row['input'])
+# Initialize Galtea SDK
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+
+# --- Configuration ---
+# Replace with your actual IDs
+YOUR_VERSION_ID = "your_version_id"
+YOUR_TEST_ID = "your_test_id"
+METRICS_TO_EVALUATE = ["factual-accuracy", "coherence"] 
+
+# --- Your Product's Logic (Placeholder) ---
+# In a real scenario, this would call your actual AI model or API
+def your_product_function(input_prompt: str, context: str = None) -> str:
+    # Your model's inference logic goes here
+    # For this example, we'll return a simple placeholder response
+    return f"Model response to: {input_prompt}"
+
+# 1. Fetch the test cases for the specified test
+test_cases = galtea.test_cases.list(test_id=YOUR_TEST_ID)
+print(f"Found {len(test_cases)} test cases for Test ID: {YOUR_TEST_ID}")
+
+# 2. Loop through each test case and run an evaluation task
+for test_case in test_cases:
+    # Get your product's actual response to the input
+    actual_output = your_product_function(test_case.input)
     
-    # Your product's actual response to the input
-    actual_output = your_product_function(row['input'], retrieval_context)
-    
-    # Run evaluation task
-    galtea.evaluation_tasks.create(
-        metrics=["accuracy_v1", "relevance_v1", "context_accuracy"],
-        evaluation_id=evaluation.id,
-        input=row['input'],
+    # Create the evaluation task
+    # An evaluation is created implicitly on the first call
+    galtea.evaluation_tasks.create_single_turn(
+        version_id=YOUR_VERSION_ID,
+        test_case_id=test_case.id,
+        metrics=METRICS_TO_EVALUATE,
         actual_output=actual_output,
-        expected_output=row['expected_output'],
-        context=row['context'],
-        retrieval_context=retrieval_context,
     )
-print("All evaluation tasks submitted")
+
+print(f"\nAll evaluation tasks submitted for Version ID: {YOUR_VERSION_ID}")
+
 ```
 
-<Warning>
-  This method is only recommended for advanced users who need to customize the evaluation tasks. For most cases, using the test cases provided by the test is the best approach.
-
-  Note that providing `input`, `expected_output`, and `context` directly in `evaluation_tasks.create` (when a `test_case_id` would normally be used for test-based evaluations) is a legacy approach and might be deprecated in future SDK versions in favor of always linking to a `test_case_id` for formal tests.
-
-  Using this will limit the access to analysis tools and metrics that are available when using the standard test cases.
-</Warning>
-
-## Retrieving Evaluation Results
-
-After running evaluation tasks, you can retrieve the results:
-
-```python
-# Get all tasks for an evaluation
-tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
-
-# Analyze results
-total_score = 0
-for task in tasks:
-    task_detail = galtea.evaluation_tasks.get(task.id)
-    total_score += task_detail.score
-    print(f"Task {task.id}: Score = {task_detail.score}")
-
-avg_score = total_score / len(tasks) if tasks else 0
-print(f"Average evaluation score: {avg_score}")
-```
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="API Reference" icon="code" href="/sdk/api/evaluation/service">
-    View the complete Evaluation Service API reference
-  </Card>
-</CardGroup>
+<Info>
+    A [session](/concepts/product/session) and [evaluation](/concepts/product/evaluation) is automatically created behind the scenes to link this `version_id` and `test_id` with the provided [inference result](/concepts/product/inference-result) (the `actual_output` and the [Test Case](/concepts/product/test/case)'s input).
+</Info>
