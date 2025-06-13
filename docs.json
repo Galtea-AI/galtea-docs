@@ -32,7 +32,18 @@
         "groups": [
           {
             "group": "Concepts",
-            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/product/session", "/concepts/product/inference-result", "concepts/metric-type", "concepts/model"]
+            "pages": [
+              "concepts/product",
+              "concepts/product/version",
+              "concepts/product/test",
+              "concepts/product/test/case",
+              "concepts/product/evaluation",
+              "concepts/product/evaluation/task",
+              "concepts/product/version/session",
+              "/concepts/product/inference-result",
+              "concepts/metric-type",
+              "concepts/model"
+            ]
           },
           {
             "group": "Metrics",
