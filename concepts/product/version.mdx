@@ -22,7 +22,7 @@ One of the key benefits of tracking versions in Galtea is the ability to compare
 - Compare different model providers or approaches
 - Make data-driven decisions about which version to deploy
 
-<Card title="Run a Comparison Evaluation" icon="clipboard-check" iconType="solid" href="/concepts/product/evaluation">
+<Card title="Run a Comparison Evaluation" icon="clipboard-check" iconType="solid" href="/concepts/product/version/session/evaluation">
   Learn how to compare different versions using the same test
 </Card>
 
@@ -50,7 +50,7 @@ The Galtea SDK allows you to create, view, and manage versions programmatically.
 <ResponseField name="Model" type="Model" required>
   The AI [Model](/concepts/model) used by this version. This is used for cost tracking and associating the version with a specific LLM's pricing and tokenization characteristics.
 
-  This is used to calculate the cost of the inference for the version during [evaluation tasks](/concepts/product/evaluation/task).
+  This is used to calculate the cost of the inference for the version during [evaluation tasks](/concepts/product/version/session/evaluation/task).
 </ResponseField>
 
 <ResponseField name="System Prompt" type="Text">

@@ -37,10 +37,10 @@
               "concepts/product/version",
               "concepts/product/test",
               "concepts/product/test/case",
-              "concepts/product/evaluation",
-              "concepts/product/evaluation/task",
+              "concepts/product/version/session/evaluation",
+              "concepts/product/version/session/evaluation/task",
               "concepts/product/version/session",
-              "/concepts/product/inference-result",
+              "concepts/product/version/session/inference-result",
               "concepts/metric-type",
               "concepts/model"
             ]
@@ -51,17 +51,17 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": ["concepts/product/metrics/answer-relevancy", "concepts/product/metrics/faithfulness", "concepts/product/metrics/contextual-precision", "concepts/product/metrics/contextual-recall", "concepts/product/metrics/contextual-relevancy"]
+                "pages": ["concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
               },
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": ["concepts/product/metrics/knowledge-retention", "concepts/product/metrics/role-adherence", "concepts/product/metrics/conversational-completeness", "concepts/product/metrics/conversational-relevancy"]
+                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversational-completeness", "concepts/metric-type/conversational-relevancy"]
               },
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/product/metrics/non-toxic", "concepts/product/metrics/unbiased"]
+                "pages": ["concepts/metric-type/non-toxic", "concepts/metric-type/unbiased"]
               }
             ]
           },

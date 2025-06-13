@@ -9,9 +9,9 @@ import SDKEvaluationServiceCard from '/snippets/cards/sdk-evaluation-service-car
 
 ## What is an Evaluation?
 
-An evaluation in Galtea is a link between a specific [version](/concepts/product/version) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/evaluation/task) that assess how well the product version performs against the test cases.
+An evaluation in Galtea is a link between a specific [version](/concepts/product/version) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/version/session/evaluation/task) that assess how well the product version performs against the test cases.
 
-An evaluation is **created implicitly** the first time you run an [evaluation task](/concepts/product/evaluation/task) for a given combination of a product version and a test. Evaluations can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
+An evaluation is **created implicitly** the first time you run an [evaluation task](/concepts/product/version/session/evaluation/task) for a given combination of a product version and a test. Evaluations can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
 
 ## Evaluation Workflow
 
@@ -20,9 +20,9 @@ An evaluation is **created implicitly** the first time you run an [evaluation ta
     An evaluation is created automatically when you [run the first evaluation task](/sdk/examples/create-evaluation) for a specific product version and test.
   </Step>
   <Step title="Execute Subsequent Tasks">
-    For each [Test Case](/concepts/product/test/case) in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/evaluation/task) to assess performance using different [metric types](/concepts/metric-type).
+    For each [Test Case](/concepts/product/test/case) in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/version/session/evaluation/task) to assess performance using different [metric types](/concepts/metric-type).
     <Info>
-      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be called with the [test case](/concepts/product/test/case)'s data, and its *output* should be provided to the [evaluation tasks](/concepts/product/evaluation/task).
+      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be called with the [test case](/concepts/product/test/case)'s data, and its *output* should be provided to the [evaluation tasks](/concepts/product/version/session/evaluation/task).
     </Info>
   </Step>
   <Step title="Review Results">Compare results across different versions of the same product using the [dashboard](https://platform.galtea.ai/).</Step>
@@ -30,13 +30,13 @@ An evaluation is **created implicitly** the first time you run an [evaluation ta
 
 ## Evaluation Tasks
 
-The core components of an evaluation are its [evaluation tasks](/concepts/product/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric](/concepts/metric-type).
+The core components of an evaluation are its [evaluation tasks](/concepts/product/version/session/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric](/concepts/metric-type).
 
 <Note>
-  Creating an evaluation does not automatically run *[evaluation tasks](/concepts/product/evaluation/task)*. You need to [execute *evaluation tasks*](/sdk/examples/create-evaluation) separately to generate scores and insights.
+  Creating an evaluation does not automatically run *[evaluation tasks](/concepts/product/version/session/evaluation/task)*. You need to [execute *evaluation tasks*](/sdk/examples/create-evaluation) separately to generate scores and insights.
 </Note>
 
-<Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/evaluation/task">
+<Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/version/session/evaluation/task">
   Learn more about evaluation tasks
 </Card>
 
@@ -74,6 +74,6 @@ The Galtea SDK allows you to create, view, and manage evaluations programmatical
   The test to be used in the evaluation.
 </ResponseField>
 
-Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of the selected version against the test cases.
+Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/version/session/evaluation/task) to assess the performance of the selected version against the test cases.
 
 

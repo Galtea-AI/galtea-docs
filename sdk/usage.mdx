@@ -79,7 +79,7 @@ metric_self_accuracy = galtea.metrics.create(
 
 ### Launching an Evaluation
 
-[Evaluations](/concepts/product/evaluation) are created implicitly when you run [evaluation tasks](/concepts/product/evaluation/task) to assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metric types](/concepts/metric-type).
+[Evaluations](/concepts/product/version/session/evaluation) are created implicitly when you run [evaluation tasks](/concepts/product/version/session/evaluation/task) to assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metric types](/concepts/metric-type).
 
 ```python
 # Get test cases from the test
@@ -109,7 +109,7 @@ for test_case in test_cases:
 
 ### Retrieving Evaluation Results
 
-Once the [evaluation tasks](/concepts/product/evaluation/task) are completed, you can retrieve them to analyze the results.
+Once the [evaluation tasks](/concepts/product/version/session/evaluation/task) are completed, you can retrieve them to analyze the results.
 
 ```python
 # Retrieve evaluation tasks for a specific version

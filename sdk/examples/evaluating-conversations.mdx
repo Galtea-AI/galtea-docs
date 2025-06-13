@@ -24,7 +24,7 @@ Certain metrics are specifically designed for conversational analysis and requir
         A [Session](/concepts/product/version/session) acts as a container for all the turns in a single conversation. You create one at the beginning of an interaction.
     </Step>
     <Step title="Log Inference Results">
-        Each user input and model output pair is an [Inference Result](//concepts/product/inference-result). You can log these turns individually or in a single batch call after the conversation ends. Using a batch call is more efficient.
+        Each user input and model output pair is an [Inference Result](/concepts/product/version/session/inference-result). You can log these turns individually or in a single batch call after the conversation ends. Using a batch call is more efficient.
     </Step>
     <Step title="Evaluate the Session">
         Once the session is logged, you can create evaluation tasks for the entire conversation using the `evaluation_tasks.create()` method. This will generate tasks for each turn against the specified metrics.
