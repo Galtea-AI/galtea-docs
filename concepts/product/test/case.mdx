@@ -21,9 +21,9 @@ You can **create**, view and manage your test cases on the [Galtea dashboard](ht
 
 ## Using Test Cases in Evaluations
 
-Test cases are used with [evaluation tasks](/concepts/product/evaluation/task), but first wou will have to create an [evaluation](/concepts/product/evaluation) using the Galtea dashboard or the SDK.
+Test cases are used with [evaluation tasks](/concepts/product/version/session/evaluation/task), but first wou will have to create an [evaluation](/concepts/product/version/session/evaluation) using the Galtea dashboard or the SDK.
 
-<Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/evaluation">
+<Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/version/session/evaluation">
   Learn how to use tests in evaluations
 </Card>
 
@@ -47,15 +47,10 @@ The Galtea SDK allows you to create, view, and manage test cases programmaticall
   Test case-specific context that provides context to the model. It can be the past conversation or any other relevant information. Do not mistake for the system prompt/few-shot examples; those should be defined in the product's [version](/concepts/product/version) unless they change on an interaction basis.
 </ResponseField>
 
-<ResponseField name="Tag" type="Text">
-  A label that helps categorize the test case. This helps in organizing and filtering test cases within your test suite (e.g., "specification", "factual_knowledge", "edge_case").
+<ResponseField name="Variant" type="Text">
+  A label that helps categorize the test case (e.g., "original", "paraphrased", "incorrect"). This corresponds to the `tag` column in an uploaded test CSV file and is used for organizing and filtering test cases.
 </ResponseField>
 
 <ResponseField name="Source" type="Text">
   The original source text used to create the test case. This can be helpful for tracing where test cases originated from, especially when generating test cases from documentation or other reference materials.
-</ResponseField>
-
-<ResponseField name="Conversation Turns" type="List[Dict[Text, Text]]">
-  For conversational AI, this field can store a list of previous turns in the conversation. Each turn is a dictionary with "input" and "actual_output" keys. This data is primarily used when evaluating conversational metrics.
-  Example: `[{"input": "What's the weather like?", "actual_output": "It's sunny today!"}, {"input": "Great, any recommendations for outdoor activities?", "actual_output": None}]`
 </ResponseField>

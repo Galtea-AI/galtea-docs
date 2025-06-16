@@ -1,62 +1,92 @@
 ---
-title: 'Monitor production responses'
-description: "Learn how to create evaluation tasks from user queries in production for deeper analysis"
+title: 'Monitor Production Responses'
+description: "Learn how to log and evaluate user queries from your production environment."
 icon: "users"
 ---
 
-[Evaluations](/concepts/product/evaluation) allow you to assess how well a specific [version](/concepts/product/version) of your [product](/concepts/product) performs against real user queries in production by running individual [evaluation tasks](/concepts/product/evaluation/task).
+You can use Galtea to log and evaluate real user interactions from your production environment. This helps you monitor your product's performance over time.
 
-## Instantiate the SDK
+### Single-Turn Production Monitoring
 
-To use the Galtea SDK, you need to initialize it with your API key. This is typically done at the beginning of your script:
-
-  ```python
-  from galtea import Galtea
-
-  galtea = Galtea(api_key="YOUR_API_KEY")
-  ```
-
-## Capturing Production Data for Analysis
-
-You can create evaluation tasks directly from real user queries in your production environment.
-
-<Card title="SDK Documentation" icon="python" iconType="solid" href="/sdk/api/evaluation-task/create-from-production">
-  Learn more about creating evaluation tasks from production data.
-</Card>
-
-All the production data is stored for deeper analysis, allowing you to track performance over time:
+For simple, single-turn interactions, you can send the details to Galtea using `create_single_turn` with `is_production=True`.
 
 ```python
-from datetime import datetime
+from galtea import Galtea
+import os
 
-# When your product handles a real user query in production
-timeBeforeCall = datetime.now()
-response = your_product_function(user_query, context, retrieval_context)
-timeAfterCall = datetime.now()
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+VERSION_ID = "YOUR_ACTIVE_VERSION_ID"
 
-# Create an evaluation task from this production interaction
-evaluation_tasks = galtea.evaluation_tasks.create_from_production(
-  version_id=VERSION_ID,
-  metrics=["coherence", metric.name, "answer relevancy"],
-  input=user_query,
-  actual_output=response,
-  retrieval_context=retrieval_context,
-  context=context,
-  conversation_turns=extract_conversation_turns(conversation_history),
-  usage_info={
-    "input_tokens": response.input_tokens,
-    "output_tokens": response.output_tokens,
-    "cache_read_input_tokens": response.cache_read_input_tokens,
-  },
-  latency=(timeAfterCall - timeBeforeCall).total_seconds() * 1000
+# In your application's request handler...
+def handle_user_query(user_query, retrieval_context=None):
+    # Your logic to get a response from your model
+    model_response = your_product_function(user_query, retrieval_context)
+    
+    # Log and evaluate the interaction in Galtea
+    galtea.evaluation_tasks.create_single_turn(
+      version_id=VERSION_ID,
+      is_production=True,
+      metrics=["coherence", "answer-relevancy", "faithfulness"],
+      input=user_query,
+      actual_output=model_response,
+      retrieval_context=retrieval_context
+    )
+    
+    return model_response
+```
+
+### Multi-Turn Production Monitoring (Conversations)
+
+For multi-turn conversations, use the session-based workflow to log the entire interaction first and then evaluate it.
+
+```python
+from galtea import Galtea
+import os
+
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
+VERSION_ID = "YOUR_ACTIVE_VERSION_ID"
+METRICS_TO_EVALUATE = ["conversational-relevancy", "knowledge-retention"]
+
+# 1. Create a session at the start of the conversation
+# Use is_production=True for real user interactions
+session = galtea.sessions.create(
+    version_id=VERSION_ID,
+    is_production=True
 )
+
+# 2. Await for user interactions and save each turn or upload them as they happen
+# This would happen dynamically in your application, but for this example, we'll simulate a conversation
+conversation_turns = [
+    {"input": "What's the weather like in Paris?", "output": "It's sunny and 22°C in Paris."},
+    {"input": "Is it expected to rain later?", "output": "No, the forecast shows clear skies for the rest of the day."},
+    {"input": "Great, thanks!", "output": "You're welcome!"}
+]
+
+# 3a. Log all turns as inference results
+# This could be done just after each response of the AI model instead of using a for loop
+for turn in conversation_turns:
+    # Log each turn as an inference result
+    galtea.inference_results.create(
+        session_id=session.id,
+        input=turn["input"],
+        output=turn["output"]
+    )
+
+# 3b. If you have all turns ready, you can also create them in batch
+# galtea.inference_results.create_batch(
+#     session_id=session.id,
+#     conversation_turns=conversation_turns
+# )
+
+# 4. Evaluate the entire session once the conversation has finished
+galtea.evaluation_tasks.create(
+    session_id=session.id,
+    metrics=METRICS_TO_EVALUATE
+)
+
+print(f"Logged and evaluated production session {session.id}")
 ```
 
 <Info>
-  By capturing evaluation data from production, you build a valuable repository of real-world performance metrics that can be analyzed later to identify trends, issues, and opportunities for improvement.
+For more details on evaluating multi-turn conversations, see the [Evaluating Conversations](/sdk/examples/evaluating-conversations) guide.
 </Info>
-<Note>
-  The `metrics` parameter specifies which [metric types](/concepts/metric-type) to use for evaluating the task. You can use multiple metrics simultaneously to get different perspectives on performance.
-  
-  The `latency` and `usage_info` parameters are optional but highly recommended to keep track of the the real performance data of you product. 
-</Note>

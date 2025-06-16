@@ -1,0 +1,27 @@
+---
+title: 'List Sessions'
+description: "List sessions with optional filtering."
+---
+
+## Returns
+Returns a list of [Session](/concepts/product/version/session) objects.
+
+## Example
+```python
+# List all sessions for a specific version
+sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID")
+```
+
+## Parameters
+<ResponseField name="version_id" type="string" required>
+  The ID of the version to filter sessions by.
+</ResponseField>
+<ResponseField name="test_case_id" type="string" optional>
+  The ID of the test case to filter sessions by.
+</ResponseField>
+<ResponseField name="offset" type="int" optional>
+  The number of sessions to skip before starting to collect the result set.
+</ResponseField>
+<ResponseField name="limit" type="int" optional>
+  The maximum number of sessions to return.
+</ResponseField>

@@ -1,0 +1,27 @@
+---
+title: 'Create Inference Result Batch'
+description: "Create a batch of inference results in a session."
+---
+
+## Returns
+Returns a list of [InferenceResult](/concepts/product/version/session/inference-result) objects.
+
+## Example
+```python
+conversation = [
+    {"input": "Hi", "output": "Hello!"},
+    {"input": "How are you?", "output": "I am a bot, I have no feelings."}
+]
+inference_results = galtea.inference_results.create_batch(
+    session_id="YOUR_SESSION_ID",
+    conversation_turns=conversation
+)
+```
+
+## Parameters
+<ResponseField name="session_id" type="string" required>
+  The session ID to log the inference results to.
+</ResponseField>
+<ResponseField name="conversation_turns" type="list[dict]" required>
+  A list of dictionaries, where each dictionary represents a conversation turn with "input" and "output" keys.
+</ResponseField>

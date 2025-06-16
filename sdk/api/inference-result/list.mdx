@@ -1,0 +1,23 @@
+---
+title: 'List Inference Results'
+description: "List inference result logs for a session."
+---
+
+## Returns
+Returns a list of [InferenceResult](/concepts/product/version/session/inference-result) objects.
+
+## Example
+```python
+inference_results = galtea.inference_results.list(session_id="YOUR_SESSION_ID")
+```
+
+## Parameters
+<ResponseField name="session_id" type="string" required>
+  The ID of the session to get inference results for.
+</ResponseField>
+<ResponseField name="offset" type="int" optional>
+  Number of results to skip.
+</ResponseField>
+<ResponseField name="limit" type="int" optional>
+  Maximum number of results to return.
+</ResponseField>

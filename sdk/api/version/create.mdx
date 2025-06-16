@@ -11,7 +11,8 @@ Returns a [Version](/concepts/product/version) object for the given parameters, 
 version = galtea.versions.create(
     name="v1.0",
     product_id="YOUR_PRODUCT_ID",
-    optional_props={"description": "Initial version with basic summarization capabilities"}
+    description="Initial version with basic summarization capabilities",
+    model_id="your-model-id"
 )
 ```
 
@@ -22,14 +23,24 @@ version = galtea.versions.create(
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to create a version for.
 </ResponseField>
-<ResponseField name="optional_props" type="dict[str, str]">
-  A dictionary of additional properties for the version. Keys must be in snake_case.
-  Possible keys include:
-  - `description` (str): A textual description of the version.
-  - `system_prompt` (str): The system prompt used with the model for this version.
-  - `model_id` (str): Reference to a model configured in the Galtea Platform, which may include cost information.
-  - `dataset_description` (str): Description of the dataset used for training or fine-tuning this version.
-  - `dataset_uri` (str): A URI pointing to the dataset.
-  - `endpoint` (str): The API endpoint where this version of the model is accessible.
-  - `guardrails` (str): Configuration or description of safety guardrails applied to the model version.
+<ResponseField name="description" type="string" optional>
+  A textual description of the version.
+</ResponseField>
+<ResponseField name="system_prompt" type="string" optional>
+  The system prompt used with the model for this version.
+</ResponseField>
+<ResponseField name="model_id" type="string" optional>
+  Reference to a model configured in the Galtea Platform.
+</ResponseField>
+<ResponseField name="dataset_description" type="string" optional>
+  Description of the dataset used for training or fine-tuning.
+</ResponseField>
+<ResponseField name="dataset_uri" type="string" optional>
+  A URI pointing to the dataset.
+</ResponseField>
+<ResponseField name="endpoint" type="string" optional>
+  The API endpoint where this version of the model is accessible.
+</ResponseField>
+<ResponseField name="guardrails" type="string" optional>
+  Configuration or description of safety guardrails applied.
 </ResponseField>

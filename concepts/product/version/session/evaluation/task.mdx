@@ -1,0 +1,124 @@
+---
+title: "Evaluation Task"
+description: "A task that evaluates a group of inference results using a metric type"
+icon: "clipboard-check"
+iconType: "solid"
+---
+
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
+import SDKEvaluationTaskServiceCard from '/snippets/cards/sdk-evaluation-task-service-card.mdx';
+import TestCard from '/snippets/cards/test-card.mdx';
+import TestCaseCard from '/snippets/cards/test-case-card.mdx';
+
+## What is an Evaluation Task?
+
+An evaluation task in Galtea represents the assessment of an [evaluation](/concepts/product/version/session/evaluation) from a [session](/concepts/product/version/session) using a the evaluation criteria of a [metric type](/concepts/metric-type). So multiple evaluation tasks can exist for each [evaluation](/concepts/product/version/session/evaluation).
+
+<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task.</Note>
+
+The only way to **create** evaluation tasks is programmatically by using the [Galtea SDK](/sdk/api/evaluation-task/service) but they can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
+
+## Task Lifecycle
+
+Evaluation tasks follow a specific lifecycle:
+
+<Steps>
+  <Step title="Creation">[Trigger an evaluation task](/sdk/examples/create-evaluation). It will appear in the Evaluation's details page with the status "pending"</Step>
+  <Step title="Processing">Galtea's evaluation system processes the task using the evaluation criteria of the selected metric type</Step>
+  <Step title="Completion">Once processed, the status changes to "completed" and the [results](/concepts/product/version/session/evaluation/task#evaluation-task-results-properties) are available</Step>
+</Steps>
+
+## Related Concepts
+
+<CardGroup cols={2}>
+  <TestCard />
+  <TestCaseCard />
+  <EvaluationCard />
+  <MetricTypeCard />
+</CardGroup>
+
+## SDK Integration
+
+The Galtea SDK allows you to create, view, and manage evaluation tasks programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
+
+<CardGroup cols={2}>
+  <SDKEvaluationTaskServiceCard />
+  <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
+    Learn how to set up GitHub Actions to automatically evaluate new versions
+  </Card>
+</CardGroup>
+
+## Evaluation Task Properties
+
+To trigger an evaluation task in Galtea, you provide the following information:
+
+<ResponseField name="Version ID" type="string" required>
+  The ID of the version you want to evaluate.
+</ResponseField>
+
+<ResponseField name="Session ID" type="string" required>
+  The ID of the session containing the inference results to be evaluated.
+</ResponseField>
+
+<ResponseField name="Metrics" type="list[string]" required>
+  A list of metric type names to use for the evaluation. A separate task will be created for each metric.
+</ResponseField>
+
+<ResponseField name="Actual Output" type="Text" required>
+  The actual output produced by the product's version. **Example**: "The iPhone 16 costs $950."
+</ResponseField>
+
+<ResponseField name="Test Case ID" type="Test Case" optional>
+  The test case to be evaluated. Required for non-production, single-turn evaluations.
+</ResponseField>
+
+<ResponseField name="Input" type="Text" optional>
+  The user query that your model needs to answer. Required for production, single-turn evaluations where no `test_case_id` is provided.
+</ResponseField>
+
+<ResponseField name="Retrieval Context" type="Text" optional>
+  The context retrieved by your RAG system that was used to generate the actual output.
+  <Note>
+    Including retrieval context enables more comprehensive evaluation of RAG systems.
+  </Note>
+</ResponseField>
+
+<ResponseField name="Latency" type="float" optional>
+  Time lapsed (in ms) from the moment the request was sent to the LLM to the moment the response was received.
+</ResponseField>
+
+<ResponseField name="Usage Info" type="Object" optional>
+  Token count information of the LLM call. Use snake_case keys: `input_tokens`, `output_tokens`, `cache_read_input_tokens`.
+</ResponseField>
+
+<ResponseField name="Cost Info" type="Object" optional>
+  The costs associated with the LLM call. Keys may include `cost_per_input_token`, `cost_per_output_token`, etc.
+  <Warning>
+    If cost information is properly configured in the [Model](/concepts/model) selected by the [Version](/concepts/product/version), the system will automatically calculate the cost. Provided values will override the system's calculation.
+  </Warning>
+</ResponseField>
+
+### Evaluation Task Results Properties
+
+Once an evaluation task is created, you can access the following information:
+
+<ResponseField name="Status" type="Enum">
+  The current status of the evaluation task.
+  Possible values:
+  - **Pending**: The task has been created but not yet processed.
+  - **Success**: The task was processed successfully.
+  - **Failed**: The task encountered an error during processing.
+</ResponseField>
+
+<ResponseField name="Score" type="Number">
+  The score assigned to the output by the metric type's evaluation criteria. **Example**: 0.85
+</ResponseField>
+
+<ResponseField name="Reason" type="Text">
+  The explanation of the score assigned to the output by the [metric type's](/concepts/metric-type) evaluation criteria.
+</ResponseField>
+
+<ResponseField name="Error" type="Text">
+  The error message if the task failed during processing.
+</ResponseField>

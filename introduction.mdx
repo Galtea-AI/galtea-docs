@@ -7,7 +7,10 @@ icon: "play"
 import ProductCard from '/snippets/cards/product-card.mdx';
 import VersionCard from '/snippets/cards/version-card.mdx';
 import TestCard from '/snippets/cards/test-card.mdx';
+import SessionCard from '/snippets/cards/session-card.mdx';
+import InferenceResultCard from '/snippets/cards/inference-result-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
+import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
 import ModelCard from '/snippets/cards/model-card.mdx';
 
@@ -27,13 +30,12 @@ import ModelCard from '/snippets/cards/model-card.mdx';
 The typical workflow in Galtea follows these steps:
 
 <Steps>
-  <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality</Step>
-  <Step title="Create Version">Define a new [Version](/concepts/product/version) of your [Product](/concepts/product) with specific parameters</Step>
-  <Step title="Create Test">Create a [Test](/concepts/product/test) with [Test Cases](/concepts/product/test/case) to evaluate your [Product](/concepts/product)</Step>
-  <Step title="Define an Evaluation">Establish an [Evaluation](/concepts/product/evaluation) that links the [Test](/concepts/product/test) and the specific [Version](/concepts/product/version) to be assessed</Step>
-  <Step title="Run Evaluations">Run each [Test Case](/concepts/product/test/case) against a [Version](/concepts/product/version) with [Evaluation Tasks](/concepts/product/evaluation/task) to evaluate a specific [Metric Type](/concepts/metric-type)</Step>
-  <Step title="Analyze Results">Review and compare the performance of different [Versions](/concepts/product/version) using the built-in analytics tools</Step>
-  <Step title="Iterate">Develop a new [Version](/concepts/product/version) of your [Product](/concepts/product) and repeat the process to compare the performance of the new [Version](/concepts/product/version) with the previous ones</Step>
+  <Step title="Create Product">Create a [Product](/concepts/product) to represent your AI functionality.</Step>
+  <Step title="Create Version">Define a new [Version](/concepts/product/version) of your product with specific parameters.</Step>
+  <Step title="Create Test">Create a [Test](/concepts/product/test) with [Test Cases](/concepts/product/test/case) to evaluate your product.</Step>
+  <Step title="Run Evaluation Tasks">Execute [Evaluation Tasks](/concepts/product/version/session/evaluation/task) for each test case against [sessions](/concepts/product/version/session) of your product version.</Step>
+  <Step title="Analyze Results">Review and compare the performance of different versions using the built-in analytics tools.</Step>
+  <Step title="Iterate">Develop a new version of your product and repeat the process to track improvements and regressions.</Step>
 </Steps>
 
 ## Platform Access
@@ -59,11 +61,14 @@ You can interact with Galtea through multiple channels:
 
 Galtea is built around several key concepts that work together to provide comprehensive evaluation of AI products:
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <ProductCard />
   <VersionCard />
   <TestCard />
+  <SessionCard />
+  <InferenceResultCard />
   <EvaluationCard />
+  <EvaluationTaskCard />
   <MetricTypeCard />
   <ModelCard />
 </CardGroup>

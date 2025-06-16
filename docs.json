@@ -32,7 +32,18 @@
         "groups": [
           {
             "group": "Concepts",
-            "pages": ["concepts/product", "concepts/product/version", "concepts/product/test", "concepts/product/test/case", "concepts/product/evaluation", "concepts/product/evaluation/task", "concepts/metric-type", "concepts/model"]
+            "pages": [
+              "concepts/product",
+              "concepts/product/version",
+              "concepts/product/test",
+              "concepts/product/test/case",
+              "concepts/product/version/session/evaluation",
+              "concepts/product/version/session/evaluation/task",
+              "concepts/product/version/session",
+              "concepts/product/version/session/inference-result",
+              "concepts/metric-type",
+              "concepts/model"
+            ]
           },
           {
             "group": "Metrics",
@@ -40,17 +51,17 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": ["concepts/product/metrics/answer-relevancy", "concepts/product/metrics/faithfulness", "concepts/product/metrics/contextual-precision", "concepts/product/metrics/contextual-recall", "concepts/product/metrics/contextual-relevancy"]
+                "pages": ["concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
               },
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": ["concepts/product/metrics/knowledge-retention", "concepts/product/metrics/role-adherence", "concepts/product/metrics/conversational-completeness", "concepts/product/metrics/conversational-relevancy"]
+                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversational-completeness", "concepts/metric-type/conversational-relevancy"]
               },
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/product/metrics/non-toxic", "concepts/product/metrics/unbiased"]
+                "pages": ["concepts/metric-type/non-toxic", "concepts/metric-type/unbiased"]
               }
             ]
           },
@@ -104,14 +115,24 @@
                 "pages": ["sdk/api/metrics/service", "sdk/api/metrics/create", "sdk/api/metrics/list", "sdk/api/metrics/get", "sdk/api/metrics/get-by-name", "sdk/api/metrics/delete"]
               },
               {
+                "group": "Session",
+                "icon": "comments",
+                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get", "sdk/api/session/delete"]
+              },
+              {
+                "group": "Inference Result",
+                "icon": "right-left",
+                "pages": ["sdk/api/inference-result/service", "sdk/api/inference-result/create", "sdk/api/inference-result/create-batch", "sdk/api/inference-result/list", "sdk/api/inference-result/get", "sdk/api/inference-result/delete"]
+              },
+              {
                 "group": "Evaluation",
                 "icon": "badge-check",
-                "pages": ["sdk/api/evaluation/service", "sdk/api/evaluation/create", "sdk/api/evaluation/list", "sdk/api/evaluation/get", "sdk/api/evaluation/delete"]
+                "pages": ["sdk/api/evaluation/service", "sdk/api/evaluation/list", "sdk/api/evaluation/get", "sdk/api/evaluation/delete"]
               },
               {
                 "group": "Evaluation Task",
                 "icon": "clipboard-check",
-                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/create-from-production", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
+                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create-single-turn", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
               }
             ]
           }

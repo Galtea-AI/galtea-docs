@@ -5,15 +5,18 @@ description: "Evaluation Service API methods in the Galtea SDK"
 
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 
-The Evaluation Service in the Galtea SDK allows you to manage [evaluations](/concepts/product/evaluation) for assessing your products.
+The Evaluation Service in the Galtea SDK allows you to manage [evaluations](/concepts/product/version/session/evaluation) for assessing your products.
 This Service is exposed by the `galtea.evaluations` object.
 
 <Info>
   Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
 </Info>
 
+<Note>
+  In Galtea SDK v2.0 and later, evaluations are created implicitly. You no longer need to call a `create` method. An evaluation is automatically generated when you create the first [evaluation task](/sdk/api/evaluation-task/service) for a specific product version and test combination.
+</Note>
+
 ## SDK Methods
-- [Create Evaluation](/sdk/api/evaluation/create)
 - [Listing Evaluations](/sdk/api/evaluation/list)
 - [Retrieving Evaluation](/sdk/api/evaluation/get)
 - [Deleting Evaluation](/sdk/api/evaluation/delete)
