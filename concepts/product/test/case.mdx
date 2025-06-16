@@ -54,8 +54,3 @@ The Galtea SDK allows you to create, view, and manage test cases programmaticall
 <ResponseField name="Source" type="Text">
   The original source text used to create the test case. This can be helpful for tracing where test cases originated from, especially when generating test cases from documentation or other reference materials.
 </ResponseField>
-
-<ResponseField name="Conversation Turns" type="List[Dict[Text, Text]]">
-  For conversational AI, this field can store a list of previous turns in the conversation. Each turn is a dictionary with "input" and "actual_output" keys. This data is primarily used when evaluating conversational metrics.
-  Example: `[{"input": "What's the weather like?", "actual_output": "It's sunny today!"}, {"input": "Great, any recommendations for outdoor activities?", "actual_output": None}]`
-</ResponseField>

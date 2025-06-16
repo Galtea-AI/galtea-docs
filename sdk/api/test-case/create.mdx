@@ -33,7 +33,3 @@ test_case = galtea.test_cases.create(
 <ResponseField name="variant" type="string" optional>
   An optional variant to categorize or label the test case (e.g., "original", "paraphrased").
 </ResponseField>
-<ResponseField name="conversation_turns" type="list[dict[str, str]]" optional>
-  A list of previous conversation turns, each a dictionary with "input" and "actual_output" keys. This is used for test cases designed for conversational AI.
-  Example: `[{"input": "What is the capital of France?", "actual_output": "Paris"}, {"input": "What is the population of that city?", "actual_output": "2M"}]`
-</ResponseField>
