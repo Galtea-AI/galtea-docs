@@ -13,7 +13,7 @@ import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of a single [test case](/concepts/product/test/case) from a [test](/concepts/product/test) using a the evaluation criteria of a [metric](/concepts/metric-type). Multiple evaluation tasks make up an [evaluation](/concepts/product/version/session/evaluation).
+An evaluation task in Galtea represents the assessment of an [evaluation](/concepts/product/version/session/evaluation) from a [session](/concepts/product/version/session) using a the evaluation criteria of a [metric](/concepts/metric-type). So multiple evaluation tasks can exist for each [evaluation](/concepts/product/version/session/evaluation).
 
 <Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the [test case](/concepts/product/test/case)'s data and the resulting output.</Note>
 

@@ -9,31 +9,14 @@ import SDKEvaluationServiceCard from '/snippets/cards/sdk-evaluation-service-car
 
 ## What is an Evaluation?
 
-An evaluation in Galtea is a link between a specific [version](/concepts/product/version) and a [test](/concepts/product/test). It serves as the container for all the [evaluation tasks](/concepts/product/version/session/evaluation/task) that assess how well the product version performs against the test cases.
-
-An evaluation is **created implicitly** the first time you run an [evaluation task](/concepts/product/version/session/evaluation/task) for a given combination of a product version and a test. Evaluations can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
-
-## Evaluation Workflow
-
-<Steps>
-  <Step title="Run the First Evaluation Task">
-    An evaluation is created automatically when you [run the first evaluation task](/sdk/examples/create-evaluation) for a specific product version and test.
-  </Step>
-  <Step title="Execute Subsequent Tasks">
-    For each [Test Case](/concepts/product/test/case) in the test, [run](/sdk/examples/create-evaluation) one or more [evaluation tasks](/concepts/product/version/session/evaluation/task) to assess performance using different [metric types](/concepts/metric-type).
-    <Info>
-      For each [Test Case](/concepts/product/test/case), your [product](/concepts/product)'s model should be called with the [test case](/concepts/product/test/case)'s data, and its *output* should be provided to the [evaluation tasks](/concepts/product/version/session/evaluation/task).
-    </Info>
-  </Step>
-  <Step title="Review Results">Compare results across different versions of the same product using the [dashboard](https://platform.galtea.ai/).</Step>
-</Steps>
+An evaluation in Galtea is a group of [Inference Results](/concepts/product/version/session/inference-result) from a particular [session](/concepts/product/version/session). It serves as the container for all the [evaluation tasks](/concepts/product/version/session/evaluation/task) that assess how well the product version performs.
 
 ## Evaluation Tasks
 
-The core components of an evaluation are its [evaluation tasks](/concepts/product/version/session/evaluation/task). Each task represents the assessment of a single [test case](/concepts/product/test/case) using specific [metric](/concepts/metric-type).
+The core components of an evaluation are its [evaluation tasks](/concepts/product/version/session/evaluation/task). Each task represents the assessment of the evaluation using a specific [metric type](/concepts/metric-type).
 
 <Note>
-  Creating an evaluation does not automatically run *[evaluation tasks](/concepts/product/version/session/evaluation/task)*. You need to [execute *evaluation tasks*](/sdk/examples/create-evaluation) separately to generate scores and insights.
+  An evaluation is **created implicitly** when you create an [evaluation task](/concepts/product/version/session/evaluation/task) for a specific [session](/concepts/product/version/session). In this case, the evaluation will be linked to all [Inference Results](/concepts/product/version/session/inference-result) from that session.
 </Note>
 
 <Card title="Evaluation Task" icon="clipboard-check" iconType="solid" href="/concepts/product/version/session/evaluation/task">
@@ -45,35 +28,26 @@ The core components of an evaluation are its [evaluation tasks](/concepts/produc
 Once you've created an evaluation, you can access detailed information and results on the [dashboard](https://platform.galtea.ai/).
 
 <Info>
-  To view evaluation results, you need to visit a product's page *Analytics* section. For detailed information about a particular evaluation, you can navigate to the *Evaluations* tab and select a specific evaluation.
+  To view evaluation results, you need to visit a product's *Analytics* section. For detailed information about a particular evaluation, you can navigate to the *Evaluation Tasks* tab.
 </Info>
 
 The platform provides:
-- Overview of a product's evaluations results per metric
+- Overview of a product's evaluation results per metric
 - Analytics comparing different versions of the product
 - Detailed view of individual evaluation tasks
 
 ## SDK Integration
 
-The Galtea SDK allows you to create, view, and manage evaluations programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
+The Galtea SDK allows you to view and manage evaluations programmatically. This is particularly useful for organizations that want to automate their evaluation process or integrate it into their CI/CD pipeline.
 
-<CardGroup cols={2}>
-  <SDKEvaluationServiceCard />
-  <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
-    Learn how to set up GitHub Actions to automatically evaluate new versions
-  </Card>
-</CardGroup>
+<SDKEvaluationServiceCard />
 
 ## Evaluation Properties
 
-<ResponseField name="Version" type="Version" required>
-  The version to be evaluated in the evaluation.
+<ResponseField name="Inference Results" type="InferenceResults[]" required>
+  The list of inference results that belong to this evaluation. Each inference result is a single output generated by the product version during the session.
 </ResponseField>
 
-<ResponseField name="Test" type="Test" required>
-  The test to be used in the evaluation.
+<ResponseField name="Session" type="Session" required>
+  The session that all the inference results belong to.
 </ResponseField>
-
-Once an evaluation is created, you can execute [evaluation tasks](/concepts/product/version/session/evaluation/task) to assess the performance of the selected version against the test cases.
-
-
