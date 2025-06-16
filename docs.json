@@ -117,7 +117,7 @@
               {
                 "group": "Session",
                 "icon": "comments",
-                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get"]
+                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get", "sdk/api/session/delete"]
               },
               {
                 "group": "Inference Result",
@@ -132,7 +132,7 @@
               {
                 "group": "Evaluation Task",
                 "icon": "clipboard-check",
-                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create-single-turn", "sdk/api/evaluation-task/create-from-session", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
+                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create-single-turn", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
               }
             ]
           }

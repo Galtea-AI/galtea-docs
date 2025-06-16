@@ -112,9 +112,14 @@ for test_case in test_cases:
 Once the [evaluation tasks](/concepts/product/version/session/evaluation/task) are completed, you can retrieve them to analyze the results.
 
 ```python
-# Retrieve evaluation tasks for a specific version
-evaluation_tasks = galtea.evaluation_tasks.list(version_id=version.id)
-for task in evaluation_tasks:
-    evaluation_task = galtea.evaluation_tasks.get(task.id)
-    print(evaluation_task.score)
+# First, get all evaluations for the product
+evaluations = galtea.evaluations.list(product_id=product.id)
+
+# Iterate through all product evaluations
+for evaluation in evaluations:
+  # Retrieve the evaluation tasks
+    evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
+    # Print the evaluation tasks's ID and score
+    for task in evaluation_tasks:
+        print(f"Task ID: {task.id}, Score: {task.score}")
 ```
