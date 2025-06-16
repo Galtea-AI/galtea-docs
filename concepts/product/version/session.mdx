@@ -13,23 +13,6 @@ A session in Galtea is a container for a sequence of interactions that form a co
 
 You can **create**, view and manage your sessions programmatically using the [Galtea SDK](/sdk/api/session/service).
 
-## Use Cases for Sessions
-
-<CardGroup cols={2}>
-  <Card title="Evaluate Conversations" icon="comments">
-    Assess how well your model maintains context and coherence over multiple turns.
-  </Card>
-  <Card title="Monitor Production Data" icon="chart-line">
-    Log real-world user interactions for continuous monitoring and analysis.
-  </Card>
-  <Card title="Debug Complex Interactions" icon="bug">
-    Trace the full history of a conversation to identify where and why a model failed.
-  </Card>
-  <Card title="Batch Evaluations" icon="layer-group">
-    Run evaluations on an entire conversation's worth of inference results with a single command.
-  </Card>
-</CardGroup>
-
 ## SDK Integration
 
 The Galtea SDK allows you to create, view, and manage sessions programmatically. This is particularly useful for logging production data or for evaluating complex conversational flows.
@@ -46,10 +29,6 @@ The Galtea SDK allows you to create, view, and manage sessions programmatically.
   The test case associated with the session. This is typically used for non-production evaluations.
 </ResponseField>
 
-<ResponseField name="Context" type="dict" optional>
-  A flexible key-value store for user-defined context.
-</ResponseField>
-
-<ResponseField name="is_production" type="boolean" optional>
-  A flag to indicate if the session is from a production environment. Defaults to `False`.
+<ResponseField name="Context" type="Text" optional>
+  The context provided to the AI product during the session.
 </ResponseField>
