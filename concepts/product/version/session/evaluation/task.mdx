@@ -1,6 +1,6 @@
 ---
 title: "Evaluation Task"
-description: "The assessment of a specific test case using a metric type"
+description: "A task that evaluates a group of inference results using a metric type"
 icon: "clipboard-check"
 iconType: "solid"
 ---
@@ -13,9 +13,9 @@ import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of an [evaluation](/concepts/product/version/session/evaluation) from a [session](/concepts/product/version/session) using a the evaluation criteria of a [metric](/concepts/metric-type). So multiple evaluation tasks can exist for each [evaluation](/concepts/product/version/session/evaluation).
+An evaluation task in Galtea represents the assessment of an [evaluation](/concepts/product/version/session/evaluation) from a [session](/concepts/product/version/session) using a the evaluation criteria of a [metric type](/concepts/metric-type). So multiple evaluation tasks can exist for each [evaluation](/concepts/product/version/session/evaluation).
 
-<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task with both the [test case](/concepts/product/test/case)'s data and the resulting output.</Note>
+<Note>Evaluation tasks don't perform inference on the LLM product themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task.</Note>
 
 The only way to **create** evaluation tasks is programmatically by using the [Galtea SDK](/sdk/api/evaluation-task/service) but they can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
 
@@ -24,10 +24,9 @@ The only way to **create** evaluation tasks is programmatically by using the [Ga
 Evaluation tasks follow a specific lifecycle:
 
 <Steps>
-  <Step title="Inference">Perform inference on the LLM product to generate an output using the test case's data</Step>
   <Step title="Creation">[Trigger an evaluation task](/sdk/examples/create-evaluation). It will appear in the Evaluation's details page with the status "pending"</Step>
   <Step title="Processing">Galtea's evaluation system processes the task using the evaluation criteria of the selected metric type</Step>
-  <Step title="Completion">Once processed, the status changes to "completed" and the [results](#task-results-properties) are available</Step>
+  <Step title="Completion">Once processed, the status changes to "completed" and the [results](/concepts/product/version/session/evaluation/task#evaluation-task-results-properties) are available</Step>
 </Steps>
 
 ## Related Concepts
@@ -50,20 +49,16 @@ The Galtea SDK allows you to create, view, and manage evaluation tasks programma
   </Card>
 </CardGroup>
 
-### Evaluation Tasks from Production
-
-Production monitoring has been integrated into the main evaluation workflow. You can now log and evaluate production interactions using the [`create_single_turn`](/sdk/api/evaluation-task/create-single-turn) method with the `is_production=True` parameter.
-
 ## Evaluation Task Properties
 
 To trigger an evaluation task in Galtea, you provide the following information:
 
 <ResponseField name="Version ID" type="string" required>
-  The ID of the version you want to evaluate. Required for single-turn, test-based evaluations.
+  The ID of the version you want to evaluate.
 </ResponseField>
 
 <ResponseField name="Session ID" type="string" required>
-  The ID of the session containing the inference results to be evaluated. Required for session-based evaluations.
+  The ID of the session containing the inference results to be evaluated.
 </ResponseField>
 
 <ResponseField name="Metrics" type="list[string]" required>

@@ -11,7 +11,9 @@ import SDKEvaluationServiceCard from '/snippets/cards/sdk-evaluation-service-car
 
 An evaluation in Galtea is a group of [Inference Results](/concepts/product/version/session/inference-result) from a particular [session](/concepts/product/version/session). It serves as the container for all the [evaluation tasks](/concepts/product/version/session/evaluation/task) that assess how well the product version performs.
 
-## Evaluation Tasks
+<Note>[Evaluation tasks](/concepts/product/version/session/evaluation/task) don't perform inference on the LLM product themselves. Rather, they group outputs that have already been generated. You should perform inference on your product first, then create the [evaluation task](/concepts/product/version/session/evaluation/task).</Note>
+
+### Evaluation Tasks
 
 The core components of an evaluation are its [evaluation tasks](/concepts/product/version/session/evaluation/task). Each task represents the assessment of the evaluation using a specific [metric type](/concepts/metric-type).
 
