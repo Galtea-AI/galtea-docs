@@ -48,6 +48,20 @@ The SDK allows you to list existing products, retrieve specific products by thei
   **Example**: "An AI tool that generates concise summaries of legal documents while preserving key information."
 </ResponseField>
 
+<ResponseField name="Capabilities" type="Text" optional>
+  The main capabilities and functions your product is designed to perform. 
+</ResponseField>
+
+<ResponseField name="Inabilities" type="Text" optional>
+  The main limitations or technical constraints of your product.
+</ResponseField>
+
+<ResponseField name="Security Boundaries" type="Text" optional>
+  Describe the security boundaries and restrictions that your product must enforce. Include data access limitations, behavioral constraints, and any security policies that must be maintained.
+  <Info>Learn how to write effective product descriptions in our [detailed guide](/sdk/examples/create-product-description).</Info>
+</ResponseField>
+
+
 <ResponseField name="RAG" type="Boolean" required>
   Indicates if the product uses Retrieval-Augmented Generation (RAG).
 </ResponseField>
