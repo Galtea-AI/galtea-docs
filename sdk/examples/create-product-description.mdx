@@ -22,16 +22,6 @@ Your product description directly impacts the quality and relevance of your eval
 - Tailor evaluation metrics to your specific use case
 - Provide actionable insights for improving AI reliability
 
-## Enhanced Product Definitions
-For maximum generation effectiveness, especially for security testing, consider providing these additional details:
-
-### Capabilities
-Define what your product is specifically designed to do well. This helps generate targeted quality tests that validate your core functionality.
-### Inabilities
-Specify technical limitations and scope boundaries. This prevents false negatives in testing by establishing what your product intentionally doesn't do.
-### Security Boundaries
-Outline access restrictions and behavioral constraints. This is crucial for effective security testing - without clear boundaries, red teaming tests may miss critical vulnerabilities or generate irrelevant attack scenarios.
-
 ## Writing Effective Product Descriptions
 
 ### Be Specific and Purpose-Driven
@@ -59,7 +49,33 @@ Describe your product from the end-user perspective rather than technical implem
 **❌ Technical-Focused:**
 > "A RAG pipeline using GPT-4 and vector databases to process financial data through LangChain workflows."
 
-### Complete Example with Optional Fields
+### Best Practices
+
+**Keep It Concise**: Aim for 2-3 sentences that capture the essence without unnecessary detail.
+
+**Use Plain Language**: Avoid technical jargon or internal terminology that might confuse the evaluation process.
+
+**Be Honest About Scope**: Include what your product does AND doesn't do to set appropriate evaluation boundaries.
+
+**Consider Your Users**: Think about who actually interacts with your AI and what they're trying to accomplish.
+
+### Common Pitfalls to Avoid
+
+- **Too Broad**: "An AI that helps with business tasks" → **Better**: "An AI that automates invoice processing and expense categorization for accounting teams"
+- **Too Technical**: "A transformer model fine-tuned on domain data" → **Better**: "A legal research assistant that finds relevant case law and statutes"
+- **Feature Lists**: Avoid listing capabilities like "can answer questions, summarize text, and translate" → **Better**: Focus on the primary use case and user outcome
+
+## Enhanced Product Descriptions
+For maximum generation effectiveness, especially for security testing, consider providing these additional details:
+
+### Capabilities
+Define what your product is specifically designed to do well. This helps generate targeted quality tests that validate your core functionality.
+### Inabilities
+Specify technical limitations and scope boundaries. This prevents false negatives in testing by establishing what your product intentionally doesn't do.
+### Security Boundaries
+Outline access restrictions and behavioral constraints. This is crucial for effective security testing - without clear boundaries, red teaming tests may miss critical vulnerabilities or generate irrelevant attack scenarios.
+
+## Complete Example with Optional Fields
 
 **Product Description:**
 > "A mobile sales assistant that helps customers find and compare smartphones based on their needs and budget."
@@ -72,25 +88,6 @@ Describe your product from the end-user perspective rather than technical implem
 
 **Security Boundaries:**
 > "Must not access customer payment data, personal contact information, or internal inventory systems. Should refuse requests for competitor pricing strategies or confidential product roadmaps."
-
-## Best Practices
-
-**Keep It Concise**: Aim for 2-3 sentences that capture the essence without unnecessary detail.
-
-**Use Plain Language**: Avoid technical jargon or internal terminology that might confuse the evaluation process.
-
-**Be Honest About Scope**: Include what your product does AND doesn't do to set appropriate evaluation boundaries.
-
-**Consider Your Users**: Think about who actually interacts with your AI and what they're trying to accomplish.
-
-**Prioritize Security Details**: If your product handles sensitive data or has strict operational boundaries, the optional security fields are essential for comprehensive testing.
-
-## Common Pitfalls to Avoid
-
-- **Too Broad**: "An AI that helps with business tasks" → **Better**: "An AI that automates invoice processing and expense categorization for accounting teams"
-- **Too Technical**: "A transformer model fine-tuned on domain data" → **Better**: "A legal research assistant that finds relevant case law and statutes"
-- **Feature Lists**: Avoid listing capabilities like "can answer questions, summarize text, and translate" → **Better**: Focus on the primary use case and user outcome
-- **Skipping Security Context:** For security-sensitive applications, omitting boundaries can result in ineffective red teaming tests
 
 ## Testing Your Description
 
