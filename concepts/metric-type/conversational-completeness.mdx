@@ -11,13 +11,12 @@ This metric is especially relevant for transactional or task-based agents (e.g.,
 
 ---
 
-To compute the `conversation_completeness` metric, the following parameters are required:
+To compute the `conversation_completeness` metric, the following parameters are required in every turn of the conversation:
 
-- **`input`**: The final user message in the session.
-- **`actual_output`**: The chatbot’s last response.
-- **`conversational_turns`**: The full history of the conversation up to the final turn.
+- **`input`**: The user message in the session.
+- **`actual_output`**: The chatbot’s response to the user message.
 
-These inputs allow the evaluator to judge whether the full task was completed or abandoned partway.
+This metric will evaluate the whole conversation, including all turns, to judge whether the full task was completed or abandoned partway.
 
 ---
 
@@ -25,7 +24,7 @@ These inputs allow the evaluator to judge whether the full task was completed or
 
 The `conversation_completeness` score is computed using the following LLM-driven process:
 
-1. **Goal Inference**: An LLM infers the user’s original goal or task from the early stages of the `conversational_turns`.
+1. **Goal Inference**: An LLM infers the user’s original goal or task from the early stages of the conversation history.
 2. **Completion Check**: The LLM determines whether the chatbot has successfully satisfied that goal by the end of the conversation.
 
 The score is then calculated as:

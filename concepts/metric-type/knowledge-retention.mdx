@@ -11,13 +11,12 @@ This is particularly useful for long, multi-turn dialogues where context accumul
 
 ## Evaluation Parameters
 
-To compute the `knowledge_retention` metric, the following parameters are required:
+To compute the `knowledge_retention` metric, the following parameters are required in every turn of the conversation:
 
-- **`input`**: The most recent user input in the conversation.
-- **`actual_output`**: The most recent LLM-generated response.
-- **`conversational_turns`**: The complete list of preceding user and assistant messages in the conversation (i.e., the context/history).
+- **`input`**: The user message in the conversation.
+- **`actual_output`**: The LLM-generated response to the user message.
 
-These inputs allow the metric to simulate a memory-check process across multiple turns.
+This metric will evaluate the whole conversation, including all turns, to simulate a memory-check process across multiple turns.
 
 ---
 
