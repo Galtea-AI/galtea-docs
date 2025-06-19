@@ -1,0 +1,104 @@
+---
+title: 'Creating Product Descriptions'
+description: "Learn how to create effective product descriptions that power comprehensive AI evaluation."
+icon: "bullseye"
+iconType: "solid"
+---
+
+A **product description** is the foundation of your AI evaluation strategy in Galtea. It defines what your AI system is designed to do, enabling our platform to generate relevant test cases, create meaningful evaluations, and provide insights that matter to your specific use case.
+
+## What Is a Product Description?
+
+A product description is a concise, natural-language explanation that answers: **"What is this AI product designed to do?"**
+
+This description becomes the blueprint that guides Galtea's evaluation engine to create test scenarios that mirror real-world usage.
+
+## Why Product Descriptions Matter
+
+Your product description directly impacts the quality and relevance of your evaluations. A well-crafted description enables Galtea to:
+
+- Generate test cases that reflect actual user interactions
+- Create adversarial scenarios relevant to your domain
+- Tailor evaluation metrics to your specific use case
+- Provide actionable insights for improving AI reliability
+
+## Writing Effective Product Descriptions
+
+### Be Specific and Purpose-Driven
+
+Focus on three key elements:
+- **What** the product does
+- **Who** it serves
+- **Which** domain or tasks it handles
+
+**Good Examples:**
+- "A customer support assistant that helps telecom subscribers resolve billing inquiries and plan changes through natural conversation."
+- "An AI system that transforms lengthy legal contracts into executive summaries with key terms and risk highlights for compliance teams."
+
+**Avoid Generic Descriptions:**
+- "A chatbot that answers questions"
+- "An AI assistant for our company"
+
+### Focus on User Experience, Not Architecture
+
+Describe your product from the end-user perspective rather than technical implementation details.
+
+**✅ User-Focused:**
+> "A financial advisor assistant that provides personalized investment recommendations based on user goals and risk tolerance."
+
+**❌ Technical-Focused:**
+> "A RAG pipeline using GPT-4 and vector databases to process financial data through LangChain workflows."
+
+### Best Practices
+
+**Keep It Concise**: Aim for 2-3 sentences that capture the essence without unnecessary detail.
+
+**Use Plain Language**: Avoid technical jargon or internal terminology that might confuse the evaluation process.
+
+**Be Honest About Scope**: Include what your product does AND doesn't do to set appropriate evaluation boundaries.
+
+**Consider Your Users**: Think about who actually interacts with your AI and what they're trying to accomplish.
+
+### Common Pitfalls to Avoid
+
+- **Too Broad**: "An AI that helps with business tasks" → **Better**: "An AI that automates invoice processing and expense categorization for accounting teams"
+- **Too Technical**: "A transformer model fine-tuned on domain data" → **Better**: "A legal research assistant that finds relevant case law and statutes"
+- **Feature Lists**: Avoid listing capabilities like "can answer questions, summarize text, and translate" → **Better**: Focus on the primary use case and user outcome
+
+## Enhanced Product Descriptions
+For maximum generation effectiveness, especially for security testing, consider providing these additional details:
+
+### Capabilities
+Define what your product is specifically designed to do well. This helps generate targeted quality tests that validate your core functionality.
+### Inabilities
+Specify technical limitations and scope boundaries. This prevents false negatives in testing by establishing what your product intentionally doesn't do.
+### Security Boundaries
+Outline access restrictions and behavioral constraints. This is crucial for effective security testing - without clear boundaries, red teaming tests may miss critical vulnerabilities or generate irrelevant attack scenarios.
+
+## Complete Example with Optional Fields
+
+**Product Description:**
+> "A mobile sales assistant that helps customers find and compare smartphones based on their needs and budget."
+
+**Capabilities:**
+> "Can answer questions about phone specifications, recommend devices based on user preferences, compare prices across models, and provide information about warranties and accessories."
+
+**Inabilities:**
+> "Cannot process purchases, access customer account information, or provide technical support for device repairs."
+
+**Security Boundaries:**
+> "Must not access customer payment data, personal contact information, or internal inventory systems. Should refuse requests for competitor pricing strategies or confidential product roadmaps."
+
+## Testing Your Description
+
+A good product description should allow someone unfamiliar with your product to:
+1. Understand what problem it solves
+2. Identify who would use it
+3. Predict what kinds of questions or tasks it should handle well
+4. Recognize what it shouldn't be expected to do
+
+If your description passes this test, it will help Galtea create more effective evaluations for your AI system.
+
+---
+
+**Next Steps**: Once you've crafted your product description, you'll use it when [creating a new product](../../concepts/product) in the Galtea platform, where it becomes the foundation for all subsequent evaluation activities.
