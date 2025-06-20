@@ -56,7 +56,7 @@
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversational-completeness", "concepts/metric-type/conversational-relevancy"]
+                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversation-completeness", "concepts/metric-type/conversation-relevancy"]
               },
               {
                 "group": "Red Teaming",
