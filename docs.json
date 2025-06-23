@@ -61,7 +61,7 @@
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/metric-type/non-toxic", "concepts/metric-type/unbiased"]
+                "pages": ["concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience"]
               }
             ]
           },
