@@ -18,8 +18,8 @@
             "pages": ["introduction", "registration", "quickstart"]
           },
           {
-            "group": "Examples",
-            "pages": ["sdk/examples/create-product-description", "sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/evaluating-conversations", "sdk/examples/create-evaluation-with-custom-scores"]
+            "group": "Tutorials",
+            "pages": ["sdk/tutorials/create-product-description", "sdk/tutorials/create-test", "sdk/tutorials/create-evaluation", "sdk/tutorials/monitor-production-responses-to-user-queries", "sdk/tutorials/evaluating-conversations", "sdk/tutorials/create-evaluation-with-custom-scores"]
           },
           {
             "group": "Integrations",
@@ -61,7 +61,7 @@
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/metric-type/non-toxic", "concepts/metric-type/unbiased"]
+                "pages": ["concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience"]
               }
             ]
           },
