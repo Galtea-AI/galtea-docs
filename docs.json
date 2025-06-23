@@ -19,7 +19,7 @@
           },
           {
             "group": "Examples",
-            "pages": ["sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/evaluating-conversations", "sdk/examples/create-evaluation-with-custom-scores"]
+            "pages": ["sdk/examples/create-product-description", "sdk/examples/create-test", "sdk/examples/create-evaluation", "sdk/examples/monitor-production-responses-to-user-queries", "sdk/examples/evaluating-conversations", "sdk/examples/create-evaluation-with-custom-scores"]
           },
           {
             "group": "Integrations",
@@ -56,7 +56,7 @@
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversational-completeness", "concepts/metric-type/conversational-relevancy"]
+                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversation-completeness", "concepts/metric-type/conversation-relevancy"]
               },
               {
                 "group": "Red Teaming",
