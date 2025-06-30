@@ -12,6 +12,9 @@ metric = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the actual output is equivalent to the expected output.",
     evaluation_params=["input", "expected output", "actual output"],
+    tags=["custom", "accuracy"],
+    description="A custom accuracy metric.",
+    documentation_url="https://docs.example.com/accuracy_v1"
 )
 ```
 
@@ -39,4 +42,10 @@ metric = galtea.metrics.create(
 </ResponseField>
 <ResponseField name="tags" type="list[string]" optional>
   The tags for the metric type so it can be easily identified and categorized.
+</ResponseField>
+<ResponseField name="description" type="string" optional>
+  A brief description of what the metric type evaluates.
+</ResponseField>
+<ResponseField name="documentation_url" type="string" optional>
+  A URL pointing to more detailed documentation about the metric type.
 </ResponseField>

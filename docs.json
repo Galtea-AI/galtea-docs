@@ -51,7 +51,7 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": ["concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
+                "pages": ["concepts/metric-type/factual-accuracy", "concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
               },
               {
                 "group": "Conversational",
@@ -117,7 +117,7 @@
               {
                 "group": "Session",
                 "icon": "comments",
-                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get", "sdk/api/session/delete"]
+                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get", "sdk/api/session/get-by-custom-id", "sdk/api/session/delete"]
               },
               {
                 "group": "Inference Result",
