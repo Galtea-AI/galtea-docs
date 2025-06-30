@@ -50,6 +50,7 @@ METRICS_TO_EVALUATE = ["conversation-relevancy", "knowledge-retention"]
 # 1. Create a session at the start of the conversation
 # Use is_production=True for real user interactions
 session = galtea.sessions.create(
+    custom_id="CLIENT_PROVIDED_SESSION_ID",  # Optional: a custom ID to associate this session in Galtea Platform to the one in your real application.
     version_id=VERSION_ID,
     is_production=True
 )

@@ -8,17 +8,20 @@ Returns a [Session](/concepts/product/version/session) object.
 
 ## Example
 ```python
-# Tries to get a session with id "existing-session-id", creates it if not found.
+# Tries to get a session with custom_id "existing-session-id", creates it if not found.
 session = galtea.sessions.get_or_create(
-    id="existing-session-id",
+    custom_id="existing-session-id",
     version_id="YOUR_VERSION_ID",
     test_case_id="YOUR_TEST_CASE_ID"
 )
 ```
 
 ## Parameters
-<ResponseField name="id" type="string" required>
-  The ID of the session to fetch or create.
+<ResponseField name="custom_id" type="string" required>
+  The Custom ID of the session to fetch or create.
+  <Note>
+    This is useful to associate sessions in the Galtea platform with those in your application.
+  </Note>
 </ResponseField>
 <ResponseField name="version_id" type="string" required>
   The ID of the version to associate with this session if it needs to be created.

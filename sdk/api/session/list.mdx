@@ -19,6 +19,9 @@ sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID")
 <ResponseField name="test_case_id" type="string" optional>
   The ID of the test case to filter sessions by.
 </ResponseField>
+<ResponseField name="custom_id" type="string" optional>
+  A custom ID to filter sessions by.
+</ResponseField>
 <ResponseField name="offset" type="int" optional>
   The number of sessions to skip before starting to collect the result set.
 </ResponseField>
