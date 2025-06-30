@@ -117,7 +117,7 @@
               {
                 "group": "Session",
                 "icon": "comments",
-                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get", "sdk/api/session/delete"]
+                "pages": ["sdk/api/session/service", "sdk/api/session/create", "sdk/api/session/get-or-create", "sdk/api/session/list", "sdk/api/session/get", "sdk/api/session/get-by-custom-id", "sdk/api/session/delete"]
               },
               {
                 "group": "Inference Result",

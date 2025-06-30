@@ -13,7 +13,7 @@ sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID")
 ```
 
 ## Parameters
-<ResponseField name="version_id" type="string" required>
+<ResponseField name="version_id" type="string" optional>
   The ID of the version to filter sessions by.
 </ResponseField>
 <ResponseField name="test_case_id" type="string" optional>
@@ -22,6 +22,9 @@ sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID")
 <ResponseField name="custom_id" type="string" optional>
   A custom ID to filter sessions by.
 </ResponseField>
+<Note>
+  At least one of the 3 parameters (filters) described above must be passed to the method
+</Note>
 <ResponseField name="offset" type="int" optional>
   The number of sessions to skip before starting to collect the result set.
 </ResponseField>

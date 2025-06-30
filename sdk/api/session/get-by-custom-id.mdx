@@ -1,0 +1,20 @@
+---
+title: 'Get Session By Custom ID'
+description: "Retrieve a specific session by its Custom ID."
+---
+
+## Returns
+Returns a [Session](/concepts/product/version/session) object.
+
+## Example
+```python
+session = galtea.sessions.get_by_custom_id(custom_id="YOUR_CUSTOM_ID", version_id="YOUR_VERSION_ID")
+```
+
+## Parameters
+<ResponseField name="custom_id" type="string" required>
+  The Custom ID associated with the session to retrieve.
+</ResponseField>
+<ResponseField name="version_id" type="string" required>
+  The ID of the version associated with the session to retrieve.
+</ResponseField>
