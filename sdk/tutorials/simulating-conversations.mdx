@@ -79,7 +79,8 @@ print("Creating test with conversation scenarios...")
 test = galtea.tests.create(
     version_id=YOUR_VERSION_ID,
     name="Conversation Simulation Test",
-    file_path=CSV_FILE_PATH
+    type="SCENARIOS",
+    test_file_path=CSV_FILE_PATH
 )
 print(f"Test created: {test.id}")
 
