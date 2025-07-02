@@ -1,0 +1,70 @@
+---
+title: "Conversation Simulator"
+description: "Test your conversational AI by simulating realistic user interactions with a synthetic user."
+icon: "user-group"
+iconType: "solid"
+---
+
+import SDKConversationSimulatorServiceCard from '/snippets/cards/sdk-conversation-simulator-service-card.mdx';
+import TestCaseCard from '/snippets/cards/test-case-card.mdx';
+
+## What is the Conversation Simulator?
+
+The Conversation Simulator, also known as the **Synthetic User**, is a powerful Galtea feature designed to test conversational AI systems. It programmatically generates realistic user messages to simulate a multi-turn dialogue, allowing you to evaluate your product's ability to handle complex interactions, maintain context, and achieve user goals.
+
+This is essential for testing:
+- **Dialogue Flow**: Does the conversation progress logically?
+- **Role Adherence**: Does your AI stay in character?
+- **Task Completion**: Can the AI guide the user to a successful outcome?
+- **Robustness**: How does the AI handle unexpected but realistic user inputs?
+
+## How It Works: Scenarios
+
+The Conversation Simulator is guided by a **Scenario**, which is a predefined set of instructions that defines the synthetic user's behavior and objectives. A scenario is defined within a [Test Case](/concepts/product/test/case) and can be created by uploading a CSV file with the following columns:
+
+<ResponseField name="goal" type="string" required>
+  The overall objective the synthetic user is trying to achieve.  
+  **Example**: "Book a one-way flight from San Francisco (SFO) to New York (JFK) for next Tuesday."
+</ResponseField>
+
+<ResponseField name="user_persona" type="string" required>
+  The personality and communication style of the synthetic user.  
+  **Example**: "A busy professional who is direct and values efficiency. They prefer to get things done quickly without much small talk."
+</ResponseField>
+
+<ResponseField name="initial_prompt" type="string" optional>
+  The first message the synthetic user sends to start the conversation.  
+  **Example**: "Hello, I am Ivan and I need to book a flight."
+</ResponseField>
+
+<ResponseField name="stopping_criterias" type="string" optional>
+  A delimited string of conditions that, if met, will cause the simulation to end. Use `;` or `|` as delimiters to separate multiple criteria.  
+  **Example**: `"The user has confirmed the flight booking|The chatbot indicates it cannot fulfill the request;User expresses satisfaction"`
+</ResponseField>
+
+<ResponseField name="max_iterations" type="number" optional>
+  The maximum number of conversation turns before the simulation automatically ends.  
+  **Example**: `10`
+</ResponseField>
+
+<ResponseField name="scenario" type="string" optional>
+  A brief description of the scenario for documentation purposes.  
+  **Example**: "Flight booking scenario for business travelers"`
+</ResponseField>
+
+### CSV Example
+
+```csv
+goal,user_persona,initial_prompt,stopping_criterias,max_iterations,scenario
+"Book a one-way flight from SFO to JFK for next Tuesday","A busy professional who is direct and values efficiency","I need to book a flight","The user has confirmed the flight booking|The chatbot indicates it cannot fulfill the request",10,"Flight booking scenario"
+"Cancel an existing reservation","An upset customer who is frustrated with service","I want to cancel my reservation immediately","The reservation is successfully cancelled;The customer is transferred to a supervisor",8,"Cancellation scenario"
+```
+
+## SDK Integration
+
+You can interact with the Conversation Simulator programmatically using the Galtea SDK. This allows you to integrate conversation simulation directly into your testing and evaluation pipelines.
+
+<CardGroup cols={2}>
+  <SDKConversationSimulatorServiceCard />
+  <TestCaseCard />
+</CardGroup>
