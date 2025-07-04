@@ -51,7 +51,7 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": ["concepts/metric-type/factual-accuracy", "concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
+                "pages": ["concepts/metric-type/factual-accuracy", "concepts/metric-type/misuse-resilience", "concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
               },
               {
                 "group": "Conversational",
