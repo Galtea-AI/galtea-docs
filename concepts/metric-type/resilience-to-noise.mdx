@@ -3,7 +3,13 @@ title: "Resilience To Noise"
 description: "Measures a language model's robustness to input noise such as typos, OCR/ASR errors, grammatical mistakes, and distracting content."
 ---
 
-The **Resilience To Noise** metric is one of several [RAG Metric Types](/concepts/metric-type) Galtea uses to evaluate your LLM-based chatbot’s ability to maintain response accuracy and coherence when faced with noisy or corrupted input. This includes typos, OCR/ASR errors, grammatical mistakes, and irrelevant or distracting content.
+The **Resilience To Noise** metric is one of several [RAG Metric Types](/concepts/metric-type) Galtea uses to evaluate your LLM-based chatbot’s ability to maintain response accuracy and coherence when faced with noisy or corrupted input. This includes:
+
+- Typographical errors.
+- Optically Character Recognition (OCR) errors.
+- Automatic Speech Recognition (ASR) errors.
+- Grammatical mistakes. 
+- Irrelevant or distracting content.
 
 This metric is essential for assessing how well your product performs in real-world scenarios where user input may not always be clean or well-formed.
 
@@ -15,7 +21,7 @@ To compute the `resilience_to_noise` metric, the following parameters are requir
 
 - **`input`**: The user message in the conversation, which is assumed to contain some form of noise or irrelevant information.
 - **`actual_output`**: The chatbot’s corresponding response.
-
+git pull
 This metric specifically evaluates the model’s ability to handle noisy input, so it is not meaningful to apply it to clean or noise-free data.
 
 ---
@@ -27,15 +33,11 @@ The `resilience_to_noise` score is derived using an LLM-as-a-judge approach:
 1. **Noise Robustness Analysis**: An LLM is used to analyze the chatbot’s response to noisy input.
 2. **Degradation Assessment**: The LLM determines whether the `actual_output` maintains accuracy and coherence despite the presence of noise in the `input`.
 
-The score is based on the ratio of responses that remain accurate and coherent in the presence of noise to the total number of evaluated responses:
-
-$$
-\text{Resilience To Noise} = \frac{\text{Number of robust responses}}{\text{Total number of responses}}
-$$
 
 Scores range from **0** (completely disrupted by noise) to **1** (fully robust to noise), helping you monitor and improve your model’s resilience in practical, noisy environments.
 
-<Note>This metric was inspired by best practices in robust LLM evaluation. For more information, see research on LLM robustness and noise resilience.</Note>
+<Note>This metric is inspired by best practices in the open source community and is implemented natively in the Galtea platform.</Note>
+
 
 ---
 
