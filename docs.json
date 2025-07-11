@@ -44,7 +44,7 @@
               "concepts/metric-type",
               "concepts/model",
               "concepts/conversation-simulator",
-              "concepts/product/test/scenarios-tests"
+              "concepts/product/test/scenario-tests"
             ]
           },
           {
@@ -79,7 +79,7 @@
               {
                 "group": "Scenarios",
                 "icon": "user-group",
-                "pages": ["concepts/product/test/scenarios-tests"]
+                "pages": ["concepts/product/test/scenario-tests"]
               }
             ]
           }

@@ -1,15 +1,15 @@
 ---
-title: "Scenarios Tests"
+title: "Scenario Based Tests"
 description: "Evaluate multi-turn dialogue interactions using conversation simulation with synthetic users"
 icon: "users"
 iconType: "solid"
 ---
 
-## What are Scenarios Tests?
+## What are Scenarios?
 
-Scenarios tests in Galtea are designed to evaluate the conversational capabilities of your [product](/concepts/product) through multi-turn dialogue interactions. These tests use the [Conversation Simulator](/concepts/conversation-simulator) to create realistic conversations with synthetic users that have specific goals, personalities, and behaviors.
+Scenarios in Galtea are designed to evaluate the conversational capabilities of your [product](/concepts/product) through multi-turn dialogue interactions. These tests use the [Conversation Simulator](/concepts/conversation-simulator) to create realistic conversations with synthetic users that have specific goals, personalities, and behaviors.
 
-Unlike [Quality Tests](/concepts/product/test/quality-tests) that focus on single-turn question-answer pairs, or [Red Teaming Tests](/concepts/product/test/red-teaming-tests) that test security vulnerabilities, Scenarios tests evaluate how well your AI product can:
+Unlike [Quality Tests](/concepts/product/test/quality-tests) that focus on single-turn question-answer pairs, or [Red Teaming Tests](/concepts/product/test/red-teaming-tests) that test security vulnerabilities, Scenario based tests evaluate how well your AI product can:
 
 - Maintain context across multiple conversation turns
 - Guide users toward successful task completion
@@ -17,26 +17,11 @@ Unlike [Quality Tests](/concepts/product/test/quality-tests) that focus on singl
 - Stay in character and follow conversation guidelines
 - Manage complex dialogue flows
 
-## Creating Scenarios Tests
+## Creating Scenarios
 
-You can create scenarios tests in Galtea through two methods:
+You can create scenarios in Galtea through two methods:
 
 <Tabs>
-  <Tab title="Scenario Generator">
-    <Steps>
-      <Step title="Define Your Product">
-        Start by defining your product in Galtea. This information will be used as the foundation for generating realistic scenarios.
-      </Step>
-      <Step title="Generate Scenarios (Coming Soon)">
-        Galtea will automatically analyze your product definition to create tailored conversation scenarios, complete with:
-        - Realistic user personas based on your target audience
-        - Goals aligned with your product's use cases
-        - Natural conversation flows that test key features
-        <br /><br />
-        <i>Stay tuned for this powerful new workflow!</i>
-      </Step>
-    </Steps>
-  </Tab>
   <Tab title="Upload Your Own Scenarios">
     <Steps>
       <Step title="Create your scenarios file">
@@ -53,12 +38,27 @@ You can create scenarios tests in Galtea through two methods:
       </Step>
     </Steps>
   </Tab>
+  <Tab title="Scenario Generator">
+    <Steps>
+      <Step title="Define Your Product">
+        Start by defining your product in Galtea. These detailed [product properties](/concepts/product#product-properties) will be used as the foundation for generating realistic scenarios.
+      </Step>
+      <Step title="Generate Scenarios (Coming Soon)">
+        Galtea will automatically analyze your product definition to create tailored conversation scenarios, complete with:
+        - Realistic user personas based on your target audience
+        - Goals aligned with your product's use cases
+        - Natural conversation flows that test key features
+        <br /><br />
+        <i>Stay tuned for this powerful new workflow!</i>
+      </Step>
+    </Steps>
+  </Tab>
 </Tabs>
 
 
 ## Conversation Flow Categories
 
-Scenarios tests can cover various types of conversational interactions:
+Scenarios can cover various types of conversational interactions:
 
 <AccordionGroup>
   <Accordion title="Task Completion">Scenarios where the synthetic user has a specific goal to accomplish, such as booking a service, making a purchase, or getting support for an issue.</Accordion>
@@ -69,9 +69,9 @@ Scenarios tests can cover various types of conversational interactions:
   <Accordion title="Edge Cases and Challenges">Scenarios that test how the AI handles difficult, unclear, or unexpected user behavior while maintaining conversation quality.</Accordion>
 </AccordionGroup>
 
-## Example Scenarios Tests and File Format
+## Example Scenarios and File Format
 
-Here are examples of scenarios test content and structure:
+Here are examples of scenario content and structure:
 
 <AccordionGroup>
   <Accordion title="Travel Booking Scenarios">
@@ -136,7 +136,7 @@ Here are examples of scenarios test content and structure:
 </AccordionGroup>
 
 <Note>
-  This structure is required by Galtea to automatically generate the [test cases](/concepts/product/test/case) for your scenarios [test](/concepts/product/test). If this format is not provided, you can still [manually create the test cases](/sdk/api/test-case/service#create-test-case).
+  This structure is required by Galtea to automatically generate the [test cases](/concepts/product/test/case) for your scenarios as [tests](/concepts/product/test) within the platform. If this format is not provided, you can still [manually create the test cases](/sdk/api/test-case/service#create-test-case).
 </Note>
 
 <Info>
@@ -147,9 +147,9 @@ Here are examples of scenarios test content and structure:
   The examples provided above are simplified demonstrations. In actual CSV files, scenarios can be much more detailed and the number of test cases (rows) can be significantly higher to provide comprehensive conversation testing coverage.
 </Warning>
 
-## Structure of Scenarios Tests
+## Structure of Scenarios
 
-Scenarios tests have a specific structure designed to enable realistic conversation simulation:
+Scenarios have a specific structure designed to enable realistic conversation simulation:
 
 <ResponseField name="goal" type="Text" required>
   The overall objective the synthetic user is trying to achieve during the conversation.
@@ -181,9 +181,9 @@ Scenarios tests have a specific structure designed to enable realistic conversat
   **Example**: "Flight booking scenario for business travelers"
 </ResponseField>
 
-## Using Scenarios Tests with the Conversation Simulator
+## Using Scenarios with the Conversation Simulator
 
-Scenarios tests are specifically designed to work with Galtea's [Conversation Simulator](/concepts/conversation-simulator). When you run evaluations using scenarios tests, the system will:
+Scenarios are specifically designed to work with Galtea's [Conversation Simulator](/concepts/conversation-simulator). When you run evaluations using scenarios, the system will:
 
 1. **Initialize the conversation** using the `initial_prompt` and `user_persona`
 2. **Generate realistic user responses** based on the `goal` and conversation history  
@@ -192,7 +192,7 @@ Scenarios tests are specifically designed to work with Galtea's [Conversation Si
 
 For detailed implementation examples, see the [Conversation Simulator Tutorial](/sdk/tutorials/simulating-conversations).
 
-## Best Practices for Scenarios Tests
+## Best Practices for Manually Creating Scenarios
 
 <AccordionGroup>
   <Accordion title="Goal Definition">
