@@ -1,0 +1,50 @@
+---
+title: 'Generate Next User Message'
+description: "Simulates the next user message in a conversation."
+---
+
+## Returns
+Returns a dictionary containing the next user message and simulation status.
+
+**Response Structure:**
+```python
+{
+    "next_message": str,      # The generated user message
+    "finished": bool,         # Whether the conversation simulation is complete
+    "stopping_reason": str    # Reason why the conversation ended (if finished=True)
+}
+```
+
+## Usage
+This method simulates the next user message in a conversation based on the history of interactions logged in the specified `session_id`. The session must be associated with a `test_case_id` that contains a predefined scenario (including a `goal`, `persona`, and `initial_prompt`).
+
+Galtea uses the conversation history and the scenario to generate a realistic and context-aware user response, allowing you to test your AI's conversational flow.
+
+## Example
+```python
+# Assuming a session has been created and conversation turns have been logged
+# session = galtea.sessions.create(version_id=VERSION_ID, test_case_id=TEST_CASE_ID)
+# galtea.inference_results.create(session_id=session.id, input=initial_prompt, output=first_ai_response)
+
+# Generate the next user message
+response = galtea.conversation_simulator.generate_next_user_message(session_id=session.id)
+
+print(response)
+# Expected output: {
+#     'next_message': 'One-way, please.',
+#     'finished': False,
+#     'stopping_reason': ''
+# }
+
+# Check if conversation should continue
+if not response['finished']:
+    next_user_message = response['next_message']
+    # Continue conversation...
+else:
+    print(f"Conversation ended: {response['stopping_reason']}")
+```
+
+## Parameters
+<ResponseField name="session_id" type="string" required>
+  The ID of the session for which the next user message is being generated. This session must contain the conversation history.
+</ResponseField>

@@ -1,7 +1,7 @@
 ---
 title: "Scenarios Tests"
 description: "Evaluate multi-turn dialogue interactions using conversation simulation with synthetic users"
-icon: "user-group"
+icon: "users"
 iconType: "solid"
 ---
 
@@ -22,19 +22,18 @@ Unlike [Quality Tests](/concepts/product/test/quality-tests) that focus on singl
 You can create scenarios tests in Galtea through two methods:
 
 <Tabs>
-  <Tab title="Generate from Context File">
+  <Tab title="Scenario Generator">
     <Steps>
-      <Step title="Prepare your context file">
-        Create a file containing domain knowledge or context that will help generate realistic conversation scenarios (e.g., business processes, FAQ documents, service guidelines)
+      <Step title="Define Your Product">
+        Start by defining your product in Galtea. This information will be used as the foundation for generating realistic scenarios.
       </Step>
-      <Step title="Configure the test">
-        Select *Scenarios* as the test type and *Generated* as the test origin
-        <Info>
-          The test creation process can be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
-        </Info>
-      </Step>
-      <Step title="Generate the test">
-        Galtea will process the context file and generate conversation scenarios with different goals, user personas, and interaction patterns
+      <Step title="Generate Scenarios (Coming Soon)">
+        Galtea will automatically analyze your product definition to create tailored conversation scenarios, complete with:
+        - Realistic user personas based on your target audience
+        - Goals aligned with your product's use cases
+        - Natural conversation flows that test key features
+        <br /><br />
+        <i>Stay tuned for this powerful new workflow!</i>
       </Step>
     </Steps>
   </Tab>
@@ -55,6 +54,7 @@ You can create scenarios tests in Galtea through two methods:
     </Steps>
   </Tab>
 </Tabs>
+
 
 ## Conversation Flow Categories
 
