@@ -19,7 +19,7 @@
           },
           {
             "group": "Tutorials",
-            "pages": ["sdk/tutorials/create-product-description", "sdk/tutorials/create-test", "sdk/tutorials/create-evaluation", "sdk/tutorials/monitor-production-responses-to-user-queries", "sdk/tutorials/evaluating-conversations", "sdk/tutorials/create-evaluation-with-custom-scores"]
+            "pages": ["sdk/tutorials/create-product-description", "sdk/tutorials/create-test", "sdk/tutorials/create-evaluation", "sdk/tutorials/monitor-production-responses-to-user-queries", "sdk/tutorials/evaluating-conversations", "sdk/tutorials/simulating-conversations", "sdk/tutorials/create-evaluation-with-custom-scores"]
           },
           {
             "group": "Integrations",
@@ -42,7 +42,9 @@
               "concepts/product/version/session",
               "concepts/product/version/session/inference-result",
               "concepts/metric-type",
-              "concepts/model"
+              "concepts/model",
+              "concepts/conversation-simulator",
+              "concepts/product/test/scenario-tests"
             ]
           },
           {
@@ -73,6 +75,11 @@
                 "group": "Red Teaming",
                 "icon": "shield-check",
                 "pages": ["concepts/product/test/red-teaming-tests", "concepts/product/test/red-teaming-threats", "concepts/product/test/red-teaming-strategies"]
+              },
+              {
+                "group": "Scenarios",
+                "icon": "user-group",
+                "pages": ["concepts/product/test/scenario-tests"]
               }
             ]
           }
@@ -133,6 +140,14 @@
                 "group": "Evaluation Task",
                 "icon": "clipboard-check",
                 "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create-single-turn", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
+              },
+              {
+                "group": "Conversation Simulator",
+                "icon": "user-group",
+                "pages": [
+                  "sdk/api/conversation-simulator/service",
+                  "sdk/api/conversation-simulator/simulate"
+                ]
               }
             ]
           }

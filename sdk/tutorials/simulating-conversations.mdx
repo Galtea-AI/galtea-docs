@@ -1,0 +1,133 @@
+---
+title: 'Simulating User Conversations'
+description: "Learn how to use Galtea's Conversation Simulator to test your AI with a synthetic user."
+icon: "user-group"
+---
+
+Galtea's [Conversation Simulator](/concepts/conversation-simulator) allows you to test your conversational AI products by simulating realistic user interactions. The recommended way to integrate your AI is via the **Agent interface** and the simulation agent wrapper. This guide walks you through implementing your agent, configuring scenarios, and running a complete simulation.
+
+## Agent-Based Conversation Simulation Workflow
+
+<Steps>
+  <Step title="1. Implement Your Agent">
+    Extend the abstract <code>Agent</code> class with your conversational AI logic. Your agent receives the full conversation state and must return a response for each turn.
+  </Step>
+  <Step title="2. Prepare Scenario Data">
+    Create a CSV file with scenario data. Each row is a test case describing the user goal, persona, and initial prompt.
+  </Step>
+  <Step title="3. Create a Test and Sessions">
+    Upload your scenario CSV to create a test. The platform generates a session for each scenario.
+  </Step>
+  <Step title="4. Run the Simulator with Your Agent">
+    Use <code>SimulatorService.simulate()</code> to execute the conversation between your agent and the synthetic user, for each session.
+  </Step>
+  <Step title="5. Evaluate the Results">
+    After simulation, analyze results and optionally trigger evaluations via <code>evaluation_tasks.create()</code>.
+  </Step>
+</Steps>
+
+---
+
+### Example: Agent-Based Simulation Workflow
+
+#### 1. Implement Your Agent
+
+Create a Python class that extends `galtea.Agent`. Your agent should implement the `call` method, which receives an `AgentInput` (including conversation history and context) and returns an `AgentResponse`.
+
+```python
+import galtea
+
+class MyAgent(galtea.Agent):
+    def __init__(self):
+        # Initialize your model here (e.g., load LLM or service)
+        self.model = YourModel()
+
+    def call(self, input_data: galtea.AgentInput) -> galtea.AgentResponse:
+        # Access the latest user message
+        user_message = input_data.last_user_message_str()
+
+        # Generate a response using your own logic/model
+        response = self.model.generate_response(user_message)
+
+        # Return a structured response (optionally with metadata)
+        return galtea.AgentResponse(
+            content=response,
+            metadata={"model_version": "1.0"}
+        )
+```
+
+#### 2. Prepare Your CSV File
+
+Create a CSV file (e.g., `conversation_scenarios.csv`) with your scenario data:
+
+```csv
+goal,user_persona,initial_prompt,stopping_criterias,max_iterations,scenario
+"Book a one-way flight from SFO to JFK for next Tuesday","A busy professional who is direct and values efficiency","I need to book a flight","The user has confirmed the flight booking|The chatbot indicates it cannot fulfill the request",10,"Flight booking scenario"
+"Cancel an existing reservation","An upset customer who is frustrated with service","I want to cancel my reservation immediately","The reservation is successfully cancelled;The customer is transferred to a supervisor",8,"Cancellation scenario"
+```
+
+See [Scenarios Tests](/concepts/product/test/scenario-tests) for more details.
+
+#### 3. Create a Test and Sessions
+
+```python
+galtea_client = galtea.Galtea(api_key="YOUR_API_KEY")
+test = galtea_client.tests.create(
+    version_id="your_version_id",
+    name="Conversation Simulation Test",
+    type="SCENARIOS",
+    test_file_path="conversation_scenarios.csv"
+)
+test_cases = galtea_client.test_cases.list(test_id=test.id)
+```
+
+#### 4. Run the Conversation Simulator
+
+For each test case/session, use the simulator wrapper to run the full simulation with your agent:
+
+```python
+# Create your agent instance
+agent = MyAgent()
+
+for test_case in test_cases:
+    # Create a session for this test case
+    session = galtea_client.sessions.create(
+        version_id="your_version_id",
+        test_case_id=test_case.id
+    )
+
+    # Run the simulation
+    result = galtea_client.simulator.simulate(
+        session_id=session.id,
+        agent=agent,
+        max_turns=test_case.max_iterations or 10,
+        log_inference_results=True,
+        include_metadata=True
+    )
+
+    # Review results
+    print(f"Completed {result.total_turns} turns. Finished: {result.finished}")
+    if result.stopping_reason:
+        print(f"Stopping reason: {result.stopping_reason}")
+
+    # Print conversation history
+    for i, message in enumerate(result.messages):
+        role = "User" if message.role == "user" else "Agent"
+        print(f"{i+1}. {role}: {message.content}")
+        if message.metadata:
+            print(f"   Metadata: {message.metadata}")
+```
+
+#### 5. Evaluate the Session
+
+```python
+evaluation_task = galtea_client.evaluation_tasks.create(
+    session_id=session.id,
+    metric_ids=["your_metric_id_1", "your_metric_id_2"]  # Replace with your metrics
+)
+print(f"Evaluation task created: {evaluation_task.id}")
+```
+
+---
+
+By using the agent wrapper and simulation method, you can quickly evaluate your conversational AI models in realistic, repeatable conditions, leveraging Galtea's powerful simulation and analytics tools.

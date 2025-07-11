@@ -27,7 +27,10 @@ test = galtea.tests.create(
   The name of the test.
 </ResponseField>
 <ResponseField name="type" type="string" required>
-  The type of test (e.g., [QUALITY](/concepts/product/test/quality-tests), [RED_TEAMING](/concepts/product/test/red-teaming-tests)).
+  The type of test. Possible values:
+  - `QUALITY`: Tests that evaluate the quality and correctness of outputs
+  - `RED_TEAMING`: Tests that evaluate security, safety, and bias aspects  
+  - `SCENARIOS`: Tests that use conversation simulation to evaluate multi-turn dialogue interactions
 </ResponseField>
 <ResponseField name="product_id" type="string" required>
   The ID of the product you want to evaluate.
@@ -63,4 +66,10 @@ test = galtea.tests.create(
 </ResponseField>
 <ResponseField name="test_file_path" type="string" optional>
   Path to a local CSV file containing predefined test cases. This file is uploaded to Galtea.
+  
+  **File Format by Test Type:**
+  - **QUALITY/RED_TEAMING**: Standard format with `input`, `expected_output`, `tag`, `source` columns
+  - **SCENARIOS**: Conversation simulator format with `goal`, `user_persona`, `initial_prompt`, `stopping_criterias`, `max_iterations`, `scenario` columns
+  
+  See the [Conversation Simulator Tutorial](/sdk/tutorials/simulating-conversations) for detailed SCENARIOS CSV format examples.
 </ResponseField>
