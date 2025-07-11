@@ -9,8 +9,10 @@ Returns a list of [InferenceResult](/concepts/product/version/session/inference-
 ## Example
 ```python
 conversation = [
-    {"input": "Hi", "output": "Hello!"},
-    {"input": "How are you?", "output": "I am a bot, I have no feelings."}
+    {'role': 'user', 'content': 'Hi'},
+    {'role': 'assistant', 'content': 'Hello!'},
+    {'role': 'user', 'content': 'How are you?'},
+    {'role': 'assistant', 'content': 'I am a bot, I have no feelings.'}
 ]
 inference_results = galtea.inference_results.create_batch(
     session_id="YOUR_SESSION_ID",
@@ -23,5 +25,5 @@ inference_results = galtea.inference_results.create_batch(
   The session ID to log the inference results to.
 </ResponseField>
 <ResponseField name="conversation_turns" type="list[dict]" required>
-  A list of dictionaries, where each dictionary represents a conversation turn with "input" and "output" keys.
+  A list of dictionaries, where each dictionary represents a conversation turn with "role" and "content" keys. The `role` key can only have these values: `user` or `assistant`.
 </ResponseField>
