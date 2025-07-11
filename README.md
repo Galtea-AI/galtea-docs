@@ -1,5 +1,11 @@
 # Galtea Docs
 
+## Pre-requisites
+
+To contribute to the Galtea documentation, you need to have the following installed:
+- [Node.js](https://nodejs.org/en/download/) (version 18 or later)
+  - npm is also needed but comes with Node.js if you install it from the official website so you don't have to do anything.
+
 ## Development
 
 Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
