@@ -3,22 +3,19 @@ title: 'Conversation Simulator Service'
 description: "Conversation Simulator Service API methods in the Galtea SDK"
 ---
 
-import ConversationSimulatorCard from '/snippets/cards/sdk-conversation-simulator-service-card.mdx';
-import SessionCard from '/snippets/cards/session-card.mdx';
+import ConversationSimulatorCard from '/snippets/cards/conversation-simulator-card.mdx';
 
-The Conversation Simulator Service in the Galtea SDK allows you to generate synthetic user messages to test conversational AI products.
-This Service is exposed by the `galtea.conversation_simulator` object.
+The [Conversation Simulator](/concepts/conversation-simulator) Service in the Galtea SDK allows you to generate synthetic user messages to test conversational AI products.
+This Service is exposed by the `galtea.simulator` object.
 
 <Info>
   Remember that we will be using the `galtea` object. More information [here](/sdk/api/galtea).
 </Info>
 
 ## SDK Methods
-- [Generate Next User Message](/sdk/api/conversation-simulator/generate-next-user-message)
+- [Simulate Conversation](/sdk/api/conversation-simulator/simulate)
 
 ## Related Concepts
 
-<CardGroup cols={2}>
-    <ConversationSimulatorCard />
-    <SessionCard />
-</CardGroup>
+<ConversationSimulatorCard />
+

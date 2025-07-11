@@ -43,7 +43,8 @@
               "concepts/product/version/session/inference-result",
               "concepts/metric-type",
               "concepts/model",
-              "concepts/conversation-simulator"
+              "concepts/conversation-simulator",
+              "concepts/scenarios"
             ]
           },
           {
@@ -145,7 +146,7 @@
                 "icon": "user-group",
                 "pages": [
                   "sdk/api/conversation-simulator/service",
-                  "sdk/api/conversation-simulator/generate-next-user-message"
+                  "sdk/api/conversation-simulator/simulate"
                 ]
               }
             ]
