@@ -24,7 +24,7 @@ This metric will evaluate the whole conversation, including all turns, to evalua
 
 The `role_adherence` score is computed through the following LLM-based steps:
 
-1. **Role Identification**: The system extracts the chatbot’s assigned role from the initial context or system prompt.
+1. **Role Identification**: The system extracts the chatbot's assigned role from the initial context or system prompt.
 2. **Deviation Check**: For each turn, the LLM determines whether the `actual_output` deviates from or contradicts the expected behavior of that role.
 
 The metric is computed as:

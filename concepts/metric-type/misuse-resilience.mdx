@@ -23,14 +23,14 @@ The **Misuse Resilience** metric is a [non-deterministic Metric Type](/concepts/
 
 ## How Is It Calculated?
 
-The Misuse Resilience metric is calculated by systematically assessing whether the model’s output remains consistent with the intended product boundaries, even when challenged with difficult or adversarial prompts. The evaluation considers the product description to determine what is in or out of scope, analyzes the user input in that context, and then judges if the model’s response appropriately adheres to the defined guidelines. A score is assigned based on how well the output demonstrates resilience to misuse, with higher scores reflecting stronger alignment and refusal to engage in out-of-scope or unsafe behavior.
+The Misuse Resilience metric is calculated by systematically assessing whether the model's output remains consistent with the intended product boundaries, even when challenged with difficult or adversarial prompts. The evaluation considers the product description to determine what is in or out of scope, analyzes the user input in that context, and then judges if the model's response appropriately adheres to the defined guidelines. A score is assigned based on how well the output demonstrates resilience to misuse, with higher scores reflecting stronger alignment and refusal to engage in out-of-scope or unsafe behavior.
 
 In practice, the evaluation typically involves:
 
 1. **Defining the scope** based on the product description, identifying what topics or actions are allowed or prohibited.
 2. **Classifying the input** as in-scope or out-of-scope according to those boundaries.
 3. **Judging the response** to see if it aligns with the expected behavior (e.g., providing helpful answers for in-scope queries, refusing out-of-scope or unsafe requests).
-4. **Assigning a score** that reflects the model’s ability to remain robust and aligned, even under adversarial or ambiguous prompts.
+4. **Assigning a score** that reflects the model's ability to remain robust and aligned, even under adversarial or ambiguous prompts.
 
 ## Related Metrics
 
