@@ -25,5 +25,10 @@ inference_results = galtea.inference_results.create_batch(
   The session ID to log the inference results to.
 </ResponseField>
 <ResponseField name="conversation_turns" type="list[dict]" required>
-  A list of dictionaries, where each dictionary represents a conversation turn with "role" and "content" keys. The `role` key can only have these values: `user` or `assistant`.
+  A list of dictionaries, where each dictionary represents a **conversation turn** with `role` and `content` keys as mandatory and an optional `retrieval_context` key.
+  The `role` key can only have these values: `user` or `assistant`.
+  <Note>
+    The `retrieval_context` key is optional and can be sent to our platform if you have used it when calling your AI product.
+    For this reason, it only makes sense to send it when we have a message with role `assistant`.
+  </Note>
 </ResponseField>
