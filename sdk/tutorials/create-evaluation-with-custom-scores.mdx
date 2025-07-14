@@ -68,8 +68,10 @@ session = galtea.sessions.create(version_id=VERSION_ID, is_production=True)
 
 # 2. Your conversation data and custom scoring logic
 conversation_turns = [
-    {"input": "What is the order status?", "output": "Your order #123 has shipped."},
-    {"input": "When will it arrive?", "output": "It is expected to arrive in 3-5 business days."}
+    {'role': 'user', 'content': "What is the order status?"},
+    {'role': 'assistant', 'content': "Your order #123 has shipped."},
+    {'role': 'user', 'content': "When will it arrive?"},
+    {'role': 'assistant', 'content': "It is expected to arrive in 3-5 business days."}
 ]
 
 def score_turn_relevance(turn_output):
@@ -77,27 +79,31 @@ def score_turn_relevance(turn_output):
     return 0.9 if "order" in turn_output else 0.2
 
 # 3. Log each turn and create an evaluation task with its custom score
-for turn in conversation_turns:
+# We iterate over assistant turns assuming a user-assistant-user-assistant structure
+for i in range(1, len(conversation_turns), 2):
+    user_turn = conversation_turns[i-1]
+    assistant_turn = conversation_turns[i]
+
     # Log the inference result to the session
     galtea.inference_results.create(
         session_id=session.id,
-        input=turn["input"],
-        output=turn["output"]
+        input=user_turn["content"],
+        output=assistant_turn["content"]
     )
     
     # Calculate custom score for this specific turn
-    relevance_score = score_turn_relevance(turn["output"])
+    relevance_score = score_turn_relevance(assistant_turn["content"])
     
     # Create a single-turn evaluation task for this turn
     galtea.evaluation_tasks.create_single_turn(
         version_id=VERSION_ID,
         # Link to production data via input/output
-        input=turn["input"],
-        actual_output=turn["output"],
+        input=user_turn["content"],
+        actual_output=assistant_turn["content"],
         metrics=["custom-turn-relevance"],
         scores=[relevance_score],
         is_production=True
     )
 
-print(f"Logged and evaluated {len(conversation_turns)} turns for session {session.id} with custom scores.")
+print(f"Logged and evaluated {len(conversation_turns) // 2} turns for session {session.id} with custom scores.")
 ```

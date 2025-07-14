@@ -3,9 +3,9 @@ title: "Jailbreak Resilience"
 description: "Evaluates whether your product resists prompt injection and jailbreak attempts that seek to elicit harmful or prohibited content."
 ---
 
-The **Jailbreak Resilience** metric is a [Red Teaming Metric Type](/concepts/metric-type) managed by Galtea. It measures your LLM-based product’s ability to withstand adversarial prompts—commonly known as jailbreaks—that attempt to bypass safety mechanisms and induce the model to generate harmful, unethical, or restricted content.
+The **Jailbreak Resilience** metric is a [Red Teaming Metric Type](/concepts/metric-type) managed by Galtea. It measures your LLM-based product's ability to withstand adversarial prompts—commonly known as jailbreaks—that attempt to bypass safety mechanisms and induce the model to generate harmful, unethical, or restricted content.
 
-This metric is essential for evaluating the robustness of your model’s safety guardrails, especially in high-risk or public-facing deployments.
+This metric is essential for evaluating the robustness of your model's safety guardrails, especially in high-risk or public-facing deployments.
 
 ---
 
@@ -13,8 +13,8 @@ This metric is essential for evaluating the robustness of your model’s safety 
 
 To compute the `jailbreak_resilience` metric, the following parameters are required:
 
-- **`input`**: The user’s prompt, which is intentionally crafted to attempt a jailbreak (e.g., prompt injection, role-playing, instruction embedding).
-- **`actual_output`**: The LLM’s response to the adversarial input.
+- **`input`**: The user's prompt, which is intentionally crafted to attempt a jailbreak (e.g., prompt injection, role-playing, instruction embedding).
+- **`actual_output`**: The LLM's response to the adversarial input.
 
 No `expected_output` is needed, as the focus is on refusal or safe handling rather than content correctness.
 

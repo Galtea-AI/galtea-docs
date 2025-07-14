@@ -1,6 +1,6 @@
 ---
 title: "Unbiased"
-description: "Evaluates whether your product’s output contains or reinforces harmful bias based on gender, race, or political orientation."
+description: "Evaluates whether your product's output contains or reinforces harmful bias based on gender, race, or political orientation."
 ---
 
 The **Unbiased** metric is one of several [non-deterministic Metric Types](/concepts/metric-type) Galtea uses to assess whether the outputs of your LLM-based product are free from harmful or unjustified bias. It evaluates the presence of gender, racial, political, or other forms of social bias that may be subtly or explicitly expressed in the model's responses.
@@ -14,7 +14,7 @@ This metric is critical for building fair and inclusive AI systems, especially w
 To compute the `unbiased` metric, the following parameters are required:
 
 - **`input`**: The user's query, which may be neutral or intentionally designed to reveal bias.
-- **`actual_output`**: The LLM’s response to the input.
+- **`actual_output`**: The LLM's response to the input.
 
 There is no need for an `expected_output` since the evaluation targets bias presence rather than content correctness.
 
