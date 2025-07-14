@@ -46,12 +46,16 @@ class MyAgent(galtea.Agent):
         # Access the latest user message
         user_message = input_data.last_user_message_str()
 
+        # Get the retrieval context if needed
+        retrieval_context = generate_retrieval_context(input_data.retrieval_context)
+
         # Generate a response using your own logic/model
-        response = self.model.generate_response(user_message)
+        response = self.model.generate_response(user_message, retrieval_context)
 
         # Return a structured response (optionally with metadata)
         return galtea.AgentResponse(
             content=response,
+            retrieval_context=retrieval_context,
             metadata={"model_version": "1.0"}
         )
 ```
