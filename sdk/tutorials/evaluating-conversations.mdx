@@ -55,10 +55,12 @@ print(f"Created Session: {session.id}")
 # 2. Log the conversation turns.
 # In a real scenario, you would dynamically collect these from your product's interaction.
 conversation_turns = [
+    {'role': 'user', 'content': 'Hello, what can you do?'},
+    {'role': 'assistant', 'content': 'I can help you with all your queries related to our services.', 'retrieval_context': None},
     {'role': 'user', 'content': "What's your return policy?"},
-    {'role': 'assistant', 'content': "Our return policy allows returns within 30 days."},
+    {'role': 'assistant', 'content': "Our return policy allows returns within 30 days.", 'retrieval_context': "Returns are accepted within 30 days of purchase."},
     {'role': 'user', 'content': "What if I lost the receipt?"},
-    {'role': 'assistant', 'content': "A proof of purchase is required for all returns."},
+    {'role': 'assistant', 'content': "A proof of purchase is required for all returns.", 'retrieval_context': "Proof of purchase is required for all returns."},
 ]
 
 # Use create_batch for efficiency
