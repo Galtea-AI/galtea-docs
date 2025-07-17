@@ -8,8 +8,11 @@ This method evaluates an entire conversation stored in a [Session](/concepts/pro
 ## Returns
 Returns a list of [EvaluationTask](/concepts/product/version/session/evaluation/task) objects, one for each metric and each inference result in the session.
 
+
 ## Example
 ```python
+from galtea import Galtea, EvaluationMetric
+
 # First, create a session and log inference results
 session = galtea.sessions.create(version_id="YOUR_VERSION_ID")
 galtea.inference_results.create_batch(
@@ -25,17 +28,18 @@ galtea.inference_results.create_batch(
 # Now, evaluate the entire session
 evaluation_tasks = galtea.evaluation_tasks.create(
     session_id=session.id,
-    metrics=["coherence", "conversation-relevancy"]
+    metrics=[EvaluationMetric(name="coherence"), EvaluationMetric(name="conversation-relevancy")]
 )
 ```
+
+<Warning>
+  This method does not support `CustomScoreEvaluationMetric` objects. Attempting to use a custom metric will result in a `ValueError`. For custom scoring, please use the `create_single_turn` method for each turn of the conversation.
+</Warning>
 
 ## Parameters
 <ResponseField name="session_id" type="string" required>
   The ID of the session containing the inference results to be evaluated.
 </ResponseField>
-<ResponseField name="metrics" type="list[string]" required>
-  A list of metric type names to use for the evaluation. Tasks will be created for each metric against each inference result.
-</ResponseField>
-<ResponseField name="scores" type="list[float | None]" optional>
-  A list of pre-computed scores corresponding to the `metrics` list. Use `None` for metrics that Galtea should evaluate. This is useful for providing scores from custom, deterministic metrics.
+<ResponseField name="metrics" type="List[EvaluationMetric]" required>
+  A list of standard metrics to use. It is recommended to provide `EvaluationMetric` objects. Optionally, a `model` key can specify an evaluator model (e.g., `EvaluationMetric(name="coherence", model="gpt-4")`).
 </ResponseField>

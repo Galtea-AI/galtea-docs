@@ -59,23 +59,36 @@ test = galtea.tests.create(
     More information about creating a test can be found [here](/sdk/api/test/service#create-test).
 </Info>
 
+
 ### Creating a Metric Type
 
 [Metric Types](/concepts/metric-type) help you define the criteria for evaluating the performance of your [product](/concepts/product).
 You can create custom [Metric Types](/concepts/metric-type) tailored to your specific use cases.
 
 ```python
-# Create a metric type
-metric_self_accuracy = galtea.metrics.create(
+# Create a standard metric type via API
+metric_type_from_api = galtea.metrics.create(
     name="accuracy_v1",
     criteria="Determine whether the 'actual output' is equivalent to the 'expected output'."
     evaluation_params=["input", "expected output", "actual output"],
 )
+
+# Or define a custom metric locally for deterministic checks
+from galtea import CustomScoreMetric
+
+class MyKeywordMetric(CustomScoreMetric):
+    def __init__(self):
+        super().__init__(name="keyword-check")
+    def measure(self, actual_output, **kwargs):
+        return 1.0 if "expected" in actual_output else 0.0
+
+keyword_metric = MyKeywordMetric()
 ```
 
 <Info>
     More information about creating a metric can be found [here](/sdk/api/metrics/service#create-metric).
 </Info>
+
 
 ### Launching an Evaluation
 
@@ -93,11 +106,14 @@ for test_case in test_cases:
     # Your product's actual response to the input
     actual_output = your_product_function(test_case.input, test_case.context, retrieval_context)
     
-    # Run evaluation task (evaluation created implicitly)
+    # Run evaluation task using both standard and custom metrics
     galtea.evaluation_tasks.create_single_turn(
         version_id=version.id,
         test_case_id=test_case.id,
-        metrics=[metric_self_accuracy.name],
+        metrics=[
+            {"metric": metric_type_from_api.name}, # Standard metric by name
+            {"metric": keyword_metric}             # Custom metric object
+        ],
         actual_output=actual_output,
         retrieval_context=retrieval_context, 
     )

@@ -11,24 +11,42 @@ This method is versatile and can be used for two main scenarios:
 1.  **Test-Based Evaluation**: When you provide a `test_case_id`, Galtea evaluates your product's performance against a predefined challenge.
 2.  **Production Monitoring**: When you set `is_production=True` and provide an `input`, Galtea logs and evaluates real user interactions.
 
-### Example: Test-Based Evaluation
+
+### Example: Test-Based Evaluation with Standard and Custom Metrics
 ```python
+from galtea import Galtea, CustomScoreEvaluationMetric, EvaluationMetric
+
+# Define your custom metric
+class MyAccuracy(CustomScoreEvaluationMetric):
+    def __init__(self):
+        super().__init__(name="my-accuracy")
+    def measure(self, actual_output, **kwargs):
+        return 1.0 if "paris" in actual_output.lower() else 0.0
+
+custom_score_accuracy = MyAccuracy()
+
+# Create evaluation tasks using a mix of standard and custom metrics
 evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
     version_id="YOUR_VERSION_ID",
     test_case_id="YOUR_TEST_CASE_ID",
-    metrics=["accuracy_v1", "coherence-v1"],
-    actual_output="This is the model's response to the test case."
+    actual_output="The capital of France is Paris.",
+    metrics=[
+        EvaluationMetric(name="coherence"), # Standard metric
+        custom_score_accuracy # Your custom metric object
+    ]
 )
 ```
 
 ### Example: Production Monitoring
 ```python
+from galtea import EvaluationMetric
+
 evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
     version_id="YOUR_VERSION_ID",
     is_production=True,
     input="A real user's query from production",
     actual_output="The model's live response.",
-    metrics=["relevance", "non-toxic"],
+    metrics=[EvaluationMetric(name="relevance"), EvaluationMetric(name="non-toxic")],
     retrieval_context="Context retrieved by RAG for this query."
 )
 ```
@@ -37,8 +55,10 @@ evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
 <ResponseField name="version_id" type="string" required>
   The ID of the version you want to evaluate.
 </ResponseField>
-<ResponseField name="metrics" type="list[string]" required>
-  A list of metric type names to use for the evaluation. A separate task will be created for each metric.
+<ResponseField name="metrics" type="List[EvaluationMetric | CustomScoreEvaluationMetric]" required>
+  A list of metrics to use for evaluation. You can provide:
+  - Standard metrics as `EvaluationMetric` objects.
+  - Custom, locally-scored metrics as objects inheriting from `CustomScoreEvaluationMetric`.
 </ResponseField>
 <ResponseField name="actual_output" type="string" required>
   The actual output produced by the product.
@@ -51,9 +71,6 @@ evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
 </ResponseField>
 <ResponseField name="is_production" type="boolean" optional>
   Set to `True` to indicate the task is from a production environment. Defaults to `False`.
-</ResponseField>
-<ResponseField name="scores" type="list[float | None]" optional>
-  A list of pre-computed scores corresponding to the `metrics` list. Use `None` for metrics that Galtea should evaluate.
 </ResponseField>
 <ResponseField name="retrieval_context" type="string" optional>
   The context retrieved by your RAG system that was used to generate the `actual_output`.
