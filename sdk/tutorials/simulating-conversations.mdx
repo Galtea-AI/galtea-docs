@@ -125,9 +125,11 @@ for test_case in test_cases:
 #### 5. Evaluate the Session
 
 ```python
+from galtea.application.services.evaluation_task_service import EvaluationMetric
+
 evaluation_task = galtea_client.evaluation_tasks.create(
     session_id=session.id,
-    metrics=["your_metric_id_1", "your_metric_id_2"]  # Replace with your metrics
+    metrics=[EvaluationMetric(name="Factual Accuracy"), EvaluationMetric(name="coherence")],  # Replace with your metrics
 )
 print(f"Evaluation task created: {evaluation_task.id}")
 ```
