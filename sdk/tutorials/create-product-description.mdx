@@ -69,36 +69,65 @@ Describe your product from the end-user perspective rather than technical implem
 For maximum generation effectiveness, especially for security testing, you need to provide these additional details:
 
 ### Capabilities
-List what your product is specifically designed to do well. This helps generate targeted quality tests.
+List what your product is specifically designed to do, and what kind of information has access to. This helps generate specifically targeted test cases.
 <Info>
-  <strong>Example:</strong> "Can answer questions about phone specifications, recommend devices based on user preferences, compare prices across models, and provide information about warranties and accessories."
+  <strong>Example:</strong> "Can answer questions about phone specifications, recommend devices based on user preferences, can access past user purchases, compare prices across models, and provide information about warranties and accessories."
 </Info>
 
 ### Inabilities
-List technical limitations and scope boundaries. This prevents irrelevant or misleading tests.
+List technical limitations such as information and tools that the product do not have access to, and additionally the general scope boundaries. This prevents generation of irrelevant or misleading test cases.
 <Info>
   <strong>Example:</strong> "Cannot process purchases, access customer account information, or provide technical support for device repairs."
 </Info>
 
 ### Security Boundaries
-Outline access restrictions and behavioral constraints. This is crucial for effective security testing.
+Things that the product must not do, although theoretically it has the capability to do so.
 <Info>
-  <strong>Example:</strong> "Must not access customer payment data, personal contact information, or internal inventory systems. Should refuse requests for competitor pricing strategies or confidential product roadmaps."
+  <strong>Example:</strong> "Must not expose customer payment data, personal contact information, or internal inventory systems. Should refuse requests for competitor pricing strategies or confidential product roadmaps."
 </Info>
 
 ## Complete Example with Optional Fields
 
+In addition to the simple examples given above here you have a complete example. As a rule of thumb it is better to be explicit and structured in the definitions, listing the capabilities, inabilities and security boundaries with bullet point lists.
+
 **Product Description:**
-> "A mobile sales assistant that helps customers find and compare smartphones based on their needs and budget."
+<Info>
+  Product description should be short and concise, concentrate on the value proposition of the product
+</Info>
+> "A personal finance assistant that provides investment recommendations, portfolio analysis, and financial planning guidance for individual investors based on their goals, risk tolerance, and market conditions."
 
 **Capabilities:**
-> "Can answer questions about phone specifications, recommend devices based on user preferences, compare prices across models, and provide information about warranties and accessories."
+<Info>
+  Each capability should start with **can** or simply with a **verb** that explains what the product is capable of doing.
+</Info>
+> * Analyze investment portfolios and suggest rebalancing strategies
+> * Provide market insights and explain financial concepts
+> * Calculate retirement planning scenarios and savings goals
+> * Compare investment products (stocks, bonds, ETFs, mutual funds)
+> * Generate personalized investment strategies based on user profiles
+> * Offer tax-efficient investment guidance and strategies
+
 
 **Inabilities:**
-> "Cannot process purchases, access customer account information, or provide technical support for device repairs."
+<Info>
+  Inability elements start with **cannot** or equivalent to signify what the system is not able to do. The inabilities could be functional or access related.
+</Info>
+> * Cannot execute trades or access brokerage accounts
+> * Cannot provide tax preparation services or file tax returns
+> * Cannot guarantee investment returns or provide insider trading information
+> * Cannot provide legal advice on complex financial structures
+> * Cannot access users' bank accounts or financial institutions
+> * Is not able to store or transmit banking credentials or account numbers
+> * Cannot access real-time trading platforms or execute financial transactions
+
 
 **Security Boundaries:**
-> "Must not access customer payment data, personal contact information, or internal inventory systems. Should refuse requests for competitor pricing strategies or confidential product roadmaps."
+<Info>
+  Security boundaries consist of **must not** or **should not** statements to outline the security and policy requirements of the product 
+</Info>
+> * Should refuse requests for market manipulation strategies or insider information
+> * Must not provide advice on illegal tax avoidance schemes
+> * Should decline to share proprietary trading algorithms or investment firm strategies
 
 ## Testing Your Description
 
