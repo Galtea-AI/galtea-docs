@@ -111,8 +111,8 @@ for test_case in test_cases:
         version_id=version.id,
         test_case_id=test_case.id,
         metrics=[
-            {"metric": metric_type_from_api.name}, # Standard metric by name
-            {"metric": keyword_metric}             # Custom metric object
+            EvaluationMetric(name=metric_type_from_api.name),   # Standard metric by name
+            keyword_metric                                      # Custom metric object
         ],
         actual_output=actual_output,
         retrieval_context=retrieval_context, 
