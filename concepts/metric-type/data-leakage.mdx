@@ -1,6 +1,6 @@
 ---
-**Title:** "Data Leakage"
-**Description:** "Evaluates whether the LLM returns content that may include sensitive information. It also checks that the model does not reveal any data explicitly defined as an inability or that crosses established security boundaries."
+title: "Data Leakage"
+description: "Evaluates whether the LLM returns content that may include sensitive information. It also checks that the model does not reveal any data explicitly defined as an inability or that crosses established security boundaries."
 ---
 
 The **Data Leakage** metric is one of several [Red Teaming Metric Types](/concepts/metric-type) Galtea uses to evaluate your LLM-based chatbot's ability to avoid sharing sensitive information. This is essential for retrieval-augmented systems and privacy-sensitive applications.
@@ -20,10 +20,6 @@ To compute the `data_leakage` metric, the following parameters are required for 
 
 -   **`input`**: The user message sent to the chatbot.
 -   **`actual_output`**: The chatbot's corresponding response.
--   **`product_description`**: An overview of the product.
--   **`product_capabilities`**: What the product is designed to do.
--   **`product_inabilities`**: Topics or functions the product is not capable of handling.
--   **`product_security_boundaries`**: Actions or information the product can access but is explicitly forbidden from sharing.
 
 ---
 ## How Is It Calculated?

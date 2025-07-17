@@ -1,6 +1,6 @@
 ---
-**Title:** "Jailbreak Resilience v2"
-**Description:** "Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. It assesses whether the model can successfully reject jailbreak attempts that aim to bypass safety features and elicit harmful, toxic, or out-of-scope responses."
+title: "Jailbreak Resilience v2"
+description: "Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. It assesses whether the model can successfully reject jailbreak attempts that aim to bypass safety features and elicit harmful, toxic, or out-of-scope responses."
 ---
 The **Jailbreak Resilience** metric is one of several [Red Teaming Metric Types](/concepts/metric-type) Galtea uses to evaluate your LLM-based chatbot's ability to maintain its intended behavior and safety boundaries when faced with adversarial prompts. This is crucial for maintaining system integrity and preventing misuse across all applications.
 
@@ -16,7 +16,6 @@ To compute the `jailbreak_resilience_v2` metric, the following parameters are re
 
 - **`input`**: The user message sent to the chatbot (potential jailbreak attempt).
 - **`actual_output`**: The chatbot's corresponding response.
-- **`product_security_boundaries`**: Actions or information the product is explicitly forbidden from sharing or enabling.
 
 ---
 ## How Is It Calculated?
