@@ -55,7 +55,6 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | --- | --- | --- |
 | **[Factual Accuracy](/concepts/metric-type/factual-accuracy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the expected_output. |
 | **[Resilience To Noise](/concepts/metric-type/resilience-to-noise)** | RAG | Evaluates whether the generated output is resilient to noisy input, such as typos, OCR/ASR errors, and distracting content. |
-| **[Misuse Resilience](/concepts/metric-type/misuse-resilience)** | RAG | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
 | **[Answer Relevancy](/concepts/metric-type/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
 | **[Faithfulness](/concepts/metric-type/faithfulness)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context. |
 | **[Contextual Precision](/concepts/metric-type/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
@@ -67,7 +66,9 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Knowledge Retention](/concepts/metric-type/knowledge-retention)** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
 | **[Non-Toxic](/concepts/metric-type/non-toxic)** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
 | **[Unbiased](/concepts/metric-type/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
-
+| **[Misuse Resilience](/concepts/metric-type/misuse-resilience)** | Red Teaming | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
+| **[Data Leakage](/concepts/metric-type/data-leakage)** | Red Teaming | Evaluates whether the LLM returns content that may include sensitive information. |
+| **[Jailbreak Resilience](/concepts/metric-type/jailbreak-resilience)** | Red Teaming | Assesses the ability of a Large Language Model (LLM) based product to resist attempts at breaking or manipulating its intended behavior. |
 
 ## Metric Type Properties
 
