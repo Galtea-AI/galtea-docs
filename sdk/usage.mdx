@@ -76,6 +76,13 @@ metric_type_from_api = galtea.metrics.create(
 # Or define a custom metric locally for deterministic checks
 from galtea import CustomScoreMetric
 
+# First, it needs to be created in the platform
+metric_type_from_api = galtea.metrics.create(
+    name="keyword-check",
+    description="Checks if the 'actual output' contains the keyword 'expected'.",
+)
+
+# Then, you can define your custom metric class
 class MyKeywordMetric(CustomScoreMetric):
     def __init__(self):
         super().__init__(name="keyword-check")

@@ -39,6 +39,9 @@ class ContainsKeyword(CustomScoreEvaluationMetric):
             return 0.0
         return 1.0 if self.keyword in actual_output.lower() else 0.0
 
+# If the metric does not exist yet in the platform, you can create it like this:
+galtea.metrics.create(name=accuracy_metric.name, description='checks for the presence of the keyword "correct" in the output')
+
 # 2. Instantiate your metric
 accuracy_metric = ContainsKeyword(keyword="correct")
 
