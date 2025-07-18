@@ -114,7 +114,7 @@ for test_case in test_cases:
     galtea.evaluation_tasks.create_single_turn(
         version_id=version.id,
         test_case_id=test_case.id,
-        metrics=[metric.name],
+        metrics=[name=metric.name],
         actual_output=actual_output
     )
 

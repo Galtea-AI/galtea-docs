@@ -10,6 +10,7 @@ Returns a [MetricType](/concepts/metric-type) object for the given parameters, o
 ```python
 metric = galtea.metrics.create(
     name="accuracy_v1",
+    evaluator_model_name="GPT-4.1",
     criteria="Determine whether the actual output is equivalent to the expected output.",
     evaluation_params=["input", "expected output", "actual output"],
     tags=["custom", "accuracy"],
@@ -21,6 +22,12 @@ metric = galtea.metrics.create(
 ## Parameters
 <ResponseField name="name" type="string" required>
   The name of the metric.
+</ResponseField>
+<ResponseField name="evaluator_model_name" type="string" optional>
+  The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. Eg: `"GPT-4.1"`.
+  <Note>
+    It should not be provided if the metric is "custom" (has no *criteria* nor *evaluation_steps*) since it does not require a model for evaluation.
+  </Note>
 </ResponseField>
 <ResponseField name="evaluation_params" type="list[string]" optional>
   A list of strings indicating which parameters are relevant for this metric's evaluation criteria or steps. If not provided, the metric will apply to tasks without specific parameter matching.
