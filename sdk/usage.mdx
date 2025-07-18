@@ -69,6 +69,7 @@ You can create custom [Metric Types](/concepts/metric-type) tailored to your spe
 # Create a standard metric type via API
 metric_type_from_api = galtea.metrics.create(
     name="accuracy_v1",
+    evaluator_model_name="GPT-4.1",
     criteria="Determine whether the 'actual output' is equivalent to the 'expected output'."
     evaluation_params=["input", "expected output", "actual output"],
 )

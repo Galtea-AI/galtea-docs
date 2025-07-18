@@ -85,6 +85,13 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   A URL pointing to more detailed documentation about the metric type.
 </ResponseField>
 
+<ResponseField name="Evaluator Model" type="Text" optional>
+  The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. **Example**: "GPT-4.1".
+  <Note>
+    It does not apply to deterministic metrics since it does not require a model for evaluation.
+  </Note>
+</ResponseField>
+
 <ResponseField name="Tags" type="Text List" optional>
   The tags for the metric type so it can be easily identified and categorized. **Example**: ["RAG", "Conversational"]
 </ResponseField>
