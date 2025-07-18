@@ -77,7 +77,6 @@ Create a `evaluate.py` file in your repository with the following content:
 ```python evaluate.py
 from galtea import Galtea
 from dotenv import load_dotenv
-from galtea.application.services.evaluation_task_service import EvaluationMetric
 import os
 
 load_dotenv()
@@ -98,8 +97,8 @@ test = galtea.tests.get_by_name(product_id=PRODUCT_ID, test_name=TEST_NAME)
 test_cases = galtea.test_cases.list(test.id)
 
 metrics = [
-  EvaluationMetric(name=GALTEA_ACCURACY_METRIC_NAME),
-  EvaluationMetric(name=GALTEA_COMPLETENESS_METRIC_NAME)
+  GALTEA_ACCURACY_METRIC_NAME,
+  GALTEA_COMPLETENESS_METRIC_NAME
 ]
 
 # Placeholder for where the model's answer would be generated

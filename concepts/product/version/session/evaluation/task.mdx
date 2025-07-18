@@ -61,8 +61,8 @@ To trigger an evaluation task in Galtea, you provide the following information:
   The ID of the session containing the inference results to be evaluated.
 </ResponseField>
 
-<ResponseField name="Metrics" type="list[EvaluationMetric | CustomScoreEvaluationMetric]" required>
-  A list specifying the metrics to use for the evaluation. Each element should be a `EvaluationMetric` object or a `CustomScoreEvaluationMetric` object.
+<ResponseField name="Metrics" type="list[string | CustomScoreEvaluationMetric]" required>
+  A list specifying the metrics to use for the evaluation. Each element should be a `string` or a `CustomScoreEvaluationMetric` object.
 </ResponseField>
 
 <ResponseField name="Actual Output" type="Text" required>

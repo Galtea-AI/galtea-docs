@@ -11,8 +11,6 @@ Returns a list of [EvaluationTask](/concepts/product/version/session/evaluation/
 
 ## Example
 ```python
-from galtea import Galtea, EvaluationMetric
-
 # First, create a session and log inference results
 session = galtea.sessions.create(version_id="YOUR_VERSION_ID")
 galtea.inference_results.create_batch(
@@ -28,7 +26,7 @@ galtea.inference_results.create_batch(
 # Now, evaluate the entire session
 evaluation_tasks = galtea.evaluation_tasks.create(
     session_id=session.id,
-    metrics=[EvaluationMetric(name="coherence"), EvaluationMetric(name="conversation-relevancy")]
+    metrics=["coherence", "conversation-relevancy"]
 )
 ```
 
@@ -40,6 +38,6 @@ evaluation_tasks = galtea.evaluation_tasks.create(
 <ResponseField name="session_id" type="string" required>
   The ID of the session containing the inference results to be evaluated.
 </ResponseField>
-<ResponseField name="metrics" type="List[EvaluationMetric]" required>
-  A list of standard metrics to use. It is recommended to provide `EvaluationMetric` objects. Optionally, a `model` key can specify an evaluator model (e.g., `EvaluationMetric(name="coherence", model="gpt-4")`).
+<ResponseField name="metrics" type="List[string]" required>
+  A list of standard metrics to use. It is not possible to use metrics with custom scores with this method.
 </ResponseField>

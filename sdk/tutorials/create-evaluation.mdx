@@ -30,7 +30,6 @@ This example demonstrates how to run an evaluation on all test cases from a spec
 
 ```python
 from galtea import Galtea
-from galtea.application.services.evaluation_task_service import EvaluationMetric
 import os
 
 # Initialize Galtea SDK
@@ -41,8 +40,8 @@ galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 YOUR_VERSION_ID = "your_version_id"
 YOUR_TEST_ID = "your_test_id"
 METRICS_TO_EVALUATE = [
-    EvaluationMetric(name="Factual Accuracy"),
-    EvaluationMetric(name="coherence"),
+    "Factual Accuracy",
+    "coherence",
 ]
 
 # --- Your Product's Logic (Placeholder) ---

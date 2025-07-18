@@ -16,7 +16,6 @@ The way to do this is by creating a class that inherits from `CustomScoreEvaluat
 For individual test cases or production logs, you can define your metric and pass an instance of it directly to the `create_single_turn` method.
 
 ```python
-from galtea import Galtea, CustomScoreEvaluationMetric, EvaluationMetric
 import os
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
@@ -55,8 +54,8 @@ galtea.evaluation_tasks.create_single_turn(
     test_case_id=TEST_CASE_ID,
     actual_output=actual_output,
     metrics=[
-        EvaluationMetric(name="coherence"), # A standard metric
-        accuracy_metric                     # Your custom metric object
+        "coherence",     # A standard metric
+        accuracy_metric  # Your custom metric object
     ],
 )
 

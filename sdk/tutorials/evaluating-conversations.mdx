@@ -37,7 +37,6 @@ This example demonstrates logging and evaluating a multi-turn conversation from 
 
 ```python
 from galtea import Galtea
-from galtea.application.services.evaluation_task_service import EvaluationMetric
 import os
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
@@ -45,8 +44,8 @@ galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 YOUR_VERSION_ID = "your_version_id"
 YOUR_TEST_CASE_ID = "your_test_case_id"
 CONVERSATIONAL_METRICS = [
-    EvaluationMetric(name="role-adherence"),
-    EvaluationMetric(name="knowledge-retention"),
+    "role-adherence",
+    "knowledge-retention",
 ]
 
 # 1. Create a Session linked to a test case

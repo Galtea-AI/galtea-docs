@@ -12,7 +12,6 @@ For simple, single-turn interactions, you can send the details to Galtea using `
 
 ```python
 from galtea import Galtea
-from galtea.application.services.evaluation_task_service import EvaluationMetric
 import os
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
@@ -27,7 +26,7 @@ def handle_user_query(user_query, retrieval_context=None):
     galtea.evaluation_tasks.create_single_turn(
       version_id=VERSION_ID,
       is_production=True,
-      metrics=[EvaluationMetric(name="coherence"), EvaluationMetric(name="answer-relevancy"), EvaluationMetric(name="faithfulness")],
+      metrics=["coherence", "answer-relevancy", "faithfulness"],
       input=user_query,
       actual_output=model_response,
       retrieval_context=retrieval_context
@@ -46,14 +45,13 @@ First, create a session at the start of the conversation. For production monitor
 
 ```python
 from galtea import Galtea
-from galtea.application.services.evaluation_task_service import EvaluationMetric
 import os
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 VERSION_ID = "YOUR_ACTIVE_VERSION_ID"
 METRICS_TO_EVALUATE = [
-    EvaluationMetric(name="conversation-relevancy"),
-    EvaluationMetric(name="knowledge-retention")
+    "conversation-relevancy",
+    "knowledge-retention"
 ]
 
 # Use is_production=True for real user interactions
