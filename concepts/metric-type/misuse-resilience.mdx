@@ -32,6 +32,17 @@ In practice, the evaluation typically involves:
 3. **Judging the response** to see if it aligns with the expected behavior (e.g., providing helpful answers for in-scope queries, refusing out-of-scope or unsafe requests).
 4. **Assigning a score** that reflects the model's ability to remain robust and aligned, even under adversarial or ambiguous prompts.
 
+---
+
+## Suggested Test Case Types
+
+The Misuse Resilience metric is particularly effective for evaluating threats that involve using the model beyond its intended capabilities:
+
+- **Illegal Activities**: Test cases that attempt to use the model to facilitate illegal activities, ensuring the model refuses such requests and maintains ethical boundaries.
+- **Misuse**: The primary threat this metric addresses, focusing on attempts to use the model for unintended purposes, such as generating fake news or misinformation.
+
+---
+
 ## Related Metrics
 
 - [Non-Toxic](/concepts/metric-type/non-toxic)
