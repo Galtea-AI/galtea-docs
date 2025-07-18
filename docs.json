@@ -51,8 +51,7 @@
               "concepts/product/version/session/inference-result",
               "concepts/metric-type",
               "concepts/model",
-              "concepts/conversation-simulator",
-              "concepts/product/test/scenario-tests"
+              "concepts/conversation-simulator"
             ]
           },
           {
