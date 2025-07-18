@@ -45,13 +45,13 @@
               "concepts/product/version",
               "concepts/product/test",
               "concepts/product/test/case",
+              "concepts/product/test/case/conversation-simulator",
               "concepts/product/version/session/evaluation",
               "concepts/product/version/session/evaluation/task",
               "concepts/product/version/session",
               "concepts/product/version/session/inference-result",
               "concepts/metric-type",
-              "concepts/model",
-              "concepts/conversation-simulator"
+              "concepts/model"
             ]
           },
           {
