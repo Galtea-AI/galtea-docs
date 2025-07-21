@@ -19,7 +19,15 @@
           },
           {
             "group": "Tutorials",
-            "pages": ["sdk/tutorials/create-product-description", "sdk/tutorials/create-test", "sdk/tutorials/create-evaluation", "sdk/tutorials/monitor-production-responses-to-user-queries", "sdk/tutorials/evaluating-conversations", "sdk/tutorials/simulating-conversations", "sdk/tutorials/create-evaluation-with-custom-scores"]
+            "pages": [
+              "sdk/tutorials/create-product-description",
+              "sdk/tutorials/create-test",
+              "sdk/tutorials/create-evaluation",
+              "sdk/tutorials/monitor-production-responses-to-user-queries",
+              "sdk/tutorials/evaluating-conversations",
+              "sdk/tutorials/simulating-conversations",
+              "sdk/tutorials/create-evaluation-with-custom-scores"
+            ]
           },
           {
             "group": "Integrations",
@@ -37,14 +45,13 @@
               "concepts/product/version",
               "concepts/product/test",
               "concepts/product/test/case",
+              "concepts/product/test/case/conversation-simulator",
               "concepts/product/version/session/evaluation",
               "concepts/product/version/session/evaluation/task",
               "concepts/product/version/session",
               "concepts/product/version/session/inference-result",
               "concepts/metric-type",
-              "concepts/model",
-              "concepts/conversation-simulator",
-              "concepts/product/test/scenario-tests"
+              "concepts/model"
             ]
           },
           {
@@ -53,7 +60,15 @@
               {
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
-                "pages": ["concepts/metric-type/factual-accuracy", "concepts/metric-type/resilience-to-noise", "concepts/metric-type/answer-relevancy", "concepts/metric-type/faithfulness", "concepts/metric-type/contextual-precision", "concepts/metric-type/contextual-recall", "concepts/metric-type/contextual-relevancy"]
+                "pages": [
+                  "concepts/metric-type/factual-accuracy",
+                  "concepts/metric-type/resilience-to-noise",
+                  "concepts/metric-type/answer-relevancy",
+                  "concepts/metric-type/faithfulness",
+                  "concepts/metric-type/contextual-precision",
+                  "concepts/metric-type/contextual-recall",
+                  "concepts/metric-type/contextual-relevancy"
+                ]
               },
               {
                 "group": "Conversational",
@@ -63,7 +78,7 @@
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/metric-type/misuse-resilience", "concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience", "concepts/metric-type/jailbreak-resilience-v2", "concepts/metric-type/data-leakage"]
+                "pages": ["concepts/metric-type/misuse-resilience", "concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience", "concepts/metric-type/data-leakage"]
               }
             ]
           },
@@ -142,12 +157,9 @@
                 "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create-single-turn", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
               },
               {
-                "group": "Conversation Simulator",
+                "group": "Simulator",
                 "icon": "user-group",
-                "pages": [
-                  "sdk/api/conversation-simulator/service",
-                  "sdk/api/conversation-simulator/simulate"
-                ]
+                "pages": ["sdk/api/simulator/service", "sdk/api/simulator/simulate"]
               }
             ]
           }

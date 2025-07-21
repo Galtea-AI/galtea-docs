@@ -22,6 +22,25 @@ Unlike [Quality Tests](/concepts/product/test/quality-tests) that focus on singl
 You can create scenarios in Galtea through two methods:
 
 <Tabs>
+  <Tab title="Scenario Generator">
+    <Steps>
+      <Step title="Define Your Product">
+        Start by defining your product in Galtea. These detailed [product properties](/concepts/product#product-properties) will be used as the foundation for generating realistic scenarios.
+      </Step>
+      <Step title="Configure the test">
+        Select *User Scenarios* as the test type and *Generated* as the test origin
+        <Info>
+          The test creation process can be done via the [SDK](/sdk/api/test/service#create-test) or the [Galtea dashboard](https://platform.galtea.ai/)
+        </Info>
+      </Step>
+      <Step title="Generate Scenarios">
+        Galtea will automatically analyze your product definition to create tailored conversation scenarios, complete with:
+        - Realistic user personas based on your target audience
+        - Goals aligned with your product's use cases
+        - Natural conversation flows that test key features
+      </Step>
+    </Steps>
+  </Tab>
   <Tab title="Upload Your Own Scenarios">
     <Steps>
       <Step title="Create your scenarios file">
@@ -38,22 +57,8 @@ You can create scenarios in Galtea through two methods:
       </Step>
     </Steps>
   </Tab>
-  <Tab title="Scenario Generator">
-    <Steps>
-      <Step title="Define Your Product">
-        Start by defining your product in Galtea. These detailed [product properties](/concepts/product#product-properties) will be used as the foundation for generating realistic scenarios.
-      </Step>
-      <Step title="Generate Scenarios (Coming Soon)">
-        Galtea will automatically analyze your product definition to create tailored conversation scenarios, complete with:
-        - Realistic user personas based on your target audience
-        - Goals aligned with your product's use cases
-        - Natural conversation flows that test key features
-        <br /><br />
-        <i>Stay tuned for this powerful new workflow!</i>
-      </Step>
-    </Steps>
-  </Tab>
 </Tabs>
+
 
 
 ## Conversation Flow Categories
