@@ -23,7 +23,8 @@ You can **create**, view and manage your metric types on the [Galtea dashboard](
 
 At Galtea, we use two types of metrics to evaluate large language model (LLM) outputs: **deterministic** and **non-deterministic**.
 
-- **Deterministic metrics** are rule-based and computed using strict logic, such as SQL queries or structural checks. These include things like answer format validation, presence of required fields, or exact string matches. Their results are consistent and reproducible. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
+
+- **Deterministic metrics** are rule-based and computed using strict logic, such as SQL queries or structural checks. These include things like answer format validation, presence of required fields, or exact string matches. Their results are consistent and reproducible. To use them, you can implement a class that inherits from the `CustomScoreMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
   Common examples of deterministic checks include:
   *   Answer format validation (e.g., ensuring the output is a valid JSON or follows a specific template)
@@ -33,7 +34,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   *   Boolean condition checks (e.g., ensuring a specific condition evaluates to true or false as expected)
 
   <Info>
-    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. Therefore, you are responsible for uploading the evaluation results to visualize charts and data based on these metrics.
+    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
   </Info>
 
 - **Non-deterministic metrics** are powered by the **G-Eval** evaluation framework, an LLM-as-a-judge methodology, originally introduced in the paper [“NLG Evaluation using GPT-4 with Better Human Alignment”](https://arxiv.org/abs/2303.16634). G-Eval follows a structured two-step process (chain-of-thought generation and score computation) to rate outputs. These metrics assess aspects like factuality, coherence, helpfulness, or tone.
@@ -55,7 +56,6 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | --- | --- | --- |
 | **[Factual Accuracy](/concepts/metric-type/factual-accuracy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the expected_output. |
 | **[Resilience To Noise](/concepts/metric-type/resilience-to-noise)** | RAG | Evaluates whether the generated output is resilient to noisy input, such as typos, OCR/ASR errors, and distracting content. |
-| **[Misuse Resilience](/concepts/metric-type/misuse-resilience)** | RAG | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
 | **[Answer Relevancy](/concepts/metric-type/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
 | **[Faithfulness](/concepts/metric-type/faithfulness)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context. |
 | **[Contextual Precision](/concepts/metric-type/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
@@ -67,7 +67,8 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Knowledge Retention](/concepts/metric-type/knowledge-retention)** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
 | **[Non-Toxic](/concepts/metric-type/non-toxic)** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
 | **[Unbiased](/concepts/metric-type/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
-
+| **[Misuse Resilience](/concepts/metric-type/misuse-resilience)** | Red Teaming | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
+| **[Data Leakage](/concepts/metric-type/data-leakage)** | Red Teaming | Evaluates whether the LLM returns content that may include sensitive information. |
 
 ## Metric Type Properties
 
@@ -81,6 +82,13 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
 <ResponseField name="Documentation URL" type="URL" optional>
   A URL pointing to more detailed documentation about the metric type.
+</ResponseField>
+
+<ResponseField name="Evaluator Model" type="Text" optional>
+  The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. **Example**: "GPT-4.1".
+  <Note>
+    It does not apply to deterministic metrics since it does not require a model for evaluation.
+  </Note>
 </ResponseField>
 
 <ResponseField name="Tags" type="Text List" optional>
@@ -118,7 +126,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
 <ResponseField name="Evaluation Parameters" type="List[Enum]" required>
   <Info>
-    This is not required if the validation method is set to "None".
+    This must not be provided if the validation method is set to "Custom".
   </Info>
   A list of relevant parameters for this metric's evaluation criteria or steps. These parameters should be explicitly mentioned in your evaluation criteria or steps to ensure they're taken into account during assessment.
   <table>

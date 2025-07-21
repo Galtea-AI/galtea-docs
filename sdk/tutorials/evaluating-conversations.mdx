@@ -43,7 +43,10 @@ galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
 YOUR_VERSION_ID = "your_version_id"
 YOUR_TEST_CASE_ID = "your_test_case_id"
-CONVERSATIONAL_METRICS = ["role-adherence", "knowledge-retention"]
+CONVERSATIONAL_METRICS = [
+    "role-adherence",
+    "knowledge-retention",
+]
 
 # 1. Create a Session linked to a test case
 session = galtea.sessions.create(

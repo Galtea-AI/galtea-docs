@@ -1,21 +1,23 @@
 ---
-title: 'Evaluate with Custom Scores'
-description: "Learn how to run evaluations with your own pre-calculated scores."
+title: 'Evaluate with Metrics with Custom Scores'
+description: "Learn how to run evaluations with your own custom, deterministic metrics."
 icon: "vial-circle-check"
 iconType: "solid"
 ---
 
-Galtea allows you to provide your own pre-calculated scores for evaluation tasks. This is particularly useful for:
+Galtea allows you to define and use your own custom metrics for evaluation tasks. This is particularly useful for:
 -   **Deterministic Metrics**: When you have custom, rule-based logic to score outputs (e.g., checking for specific keywords, validating JSON structure).
 -   **Integrating External Models**: When you use your own models for evaluation and want to store their scores in Galtea.
 
-### Single-Turn Evaluation with Custom Scores
+The way to do this is by creating a class that inherits from `CustomScoreEvaluationMetric`.
 
-For individual test cases or production logs, you can provide scores directly to the `create_single_turn` method.
+### Single-Turn Evaluation with Custom Metrics
+
+For individual test cases or production logs, you can define your metric and pass an instance of it directly to the `create_single_turn` method.
 
 ```python
-from galtea import Galtea
 import os
+from galtea import CustomScoreEvaluationMetric
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
@@ -23,87 +25,43 @@ galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 VERSION_ID = "your_version_id"
 TEST_CASE_ID = "your_test_case_id"
 
-# --- Your Custom Scoring Logic (Placeholders) ---
-def get_score_accuracy(output):
-    return 1.0 if "correct keyword" in output else 0.0
+# 1. Define your custom metric class
+class ContainsKeyword(CustomScoreEvaluationMetric):
+    def __init__(self, keyword: str):
+        self.keyword = keyword.lower()
+        super().__init__(
+            name=f"contains-{self.keyword}"
+        )
+        
+    def measure(self, *args, actual_output: str | None = None, **kwargs) -> float:
+        """
+        Returns 1.0 if the keyword is in actual_output (case-insensitive), 0.0 otherwise.
+        All other args/kwargs are accepted but ignored.
+        """
+        if actual_output is None:
+            return 0.0
+        return 1.0 if self.keyword in actual_output.lower() else 0.0
 
-def get_score_relevance(output):
-    return 0.8 # Placeholder for a more complex relevance score
+# 2. Instantiate your metric
+accuracy_metric = ContainsKeyword(keyword="correct")
+
+# If the metric does not exist yet in the platform, you can create it like this:
+galtea.metrics.create(name=accuracy_metric.name, description='checks for the presence of the keyword "correct" in the output')
 
 # Your product's response
 actual_output = "This response contains the correct keyword."
 
-# Run evaluation task with your custom scores
-# The scores in the list correspond to the metrics in the `metrics` list
+# 3. Run evaluation task with your custom metric
+# You can mix it with standard metrics as well.
 galtea.evaluation_tasks.create_single_turn(
     version_id=VERSION_ID,
     test_case_id=TEST_CASE_ID,
     actual_output=actual_output,
-    metrics=["custom-accuracy", "custom-relevance"],
-    scores=[get_score_accuracy(actual_output), get_score_relevance(actual_output)],
+    metrics=[
+        "coherence",     # A standard metric
+        accuracy_metric  # Your custom metric object
+    ],
 )
 
-print("Evaluation task with custom scores submitted.")
-```
-
-### Multi-Turn Conversation with Custom Scores
-
-When evaluating a multi-turn conversation, you can provide per-turn custom scores by looping through the conversation and creating a single-turn task for each interaction.
-
-<Note>
-This approach is recommended for multi-turn custom scoring as it provides turn-level granularity. While `evaluation_tasks.create(session_id=...)` accepts a `scores` parameter, it applies the same score list to *every turn*, which is usually not desired.
-</Note>
-
-```python
-from galtea import Galtea
-import os
-
-galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
-
-# --- Configuration ---
-VERSION_ID = "your_version_id"
-
-# 1. Create a session to contain the conversation
-session = galtea.sessions.create(version_id=VERSION_ID, is_production=True)
-
-# 2. Your conversation data and custom scoring logic
-conversation_turns = [
-    {'role': 'user', 'content': "What is the order status?"},
-    {'role': 'assistant', 'content': "Your order #123 has shipped."},
-    {'role': 'user', 'content': "When will it arrive?"},
-    {'role': 'assistant', 'content': "It is expected to arrive in 3-5 business days."}
-]
-
-def score_turn_relevance(turn_output):
-    # Your relevance logic here
-    return 0.9 if "order" in turn_output else 0.2
-
-# 3. Log each turn and create an evaluation task with its custom score
-# We iterate over assistant turns assuming a user-assistant-user-assistant structure
-for i in range(1, len(conversation_turns), 2):
-    user_turn = conversation_turns[i-1]
-    assistant_turn = conversation_turns[i]
-
-    # Log the inference result to the session
-    galtea.inference_results.create(
-        session_id=session.id,
-        input=user_turn["content"],
-        output=assistant_turn["content"]
-    )
-    
-    # Calculate custom score for this specific turn
-    relevance_score = score_turn_relevance(assistant_turn["content"])
-    
-    # Create a single-turn evaluation task for this turn
-    galtea.evaluation_tasks.create_single_turn(
-        version_id=VERSION_ID,
-        # Link to production data via input/output
-        input=user_turn["content"],
-        actual_output=assistant_turn["content"],
-        metrics=["custom-turn-relevance"],
-        scores=[relevance_score],
-        is_production=True
-    )
-
-print(f"Logged and evaluated {len(conversation_turns) // 2} turns for session {session.id} with custom scores.")
+print("Evaluation task with custom metric submitted.")
 ```
