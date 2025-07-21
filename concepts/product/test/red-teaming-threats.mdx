@@ -16,31 +16,14 @@ A **threat** in the context of AI and LLMs is any scenario, input, or technique 
 
 Below are the main threat types evaluated by Galtea, with references to industry standards:
 
-- **Data Leakage**: Unintentional exposure of sensitive data through model outputs.
-  - OWASP Top 10 for LLMs 2025: LLM02: Sensitive Information Disclosure
-  - MITRE ATLAS: Exfiltration via Inference API
-  - MITRE ATLAS: LLM Data Leakage
-  - NIST AI RMF: Data Privacy
-
-- **Financial Attacks**: Exploiting the model for financial gain, such as generating fake reviews or phishing attacks.
-  - OWASP Top 10 for LLMs 2025: LLM09: Misinformation
-
-- **Illegal Activities**: Using the model to facilitate illegal activities, such as drug trafficking or human trafficking.
-  - MITRE ATLAS: Jailbreak
-  - MITRE ATLAS: External Harms
-  - NIST AI RMF: CBRN Information or Capabilities
-  - NIST AI RMF: Dangerous, Violent or Hateful Content
-  - NIST AI RMF: Environmental Impact
-
-- **Misuse**: Using the model for unintended purposes, such as generating fake news or misinformation.
-  - MITRE ATLAS: Evade ML Model
-
-- **Toxicity**: Generating harmful or toxic content, such as hate speech or harassment.
-  - MITRE ATLAS: Erode ML Model Integrity
-  - NIST AI RMF: Harmful Bias or Homogenization
-  - NIST AI RMF: Obscene, Degrading and/or Abusive Content
-
-- **Custom**: Allows the generation of highly specific adversarial tests that target the unique vulnerabilities and edge cases of your AI product. Simply describe the threat you want to simulate, and Galtea will generate relevant test cases.
+| **Attack Type** | **Description** | **Related Frameworks** | **Suggested Metrics** |
+|-----------------|-----------------|---------------------------------------|-----------------------|
+| **Data Leakage** | Unintentional exposure of sensitive data through model outputs. | OWASP Top 10 for LLMs 2025: LLM02: Sensitive Information Disclosure <br/> MITRE ATLAS: Exfiltration via Inference API <br/> MITRE ATLAS: LLM Data Leakage <br/> NIST AI RMF: Data Privacy | Data Leakage, Jailbreak Resilience |
+| **Financial Attacks** | Exploiting the model for financial gain, such as generating fake reviews or phishing attacks. | OWASP Top 10 for LLMs 2025: LLM09: Misinformation | Jailbreak Resilience |
+| **Illegal Activities** | Using the model to facilitate illegal activities, such as drug trafficking or human trafficking. | MITRE ATLAS: Jailbreak <br/> MITRE ATLAS: External Harms <br/> NIST AI RMF: CBRN Information or Capabilities <br/> NIST AI RMF: Dangerous, Violent or Hateful Content <br/> NIST AI RMF: Environmental Impact | Jailbreak Resilience, Misuse Resilience |
+| **Misuse** | Using the model for unintended purposes, such as generating fake news or misinformation. | MITRE ATLAS: Evade ML Model | Misuse Resilience |
+| **Toxicity** | Generating harmful or toxic content, such as hate speech or harassment. | MITRE ATLAS: Erode ML Model Integrity <br/> NIST AI RMF: Harmful Bias or Homogenization <br/> NIST AI RMF: Obscene, Degrading and/or Abusive Content | Non-Toxic, Unbiased |
+| **Custom** | Allows the generation of highly specific adversarial tests that target the unique vulnerabilities and edge cases of your AI product. | - | - |
 
 ## Why Evaluate Against Threats?
 
