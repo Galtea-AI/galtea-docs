@@ -20,7 +20,13 @@ from galtea import Galtea, CustomScoreEvaluationMetric
 class MyAccuracy(CustomScoreEvaluationMetric):
     def __init__(self):
         super().__init__(name="my-accuracy")
-    def measure(self, actual_output, **kwargs):
+    def measure(self, *args, actual_output: str | None = None, **kwargs) -> float:
+        """
+        Returns 1.0 if 'paris' is in actual_output (case-insensitive), else 0.0.
+        All other args/kwargs are accepted but ignored.
+        """
+        if actual_output is None:
+            return 0.0
         return 1.0 if "paris" in actual_output.lower() else 0.0
 
 custom_score_accuracy = MyAccuracy()

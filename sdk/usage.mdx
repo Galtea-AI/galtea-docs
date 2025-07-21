@@ -87,7 +87,13 @@ metric_type_from_api = galtea.metrics.create(
 class MyKeywordMetric(CustomScoreMetric):
     def __init__(self):
         super().__init__(name="keyword-check")
-    def measure(self, actual_output, **kwargs):
+    def measure(self, *args, actual_output: str | None = None, **kwargs) -> float:
+        """
+        Returns 1.0 if 'expected' is in actual_output, else 0.0.
+        All other args/kwargs are accepted but ignored.
+        """
+        if actual_output is None:
+            return 0.0
         return 1.0 if "expected" in actual_output else 0.0
 
 keyword_metric = MyKeywordMetric()

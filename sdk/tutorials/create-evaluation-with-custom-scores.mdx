@@ -32,17 +32,20 @@ class ContainsKeyword(CustomScoreEvaluationMetric):
             name=f"contains-{self.keyword}"
         )
         
-    def measure(self, actual_output: str, **kwargs) -> float:
-        """Returns 1.0 if the keyword is in the output, 0.0 otherwise."""
+    def measure(self, *args, actual_output: str | None = None, **kwargs) -> float:
+        """
+        Returns 1.0 if the keyword is in actual_output (case-insensitive), 0.0 otherwise.
+        All other args/kwargs are accepted but ignored.
+        """
         if actual_output is None:
             return 0.0
         return 1.0 if self.keyword in actual_output.lower() else 0.0
 
-# If the metric does not exist yet in the platform, you can create it like this:
-galtea.metrics.create(name=accuracy_metric.name, description='checks for the presence of the keyword "correct" in the output')
-
 # 2. Instantiate your metric
 accuracy_metric = ContainsKeyword(keyword="correct")
+
+# If the metric does not exist yet in the platform, you can create it like this:
+galtea.metrics.create(name=accuracy_metric.name, description='checks for the presence of the keyword "correct" in the output')
 
 # Your product's response
 actual_output = "This response contains the correct keyword."
