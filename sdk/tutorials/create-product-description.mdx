@@ -5,7 +5,7 @@ icon: "bullseye"
 iconType: "solid"
 ---
 
-A **product description** is the foundation of your AI evaluation strategy in Galtea. It defines what your AI system is designed to do, enabling our platform to generate relevant test cases, create meaningful evaluations, and provide insights that matter to your specific use case.
+**Product context** forms the cornerstone of your AI evaluation strategy in Galtea. It clearly defines what your AI system is intended to accomplish, allowing the platform to generate relevant test cases, deliver meaningful evaluations, and provide actionable insights tailored to your use case. Galtea organizes product context into four key categories: **product description, capabilities, inabilities**, and **security boundaries**. Below, we explain how to effectively provide each category for optimal evaluation results.
 
 ## What Is a Product Description?
 
@@ -65,15 +65,16 @@ Describe your product from the end-user perspective rather than technical implem
 - **Too Technical**: "A transformer model fine-tuned on domain data" → **Better**: "A legal research assistant that finds relevant case law and statutes"
 - **Feature Lists**: Avoid listing capabilities like "can answer questions, summarize text, and translate" → **Better**: Focus on the primary use case and user outcome
 
-## Product Context: Extended Product Descriptions
-For maximum generation effectiveness, especially for security testing, you need to provide additional details for **capabilities, inabilities and security boundaries**. As a rule of thumb it is better to be explicit and structured in these extended definitions, listing each enhanced definition with bullet point lists.
+## Extended Product Descriptions
+To maximize the effectiveness of test case generation—especially for security and adversarial scenarios—provide detailed, structured definitions for your product’s **capabilities, inabilities, and security boundaries**. Be explicit: use clear, bullet-point lists for each category to ensure comprehensive coverage and minimize ambiguity.
 
-In the following section we provide the definitions for each and enumerate specific examples based on the following product description:
+Below, we outline each category and illustrate them with specific examples, using the following product description as a reference:
+
 
 **Example Product Description:**
 >"A personal finance assistant that provides investment recommendations, portfolio analysis, and financial planning guidance for individual investors based on their goals, risk tolerance, and market conditions."
 
-Here are the extra product context categories: 
+Here are the extra product context categories:
 
 ### Capabilities
 List what your product is specifically designed to do, and what kind of information has access to. This helps generate specifically targeted test cases.
@@ -91,7 +92,7 @@ List what your product is specifically designed to do, and what kind of informat
 
 
 ### Inabilities
-List technical limitations such as information and tools that the product do not have access to, and additionally the general scope boundaries. This prevents generation of irrelevant or misleading test cases.
+Clearly list technical limitations, including information and tools the product cannot access, as well as general scope boundaries. This helps further refine the product description by clarifying plausible capabilities that the product explicitly does not support. Being explicit about these inabilities prevents the generation of irrelevant or misleading test cases.
 <Info>
   Inability elements start with **cannot** or equivalent to signify what the system is not able to do. The inabilities could be functional or access related.
 </Info>
