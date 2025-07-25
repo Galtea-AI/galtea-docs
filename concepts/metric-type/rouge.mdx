@@ -26,10 +26,9 @@ This implementation uses **ROUGE-L**, which focuses on the **Longest Common Subs
 
 3. **F1 Score**  
    Combines precision and recall:  
-   ```
-   F1 = (1 + β²) × P × R / (R + β² × P)
-   ```
-   with β = 1 for equal weighting.
+   $$
+   F1 = 2 \cdot \frac{P \times R}{R+P} 
+   $$
 
 
 ROUGE-L returns a score between **0 and 1**:

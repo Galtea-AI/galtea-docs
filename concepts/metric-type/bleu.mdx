@@ -25,20 +25,23 @@ Conceptually, BLEU is computed as:
 
 3. **Brevity Penalty (BP)**  
    Penalize overly short candidates:
-   \[
-   \text{BP} =
+
+   $$
+   BP =
      \begin{cases}
        1 & \text{if } c > r \\
-       e^{(1 - r/c)} & \text{if } c \le r
+       e^{(1 - \frac{r}{c})} & \text{if } c \le r
      \end{cases}
-   \]
-   where \(c\) is candidate length and \(r\) is reference length.
+   $$
 
-4. **Final Score**  
-   \[
-   \text{BLEU} = \text{BP} \times \exp\left(\sum_{n=1}^{4} w_n \log p_n\right)
-   \]
-   where \(p_n\) are the modified n‑gram precisions and \(w_n\) are their weights (often uniform, \(w_n = \frac{1}{4}\)).
+   where $c$ is candidate length and $r$ is reference length.
+
+4. **Final Score**
+   $$
+   BLEU = BP \cdot \exp\left(\sum_{n=1}^{4} w_n \log p_n \right)
+   $$
+
+   where $p_n$ are the modified n‑gram precisions and $w_n$ are their weights (uniform, $w_n = \frac{1}{4}$ \).
 
 
 BLEU returns a value between **0 and 1** in this implementation.
