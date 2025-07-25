@@ -24,7 +24,16 @@ metric = galtea.metrics.create(
   The name of the metric.
 </ResponseField>
 <ResponseField name="evaluator_model_name" type="string" optional>
-  The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. Eg: `"GPT-4.1"`.
+  The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. 
+  
+  **Available models:**
+  - `"GPT-4o"`
+  - `"GPT-4.1"`
+  - `"O3-mini"`
+  - `"Gemini-2.0-flash"`
+  - `"Gemini-2.5-Flash"`
+  - `"Gemini-2.5-Flash-Lite"`
+  
   <Note>
     It should not be provided if the metric is "custom" (has no *criteria* nor *evaluation_steps*) since it does not require a model for evaluation.
   </Note>
