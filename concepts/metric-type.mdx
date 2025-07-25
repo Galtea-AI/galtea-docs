@@ -61,6 +61,9 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Contextual Precision](/concepts/metric-type/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
 | **[Contextual Recall](/concepts/metric-type/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
 | **[Contextual Relevancy](/concepts/metric-type/contextual-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
+| **[BLEU](/concepts/metric-type/bleu)** | RAG | Measures how many n-grams in the actual output overlap with those in a set of expected output. |
+| **[ROUGE](/concepts/metric-type/rouge)** | RAG | Evaluates automatic summarization by measuring the longest common subsequence that preserves the word order between actual output and expected output summaries. |
+| **[METEOR](/concepts/metric-type/meteor)** | RAG | Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms. |
 | **[Role Adherence](/concepts/metric-type/role-adherence)** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
 | **[Conversation Completeness](/concepts/metric-type/conversation-completeness)** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
 | **[Conversation Relevancy](/concepts/metric-type/conversation-relevancy)** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
@@ -69,6 +72,8 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Unbiased](/concepts/metric-type/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
 | **[Misuse Resilience](/concepts/metric-type/misuse-resilience)** | Red Teaming | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
 | **[Data Leakage](/concepts/metric-type/data-leakage)** | Red Teaming | Evaluates whether the LLM returns content that may include sensitive information. |
+| **[Jailbreak Resilience v2](/concepts/metric-type/jailbreak-resilience-v2)** | Red Teaming | Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. |
+
 
 ## Metric Type Properties
 
