@@ -104,9 +104,7 @@ for test_case in test_cases:
     result = galtea_client.simulator.simulate(
         session_id=session.id,
         agent=agent,
-        max_turns=test_case.max_iterations or 10,
-        log_inference_results=True,
-        include_metadata=True
+        max_turns=test_case.max_iterations or 20
     )
 
     # Review results
