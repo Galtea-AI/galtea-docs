@@ -14,8 +14,7 @@ metric = galtea.metrics.create(
     criteria="Determine whether the actual output is equivalent to the expected output.",
     evaluation_params=["input", "expected output", "actual output"],
     tags=["custom", "accuracy"],
-    description="A custom accuracy metric.",
-    documentation_url="https://docs.example.com/accuracy_v1"
+    description="A custom accuracy metric."
 )
 ```
 
@@ -27,9 +26,10 @@ metric = galtea.metrics.create(
   The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. 
   
   **Available models:**
+  - `"GPT-35-turbo"`
   - `"GPT-4o"`
+  - `"GPT-4o-mini"`
   - `"GPT-4.1"`
-  - `"O3-mini"`
   - `"Gemini-2.0-flash"`
   - `"Gemini-2.5-Flash"`
   - `"Gemini-2.5-Flash-Lite"`
