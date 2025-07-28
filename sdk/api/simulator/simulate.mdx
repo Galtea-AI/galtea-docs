@@ -25,6 +25,7 @@ result = galtea.simulator.simulate(
     agent=MyAgent(),
     max_turns=5,
     log_inference_results=True,
+    enable_last_inference=True,
     include_metadata=True
 )
 
@@ -49,6 +50,11 @@ for message in result.messages:
 
 <ResponseField name="log_inference_results" type="bool">
   Whether to log inference results to the platform. Default: True
+</ResponseField>
+
+<ResponseField name="enable_last_inference" type="bool">
+  Whether to call your agent one final time after the simulated user sends their last message. Default: True.
+  When enabled, your agent will have the opportunity to respond to the conversation's final user message, ensuring complete dialogue coverage for evaluation purposes.
 </ResponseField>
 
 <ResponseField name="include_metadata" type="bool">

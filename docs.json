@@ -67,7 +67,10 @@
                   "concepts/metric-type/faithfulness",
                   "concepts/metric-type/contextual-precision",
                   "concepts/metric-type/contextual-recall",
-                  "concepts/metric-type/contextual-relevancy"
+                  "concepts/metric-type/contextual-relevancy",
+                  "concepts/metric-type/bleu",
+                  "concepts/metric-type/rouge",
+                  "concepts/metric-type/meteor"
                 ]
               },
               {
@@ -78,7 +81,16 @@
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/metric-type/misuse-resilience", "concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience", "concepts/metric-type/data-leakage"]
+                "pages": ["concepts/metric-type/misuse-resilience", "concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience", "concepts/metric-type/jailbreak-resilience-v2", "concepts/metric-type/data-leakage"]
+              },
+              {
+                "group": "Deterministic metrics",
+                "icon": "calculator",
+                "pages": [
+                  "concepts/metric-type/bleu",
+                  "concepts/metric-type/rouge",
+                  "concepts/metric-type/meteor"
+                ]
               }
             ]
           },
