@@ -31,7 +31,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   *   Numerical range checks (e.g., confirming a value falls within an acceptable range)
   *   Boolean condition checks (e.g., ensuring a specific condition evaluates to true or false as expected)
 
-  Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric-type/bleu), [ROUGE](/concepts/metric-type/rogue) and [METEOR](/concepts/metric-type/meteor).
+  Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric-type/bleu), [ROUGE](/concepts/metric-type/rogue), [METEOR](/concepts/metric-type/meteor), [Text Similarity](/concepts/metric-type/text-similarity), [Text Match](/concepts/metric-type/text-match), [IOU](/concepts/metric-type/iou) and [Spatial Match](/concepts/metric-type/spatial-match).
 
   Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
@@ -63,9 +63,14 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Contextual Precision](/concepts/metric-type/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
 | **[Contextual Recall](/concepts/metric-type/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
 | **[Contextual Relevancy](/concepts/metric-type/contextual-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
-| **[BLEU](/concepts/metric-type/bleu)** | RAG | Measures how many n-grams in the actual output overlap with those in a set of expected output. |
-| **[ROUGE](/concepts/metric-type/rouge)** | RAG | Evaluates automatic summarization by measuring the longest common subsequence that preserves the word order between actual output and expected output summaries. |
-| **[METEOR](/concepts/metric-type/meteor)** | RAG | Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms. |
+| **[Custom Judge](/concepts/metric-type/custom-judge)** | RAG |  A flexible LLM-as-a-judge evaluation metric designed to assess model outputs based on customizable product rubrics, domain-specific behavior expectations, and grounded context.  |
+| **[BLEU](/concepts/metric-type/bleu)** | Deterministic | Measures how many n-grams in the actual output overlap with those in a set of expected output. |
+| **[ROUGE](/concepts/metric-type/rouge)** | Deterministic | Evaluates automatic summarization by measuring the longest common subsequence that preserves the word order between actual output and expected output summaries. |
+| **[METEOR](/concepts/metric-type/meteor)** | Deterministic | Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms. |
+| **[Text Similarity](/concepts/metric-type/text-similarity)** | Deterministic |Quantifies the overall textual resemblance between a generated summary and a reference summary by using character-level fuzzy matching. |
+| **[Text Match](/concepts/metric-type/text-match)** | Deterministic |Determines whether generated text matches a reference with high character-level similarity using fuzzy matching, returning a binary outcome based on a threshold.|
+| **[IOU](/concepts/metric-type/iou)** | Deterministic | Measures the spatial overlap between a predicted bounding box and one or more reference boxes to quantify alignment in object detection and layout tasks.  |
+| **[Spatial Match](/concepts/metric-type/spatial-match)** | Deterministic |Performs a binary evaluation of the spatial alignment between a predicted bounding box and reference boxes using the best Intersection over Union (IoU) score to return a pass/fail signal.|
 | **[Role Adherence](/concepts/metric-type/role-adherence)** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
 | **[Conversation Completeness](/concepts/metric-type/conversation-completeness)** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
 | **[Conversation Relevancy](/concepts/metric-type/conversation-relevancy)** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
@@ -142,28 +147,54 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       <tr>
         <th>Parameter</th>
         <th>Description</th>
+        <th>Availability</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>**input**</td>
         <td>The prompt or query sent to the model. (Always required in the list).</td>
+        <td>All metrics</td>
       </tr>
       <tr>
-        <td>**actual output**</td>
+        <td>**actual_output**</td>
         <td>The actual output generated by the model.</td>
+        <td>All metrics</td>
       </tr>
       <tr>
-        <td>**expected output**</td>
+        <td>**expected_output**</td>
         <td>The ideal answer for the given input.</td>
+        <td>All metrics</td>
       </tr>
       <tr>
         <td>**context**</td>
         <td>Additional background information provided to the model alongside the input.</td>
+        <td>All metrics</td>
       </tr>
       <tr>
-        <td>**retrieval context**</td>
+        <td>**retrieval_context**</td>
         <td>The context retrieved by your RAG system before sending the user query to your LLM.</td>
+        <td>All metrics</td>
+      </tr>
+      <tr>
+        <td>**product_description**</td>
+        <td>The description of the product.</td>
+        <td><b>Custom Judge only</b></td>
+      </tr>
+      <tr>
+        <td>**product_capabilities**</td>
+        <td>The capabilities of the product.</td>
+        <td><b>Custom Judge only</b></td>
+      </tr>
+      <tr>
+        <td>**product_inabilities**</td>
+        <td>The product's known inabilities or restrictions.</td>
+        <td><b>Custom Judge only</b></td>
+      </tr>
+      <tr>
+        <td>**product_security_boundaries**</td>
+        <td>The security boundaries of the product.</td>
+        <td><b>Custom Judge only</b></td>
       </tr>
     </tbody>
   </table>
@@ -319,6 +350,24 @@ The following table highlights the key differences between evaluation criteria a
 **Two-step process**  
 1. Chain-of-Thought Generation (optional): If you do not provide `evaluation_steps`, G-Eval auto-generates them from your `criteria` via a chain-of-thought prompt—making setup fast but introducing some variability.  
 2. Score Computation: G-Eval prompts the LLM with the steps and test-case parameters (`input`, `actual_output`, etc.) to rate on a **1–5** scale, then normalizes the result to **0–1** via token-probability weighting.
+
+## Custom Judge
+
+you can also provide a custom judge by passing a prompt to control even further how the evaluation is performed by our evaluator.
+Example:
+
+```python
+judge_prompt = """
+  Judge the following output based on the coherence between the input, the expected output and the actual output.
+
+  Input: {input}
+  Expected Output: {expected_output}
+  Actual Output: {actual_output}
+"""
+```
+
+You can include some evaluation data as placeholders so that the prompt is built correctly in execution time.
+
 
 ## SDK Integration
 

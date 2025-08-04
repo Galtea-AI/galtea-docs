@@ -6,7 +6,10 @@ description: "Create a test for your product."
 ## Returns
 Returns a [Test](/concepts/product/test) object for the given parameters.
 
-## Example
+## Examples
+<Tabs>
+<Tab title="Quality Test">
+Create a quality test to evaluate the quality and correctness of outputs.
 ```python
 test = galtea.tests.create(
     name="example-test-tutorial",
@@ -18,9 +21,57 @@ test = galtea.tests.create(
     max_test_cases=100
 )
 ```
+</Tab>
+
+<Tab title="Red Teaming">
+Create security and safety tests to identify potential vulnerabilities in your product.
+
+```python
+test = galtea.tests.create(
+    name="security-red-team-test",
+    type="RED_TEAMING",
+    product_id="YOUR_PRODUCT_ID",
+    variants=["harmful_content", "bias", "privacy"],
+    strategies=["jailbreaking", "prompt_injection"],
+    max_test_cases=50
+)
+```
+
+</Tab>
+
+<Tab title="Scenario Test">
+Generate conversation scenarios tailored to specific user personas and use cases.
+
+```python
+test = galtea.tests.create(
+    name="medical-professional-scenarios",
+    type="SCENARIOS",
+    product_id="YOUR_PRODUCT_ID",
+    custom_user_persona="A medical professional specialized in dementia with more than 15 years in the field",
+    language="english",
+    max_test_cases=25
+)
+```
+
+</Tab>
+
+<Tab title="Quality Custom Test from CSV">
+Upload your own test cases using a CSV file for complete control over test content.
+
+```python
+test = galtea.tests.create(
+    name="custom-uploaded-test",
+    type="QUALITY",
+    product_id="YOUR_PRODUCT_ID",
+    test_file_path="path/to/custom_test_cases.csv"
+)
+```
+
 <Info>
   See a complete example of creating **custom tests** in our [Create a Custom Test example](/sdk/tutorials/create-test).
 </Info>
+</Tab>
+</Tabs>
 
 ## Parameters
 <ResponseField name="name" type="string" required>
