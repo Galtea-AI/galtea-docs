@@ -1,22 +1,48 @@
 ---
-title: 'Create Metric'
+title: "Create Metric"
 description: "Create a metric type for evaluating your products."
 ---
 
 ## Returns
+
 Returns a [MetricType](/concepts/metric-type) object for the given parameters, or `None` if an error occurs.
 
-## Example
-```python
-metric = galtea.metrics.create(
-    name="accuracy_v1",
-    evaluator_model_name="GPT-4.1",
-    criteria="Determine whether the actual output is equivalent to the expected output.",
-    evaluation_params=["input", "expected_output", "actual_output"],
-    tags=["custom", "accuracy"],
-    description="A custom accuracy metric."
-)
-```
+## Examples
+
+<Tabs>
+  <Tab title="Geval">
+    ```python
+    metric = galtea.metrics.create(
+        name="accuracy_v1",
+        evaluator_model_name="GPT-4.1",
+        criteria="Determine whether the actual output is equivalent to the expected output.",
+        evaluation_params=["input", "expected_output", "actual_output"],
+        tags=["custom", "accuracy"],
+        description="A custom accuracy metric."
+    )
+    ```
+  </Tab>
+  <Tab title="Custom Judge">
+    ```python
+    metric = galtea.metrics.create(
+        name="accuracy_v1",
+        evaluator_model_name="GPT-4.1",
+        custom_judge_prompt="check if the {expected_output} is equal to the {actual_output}",
+        tags=["custom", "accuracy"],
+        description="A custom accuracy metric."
+    )
+    ```
+  </Tab>
+  <Tab title="Custom Score">
+    ```python
+    metric = galtea.metrics.create(
+        name="accuracy_v1",
+        tags=["custom", "accuracy"],
+        description="A custom accuracy metric calculated by our custom score function."
+    )
+    ```
+  </Tab>
+</Tabs>
 
 ## Parameters
 <ResponseField name="name" type="string" required>
