@@ -27,7 +27,7 @@ Returns a [MetricType](/concepts/metric-type) object for the given parameters, o
     metric = galtea.metrics.create(
         name="accuracy_v1",
         evaluator_model_name="GPT-4.1",
-        custom_judge_prompt="check if the {expected_output} is equal to the {actual_output}",
+        judge_prompt="check if the {expected_output} is equal to the {actual_output}",
         tags=["custom", "accuracy"],
         description="A custom accuracy metric."
     )
@@ -89,7 +89,7 @@ Returns a [MetricType](/concepts/metric-type) object for the given parameters, o
     You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.
   </Note>
 </ResponseField>
-<ResponseField name="custom_judge_prompt" type="string" optional>
+<ResponseField name="judge_prompt" type="string" optional>
   The custom judge prompt for the metric.
 </ResponseField>
 <ResponseField name="tags" type="list[string]" optional>
