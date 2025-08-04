@@ -351,6 +351,24 @@ The following table highlights the key differences between evaluation criteria a
 1. Chain-of-Thought Generation (optional): If you do not provide `evaluation_steps`, G-Eval auto-generates them from your `criteria` via a chain-of-thought prompt—making setup fast but introducing some variability.  
 2. Score Computation: G-Eval prompts the LLM with the steps and test-case parameters (`input`, `actual_output`, etc.) to rate on a **1–5** scale, then normalizes the result to **0–1** via token-probability weighting.
 
+## Custom Judge
+
+you can also provide a custom judge by passing a prompt to control even further how the evaluation is performed by our evaluator.
+Example:
+
+```python
+custom_judge_prompt = """
+  Judge the following output based on the coherence between the input, the expected output and the actual output.
+
+  Input: {input}
+  Expected Output: {expected_output}
+  Actual Output: {actual_output}
+"""
+```
+
+You can include some evaluation data as placeholders so that the prompt is built correctly in execution time.
+
+
 ## SDK Integration
 
 The Galtea SDK allows you to create, view, and manage metric types programmatically.
