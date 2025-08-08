@@ -358,11 +358,16 @@ Example:
 
 ```python
 judge_prompt = """
-  Judge the following output based on the coherence between the input, the expected output and the actual output.
+You are an expert evaluator. Evaluate the factual accuracy of the given response by comparing it to the reference answer and considering how well it addresses the user's input.
 
-  Input: {input}
-  Expected Output: {expected_output}
-  Actual Output: {actual_output}
+**User Input:** {input}
+**Reference Answer:** {expected_output}
+**Response to Evaluate:** {actual_output}
+
+Scoring Guidelines:
+- Score 0: The response contains factual errors, omits essential information needed for the input, or includes unsupported content.
+- Score 0.5: The response is partially accurate. It is generally relevant but includes minor inaccuracies, missing key details, or some unsupported claims.
+- Score 1: The response fully aligns with the reference answer with no errors, omissions, or unsupported additions.
 """
 ```
 
