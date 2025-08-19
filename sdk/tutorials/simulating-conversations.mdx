@@ -77,10 +77,9 @@ See [Scenarios Tests](/concepts/product/test/scenario-tests) for more details.
 ```python
 galtea_client = galtea.Galtea(api_key="YOUR_API_KEY")
 test = galtea_client.tests.create(
-    version_id="your_version_id",
+    product_id="YOUR_PRODUCT_ID",
     name="Conversation Simulation Test",
     type="SCENARIOS",
-    test_file_path="conversation_scenarios.csv"
 )
 test_cases = galtea_client.test_cases.list(test_id=test.id)
 ```
@@ -123,13 +122,13 @@ for test_case in test_cases:
 #### 5. Evaluate the Session
 
 ```python
-evaluation_task = galtea_client.evaluation_tasks.create(
+evaluation_tasks = galtea_client.evaluation_tasks.create(
     session_id=session.id,
     metrics=["Factual Accuracy", "coherence"],  # Replace with your metrics
 )
-print(f"Evaluation task created: {evaluation_task.id}")
+for task in evaluation_tasks:
+    print(f"Evaluation task created: {task.id}")
 ```
-
 ---
 
 By using the agent wrapper and simulation method, you can quickly evaluate your conversational AI models in realistic, repeatable conditions, leveraging Galtea's powerful simulation and analytics tools.
