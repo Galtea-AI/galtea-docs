@@ -40,7 +40,7 @@ evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
     test_case_id="YOUR_TEST_CASE_ID",
     actual_output="The capital of France is Paris.",
     metrics=[
-        "Coherence",            # Standard metric
+        "Role Adherence",            # Standard metric
         custom_score_accuracy   # Your custom metric object
     ]
 )
@@ -53,7 +53,7 @@ evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
     is_production=True,
     input="A real user's query from production",
     actual_output="The model's live response.",
-    metrics=["Relevance", "Non-Toxic"],
+    metrics=["Contextual Relevancy", "Non-Toxic"],
     retrieval_context="Context retrieved by RAG for this query."
 )
 ```
@@ -64,7 +64,7 @@ evaluation_tasks = galtea.evaluation_tasks.create_single_turn(
 </ResponseField>
 <ResponseField name="metrics" type="List[string | CustomScoreEvaluationMetric]" required>
   A list of metrics to use for evaluation. You can provide:
-  - Standard metrics as strings (e.g., "coherence").
+  - Standard metrics as strings (e.g., "Role Adherence").
   - Custom, locally-scored metrics as objects inheriting from `CustomScoreEvaluationMetric`.
 </ResponseField>
 <ResponseField name="actual_output" type="string" required>
