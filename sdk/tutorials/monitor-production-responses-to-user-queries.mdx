@@ -26,7 +26,7 @@ def handle_user_query(user_query, retrieval_context=None):
     galtea.evaluation_tasks.create_single_turn(
       version_id=VERSION_ID,
       is_production=True,
-      metrics=["coherence", "answer-relevancy", "faithfulness"],
+      metrics=["Role Adherence", "Answer Relevancy", "Faithfulness"],
       input=user_query,
       actual_output=model_response,
       retrieval_context=retrieval_context
@@ -50,8 +50,11 @@ import os
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 VERSION_ID = "YOUR_ACTIVE_VERSION_ID"
 METRICS_TO_EVALUATE = [
-    "conversation-relevancy",
-    "knowledge-retention"
+    "Conversation Relevancy",
+    "Knowledge Retention
+
+
+"
 ]
 
 # Use is_production=True for real user interactions
