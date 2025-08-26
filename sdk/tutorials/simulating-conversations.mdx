@@ -124,7 +124,7 @@ for test_case in test_cases:
 ```python
 evaluation_tasks = galtea_client.evaluation_tasks.create(
     session_id=session.id,
-    metrics=["Factual Accuracy", "coherence"],  # Replace with your metrics
+    metrics=["Factual Accuracy", "Role Adherence"],  # Replace with your metrics
 )
 for task in evaluation_tasks:
     print(f"Evaluation task created: {task.id}")
