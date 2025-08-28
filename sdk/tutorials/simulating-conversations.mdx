@@ -38,10 +38,6 @@ Create a Python class that extends `galtea.Agent`. Your agent should implement t
 import galtea
 
 class MyGalteaAgent(galtea.Agent):
-    def __init__(self):
-        # Initialize your model here (e.g., load LLM or service)
-        self.agent = MyAgent()
-
     def call(self, input_data: galtea.AgentInput) -> galtea.AgentResponse:
         # Access the latest user message
         user_message = input_data.last_user_message_str()
