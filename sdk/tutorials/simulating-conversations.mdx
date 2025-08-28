@@ -37,94 +37,95 @@ Create a Python class that extends `galtea.Agent`. Your agent should implement t
 ```python
 import galtea
 
-class MyAgent(galtea.Agent):
-    def __init__(self):
-        # Initialize your model here (e.g., load LLM or service)
-        self.model = YourModel()
-
+class MyGalteaAgent(galtea.Agent):
     def call(self, input_data: galtea.AgentInput) -> galtea.AgentResponse:
         # Access the latest user message
         user_message = input_data.last_user_message_str()
 
-        # Get the retrieval context from your RAG if needed
-        # retrieval_context = generate_retrieval_context(user_message)
-
         # Generate a response using your own logic/model
-        response = self.model.generate_response(user_message, retrieval_context)
+        response = self.agent.generate_response(user_message)
 
         # Return a structured response (optionally with metadata)
-        return galtea.AgentResponse(
-            content=response,
-        #    retrieval_context=retrieval_context,
-            metadata={"model_version": "1.0"}
-        )
+        return galtea.AgentResponse(content=response)
 ```
 
-#### 2. Prepare Your CSV File
+#### 2. Create a Test and Sessions
 
-Create a CSV file (e.g., `conversation_scenarios.csv`) with your scenario data:
-
-```csv
-goal,user_persona,initial_prompt,stopping_criterias,max_iterations,scenario
-"Book a one-way flight from SFO to JFK for next Tuesday","A busy professional who is direct and values efficiency","I need to book a flight","The user has confirmed the flight booking|The chatbot indicates it cannot fulfill the request",10,"Flight booking scenario"
-"Cancel an existing reservation","An upset customer who is frustrated with service","I want to cancel my reservation immediately","The reservation is successfully cancelled;The customer is transferred to a supervisor",8,"Cancellation scenario"
-```
-
-See [Scenarios Tests](/concepts/product/test/scenario-tests) for more details.
-
-#### 3. Create a Test and Sessions
+In order to run simulations of conversations we need to have different scenarios and user persones. The easiest way to create these scenarios is to use the scenario based test creation feature of the platform.
 
 ```python
+# Initialize the Galtea client
 galtea_client = galtea.Galtea(api_key="YOUR_API_KEY")
+
+# Call the product and version you want to evaluate
+product = galtea_client.products.get_by_name("Vegetarian recipe agent")
+version_name = "v1.0"
+try:
+    # Get the version if it exists
+    print(f'Getting version {version_name}')
+    version = galtea_client.versions.get_by_name(
+        product_id=product.id,
+        version_name=version_name
+    )
+except:
+    # Create the version if it doesn't exist
+    print(f'Version doesn\'t exist, creating version {version_name}')
+    version = galtea_client.versions.create(
+        name=version_name,
+        product_id=product.id,
+        description="Version created from the tutorial"
+    )
+
+# Create a test suite using the scenarios options
 test = galtea_client.tests.create(
-    product_id="YOUR_PRODUCT_ID",
-    name="Conversation Simulation Test",
+    product_id=product.id,
+    name="Multi-turn Conversation Test",
     type="SCENARIOS",
+    max_test_cases=5
 )
+
+# Get your test scenarios
 test_cases = galtea_client.test_cases.list(test_id=test.id)
 ```
 
-#### 4. Run the Conversation Simulator
+After some time you should see the resulting generated test cases in your dashboard. Another option is to upload a csv file with the necessary fields, for more information on the fields see [Scenario-based Tests](/concepts/product/test/scenario-tests) for more details.
+
+#### 3. Run the Conversation Simulator
 
 For each test case/session, use the simulator wrapper to run the full simulation with your agent:
 
 ```python
 # Create your agent instance
-agent = MyAgent()
+agent = MyGalteaAgent()
 
+# Run simulations
 for test_case in test_cases:
-    # Create a session for this test case
     session = galtea_client.sessions.create(
-        version_id="your_version_id",
+        version_id=version.id,
         test_case_id=test_case.id
     )
 
-    # Run the simulation
     result = galtea_client.simulator.simulate(
         session_id=session.id,
         agent=agent,
-        max_turns=test_case.max_iterations or 20
+        max_turns=10,
+        log_inference_results=True
     )
 
-    # Review results
-    print(f"Completed {result.total_turns} turns. Finished: {result.finished}")
+    # Analyze results
+    print(f"Scenario: {test_case.scenario}")
+    print(f"Completed {result.total_turns} turns")
+    print(f"Success: {result.finished}")
     if result.stopping_reason:
-        print(f"Stopping reason: {result.stopping_reason}")
-
-    # Print conversation history
-    for i, message in enumerate(result.messages):
-        role = "User" if message.role == "user" else "Agent"
-        print(f"{i+1}. {role}: {message.content}")
-        if message.metadata:
-            print(f"   Metadata: {message.metadata}")
+        print(f"Ended because: {result.stopping_reason}")
 ```
 
-#### 5. Evaluate the Session
+#### 4. Evaluate the Session
 
 ```python
 evaluation_tasks = galtea_client.evaluation_tasks.create(
     session_id=session.id,
-    metrics=["Factual Accuracy", "Role Adherence"],  # Replace with your metrics
+    metrics=["Role Adherence"],  # Replace with your metrics
 )
 for task in evaluation_tasks:
     print(f"Evaluation task created: {task.id}")
