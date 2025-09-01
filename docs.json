@@ -3,12 +3,68 @@
   "theme": "mint",
   "name": "Galtea Docs",
   "colors": {
-    "primary": "#5c5bdd",
-    "light": "#7373ff",
-    "dark": "#4a4ab0"
+    "primary": "#5286FF",
+    "light": "#5286FF",
+    "dark": "#5286FF"
   },
   "favicon": "/favicon.png",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs",
+    "codeblocks": "system"
+  },
+  "icons": {
+    "library": "fontawesome"
+  },
+  "fonts": {
+    "family": "Geist"
+  },
+  "appearance": {
+    "default": "system",
+    "strict": false
+  },
+  "background": {
+    "color": {
+      "light": "#f6f6f5",
+      "dark": "#09090a"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@galtea.ai"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://platform.galtea.ai"
+    }
+  },
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Blog",
+          "href": "https://galtea.ai/blog/index.html",
+          "icon": "newspaper"
+        },
+        {
+          "anchor": "Changelog",
+          "href": "https://docs.galtea.ai/changelog",
+          "icon": "list-check"
+        },
+        {
+          "anchor": "Migration To V2",
+          "href": "https://docs.galtea.ai/migration-to-v2",
+          "icon": "right-left"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Guides",
@@ -84,15 +140,7 @@
               {
                 "group": "Deterministic metrics",
                 "icon": "calculator",
-                "pages": [
-                  "concepts/metric-type/bleu",
-                  "concepts/metric-type/rouge",
-                  "concepts/metric-type/meteor",
-                  "concepts/metric-type/text-similarity",
-                  "concepts/metric-type/text-match",
-                  "concepts/metric-type/iou",
-                  "concepts/metric-type/spatial-match"
-                ]
+                "pages": ["concepts/metric-type/bleu", "concepts/metric-type/rouge", "concepts/metric-type/meteor", "concepts/metric-type/text-similarity", "concepts/metric-type/text-match", "concepts/metric-type/iou", "concepts/metric-type/spatial-match"]
               }
             ]
           },
@@ -179,43 +227,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Blog",
-          "href": "https://galtea.ai/blog/index.html",
-          "icon": "newspaper"
-        },
-        {
-          "anchor": "Changelog",
-          "href": "https://docs.galtea.ai/changelog",
-          "icon": "list-check"
-        },
-        {
-          "anchor": "Migration To V2",
-          "href": "https://docs.galtea.ai/migration-to-v2",
-          "icon": "right-left"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@galtea.ai"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://platform.galtea.ai"
-    }
+    ]
   },
   "footer": {
     "socials": {
