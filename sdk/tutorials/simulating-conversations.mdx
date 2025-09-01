@@ -36,6 +36,7 @@ Create a Python class that extends `galtea.Agent`. Your agent should implement t
 
 ```python
 import galtea
+import my_agent
 
 class MyGalteaAgent(galtea.Agent):
     def call(self, input_data: galtea.AgentInput) -> galtea.AgentResponse:
@@ -43,7 +44,7 @@ class MyGalteaAgent(galtea.Agent):
         user_message = input_data.last_user_message_str()
 
         # Generate a response using your own logic/model
-        response = self.agent.generate_response(user_message)
+        response = my_agent.generate_response(user_message)
 
         # Return a structured response (optionally with metadata)
         return galtea.AgentResponse(content=response)
