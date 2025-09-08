@@ -45,6 +45,9 @@
       "href": "https://platform.galtea.ai"
     }
   },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+  },
   "navigation": {
     "global": {
       "anchors": [
