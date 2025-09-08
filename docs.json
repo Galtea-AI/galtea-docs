@@ -4,8 +4,8 @@
   "name": "Galtea Docs",
   "colors": {
     "primary": "#5286FF",
-    "light": "#5286FF",
-    "dark": "#5286FF"
+    "light": "#A9E3FE",
+    "dark": "#171717"
   },
   "favicon": "/favicon.png",
   "logo": {
