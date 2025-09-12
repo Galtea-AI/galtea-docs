@@ -17,7 +17,8 @@ For individual test cases or production logs, you can define your metric and pas
 
 ```python
 import os
-from galtea import CustomScoreEvaluationMetric
+from typing import Optional
+from galtea import Galtea, CustomScoreEvaluationMetric
 
 galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
@@ -59,7 +60,7 @@ galtea.evaluation_tasks.create_single_turn(
     actual_output=actual_output,
     metrics=[
         "Role Adherence",     # A standard metric
-        accuracy_metric  # Your custom metric object
+        accuracy_metric      # Your custom metric object
     ],
 )
 
