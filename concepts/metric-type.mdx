@@ -63,7 +63,6 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Contextual Precision](/concepts/metric-type/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
 | **[Contextual Recall](/concepts/metric-type/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
 | **[Contextual Relevancy](/concepts/metric-type/contextual-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
-| **[Custom Judge](/concepts/metric-type/custom-judge)** | RAG |  A flexible LLM-as-a-judge evaluation metric designed to assess model outputs based on customizable product rubrics, domain-specific behavior expectations, and grounded context.  |
 | **[BLEU](/concepts/metric-type/bleu)** | Deterministic | Measures how many n-grams in the actual output overlap with those in a set of expected output. |
 | **[ROUGE](/concepts/metric-type/rouge)** | Deterministic | Evaluates automatic summarization by measuring the longest common subsequence that preserves the word order between actual output and expected output summaries. |
 | **[METEOR](/concepts/metric-type/meteor)** | Deterministic | Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms. |
@@ -197,7 +196,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   </Warning>
 </ResponseField>
 
-## Creating Custom Judge Metrics
+## Creating Custom Metrics via Judge Prompt
 
 <Note title="Our Evaluation Model">
   The non-deterministic metrics, powered by Large Language Models that act as Judges, utilize models that have demonstrated the best performance in our internal benchmarks and testing. We are committed to continuously evolving and improving these evaluator models to ensure the highest quality assessments over time.

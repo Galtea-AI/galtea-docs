@@ -70,3 +70,15 @@ When creating a model in Galtea, you'll need to provide the following informatio
   The provider or source of the pricing model. This can be a URL to the model's pricing page or documentation.
   For instance: https://openai.com/api/pricing/
 </ResponseField>
+
+---
+
+## Models vs. Evaluator Models
+
+It's important to distinguish between a **Model** and an **Evaluator Model** in Galtea:
+
+- **Model (This Page):** Represents the AI model your product is using. Its primary purpose in Galtea is for **cost estimation and tracking**. You link a Version to a Model to calculate the cost of its inference results.
+
+- **Evaluator Model:** This is an LLM used by Galtea to perform "LLM-as-a-judge" evaluations for non-deterministic [Metric Types](/concepts/metric-type). You select an Evaluator Model when creating a custom metric with a `judge_prompt`.
+
+While both are LLMs, their roles within the Galtea platform are distinct: one is being tested, and the other is doing the testing.
