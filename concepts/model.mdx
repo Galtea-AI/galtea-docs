@@ -58,6 +58,21 @@ When creating a model in Galtea, you'll need to provide the following informatio
   **Example**: 0.000005 (representing $0.000005 per token)
 </ResponseField>
 
+<ResponseField name="Cost per Cache Creation Input Token" type="Number" optional>
+  The cost in dollars per input token when creating a cache entry.
+  **Example**: 0.000005
+</ResponseField>
+
+<ResponseField name="Cost per Input Token (Above 128k)" type="Number" optional>
+  The cost in dollars per input token for contexts larger than 128k tokens, if applicable.
+  **Example**: 0.00002
+</ResponseField>
+
+<ResponseField name="Cost per Output Token (Above 128k)" type="Number" optional>
+  The cost in dollars per output token for contexts larger than 128k tokens, if applicable.
+  **Example**: 0.00006
+</ResponseField>
+
 <ResponseField name="Tokenizer Provider" type="Text">
   The provider of the tokenizer used by the model. This is important for accurate token counting and cost estimation.
   Right now, the only supported tokenizers are:

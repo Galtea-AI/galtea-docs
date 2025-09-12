@@ -16,7 +16,7 @@ Returns a [MetricType](/concepts/metric-type) object for the given parameters, o
         name="accuracy_v1",
         test_type="QUALITY",
         evaluator_model_name="GPT-4.1",
-        judge_prompt="check if the {expected_output} is equal to the {actual_output}",
+        judge_prompt="Determine whether the output is equivalent to the expected output. Output: \"{actual_output}\". Expected Output: \"{expected_output}.\"",
         tags=["custom", "accuracy"],
         description="A custom accuracy metric."
     )

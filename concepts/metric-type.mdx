@@ -33,10 +33,10 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
   Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric-type/bleu), [ROUGE](/concepts/metric-type/rogue), [METEOR](/concepts/metric-type/meteor), [Text Similarity](/concepts/metric-type/text-similarity), [Text Match](/concepts/metric-type/text-match), [IOU](/concepts/metric-type/iou) and [Spatial Match](/concepts/metric-type/spatial-match).
 
-  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
+  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
   <Info>
-    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
+    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreEvaluationMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
   </Info>
 
 - **Non-deterministic metrics** are powered by the **G-Eval** evaluation framework, an LLM-as-a-judge methodology, originally introduced in the paper [“NLG Evaluation using GPT-4 with Better Human Alignment”](https://arxiv.org/abs/2303.16634). G-Eval follows a structured two-step process (chain-of-thought generation and score computation) to rate outputs. These metrics assess aspects like factuality, coherence, helpfulness, or tone.
