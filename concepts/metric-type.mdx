@@ -39,7 +39,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
     The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreEvaluationMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
   </Info>
 
-- **Non-deterministic metrics** are powered by the **G-Eval** evaluation framework, an LLM-as-a-judge methodology, originally introduced in the paper [“NLG Evaluation using GPT-4 with Better Human Alignment”](https://arxiv.org/abs/2303.16634). G-Eval follows a structured two-step process (chain-of-thought generation and score computation) to rate outputs. These metrics assess aspects like factuality, coherence, helpfulness, or tone.
+- **Non-deterministic metrics** are powered by tje LLM-as-a-judge methodology. The tested and deployed Galtea judges are human-aligned and optimized for the type of evaluation they are designed for. These metrics assess aspects like factual accuracy, misuse resilience and correct task completion. Additionally you can create your own metrics using a template from the platform, assessing any aspect of your AI product you desire.
 
 <Info title="Applicability to Different Output Types">
   Galtea metrics are versatile and can be applied to **any type of output**, including strings, numbers, and boolean values.
@@ -225,8 +225,8 @@ Judge prompts are templates that tell the evaluator model how to assess your out
 
 ### Evaluation Process
 
-**Two-step G-Eval process:**
-1. **Chain-of-Thought Generation**: The evaluator model analyzes the inputs according to your judge prompt
+**Two-step Galtea judge process:**
+1. **Assessment**: The evaluator model analyzes the inputs according to your judge prompt
 2. **Score Computation**: The model assigns a score on a **1–5** scale, which is then normalized to **0–1** via token-probability weighting
 
 ### Example Judge Prompt
