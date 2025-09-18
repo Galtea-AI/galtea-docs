@@ -45,7 +45,7 @@ for message in result.messages:
 </ResponseField>
 
 <ResponseField name="max_turns" type="int">
-  Maximum number of conversation turns. Default: 20
+  Maximum number of conversation turns. Defaults to the Test Case's max turns if not provided.
 </ResponseField>
 
 <ResponseField name="log_inference_results" type="bool">
@@ -59,4 +59,8 @@ for message in result.messages:
 
 <ResponseField name="include_metadata" type="bool">
   Whether to include metadata in the simulation result. Default: False
+</ResponseField>
+
+<ResponseField name="agent_goes_first" type="bool">
+  If True, the agent will generate the first message before any user messages are generated. Default: False
 </ResponseField>

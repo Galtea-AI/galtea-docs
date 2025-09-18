@@ -33,13 +33,13 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
   Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric-type/bleu), [ROUGE](/concepts/metric-type/rogue), [METEOR](/concepts/metric-type/meteor), [Text Similarity](/concepts/metric-type/text-similarity), [Text Match](/concepts/metric-type/text-match), [IOU](/concepts/metric-type/iou) and [Spatial Match](/concepts/metric-type/spatial-match).
 
-  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
+  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
   <Info>
-    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
+    The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreEvaluationMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
   </Info>
 
-- **Non-deterministic metrics** are powered by the **G-Eval** evaluation framework, an LLM-as-a-judge methodology, originally introduced in the paper [“NLG Evaluation using GPT-4 with Better Human Alignment”](https://arxiv.org/abs/2303.16634). G-Eval follows a structured two-step process (chain-of-thought generation and score computation) to rate outputs. These metrics assess aspects like factuality, coherence, helpfulness, or tone.
+- **Non-deterministic metrics** are powered by tje LLM-as-a-judge methodology. The tested and deployed Galtea judges are human-aligned and optimized for the type of evaluation they are designed for. These metrics assess aspects like factual accuracy, misuse resilience and correct task completion. Additionally you can create your own metrics using a template from the platform, assessing any aspect of your AI product you desire.
 
 <Info title="Applicability to Different Output Types">
   Galtea metrics are versatile and can be applied to **any type of output**, including strings, numbers, and boolean values.
@@ -63,7 +63,6 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Contextual Precision](/concepts/metric-type/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
 | **[Contextual Recall](/concepts/metric-type/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
 | **[Contextual Relevancy](/concepts/metric-type/contextual-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
-| **[Custom Judge](/concepts/metric-type/custom-judge)** | RAG |  A flexible LLM-as-a-judge evaluation metric designed to assess model outputs based on customizable product rubrics, domain-specific behavior expectations, and grounded context.  |
 | **[BLEU](/concepts/metric-type/bleu)** | Deterministic | Measures how many n-grams in the actual output overlap with those in a set of expected output. |
 | **[ROUGE](/concepts/metric-type/rouge)** | Deterministic | Evaluates automatic summarization by measuring the longest common subsequence that preserves the word order between actual output and expected output summaries. |
 | **[METEOR](/concepts/metric-type/meteor)** | Deterministic | Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms. |
@@ -112,29 +111,14 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   The method used to evaluate the metric. This can be either:
 
   <Tabs>
-  <Tab title="None">
-    No validation method is applied. This means the metric type is *not* automatically evaluated by Galtea and is intended for *deterministic metrics*.
-  </Tab>
-  <Tab title="Criteria">
-    Used for *non-deterministic metrics*.
-    <ResponseField name="Criteria" type="Text" required="conditional">
-      High-level standards that define what aspects of a response matter for evaluation. **Example**: "Evaluate if the response contains factually correct information that aligns with verified sources. Penalize statements that contradict established knowledge or introduce speculation without
-      citation."
-    </ResponseField>
-  </Tab>
-  <Tab title="Evaluation Steps">
-    Used for *non-deterministic metrics*.
-    <ResponseField name="Evaluation Steps" type="Text List" required="conditional">
-      A structured set of checks that determine how a metric assesses correctness. **Example**:
-      <ol>
-        <li>Check if the 'actual output' contains facts that align with verified sources</li>
-        <li>Identify any contradictions between the 'actual output' and established knowledge</li>
-        <li>Penalize statements that introduce speculation without citing a credible source</li>
-      </ol>
-      <Note>You need to provide **either** *Criteria* **or** *Evaluation Steps*, but not both. Your choice depends on your preferred evaluation approach.</Note>
-    </ResponseField>
-  </Tab>
-</Tabs>
+    <Tab title="LLM as a Judge">
+      A custom prompt that defines the evaluation logic for an LLM-as-a-judge metric. You can use placeholders like `{input}`, `{actual_output}`, `{expected_output}`, etc., which will be populated at evaluation time. 
+    </Tab>
+    <Tab title="None">
+      No validation method is applied. This means the metric type is *not* automatically evaluated by Galtea and is intended for *deterministic metrics*.
+    </Tab>
+  </Tabs>
+  
 </ResponseField>
 
 <ResponseField name="Evaluation Parameters" type="List[Enum]" required>
@@ -179,22 +163,22 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       <tr>
         <td>**product_description**</td>
         <td>The description of the product.</td>
-        <td><b>Custom Judge only</b></td>
+        <td>Yes</td>
       </tr>
       <tr>
         <td>**product_capabilities**</td>
         <td>The capabilities of the product.</td>
-        <td><b>Custom Judge only</b></td>
+        <td>Yes</td>
       </tr>
       <tr>
         <td>**product_inabilities**</td>
         <td>The product's known inabilities or restrictions.</td>
-        <td><b>Custom Judge only</b></td>
+        <td>Yes</td>
       </tr>
       <tr>
         <td>**product_security_boundaries**</td>
         <td>The security boundaries of the product.</td>
-        <td><b>Custom Judge only</b></td>
+        <td>Yes</td>
       </tr>
     </tbody>
   </table>
@@ -212,149 +196,40 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   </Warning>
 </ResponseField>
 
-## G-Eval
+## Creating Custom Metrics via Judge Prompt
 
 <Note title="Our Evaluation Model">
-  The non-deterministic metrics, powered by LLM-as-a-judge (G-Eval), utilize models that have demonstrated the best performance in our internal benchmarks and testing. We are committed to continuously evolving and improving these evaluator models to ensure the highest quality assessments over time.
+  The non-deterministic metrics, powered by Large Language Models that act as Judges, utilize models that have demonstrated the best performance in our internal benchmarks and testing. We are committed to continuously evolving and improving these evaluator models to ensure the highest quality assessments over time.
 </Note>
 
-### Evaluation Criteria vs. Evaluation Steps
+Custom Judge metrics use custom judge prompts to evaluate LLM outputs based on your specific requirements. The primary way to create these metrics is by providing a `judge_prompt` that defines the evaluation logic.
 
-When using non-deterministic metrics, you can choose between two approaches: **evaluation criteria** and **evaluation steps**. Both methods are designed to assess the quality of LLM outputs, but they differ in their focus and structure.
+### How Judge Prompts Work
 
-<CardGroup cols={2}>
-  <Card title="Evaluation Criteria" icon="bullseye">
-    **What matters** in a response, defining the high-level qualities or standards
-  </Card>
-  <Card title="Evaluation Steps" icon="list-check">
-    **How to measure** a response's quality, providing specific assessment actions
-  </Card>
-</CardGroup>
+Judge prompts are templates that tell the evaluator model how to assess your outputs. You can include placeholders for various parameters that will be automatically filled in during evaluation:
 
-#### Evaluation Criteria
+- `{input}` - The original user input or prompt
+- `{actual_output}` - The response generated by your model
+- `{expected_output}` - The ideal or reference response
+- `{context}` - Additional background information
+- `{retrieval_context}` - RAG-retrieved context
+- `{product_description}` - Your product's description
+- `{product_capabilities}` - What your product can do
+- `{product_inabilities}` - What your product cannot or should not do
+- `{product_security_boundaries}` - Security restrictions
+- `{user_persona}` - Information about the user interacting with the agent
+- `{goal}` - The user's goal
+- `{scenario}` - The scenario in which the user is operating
+- `{stopping_criterias}` - List of criteria that define when the conversation should end
+- `{conversation_turns}` - All turns in the conversation
 
-Evaluation criteria are high-level qualities or standards that define what makes a response good or bad. They outline fundamental aspects that should be assessed without specifying exactly how to measure them.
+### Evaluation Process
 
-<AccordionGroup>
-  <Accordion title="Purpose">
-    <ul>
-      <li>Ensure evaluations align with user needs and expectations</li>
-      <li>Establish a framework for selecting appropriate metrics</li>
-      <li>Guide AI model development by focusing on specific areas for improvement</li>
-    </ul>
-  </Accordion>
-  <Accordion title="Examples">
-    <ul>
-      <li>
-        <strong>Accuracy:</strong> The response must be factually correct and based on verified knowledge from the "context"
-      </li>
-      <li>
-        <strong>Professionalism:</strong> The language should be respectful, clear, and aligned with professional communication standards
-      </li>
-      <li>
-        <strong>Relevance:</strong> The response must directly address the user's "input" without unnecessary information
-      </li>
-      <li>
-        <strong>Conciseness:</strong> The summary should be brief but still capture essential information
-      </li>
-      <li>
-        <strong>Completeness:</strong> All key details from the original document ("context") must be included
-      </li>
-      <li>
-        <strong>Fluency:</strong> The summary should be grammatically correct and easy to read
-      </li>
-    </ul>
-  </Accordion>
-</AccordionGroup>
+**Two-step Galtea judge process:**
+1. **Assessment**: The evaluator model analyzes the inputs according to your judge prompt
+2. **Score Computation**: The model assigns a score on a **1–5** scale, which is then normalized to **0–1** via token-probability weighting
 
-<Info>Evaluation criteria define **what** matters in a response, serving as the foundation for meaningful assessment.</Info>
-
-#### Evaluation Steps
-
-Evaluation steps are the specific actions taken to measure how well a response meets the evaluation criteria. These steps break down the assessment into concrete, structured processes that reference evaluation parameters.
-
-<AccordionGroup>
-  <Accordion title="Purpose">
-    <ul>
-      <li>Provide a systematic method for evaluating responses</li>
-      <li>Reduce subjectivity by defining clear measurement techniques</li>
-      <li>Allow customization based on the priorities of an AI system</li>
-      <li>Explicitly reference evaluation parameters to ensure consistent assessment</li>
-    </ul>
-  </Accordion>
-  <Accordion title="Example: Accuracy Steps">
-    <ol>
-      <li>Check if the **Actual Output** contains facts that align with verified sources provided in the **Retrieval Context**</li>
-      <li>Identify any contradictions between the **Actual Output** and established knowledge in the **Context**</li>
-      <li>Compare the **Actual Output** against the **Expected Output** for factual consistency</li>
-      <li>Penalize statements in the **Actual Output** that introduce speculation without citing a credible source</li>
-    </ol>
-  </Accordion>
-  <Accordion title="Example: Completeness Steps">
-    <ol>
-      <li>Compare the key points of the original document in **Context** with the **Actual Output**</li>
-      <li>Identify any missing crucial information from the **Context** that would affect the meaning</li>
-      <li>Compare the **Actual Output** against the **Expected Output** for coverage of essential points</li>
-      <li>Score the **Actual Output** based on how many critical details from the **Input** and **Context** are retained</li>
-    </ol>
-  </Accordion>
-</AccordionGroup>
-
-<Info>Evaluation steps define **how** to measure a response's quality based on the evaluation criteria, making explicit reference to specific evaluation parameters like **Input**, **Actual Output**, **Expected Output**, **Retrieval Context**, and **Context**.</Info>
-
-<Note>When you *do* supply explicit `evaluation_steps`, G-Eval skips auto-generation—yielding more reliable, reproducible scores ideal for production.</Note>
-
-#### Comparing Evaluation Approaches
-
-The following table highlights the key differences between evaluation criteria and evaluation steps:
-
-<table>
-  <thead>
-    <tr>
-      <th>Aspect</th>
-      <th>Evaluation Criteria</th>
-      <th>Evaluation Steps</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>**Definition**</td>
-      <td>High-level qualities that define what makes a response good or bad</td>
-      <td>Step-by-step actions to measure a response's quality</td>
-    </tr>
-    <tr>
-      <td>**Purpose**</td>
-      <td>Establish broad goals for evaluation</td>
-      <td>Provide a systematic method to assess responses</td>
-    </tr>
-    <tr>
-      <td>**Focus**</td>
-      <td>What should be measured</td>
-      <td>How to measure it</td>
-    </tr>
-    <tr>
-      <td>**Examples**</td>
-      <td>Accuracy, conciseness, relevance, fluency</td>
-      <td>Compare facts, check for contradictions, assess completeness</td>
-    </tr>
-    <tr>
-      <td>**Flexibility**</td>
-      <td>General principles that apply across many use cases</td>
-      <td>Specific steps that vary depending on the system</td>
-    </tr>
-  </tbody>
-</table>
-
-### Evaluation Details
-
-**Two-step process**  
-1. Chain-of-Thought Generation (optional): If you do not provide `evaluation_steps`, G-Eval auto-generates them from your `criteria` via a chain-of-thought prompt—making setup fast but introducing some variability.  
-2. Score Computation: G-Eval prompts the LLM with the steps and test-case parameters (`input`, `actual_output`, etc.) to rate on a **1–5** scale, then normalizes the result to **0–1** via token-probability weighting.
-
-## Custom Judge
-
-you can also provide a custom judge by passing a prompt to control even further how the evaluation is performed by our evaluator.
-Example:
+### Example Judge Prompt
 
 ```python
 judge_prompt = """
@@ -371,7 +246,9 @@ Scoring Guidelines:
 """
 ```
 
-You can include some evaluation data as placeholders so that the prompt is built correctly in execution time.
+<Info>
+When designing judge prompts, be specific about your scoring criteria and reference the evaluation parameters explicitly. This ensures consistent and reliable evaluations.
+</Info>
 
 
 ## SDK Integration
