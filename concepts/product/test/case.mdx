@@ -58,3 +58,35 @@ The Galtea SDK allows you to create, view, and manage test cases programmaticall
 <ResponseField name="Human Reviewed" type="Boolean">
   Indicates if a test case has been manually reviewed and approved by a user. This is useful for tracking which test cases are considered reliable and validated. The system stores the ID of the user who reviewed the test case, upon creation or update, the one who created or updated the test case is set as the reviewer.
 </ResponseField>
+
+## Scenario-Based Test Case Properties
+
+The following properties apply specifically to test cases of type `SCENARIOS` used with the [Conversation Simulator](/concepts/conversation-simulator):
+
+<ResponseField name="Goal" type="Text">
+  The objective the synthetic user is trying to achieve in a conversation scenario. This defines what the synthetic user wants to accomplish during the interaction. **Example**: "Book a flight to New York"
+</ResponseField>
+
+<ResponseField name="User Persona" type="Text">
+  The personality of the synthetic user for a conversation scenario. This shapes how the synthetic user will behave and communicate during the conversation. **Example**: "A busy professional who values efficiency"
+</ResponseField>
+
+<ResponseField name="Scenario" type="Text">
+  A description of the specific scenario or situation in which the conversation takes place. This provides additional context for the interaction. **Example**: "Flight booking scenario"
+</ResponseField>
+
+<ResponseField name="Initial Prompt" type="Text">
+  The first message from the synthetic user that starts the conversation. If not provided, the simulator will generate an appropriate opening message based on the goal and persona. **Example**: "I need to book a flight"
+</ResponseField>
+
+<ResponseField name="Stopping Criterias" type="Text">
+  Conditions that determine when the conversation should end, separated by `;` or `|`. The conversation will stop when any of these criteria are met. **Example**: "Booking confirmed|Unable to fulfill request"
+</ResponseField>
+
+<ResponseField name="Max Iterations" type="Number">
+  The maximum number of conversation turns allowed in the simulation. This prevents conversations from running indefinitely. **Example**: 10
+</ResponseField>
+
+<Note>
+  For Scenarios test cases, only `Goal` and `User Persona` are mandatory. All other scenario properties are optional but can help create more realistic and controlled conversation simulations.
+</Note>
