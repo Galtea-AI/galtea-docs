@@ -169,12 +169,14 @@ The following are the change notes for this release. You can re-write them to se
 
 ## Changelog:
 In this release:
-* Confidence scores on generated test cases will provide better insights into test quality and reliability.
-* Metric Types now are linked to a particular type of Test and creating them is simpler and more flexible.
-* Now you can create your own Metric Types with Custom Judges for evaluation of conversations.
-* Now the conversation simulator allows the inference of the agent before the user via the "agent_goes_first" parameter in the "simulate" method.
-* Now you can select the conversation style while creating a test. Available styles are "written" and "spoken".
+- Now sorting tables is more consistent, you can navigate back and forth, refresh the page, etc and the same order of results will always be shown.
+- Improved misuse resilience metric; now it accepts all the product context.
+- You can navigate to the Test Case, Session or Evaluation from an Evaluation Task by just right clicking it in the table or using the dropdown in the Evaluation Task details page. (show image of the table RMB)
+- Now you can upvote and downvote Test Cases from the Dashboard. (show image of the thumbs up/down)
+- Now you can configure your organization to allow SAML SSO authentication.
+- Now you can filter by Test Case language in the analytics page's filters
 
 ## Coming Soon:
-* Be able to create Scenarios (conversational) tests based on quality (gold standards) tests.
-* Seamless authentication through Google, GitHub, GitLab, and other popular identity providers.
+* New and improved red teaming strategies
+* Improvments though the paltfor to make it easier to analyze the results, navigate through it, ...
+* Be able to filter Test Cases by the given score (upvote/downvote) using the SDK.
