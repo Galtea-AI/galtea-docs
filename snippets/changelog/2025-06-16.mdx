@@ -6,13 +6,13 @@ We've been hard at work reorganizing and expanding the Galtea platform to handle
 
 ## Dashboard Enhancements
 
-- **Reorganized [Version](/concepts/product/version), [Test](/concepts/product/test), and [Evaluation Task](/concepts/product/version/session/evaluation/task) Views:**  
+- **Reorganized [Version](/concepts/product/version), [Test](/concepts/product/test), and [Evaluation Task](/concepts/product/version/session/evaluation-task) Views:**  
   Detailed views have been streamlined and improved for clearer insights.
 
 - **New [Sessions](/concepts/product/version/session) Visualizations:**  
   Easily organize and navigate conversations through our new Sessions feature.
 
-- **[Evaluations](/concepts/product/version/session/evaluation) Visualization Removed:**  
+- **Evaluations Visualization Removed:**  
   The dashboard now focuses on **Sessions** and **Evaluation Tasks** as the primary elements.
 
 - **Better Filters Across Tables:**  
@@ -25,8 +25,8 @@ We've been hard at work reorganizing and expanding the Galtea platform to handle
 
 The new Galtea SDK v2 is here! It includes breaking changes to simplify workflows and add session support. Check out the [migration guide](/migration-to-v2) for a smooth transition.
 
-- **Implicit Evaluation Creation:**  
-  No need to explicitly call `galtea.evaluations.create()`—it happens automatically.
+- **Implicit Session Creation:**  
+  Sessions are created automatically when needed for evaluation tasks.
 
 - **Repurposed [evaluation_tasks.create()](/sdk/api/evaluation-task/create):**  
   The old method is replaced by `create_single_turn()` for test-based evaluations, while `create()` now exclusively handles [session-based](/sdk/api/session) evaluations.

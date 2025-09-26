@@ -81,7 +81,7 @@
             "pages": [
               "sdk/tutorials/create-product-description",
               "sdk/tutorials/create-test",
-              "sdk/tutorials/create-evaluation",
+              "sdk/tutorials/create-evaluation-task",
               "sdk/tutorials/monitor-production-responses-to-user-queries",
               "sdk/tutorials/evaluating-conversations",
               "sdk/tutorials/simulating-conversations",
@@ -105,10 +105,9 @@
               "concepts/product/test",
               "concepts/product/test/case",
               "concepts/product/test/case/conversation-simulator",
-              "concepts/product/version/session/evaluation",
-              "concepts/product/version/session/evaluation/task",
               "concepts/product/version/session",
               "concepts/product/version/session/inference-result",
+              "concepts/product/version/session/evaluation-task",
               "concepts/metric-type",
               "concepts/model"
             ]
@@ -210,11 +209,6 @@
                 "group": "Inference Result",
                 "icon": "right-left",
                 "pages": ["sdk/api/inference-result/service", "sdk/api/inference-result/create", "sdk/api/inference-result/create-batch", "sdk/api/inference-result/list", "sdk/api/inference-result/get", "sdk/api/inference-result/delete"]
-              },
-              {
-                "group": "Evaluation",
-                "icon": "badge-check",
-                "pages": ["sdk/api/evaluation/service", "sdk/api/evaluation/list", "sdk/api/evaluation/get", "sdk/api/evaluation/delete"]
               },
               {
                 "group": "Evaluation Task",
