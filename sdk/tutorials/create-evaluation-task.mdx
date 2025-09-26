@@ -1,5 +1,5 @@
 ---
-title: 'Run a Test-Based Evaluation'
+title: 'Run Test-Based Evaluation Tasks'
 description: "Learn how to run evaluation tasks for a single-turn, test-based workflow."
 icon: "clipboard-check"
 ---
@@ -7,7 +7,7 @@ icon: "clipboard-check"
 To evaluate a product version against a predefined [Test](/concepts/product/test), you can loop through its [Test Cases](/concepts/product/test/case) and run an evaluation task for each one. This workflow is ideal for regression testing and standardized quality checks.
 
 <Info>
-  An [Evaluation](/concepts/product/version/session/evaluation) is created **implicitly** the first time you run an evaluation task for a specific `version_id` and `test_id` combination. You do not need to create it manually.
+  A [session](/concepts/product/version/session) is created **implicitly** the first time you run an evaluation task for a specific `version_id` and `test_id` combination. You do not need to create it manually.
 </Info>
 
 ### Workflow
@@ -74,5 +74,5 @@ print(f"\nAll evaluation tasks submitted for Version ID: {YOUR_VERSION_ID}")
 ```
 
 <Info>
-    A [session](/concepts/product/version/session) and [evaluation](/concepts/product/version/session/evaluation) is automatically created behind the scenes to link this `version_id` and `test_id` with the provided [inference result](concepts/product/version/session/inference-result) (the `actual_output` and the [Test Case](/concepts/product/test/case)'s input).
+    A [session](/concepts/product/version/session) is automatically created behind the scenes to link this `version_id` and `test_id` with the provided [inference result](/concepts/product/version/session/inference-result) (the `actual_output` and the [Test Case](/concepts/product/test/case)'s input).
 </Info>

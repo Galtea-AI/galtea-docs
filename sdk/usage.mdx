@@ -104,9 +104,9 @@ keyword_metric = MyKeywordMetric()
 </Info>
 
 
-### Launching an Evaluation
+### Launching Evaluation Tasks
 
-[Evaluations](/concepts/product/version/session/evaluation) are created implicitly when you run [evaluation tasks](/concepts/product/version/session/evaluation/task) to assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metric types](/concepts/metric-type).
+[Evaluation tasks](/concepts/product/version/session/evaluation-task) assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metric types](/concepts/metric-type). They are now directly linked to [sessions](/concepts/product/version/session) that contain all inference results.
 
 ```python
 # Get test cases from the test
@@ -139,16 +139,16 @@ for test_case in test_cases:
 
 ### Retrieving Evaluation Results
 
-Once the [evaluation tasks](/concepts/product/version/session/evaluation/task) are completed, you can retrieve them to analyze the results.
+Once the [evaluation tasks](/concepts/product/version/session/evaluation-task) are completed, you can retrieve them to analyze the results.
 
 ```python
-# First, get all evaluations for the product
-evaluations = galtea.evaluations.list(product_id=product.id)
+# First, get all sessions for the product
+sessions = galtea.sessions.list(product_id=product.id)
 
-# Iterate through all product evaluations
-for evaluation in evaluations:
-  # Retrieve the evaluation tasks
-    evaluation_tasks = galtea.evaluation_tasks.list(evaluation_id=evaluation.id)
+# Iterate through all product sessions
+for session in sessions:
+    # Retrieve the evaluation tasks for this session
+    evaluation_tasks = galtea.evaluation_tasks.list(session_id=session.id)
     # Print the evaluation tasks's ID and score
     for task in evaluation_tasks:
         print(f"Task ID: {task.id}, Score: {task.score}")

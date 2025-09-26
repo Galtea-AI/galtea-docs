@@ -1,19 +1,19 @@
 ---
 title: "Evaluation Task"
-description: "A task that evaluates a group of inference results using a metric type"
+description: "A task that evaluates inference results from a session using a metric type"
 icon: "clipboard-check"
 iconType: "solid"
 ---
 
-import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
 import SDKEvaluationTaskServiceCard from '/snippets/cards/sdk-evaluation-task-service-card.mdx';
 import TestCard from '/snippets/cards/test-card.mdx';
 import TestCaseCard from '/snippets/cards/test-case-card.mdx';
+import SessionCard from '/snippets/cards/session-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of an [evaluation](/concepts/product/version/session/evaluation) from a [session](/concepts/product/version/session) using a the evaluation criteria of a [metric type](/concepts/metric-type). So multiple evaluation tasks can exist for each [evaluation](/concepts/product/version/session/evaluation).
+An evaluation task in Galtea represents the assessment of inference results from a [session](/concepts/product/version/session) using the evaluation criteria of a [metric type](/concepts/metric-type). Evaluation tasks are now directly linked to sessions, allowing for comprehensive evaluation of full sessions containing multiple inference results for multi-turn dialogues.
 
 <Note>Evaluation tasks don't perform inference on the LLM [product](/concepts/product) themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task.</Note>
 
@@ -24,9 +24,9 @@ The only way to **create** evaluation tasks is programmatically by using the [Ga
 Evaluation tasks follow a specific lifecycle:
 
 <Steps>
-  <Step title="Creation">[Trigger an evaluation task](/sdk/tutorials/create-evaluation). It will appear in the [Evaluation's](/concepts/product/version/session/evaluation) details page with the status "pending"</Step>
+  <Step title="Creation">[Trigger an evaluation task](/sdk/tutorials/create-evaluation-task). It will appear in the session's details page with the status "pending"</Step>
   <Step title="Processing">Galtea's evaluation system processes the task using the evaluation criteria of the selected [metric type](/concepts/metric-type)</Step>
-  <Step title="Completion">Once processed, the status changes to "completed" and the [results](/concepts/product/version/session/evaluation/task#evaluation-task-results-properties) are available</Step>
+  <Step title="Completion">Once processed, the status changes to "completed" and the [results](/concepts/product/version/session/evaluation-task#evaluation-task-results-properties) are available</Step>
 </Steps>
 
 ## Related Concepts
@@ -34,7 +34,7 @@ Evaluation tasks follow a specific lifecycle:
 <CardGroup cols={2}>
   <TestCard />
   <TestCaseCard />
-  <EvaluationCard />
+  <SessionCard />
   <MetricTypeCard />
 </CardGroup>
 
