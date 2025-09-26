@@ -32,3 +32,7 @@ inference_results = galtea.inference_results.create_batch(
     For this reason, it only makes sense to send it when we have a message with role `assistant`.
   </Note>
 </ResponseField>
+
+<ResponseField name="conversation_simulator_version" type="string" optional>
+  The version of Galtea's conversation simulator used to generate the user messages. This should only be provided when logging a conversation that was generated using the simulator. This parameter helps with traceability and analytics for conversations created through Galtea's simulation capabilities.
+</ResponseField>
