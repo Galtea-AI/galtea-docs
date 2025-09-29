@@ -3,7 +3,7 @@ title: "URL Validation"
 description: "Ensures that all URLs in the model’s output are safe, properly formatted, and resolvable using strict validation and SSRF protection."
 ---
 
-The **URL Validation** metric is one of the [Classic Metric Type](/concepts/metric-type) options available in Galtea.  
+The **URL Validation** metric is one of the [Deterministic Metric Type](/concepts/metric-type) options available in Galtea.  
 It is specifically designed to validate and safeguard hyperlinks produced by model outputs. Unlike simple format checks, this metric enforces **HTTPS-only schemes**, validates against known top-level domains, and uses **SSRF protection** to prevent malicious or unsafe URLs from passing. It also verifies that the link is live and accessible.
 
 ---
