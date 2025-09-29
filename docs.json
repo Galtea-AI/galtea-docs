@@ -142,7 +142,7 @@
               {
                 "group": "Deterministic metrics",
                 "icon": "calculator",
-                "pages": ["concepts/metric/bleu", "concepts/metric/rouge", "concepts/metric/meteor", "concepts/metric/text-similarity", "concepts/metric/text-match", "concepts/metric/iou", "concepts/metric/spatial-match"]
+                "pages": ["concepts/metric/bleu", "concepts/metric/rouge", "concepts/metric/meteor", "concepts/metric/text-similarity", "concepts/metric/text-match", "concepts/metric/iou", "concepts/metric/spatial-match", "concepts/metric/url-validation"]
               }
             ]
           },
