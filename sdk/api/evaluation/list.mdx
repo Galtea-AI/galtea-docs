@@ -9,17 +9,17 @@ Returns a list of [Evaluation](/concepts/product/version/session/evaluation) obj
 
 ## Example
 ```python
-# List tasks for a session
+# List evaluations for a session
 session_evaluations = galtea.evaluations.list(session_id="YOUR_SESSION_ID")
 ```
 
 ## Parameters
 <ResponseField name="session_id" type="string" required>
-  The ID of the session for which you want to list tasks.
+  The ID of the session for which you want to list evaluations.
 </ResponseField>
 <ResponseField name="offset" type="int">
-  The number of tasks to skip before starting to collect the result set.
+  The number of evaluations to skip before starting to collect the result set.
 </ResponseField>
 <ResponseField name="limit" type="int">
-  The maximum number of tasks to return.
+  The maximum number of evaluations to return.
 </ResponseField>

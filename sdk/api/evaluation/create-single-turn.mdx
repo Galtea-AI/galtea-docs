@@ -77,7 +77,7 @@ evaluations = galtea.evaluations.create_single_turn(
   The input text/prompt. Required for production evaluations where no `test_case_id` is provided.
 </ResponseField>
 <ResponseField name="is_production" type="boolean" optional>
-  Set to `True` to indicate the task is from a production environment. Defaults to `False`.
+  Set to `True` to indicate the evaluation is from a production environment. Defaults to `False`.
 </ResponseField>
 <ResponseField name="retrieval_context" type="string" optional>
   The context retrieved by your RAG system that was used to generate the `actual_output`.

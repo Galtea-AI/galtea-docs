@@ -45,7 +45,7 @@ evaluation = galtea.evaluations.create(
     version_id=version.id
 )
 
-# 3. Create tasks using evaluation_id
+# 3. Create evaluations using evaluation_id
 galtea.evaluations.create(
     evaluation_id=evaluation.id,
     test_case_id="YOUR_TEST_CASE_ID",
@@ -69,7 +69,7 @@ version = galtea.versions.create(
 
 # 2. Skip explicit evaluation creation (it's automatic!)
 
-# 3. Create tasks using version_id
+# 3. Create evaluations using version_id
 galtea.evaluations.create_single_turn(
     version_id=version.id,
     test_case_id="YOUR_TEST_CASE_ID",
@@ -82,7 +82,7 @@ galtea.evaluations.create_single_turn(
     This example demonstrates how to create single-turn evaluations for test cases. For production data logging, include the `input` parameter and set `is_production=True`. If you want to evaluate multi-turn conversations, refer to the new session-based workflow in Part 2.
 </Note>
 
-### Production Data Logging with Single-Turn Tasks
+### Production Data Logging with Single-Turn Evaluations
 
 For production monitoring, you can also use `create_single_turn()` without a test case:
 

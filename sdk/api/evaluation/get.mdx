@@ -4,7 +4,7 @@ description: "Retrieve a specific evaluation by its ID."
 ---
 
 ## Returns
-Returns an [Evaluation](/concepts/product/version/session/evaluation) object for the given task ID.
+Returns an [Evaluation](/concepts/product/version/session/evaluation) object for the given evaluation ID.
 
 ## Example
 ```python
@@ -13,5 +13,5 @@ evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
 
 ## Parameters
 <ResponseField name="evaluation_id" type="string" required>
-  The ID of the task you want to retrieve.
+  The ID of the evaluation you want to retrieve.
 </ResponseField>

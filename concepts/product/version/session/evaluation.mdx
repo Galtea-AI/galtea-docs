@@ -1,6 +1,6 @@
 ---
 title: "Evaluation"
-description: "A task that evaluates inference results from a session using a metric"
+description: "An evaluation that assesses inference results from a session using a metric"
 icon: "clipboard-check"
 iconType: "solid"
 ---
@@ -106,9 +106,9 @@ Once an evaluation is created, you can access the following information:
 <ResponseField name="Status" type="Enum">
   The current status of the evaluation.
   Possible values:
-  - **Pending**: The task has been created but not yet processed.
-  - **Success**: The task was processed successfully.
-  - **Failed**: The task encountered an error during processing.
+  - **Pending**: The evaluation has been created but not yet processed.
+  - **Success**: The evaluation was processed successfully.
+  - **Failed**: The evaluation encountered an error during processing.
 </ResponseField>
 
 <ResponseField name="Score" type="Number">
@@ -120,5 +120,5 @@ Once an evaluation is created, you can access the following information:
 </ResponseField>
 
 <ResponseField name="Error" type="Text">
-  The error message if the task failed during processing.
+  The error message if the evaluation failed during processing.
 </ResponseField>
