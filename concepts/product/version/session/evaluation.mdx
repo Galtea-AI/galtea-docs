@@ -1,6 +1,6 @@
 ---
-title: "Evaluation Task"
-description: "A task that evaluates inference results from a session using a metric type"
+title: "Evaluation"
+description: "A task that evaluates inference results from a session using a metric"
 icon: "clipboard-check"
 iconType: "solid"
 ---
@@ -11,17 +11,17 @@ import TestCard from '/snippets/cards/test-card.mdx';
 import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import SessionCard from '/snippets/cards/session-card.mdx';
 
-## What is an Evaluation Task?
+## What is an Evaluation?
 
 An evaluation in Galtea represents the assessment of inference results from a [session](/concepts/product/version/session) using the evaluation criteria of a [metric](/concepts/metric). Evaluations are now directly linked to sessions, allowing for comprehensive evaluation of full sessions containing multiple inference results for multi-turn dialogues.
 
-<Note>Evaluation tasks don't perform inference on the LLM [product](/concepts/product) themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task.</Note>
+<Note>Evaluations don't perform inference on the LLM [product](/concepts/product) themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation.</Note>
 
 The only way to **create** evaluations is programmatically by using the [Galtea SDK](/sdk/api/evaluation/service) but they can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
 
-## Task Lifecycle
+## Evaluation Lifecycle
 
-Evaluation tasks follow a specific lifecycle:
+Evaluations follow a specific lifecycle:
 
 <Steps>
   <Step title="Creation">[Trigger an evaluation](/sdk/tutorials/create-evaluation). It will appear in the session's details page with the status "pending"</Step>
@@ -49,9 +49,9 @@ The Galtea SDK allows you to create, view, and manage evaluations programmatical
   </Card>
 </CardGroup>
 
-## Evaluation Task Properties
+## Evaluation Properties
 
-To trigger an evaluation task in Galtea, you provide the following information:
+To trigger an evaluation in Galtea, you provide the following information:
 
 <ResponseField name="Version ID" type="string" required>
   The ID of the version you want to evaluate.
@@ -99,12 +99,12 @@ To trigger an evaluation task in Galtea, you provide the following information:
   </Warning>
 </ResponseField>
 
-### Evaluation Task Results Properties
+### Evaluation Results Properties
 
-Once an evaluation task is created, you can access the following information:
+Once an evaluation is created, you can access the following information:
 
 <ResponseField name="Status" type="Enum">
-  The current status of the evaluation task.
+  The current status of the evaluation.
   Possible values:
   - **Pending**: The task has been created but not yet processed.
   - **Success**: The task was processed successfully.
@@ -112,7 +112,7 @@ Once an evaluation task is created, you can access the following information:
 </ResponseField>
 
 <ResponseField name="Score" type="Number">
-  The score assigned to the output by the metric type's evaluation criteria. **Example**: 0.85
+  The score assigned to the output by the metric's evaluation criteria. **Example**: 0.85
 </ResponseField>
 
 <ResponseField name="Reason" type="Text">

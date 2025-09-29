@@ -2,7 +2,7 @@
 title: "METEOR"
 description: "Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms, computing precision and recall."
 ---
-The METEOR (Metric for Evaluation of Translation with Explicit ORdering) metric is one of the [Classic Metric Type](/concepts/metric-type) Galtea exposes for evaluating machine translation, summarization, and paraphrasing tasks. It aims to correlate more closely with human judgments compared to [BLEU](/concepts/metric-type/bleu).
+The METEOR (Metric for Evaluation of Translation with Explicit ORdering) metric is one of the [Classic Metrics](/concepts/metric) Galtea exposes for evaluating machine translation, summarization, and paraphrasing tasks. It aims to correlate more closely with human judgments compared to [BLEU](/concepts/metric/bleu).
 
 ---
 ## Evaluation Parameters
@@ -15,7 +15,7 @@ To compute the `meteor` metric, the following parameters are required:
 ---
 ## How Is It Calculated?
 
-METEOR improves upon [BLEU](/concepts/metric-type/bleu) by considering **semantic and morphological matches**:
+METEOR improves upon [BLEU](/concepts/metric/bleu) by considering **semantic and morphological matches**:
 
 1. **Alignment**  
    Tokens are matched between candidate and reference using:
@@ -55,5 +55,5 @@ Use METEOR when evaluating:
 ---
 ## Related Topics
 
-- [BLEU](/concepts/metric-type/bleu)
-- [ROUGE](/concepts/metric-type/rouge)
+- [BLEU](/concepts/metric/bleu)
+- [ROUGE](/concepts/metric/rouge)

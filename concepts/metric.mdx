@@ -1,5 +1,5 @@
 ---
-title: "Metric Type"
+title: "Metric"
 description: "Ways to evaluate and score product performance"
 icon: "function"
 iconType: "solid"
@@ -8,15 +8,15 @@ iconType: "solid"
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import SDKMetricsServiceCard from '/snippets/cards/sdk-metrics-service-card.mdx';
 
-## What are Metric Types?
+## What are Metrics?
 
 Metrics in Galtea define the specific criteria and methods used to evaluate the performance of your [product](/concepts/product). They determine how outputs are scored during [evaluations](/concepts/product/version/session/evaluation), ensuring consistent and meaningful assessment.
 
 <Info>
-  Metric types are organization-wide and can be reused across multiple products.
+  Metrics are organization-wide and can be reused across multiple products.
 </Info>
 
-You can **create**, view and manage your metric types on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/metrics/service).
+You can **create**, view and manage your metrics on the [Galtea dashboard](https://platform.galtea.ai/) or programmatically using the [Galtea SDK](/sdk/api/metrics/service).
 
 ## Conceptual categories
 
@@ -32,7 +32,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
   Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric/bleu), [ROUGE](/concepts/metric/rouge), [METEOR](/concepts/metric/meteor), [Text Similarity](/concepts/metric/text-similarity), [Text Match](/concepts/metric/text-match), [IOU](/concepts/metric/iou) and [Spatial Match](/concepts/metric/spatial-match).
 
-  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
+  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
   <Info>
     The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreEvaluationMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
@@ -78,21 +78,21 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Misuse Resilience](/concepts/metric/misuse-resilience)** | Red Teaming | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
 | **[Data Leakage](/concepts/metric/data-leakage)** | Red Teaming | Evaluates whether the LLM returns content that may include sensitive information. |
 | **[Jailbreak Resilience](/concepts/metric/jailbreak-resilience)** | Red Teaming | A previous version of the [Jailbreak Resilience v2](/concepts/metric/jailbreak-resilience-v2) Metric. |
-| **[Jailbreak Resilience v2](/concepts/metric-type/jailbreak-resilience-v2)** | Red Teaming | Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. |
+| **[Jailbreak Resilience v2](/concepts/metric/jailbreak-resilience-v2)** | Red Teaming | Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. |
 
 
-## Metric Type Properties
+## Metric Properties
 
 <ResponseField name="Name" type="Text" required>
-  The name of the metric type. **Example**: "Factual Accuracy"
+  The name of the metric. **Example**: "Factual Accuracy"
 </ResponseField>
 
 <ResponseField name="Description" type="Text" optional>
-  A brief description of what the metric type evaluates.
+  A brief description of what the metric evaluates.
 </ResponseField>
 
 <ResponseField name="Documentation URL" type="URL" optional>
-  A URL pointing to more detailed documentation about the metric type.
+  A URL pointing to more detailed documentation about the metric.
 </ResponseField>
 
 <ResponseField name="Evaluator Model" type="Text" optional>
@@ -103,7 +103,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 </ResponseField>
 
 <ResponseField name="Tags" type="Text List" optional>
-  The tags for the metric type so it can be easily identified and categorized. **Example**: ["RAG", "Conversational"]
+  The tags for the metric so it can be easily identified and categorized. **Example**: ["RAG", "Conversational"]
 </ResponseField>
 
 <ResponseField name="Validation method" type="Enum" required>
@@ -114,7 +114,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       A custom prompt that defines the evaluation logic for an LLM-as-a-judge metric. You can use placeholders like `{input}`, `{actual_output}`, `{expected_output}`, etc., which will be populated at evaluation time. 
     </Tab>
     <Tab title="None">
-      No validation method is applied. This means the metric type is *not* automatically evaluated by Galtea and is intended for *deterministic metrics*.
+      No validation method is applied. This means the metric is *not* automatically evaluated by Galtea and is intended for *deterministic metrics*.
     </Tab>
   </Tabs>
   
@@ -252,7 +252,7 @@ When designing judge prompts, be specific about your scoring criteria and refere
 
 ## SDK Integration
 
-The Galtea SDK allows you to create, view, and manage metric types programmatically.
+The Galtea SDK allows you to create, view, and manage metrics programmatically.
 
 <SDKMetricsServiceCard />
 

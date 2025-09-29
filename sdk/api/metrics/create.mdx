@@ -1,6 +1,6 @@
 ---
 title: "Create Metric"
-description: "Create a metric type for evaluating your products."
+description: "Create a metric for evaluating your products."
 ---
 
 ## Returns
@@ -62,11 +62,11 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
   A custom prompt that defines the evaluation logic for an LLM-as-a-judge metric. You can use placeholders like `{input}`, `{actual_output}`, etc., which will be populated at evaluation time. If you provide a `judge_prompt`, the metric will be an LLM-based evaluation. If omitted, the metric is considered a deterministic "Custom Score" metric.
 </ResponseField>
 <ResponseField name="tags" type="list[string]" optional>
-  Tags to categorize the metric type.
+  Tags to categorize the metric.
 </ResponseField>
 <ResponseField name="description" type="string" optional>
   A brief description of what the metric evaluates.
 </ResponseField>
 <ResponseField name="documentation_url" type="string" optional>
-  A URL pointing to more detailed documentation about the metric type.
+  A URL pointing to more detailed documentation about the metric.
 </ResponseField>

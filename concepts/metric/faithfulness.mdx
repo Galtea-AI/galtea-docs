@@ -3,7 +3,7 @@ title: "Faithfulness"
 description: "Evaluates whether the generated output aligns with the retrieved context in a RAG pipeline."
 ---
 
-The **Faithfulness** metric is one of several [non-deterministic Metric Types](/concepts/metric-type) Galtea uses to evaluate the factual alignment between the model's generated response (`actual_output`) and the information found in the `retrieval_context`. It is a core indicator of hallucination risk in retrieval-augmented generation systems.
+The **Faithfulness** metric is one of several [non-deterministic Metrics](/concepts/metric) Galtea uses to evaluate the factual alignment between the model's generated response (`actual_output`) and the information found in the `retrieval_context`. It is a core indicator of hallucination risk in retrieval-augmented generation systems.
 
 A high faithfulness score indicates that the model grounds its answer in retrieved content, rather than introducing unsupported or fabricated information.
 
@@ -46,5 +46,5 @@ The Faithfulness metric is effective for evaluating [all types of quality test c
 
 ## Related Topics
 
-- [Answer Relevancy](/concepts/metric-type/answer-relevancy)
-- [Contextual Recall](/concepts/metric-type/contextual-recall)
+- [Answer Relevancy](/concepts/metric/answer-relevancy)
+- [Contextual Recall](/concepts/metric/contextual-recall)

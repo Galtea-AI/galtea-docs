@@ -30,8 +30,8 @@ The new design not only raises the clarity and density of data presentation but 
 
 We're continuously refining the platform based on your feedback. This week's improvements include:
 
-- **Customizable Evaluation Tasks List:**  
-  You can now select which metrics you are interested in, so the evaluation tasks list only shows the ones you need.
+- **Customizable Evaluations List:**  
+  You can now select which metrics you are interested in, so the evaluations list only shows the ones you need.
 
 - **Enhanced Evaluation List Filtering:**  
   Easily filter evaluations by versions, evaluations, tests and test groups.
@@ -107,7 +107,7 @@ This is an example of the HTML email version for the same changelog:
                 <h3 style="color: #171717">User Experience Enhancements</h3>
                 <p style="color: #171717; font-size: 16px">We're continuously refining the platform based on your feedback. This week's improvements include:</p>
                 <ul style="color: #171717; font-size: 16px">
-                  <li><strong>Customizable Evaluation Tasks List:</strong> Show only the metrics you need.</li>
+                  <li><strong>Customizable Evaluations List:</strong> Show only the metrics you need.</li>
                   <li><strong>Enhanced Evaluation List Filtering:</strong> Filter by versions, evaluations, tests, and test groups.</li>
                   <li><strong>Enhanced Test List Filtering:</strong> Filter tests by their group.</li>
                   <li><strong>Smart Table Sorting:</strong> Automatically disables default sorting when custom sorting is applied.</li>
@@ -171,7 +171,7 @@ The following are the change notes for this release. You can re-write them to se
 In this release:
 - Now sorting tables is more consistent, you can navigate back and forth, refresh the page, etc and the same order of results will always be shown.
 - Improved misuse resilience metric; now it accepts all the product context.
-- You can navigate to the Test Case, Session or Evaluation from an Evaluation Task by just right clicking it in the table or using the dropdown in the Evaluation Task details page. (show image of the table RMB)
+- You can navigate to the Test Case, Session or Evaluation from an Evaluation by just right clicking it in the table or using the dropdown in the Evaluation details page. (show image of the table RMB)
 - Now you can upvote and downvote Test Cases from the Dashboard. (show image of the thumbs up/down)
 - Now you can configure your organization to allow SAML SSO authentication.
 - Now you can filter by Test Case language in the analytics page's filters

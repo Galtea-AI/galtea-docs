@@ -1,9 +1,9 @@
 ---
-title: 'Create Evaluation Tasks'
-description: "Create evaluation tasks for all inference results within a session using specified metrics."
+title: 'Create Evaluations'
+description: "Create evaluations for all inference results within a session using specified metrics."
 ---
 
-This method evaluates an entire conversation stored in a [Session](/concepts/product/version/session) by creating evaluation tasks for each of its [Inference Results](/concepts/product/version/session/inference-result).
+This method evaluates an entire conversation stored in a [Session](/concepts/product/version/session) by creating evaluations for each of its [Inference Results](/concepts/product/version/session/inference-result).
 
 ## Returns
 Returns a list of [Evaluation](/concepts/product/version/session/evaluation) objects, one for each metric and each inference result in the session.
@@ -24,7 +24,7 @@ galtea.inference_results.create_batch(
 )
 
 # Now, evaluate the entire session
-evaluation_tasks = galtea.evaluation_tasks.create(
+evaluations = galtea.evaluations.create(
     session_id=session.id,
     metrics=["Role Adherence", "Conversation Relevancy"]
 )

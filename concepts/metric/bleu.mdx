@@ -2,14 +2,14 @@
 title: "BLEU"
 description: "Primarily used for machine translation evaluation, measuring how many n-grams (phrases of n words) in the candidate translation overlap with those in a set of reference translations."
 ---
-The BLEU (bilingual evaluation understudy) metric is one of the [Classic Metric Type](/concepts/metric-type) Galtea exposes to objectively compare a model’s output against ground‑truth references. It is most appropriate when you expect the model to reproduce wording very close to the reference (e.g., machine translation or tightly constrained generation).
+The BLEU (bilingual evaluation understudy) metric is one of the [Classic Metrics](/concepts/metric) Galtea exposes to objectively compare a model's output against ground‑truth references. It is most appropriate when you expect the model to reproduce wording very close to the reference (e.g., machine translation or tightly constrained generation).
 
 ---
 ## Evaluation Parameters
 
 To compute the `bleu` metric, the following parameters are required:
 
-- **`actual_output`**: The model’s generated text.
+- **`actual_output`**: The model's generated text.
 - **`expected_output`**: The reference (or gold) text to compare against.
 
 ---
@@ -18,7 +18,7 @@ To compute the `bleu` metric, the following parameters are required:
 Conceptually, BLEU is computed as:
 
 1. **N‑gram Precision**  
-   Compute modified precision for n‑grams of sizes **1, 2, 3, and 4**: how many of the candidate’s n‑grams also appear in the reference(s), clipped by the maximum count in the references.
+   Compute modified precision for n‑grams of sizes **1, 2, 3, and 4**: how many of the candidate's n‑grams also appear in the reference(s), clipped by the maximum count in the references.
 
 2. **Geometric Mean of Precisions**  
    Combine the n‑gram precisions with a geometric mean to balance contributions from different n‑gram sizes.
@@ -64,5 +64,5 @@ Use BLEU when you have **deterministic, reference-style outputs**, such as:
 ---
 ## Related Topics
 
-- [ROUGE](/concepts/metric-type/rouge)
-- [METEOR](/concepts/metric-type/meteor)
+- [ROUGE](/concepts/metric/rouge)
+- [METEOR](/concepts/metric/meteor)

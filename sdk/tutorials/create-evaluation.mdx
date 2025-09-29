@@ -1,13 +1,13 @@
 ---
-title: 'Run Test-Based Evaluation Tasks'
-description: "Learn how to run evaluation tasks for a single-turn, test-based workflow."
+title: 'Run Test-Based Evaluations'
+description: "Learn how to run evaluations for a single-turn, test-based workflow."
 icon: "clipboard-check"
 ---
 
-To evaluate a product version against a predefined [Test](/concepts/product/test), you can loop through its [Test Cases](/concepts/product/test/case) and run an evaluation task for each one. This workflow is ideal for regression testing and standardized quality checks.
+To evaluate a product version against a predefined [Test](/concepts/product/test), you can loop through its [Test Cases](/concepts/product/test/case) and run an evaluation for each one. This workflow is ideal for regression testing and standardized quality checks.
 
 <Info>
-  A [session](/concepts/product/version/session) is created **implicitly** the first time you run an evaluation task for a specific `version_id` and `test_id` combination. You do not need to create it manually.
+  A [session](/concepts/product/version/session) is created **implicitly** the first time you run an evaluation for a specific `version_id` and `test_id` combination. You do not need to create it manually.
 </Info>
 
 ### Workflow
@@ -20,7 +20,7 @@ To evaluate a product version against a predefined [Test](/concepts/product/test
         Fetch all test cases associated with the test using `galtea.test_cases.list()`.
     </Step>
     <Step title="Generate and Evaluate Output">
-        For each test case, call your product to get its output, then use `galtea.evaluation_tasks.create_single_turn()` to create the evaluation tasks.
+        For each test case, call your product to get its output, then use `galtea.evaluations.create_single_turn()` to create the evaluations.
     </Step>
 </Steps>
 
@@ -55,21 +55,21 @@ def your_product_function(input_prompt: str, context: str = None) -> str:
 test_cases = galtea.test_cases.list(test_id=YOUR_TEST_ID)
 print(f"Found {len(test_cases)} test cases for Test ID: {YOUR_TEST_ID}")
 
-# 2. Loop through each test case and run an evaluation task
+# 2. Loop through each test case and run an evaluation
 for test_case in test_cases:
     # Get your product's actual response to the input
     actual_output = your_product_function(test_case.input)
     
-    # Create the evaluation task
+    # Create the evaluation
     # An evaluation is created implicitly on the first call
-    galtea.evaluation_tasks.create_single_turn(
+    galtea.evaluations.create_single_turn(
         version_id=YOUR_VERSION_ID,
         test_case_id=test_case.id,
         metrics=METRICS_TO_EVALUATE,
         actual_output=actual_output,
     )
 
-print(f"\nAll evaluation tasks submitted for Version ID: {YOUR_VERSION_ID}")
+print(f"\nAll evaluations submitted for Version ID: {YOUR_VERSION_ID}")
 
 ```
 

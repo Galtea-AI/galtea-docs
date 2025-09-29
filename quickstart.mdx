@@ -106,18 +106,18 @@ def your_product_function(input_prompt):
     return f"Of course! I will now {input_prompt}"
 
 # An evaluation is created implicitly with the first task.
-# Loop through test cases and create evaluation tasks.
+# Loop through test cases and create evaluations.
 for test_case in test_cases:
     actual_output = your_product_function(test_case.input)
     
-    galtea.evaluation_tasks.create_single_turn(
+    galtea.evaluations.create_single_turn(
         version_id=version.id,
         test_case_id=test_case.id,
         metrics=[metric.name],
         actual_output=actual_output
     )
 
-print(f"Submitted evaluation tasks for version {version.id} using test '{test.name}'.")
+print(f"Submitted evaluations for version {version.id} using test '{test.name}'.")
 ```
 
 ## 7. View Results

@@ -2,7 +2,7 @@
 title: "Spatial Match"
 description: "Performs a binary evaluation of the spatial alignment between a predicted bounding box and one or more reference boxes using the best Intersection over Union (IoU) score. Returns a pass/fail signal based on a threshold, making it ideal for layout-sensitive validation tasks."
 ---
-The Spatial Match metric is part of the [Classic Metric Type](/concepts/metric-type) options in Galtea. It determines whether a predicted bounding box sufficiently overlaps with any of the reference boxes by computing the Intersection over Union ([IOU](/concepts/metric-type/iou)) and applying a threshold. This binary variant of the [IOU](/concepts/metric-type/iou) metric is particularly useful when an exact spatial match is not required, but a minimum quality of alignment must be enforced.
+The Spatial Match metric is part of the [Classic Metrics](/concepts/metric) options in Galtea. It determines whether a predicted bounding box sufficiently overlaps with any of the reference boxes by computing the Intersection over Union ([IOU](/concepts/metric/iou)) and applying a threshold. This binary variant of the [IOU](/concepts/metric/iou) metric is particularly useful when an exact spatial match is not required, but a minimum quality of alignment must be enforced.
 
 ---
 ## Evaluation Parameters
@@ -48,7 +48,7 @@ Use Spatial Match when evaluating:
 ---
 ## Related Topics
 
-- [Text Match](/concepts/metric-type/text-match)
-- [IOU](/concepts/metric-type/iou)
-- [Text Similarity](/concepts/metric-type/text-similarity)
+- [Text Match](/concepts/metric/text-match)
+- [IOU](/concepts/metric/iou)
+- [Text Similarity](/concepts/metric/text-similarity)
 

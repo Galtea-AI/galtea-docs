@@ -3,7 +3,7 @@ title: "Contextual Precision"
 description: "Evaluates whether relevant documents in the retrieval context are ranked higher than irrelevant ones."
 ---
 
-The **Contextual Precision** metric is one of several [non-deterministic Metric Types](/concepts/metric-type) Galtea uses to assess how well your RAG pipeline's retriever prioritizes relevant content. Specifically, it checks whether relevant items in the `retrieval_context` are ranked higher than irrelevant ones, based on their contribution to answering the user's query.
+The **Contextual Precision** metric is one of several [non-deterministic Metrics](/concepts/metric) Galtea uses to assess how well your RAG pipeline's retriever prioritizes relevant content. Specifically, it checks whether relevant items in the `retrieval_context` are ranked higher than irrelevant ones, based on their contribution to answering the user's query.
 
 High contextual precision means that the retriever is efficiently surfacing the most useful information near the top.
 
@@ -45,5 +45,5 @@ The Contextual Precision metric is effective for evaluating [all types of qualit
 
 ## Related Topics
 
-- [Contextual Relevancy](/concepts/metric-type/contextual-relevancy)
-- [Faithfulness](/concepts/metric-type/faithfulness)
+- [Contextual Relevancy](/concepts/metric/contextual-relevancy)
+- [Faithfulness](/concepts/metric/faithfulness)

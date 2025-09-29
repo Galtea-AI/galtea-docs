@@ -1,6 +1,6 @@
 ---
-title: 'Retrieving Evaluation Task'
-description: "Retrieve a specific evaluation task by its ID."
+title: 'Retrieving Evaluation'
+description: "Retrieve a specific evaluation by its ID."
 ---
 
 ## Returns
@@ -8,10 +8,10 @@ Returns an [Evaluation](/concepts/product/version/session/evaluation) object for
 
 ## Example
 ```python
-evaluation_task = galtea.evaluation_tasks.get(evaluation_task_id="YOUR_TASK_ID")
+evaluation = galtea.evaluations.get(evaluation_id="YOUR_EVALUATION_ID")
 ```
 
 ## Parameters
-<ResponseField name="evaluation_task_id" type="string" required>
+<ResponseField name="evaluation_id" type="string" required>
   The ID of the task you want to retrieve.
 </ResponseField>
