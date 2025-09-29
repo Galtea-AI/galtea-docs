@@ -30,15 +30,15 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   *   Numerical range checks (e.g., confirming a value falls within an acceptable range)
   *   Boolean condition checks (e.g., ensuring a specific condition evaluates to true or false as expected)
 
-  Currently the deterministic metrics accessible directly from the platform are [BLEU](/concepts/metric/bleu), [ROUGE](/concepts/metric/rogue), [METEOR](/concepts/metric/meteor), [Text Similarity](/concepts/metric/text-similarity), [Text Match](/concepts/metric/text-match), [IOU](/concepts/metric/iou) and [Spatial Match](/concepts/metric/spatial-match) and [URL Validation]({concepts/metric/url-validation}).
+  Currently the deterministic metrics accessible directly from the platform are [BLEU](/concepts/metric/bleu), [ROUGE](/concepts/metric/rouge), [METEOR](/concepts/metric/meteor), [Text Similarity](/concepts/metric/text-similarity), [Text Match](/concepts/metric/text-match), [IOU](/concepts/metric/iou) and [Spatial Match](/concepts/metric/spatial-match) and [URL Validation]({concepts/metric/url-validation}).
 
-  Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
+  Additionally you can define your own custom deterministic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
   <Info>
     The platform cannot automatically evaluate *deterministic metrics*, as it lacks the necessary information. However, by using the `CustomScoreEvaluationMetric` class in the SDK, you can execute your custom logic locally and have the scores seamlessly uploaded to the platform for visualization.
   </Info>
 
-- **Non-deterministic metrics** are powered by the LLM-as-a-judge methodology. The tested and deployed Galtea judges are human-aligned and optimized for the type of evaluation they are designed for. These metrics assess aspects like factual accuracy, misuse resilience and correct task completion. Additionally you can create your own metrics using a template from the platform, assessing any aspect of your AI product you desire.
+- **Non-deterministic metrics** are powered by the LLM-as-a-judge methodology. The tested and deployed Galtea judges are human-aligned and optimized for the type of evaluation they are designed for. These metrics assess aspects like factual accuracy, misuse resilience, and correct task completion. Additionally you can create your own metrics using a template from the platform, assessing any aspect of your AI product you desire.
 
 <Info title="Applicability to Different Output Types">
   Galtea metrics are versatile and can be applied to **any type of output**, including strings, numbers, and boolean values.
@@ -55,30 +55,6 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
 | Metric | Category | Description |
 | --- | --- | --- |
-| **[Factual Accuracy](/concepts/metric/factual-accuracy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the expected_output. |
-| **[Resilience To Noise](/concepts/metric/resilience-to-noise)** | RAG | Evaluates whether the generated output is resilient to noisy input, such as typos, OCR/ASR errors, and distracting content. |
-| **[Answer Relevancy](/concepts/metric/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
-| **[Faithfulness](/concepts/metric/faithfulness)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the contents of your retrieval_context. |
-| **[Contextual Precision](/concepts/metric/contextual-precision)** | RAG | Measures your RAG pipeline's retriever by evaluating whether nodes in your retrieval_context that are relevant to the given input are ranked higher than irrelevant ones. |
-| **[Contextual Recall](/concepts/metric/contextual-recall)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the extent of which the retrieval_context aligns with the expected_output. |
-| **[Contextual Relevancy](/concepts/metric/contextual-relevancy)** | RAG | Measures the quality of your RAG pipeline's retriever by evaluating the overall relevance of the information presented in your retrieval_context for a given input. |
-| **[BLEU](/concepts/metric/bleu)** | Deterministic | Measures how many n-grams in the actual output overlap with those in a set of expected output. |
-| **[ROUGE](/concepts/metric/rouge)** | Deterministic | Evaluates automatic summarization by measuring the longest common subsequence that preserves the word order between actual output and expected output summaries. |
-| **[METEOR](/concepts/metric/meteor)** | Deterministic | Evaluates translation, summarization, and paraphrasing by aligning words using exact matches, stems, or synonyms. |
-| **[Text Similarity](/concepts/metric/text-similarity)** | Deterministic |Quantifies the overall textual resemblance between a generated summary and a reference summary by using character-level fuzzy matching. |
-| **[Text Match](/concepts/metric/text-match)** | Deterministic |Determines whether generated text matches a reference with high character-level similarity using fuzzy matching, returning a binary outcome based on a threshold.|
-| **[IOU](/concepts/metric/iou)** | Deterministic | Measures the spatial overlap between a predicted bounding box and one or more reference boxes to quantify alignment in object detection and layout tasks.  |
-| **[Spatial Match](/concepts/metric/spatial-match)** | Deterministic |Performs a binary evaluation of the spatial alignment between a predicted bounding box and reference boxes using the best Intersection over Union (IoU) score to return a pass/fail signal.|
-| **[Role Adherence](/concepts/metric/role-adherence)** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
-| **[Conversation Completeness](/concepts/metric/conversation-completeness)** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
-| **[Conversation Relevancy](/concepts/metric/conversation-relevancy)** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
-| **[Knowledge Retention](/concepts/metric/knowledge-retention)** | Conversational | Assesses the ability of your LLM chatbot to retain factual information presented throughout a conversation. |
-| **[Non-Toxic](/concepts/metric/non-toxic)** | Red Teaming | Determines whether the responses of your LLM based product responds are free of toxic language. |
-| **[Unbiased](/concepts/metric/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
-| **[Misuse Resilience](/concepts/metric/misuse-resilience)** | Red Teaming | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
-| **[Data Leakage](/concepts/metric/data-leakage)** | Red Teaming | Evaluates whether the LLM returns content that may include sensitive information. |
-| **[Jailbreak Resilience](/concepts/metric/jailbreak-resilience)** | Red Teaming | A previous version of the [Jailbreak Resilience v2](/concepts/metric/jailbreak-resilience-v2) Metric. |
-| **[Jailbreak Resilience v2](/concepts/metric/jailbreak-resilience-v2)** | Red Teaming | Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. |
 | **[Factual Accuracy](/concepts/metric/factual-accuracy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating whether the actual_output factually aligns with the expected_output. |
 | **[Resilience To Noise](/concepts/metric/resilience-to-noise)** | RAG | Evaluates whether the generated output is resilient to noisy input, such as typos, OCR/ASR errors, and distracting content. |
 | **[Answer Relevancy](/concepts/metric/answer-relevancy)** | RAG | Measures the quality of your RAG pipeline's generator by evaluating how relevant the actual_output of your LLM application is compared to the provided input. |
