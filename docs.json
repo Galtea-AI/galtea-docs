@@ -81,7 +81,7 @@
             "pages": [
               "sdk/tutorials/create-product-description",
               "sdk/tutorials/create-test",
-              "sdk/tutorials/create-evaluation-task",
+              "sdk/tutorials/create-evaluation",
               "sdk/tutorials/monitor-production-responses-to-user-queries",
               "sdk/tutorials/evaluating-conversations",
               "sdk/tutorials/simulating-conversations",
@@ -107,8 +107,8 @@
               "concepts/product/test/case/conversation-simulator",
               "concepts/product/version/session",
               "concepts/product/version/session/inference-result",
-              "concepts/product/version/session/evaluation-task",
-              "concepts/metric-type",
+              "concepts/product/version/session/evaluation",
+              "concepts/metric",
               "concepts/model"
             ]
           },
@@ -119,30 +119,30 @@
                 "group": "RAG metrics",
                 "icon": "magnifying-glass-chart",
                 "pages": [
-                  "concepts/metric-type/factual-accuracy",
-                  "concepts/metric-type/resilience-to-noise",
-                  "concepts/metric-type/answer-relevancy",
-                  "concepts/metric-type/faithfulness",
-                  "concepts/metric-type/contextual-precision",
-                  "concepts/metric-type/contextual-recall",
-                  "concepts/metric-type/contextual-relevancy",
-                  "concepts/metric-type/custom-judge"
+                  "concepts/metric/factual-accuracy",
+                  "concepts/metric/resilience-to-noise",
+                  "concepts/metric/answer-relevancy",
+                  "concepts/metric/faithfulness",
+                  "concepts/metric/contextual-precision",
+                  "concepts/metric/contextual-recall",
+                  "concepts/metric/contextual-relevancy",
+                  "concepts/metric/custom-judge"
                 ]
               },
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": ["concepts/metric-type/knowledge-retention", "concepts/metric-type/role-adherence", "concepts/metric-type/conversation-completeness", "concepts/metric-type/conversation-relevancy"]
+                "pages": ["concepts/metric/knowledge-retention", "concepts/metric/role-adherence", "concepts/metric/conversation-completeness", "concepts/metric/conversation-relevancy"]
               },
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/metric-type/misuse-resilience", "concepts/metric-type/non-toxic", "concepts/metric-type/unbiased", "concepts/metric-type/jailbreak-resilience", "concepts/metric-type/jailbreak-resilience-v2", "concepts/metric-type/data-leakage"]
+                "pages": ["concepts/metric/misuse-resilience", "concepts/metric/non-toxic", "concepts/metric/unbiased", "concepts/metric/jailbreak-resilience", "concepts/metric/jailbreak-resilience-v2", "concepts/metric/data-leakage"]
               },
               {
                 "group": "Deterministic metrics",
                 "icon": "calculator",
-                "pages": ["concepts/metric-type/bleu", "concepts/metric-type/rouge", "concepts/metric-type/meteor", "concepts/metric-type/text-similarity", "concepts/metric-type/text-match", "concepts/metric-type/iou", "concepts/metric-type/spatial-match"]
+                "pages": ["concepts/metric/bleu", "concepts/metric/rouge", "concepts/metric/meteor", "concepts/metric/text-similarity", "concepts/metric/text-match", "concepts/metric/iou", "concepts/metric/spatial-match"]
               }
             ]
           },
@@ -211,9 +211,9 @@
                 "pages": ["sdk/api/inference-result/service", "sdk/api/inference-result/create", "sdk/api/inference-result/create-batch", "sdk/api/inference-result/list", "sdk/api/inference-result/get", "sdk/api/inference-result/delete"]
               },
               {
-                "group": "Evaluation Task",
+                "group": "Evaluation",
                 "icon": "clipboard-check",
-                "pages": ["sdk/api/evaluation-task/service", "sdk/api/evaluation-task/create-single-turn", "sdk/api/evaluation-task/create", "sdk/api/evaluation-task/list", "sdk/api/evaluation-task/get", "sdk/api/evaluation-task/delete"]
+                "pages": ["sdk/api/evaluation/service", "sdk/api/evaluation/create-single-turn", "sdk/api/evaluation/create", "sdk/api/evaluation/list", "sdk/api/evaluation/get", "sdk/api/evaluation/delete"]
               },
               {
                 "group": "Simulator",

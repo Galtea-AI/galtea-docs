@@ -7,7 +7,7 @@ The following is an example of an MDX file that contains the changelog of one re
 <Update label="2025-04-28" description="Monitorization and UI improvements">
 ## Monitoring Is Live!
 
-Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users. [Read more here](/sdk/api/evaluation-task/service#monitoring-user-interactions-in-production).
+Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users. [Read more here](/sdk/api/evaluation/service#monitoring-user-interactions-in-production).
 
 ## Improved Galtea Red Teaming Tests
 
@@ -81,7 +81,7 @@ This is an example of the HTML email version for the same changelog:
                 <h3 style="color: #171717">Monitoring Is Live!</h3>
                 <p style="color: #171717; font-size: 16px">
                   Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users.
-                  <a href="https://docs.galtea.ai/sdk/api/evaluation-task/service#monitoring-user-interactions-in-production" style="color: #5286ff">Read more here</a>.
+                  <a href="https://docs.galtea.ai/sdk/api/evaluation/service#monitoring-user-interactions-in-production" style="color: #5286ff">Read more here</a>.
                 </p>
 
                 <br />

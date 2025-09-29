@@ -6,7 +6,7 @@ We've been hard at work reorganizing and expanding the Galtea platform to handle
 
 ## Dashboard Enhancements
 
-- **Reorganized [Version](/concepts/product/version), [Test](/concepts/product/test), and [Evaluation Task](/concepts/product/version/session/evaluation-task) Views:**  
+- **Reorganized [Version](/concepts/product/version), [Test](/concepts/product/test), and [Evaluation](/concepts/product/version/session/evaluation) Views:**  
   Detailed views have been streamlined and improved for clearer insights.
 
 - **New [Sessions](/concepts/product/version/session) Visualizations:**  
@@ -28,10 +28,10 @@ The new Galtea SDK v2 is here! It includes breaking changes to simplify workflow
 - **Implicit Session Creation:**  
   Sessions are created automatically when needed for evaluation tasks.
 
-- **Repurposed [evaluation_tasks.create()](/sdk/api/evaluation-task/create):**  
+- **Repurposed [evaluations.create()](/sdk/api/evaluation/create):**  
   The old method is replaced by `create_single_turn()` for test-based evaluations, while `create()` now exclusively handles [session-based](/sdk/api/session) evaluations.
 
-- **New [evaluation_tasks.create_single_turn()](/sdk/api/evaluation-task/create-single-turn) Method:**  
+- **New [evaluations.create_single_turn()](/sdk/api/evaluation/create-single-turn) Method:**  
   Use this for single-turn [test cases](/sdk/api/test-case). It now requires `version_id` instead of `evaluation_id`.
 
 - **Simplified [Version Creation](/sdk/api/version/create):**  

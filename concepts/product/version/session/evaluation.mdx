@@ -5,28 +5,28 @@ icon: "clipboard-check"
 iconType: "solid"
 ---
 
-import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
-import SDKEvaluationTaskServiceCard from '/snippets/cards/sdk-evaluation-task-service-card.mdx';
+import MetricCard from '/snippets/cards/metric-card.mdx';
+import SDKEvaluationServiceCard from '/snippets/cards/sdk-evaluation-service-card.mdx';
 import TestCard from '/snippets/cards/test-card.mdx';
 import TestCaseCard from '/snippets/cards/test-case-card.mdx';
 import SessionCard from '/snippets/cards/session-card.mdx';
 
 ## What is an Evaluation Task?
 
-An evaluation task in Galtea represents the assessment of inference results from a [session](/concepts/product/version/session) using the evaluation criteria of a [metric type](/concepts/metric-type). Evaluation tasks are now directly linked to sessions, allowing for comprehensive evaluation of full sessions containing multiple inference results for multi-turn dialogues.
+An evaluation in Galtea represents the assessment of inference results from a [session](/concepts/product/version/session) using the evaluation criteria of a [metric](/concepts/metric). Evaluations are now directly linked to sessions, allowing for comprehensive evaluation of full sessions containing multiple inference results for multi-turn dialogues.
 
 <Note>Evaluation tasks don't perform inference on the LLM [product](/concepts/product) themselves. Rather, they evaluate outputs that have already been generated. You should perform inference on your product first, then trigger the evaluation task.</Note>
 
-The only way to **create** evaluation tasks is programmatically by using the [Galtea SDK](/sdk/api/evaluation-task/service) but they can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
+The only way to **create** evaluations is programmatically by using the [Galtea SDK](/sdk/api/evaluation/service) but they can be viewed and managed on the [Galtea dashboard](https://platform.galtea.ai/).
 
 ## Task Lifecycle
 
 Evaluation tasks follow a specific lifecycle:
 
 <Steps>
-  <Step title="Creation">[Trigger an evaluation task](/sdk/tutorials/create-evaluation-task). It will appear in the session's details page with the status "pending"</Step>
-  <Step title="Processing">Galtea's evaluation system processes the task using the evaluation criteria of the selected [metric type](/concepts/metric-type)</Step>
-  <Step title="Completion">Once processed, the status changes to "completed" and the [results](/concepts/product/version/session/evaluation-task#evaluation-task-properties) are available</Step>
+  <Step title="Creation">[Trigger an evaluation](/sdk/tutorials/create-evaluation). It will appear in the session's details page with the status "pending"</Step>
+  <Step title="Processing">Galtea's evaluation system processes the evaluation using the evaluation criteria of the selected [metric](/concepts/metric)</Step>
+  <Step title="Completion">Once processed, the status changes to "completed" and the [results](/concepts/product/version/session/evaluation#evaluation-properties) are available</Step>
 </Steps>
 
 ## Related Concepts
@@ -35,15 +35,15 @@ Evaluation tasks follow a specific lifecycle:
   <TestCard />
   <TestCaseCard />
   <SessionCard />
-  <MetricTypeCard />
+  <MetricCard />
 </CardGroup>
 
 ## SDK Integration
 
-The Galtea SDK allows you to create, view, and manage evaluation tasks programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
+The Galtea SDK allows you to create, view, and manage evaluations programmatically. This is particularly useful for organizations that want to automate their versioning process or integrate it into their CI/CD pipeline.
 
 <CardGroup cols={2}>
-  <SDKEvaluationTaskServiceCard />
+  <SDKEvaluationServiceCard />
   <Card title="GitHub Actions" icon="code-compare" href="/sdk/integrations/github-actions">
     Learn how to set up GitHub Actions to automatically evaluate new versions
   </Card>
@@ -116,7 +116,7 @@ Once an evaluation task is created, you can access the following information:
 </ResponseField>
 
 <ResponseField name="Reason" type="Text">
-  The explanation of the score assigned to the output by the [metric type's](/concepts/metric-type) evaluation criteria.
+  The explanation of the score assigned to the output by the [metric's](/concepts/metric) evaluation criteria.
 </ResponseField>
 
 <ResponseField name="Error" type="Text">

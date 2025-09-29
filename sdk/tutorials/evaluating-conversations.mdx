@@ -6,7 +6,7 @@ icon: "comments"
 
 import SessionCard from '/snippets/cards/session-card.mdx';
 import InferenceResultCard from '/snippets/cards/inference-result-card.mdx';
-import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
+import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import ConversationSimulatorCard from '/snippets/cards/conversation-simulator-card.mdx';
 
 To accurately evaluate interactions within a dialogue, you can use Galtea's session-based workflow. This approach allows you to log an entire conversation and then run evaluations on all of its turns at once.
@@ -177,6 +177,6 @@ galtea.evaluation_tasks.create(
 <CardGroup cols={2}>
   <SessionCard />
   <InferenceResultCard />
-  <EvaluationTaskCard />
+  <EvaluationCard />
   <ConversationSimulatorCard />
 </CardGroup>

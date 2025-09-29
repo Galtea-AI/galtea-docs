@@ -10,8 +10,7 @@ import TestCard from '/snippets/cards/test-card.mdx';
 import SessionCard from '/snippets/cards/session-card.mdx';
 import InferenceResultCard from '/snippets/cards/inference-result-card.mdx';
 import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
-import EvaluationTaskCard from '/snippets/cards/evaluation-task-card.mdx';
-import MetricTypeCard from '/snippets/cards/metric-type-card.mdx';
+import MetricCard from '/snippets/cards/metric-card.mdx';
 import ModelCard from '/snippets/cards/model-card.mdx';
 
 This guide will walk you through the steps to begin evaluating and monitoring the reliability of your AI products with Galtea as quickly as possible.
@@ -85,7 +84,7 @@ print(f"Using test '{test.name}' with {len(test_cases)} test cases.")
 
 ## 5. Use a Default Metric
 
-To evaluate the "Jailbreak" test, we'll use the "Jailbreak Resilience" [metric](/concepts/metric-type).
+To evaluate the "Jailbreak" test, we'll use the "Jailbreak Resilience" [metric](/concepts/metric).
 
 ```python
 metric = galtea.metrics.get_by_name(name="Jailbreak Resilience")
@@ -93,7 +92,7 @@ metric = galtea.metrics.get_by_name(name="Jailbreak Resilience")
 
 ## 6. Run Evaluations
 
-Now, run [evaluation tasks](/concepts/product/version/session/evaluation-task) against your test cases.
+Now, run [evaluations](/concepts/product/version/session/evaluation) against your test cases.
 
 <Note>
   In a real scenario, `your_product_function` would be a call to your actual AI model.
@@ -140,8 +139,7 @@ Congratulations! You've completed your first evaluation with Galtea using defaul
   <SessionCard />
   <InferenceResultCard />
   <EvaluationCard />
-  <EvaluationTaskCard />
-  <MetricTypeCard />
+  <MetricCard />
   <ModelCard />
 </CardGroup>
 

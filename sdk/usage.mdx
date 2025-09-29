@@ -62,8 +62,8 @@ test = galtea.tests.create(
 
 ### Creating a Metric Type
 
-[Metric Types](/concepts/metric-type) help you define the criteria for evaluating the performance of your [product](/concepts/product).
-You can create custom [Metric Types](/concepts/metric-type) tailored to your specific use cases.
+[Metrics](/concepts/metric) help you define the criteria for evaluating the performance of your [product](/concepts/product).
+You can create custom [Metrics](/concepts/metric) tailored to your specific use cases.
 
 ```python
 # Create a standard metric type via API
@@ -106,7 +106,7 @@ keyword_metric = MyKeywordMetric()
 
 ### Launching Evaluation Tasks
 
-[Evaluation tasks](/concepts/product/version/session/evaluation-task) assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metric types](/concepts/metric-type). They are now directly linked to [sessions](/concepts/product/version/session) that contain all inference results.
+[Evaluations](/concepts/product/version/session/evaluation) assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metrics](/concepts/metric). They are now directly linked to [sessions](/concepts/product/version/session) that contain all inference results.
 
 ```python
 # Get test cases from the test
@@ -134,12 +134,12 @@ for test_case in test_cases:
 ```
 
 <Info>
-    More information about launching evaluation tasks can be found [here](/sdk/api/evaluation-task/service).
+    More information about launching evaluations can be found [here](/sdk/api/evaluation/service).
 </Info>
 
 ### Retrieving Evaluation Results
 
-Once the [evaluation tasks](/concepts/product/version/session/evaluation-task) are completed, you can retrieve them to analyze the results.
+Once the [evaluations](/concepts/product/version/session/evaluation) are completed, you can retrieve them to analyze the results.
 
 ```python
 # First, get all sessions for the product
