@@ -169,14 +169,12 @@ The following are the change notes for this release. You can re-write them to se
 
 ## Changelog:
 In this release:
-- Now sorting tables is more consistent, you can navigate back and forth, refresh the page, etc and the same order of results will always be shown.
-- Improved misuse resilience metric; now it accepts all the product context.
-- You can navigate to the Test Case, Session or Evaluation from an Evaluation Task by just right clicking it in the table or using the dropdown in the Evaluation Task details page. (show image of the table RMB)
-- Now you can upvote and downvote Test Cases from the Dashboard. (show image of the thumbs up/down)
-- Now you can configure your organization to allow SAML SSO authentication.
-- Now you can filter by Test Case language in the analytics page's filters
+- Now you can create User Scenarios based on Test Cases of quality/golden test cases
+- New metric: URL Validation
+- Major performance improvements across the platform, especially in the analytics views.
+- Visual fixes like some icons not switching colors depending on the theme when inside a button
 
 ## Coming Soon:
 * New and improved red teaming strategies
-* Improvments though the paltfor to make it easier to analyze the results, navigate through it, ...
+* Simplification of the platform's concepts, improvements throughout the platform to make it easier to analyze the results, navigate through it, ...
 * Be able to filter Test Cases by the given score (upvote/downvote) using the SDK.
