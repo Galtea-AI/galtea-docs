@@ -31,7 +31,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   *   Numerical range checks (e.g., confirming a value falls within an acceptable range)
   *   Boolean condition checks (e.g., ensuring a specific condition evaluates to true or false as expected)
 
-  Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric-type/bleu), [ROUGE](/concepts/metric-type/rogue), [METEOR](/concepts/metric-type/meteor), [Text Similarity](/concepts/metric-type/text-similarity), [Text Match](/concepts/metric-type/text-match), [IOU](/concepts/metric-type/iou) and [Spatial Match](/concepts/metric-type/spatial-match).
+  Currently the deterministric metrics accessible directly from the platform are [BLEU](/concepts/metric-type/bleu), [ROUGE](/concepts/metric-type/rogue), [METEOR](/concepts/metric-type/meteor), [Text Similarity](/concepts/metric-type/text-similarity), [Text Match](/concepts/metric-type/text-match), [IOU](/concepts/metric-type/iou) and [Spatial Match](/concepts/metric-type/spatial-match) and [URL Validation]({concepts/metric-type/url-validation}).
 
   Additionaly you can define your own custom determinstic metrics. In order to do that, you can implement a class that inherits from the `CustomScoreEvaluationMetric` base class and pass an instance of it to the evaluation task creation method. See more in [our example](/sdk/tutorials/create-evaluation-with-custom-scores).
 
@@ -70,6 +70,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Text Match](/concepts/metric-type/text-match)** | Deterministic |Determines whether generated text matches a reference with high character-level similarity using fuzzy matching, returning a binary outcome based on a threshold.|
 | **[IOU](/concepts/metric-type/iou)** | Deterministic | Measures the spatial overlap between a predicted bounding box and one or more reference boxes to quantify alignment in object detection and layout tasks.  |
 | **[Spatial Match](/concepts/metric-type/spatial-match)** | Deterministic |Performs a binary evaluation of the spatial alignment between a predicted bounding box and reference boxes using the best Intersection over Union (IoU) score to return a pass/fail signal.|
+| **[URL Validation](/concepts/metric-type/url-validation)** | Deterministic |Performs a binary evaluation to check if all the URLs present in the model response are valid and safe. |
 | **[Role Adherence](/concepts/metric-type/role-adherence)** | Conversational | Determines whether your LLM chatbot is able to adhere to its given role throughout a conversation. |
 | **[Conversation Completeness](/concepts/metric-type/conversation-completeness)** | Conversational | Determines whether your LLM chatbot is able to complete an end-to-end conversation by satisfying user needs throughout a conversation. |
 | **[Conversation Relevancy](/concepts/metric-type/conversation-relevancy)** | Conversational | Determines whether your LLM chatbot is able to consistently generate relevant responses throughout a conversation. |
