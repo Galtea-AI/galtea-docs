@@ -231,5 +231,175 @@
       "linkedin": "https://linkedin.com/company/galtea-ai",
       "website": "https://galtea.ai"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/concepts/metric-type",
+      "destination": "/concepts/metric"
+    },
+    {
+      "source": "/concepts/metric-type/answer-relevancy",
+      "destination": "/concepts/metric/answer-relevancy"
+    },
+    {
+      "source": "/concepts/metric-type/bleu",
+      "destination": "/concepts/metric/bleu"
+    },
+    {
+      "source": "/concepts/metric-type/contextual-precision",
+      "destination": "/concepts/metric/contextual-precision"
+    },
+    {
+      "source": "/concepts/metric-type/contextual-recall",
+      "destination": "/concepts/metric/contextual-recall"
+    },
+    {
+      "source": "/concepts/metric-type/contextual-relevancy",
+      "destination": "/concepts/metric/contextual-relevancy"
+    },
+    {
+      "source": "/concepts/metric-type/conversation-completeness",
+      "destination": "/concepts/metric/conversation-completeness"
+    },
+    {
+      "source": "/concepts/metric-type/conversation-relevancy",
+      "destination": "/concepts/metric/conversation-relevancy"
+    },
+    {
+      "source": "/concepts/metric-type/custom-judge",
+      "destination": "/concepts/metric/custom-judge"
+    },
+    {
+      "source": "/concepts/metric-type/data-leakage",
+      "destination": "/concepts/metric/data-leakage"
+    },
+    {
+      "source": "/concepts/metric-type/factual-accuracy",
+      "destination": "/concepts/metric/factual-accuracy"
+    },
+    {
+      "source": "/concepts/metric-type/faithfulness",
+      "destination": "/concepts/metric/faithfulness"
+    },
+    {
+      "source": "/concepts/metric-type/iou",
+      "destination": "/concepts/metric/iou"
+    },
+    {
+      "source": "/concepts/metric-type/jailbreak-resilience",
+      "destination": "/concepts/metric/jailbreak-resilience"
+    },
+    {
+      "source": "/concepts/metric-type/jailbreak-resilience-v2",
+      "destination": "/concepts/metric/jailbreak-resilience-v2"
+    },
+    {
+      "source": "/concepts/metric-type/knowledge-retention",
+      "destination": "/concepts/metric/knowledge-retention"
+    },
+    {
+      "source": "/concepts/metric-type/meteor",
+      "destination": "/concepts/metric/meteor"
+    },
+    {
+      "source": "/concepts/metric-type/misuse-resilience",
+      "destination": "/concepts/metric/misuse-resilience"
+    },
+    {
+      "source": "/concepts/metric-type/non-toxic",
+      "destination": "/concepts/metric/non-toxic"
+    },
+    {
+      "source": "/concepts/metric-type/resilience-to-noise",
+      "destination": "/concepts/metric/resilience-to-noise"
+    },
+    {
+      "source": "/concepts/metric-type/role-adherence",
+      "destination": "/concepts/metric/role-adherence"
+    },
+    {
+      "source": "/concepts/metric-type/rouge",
+      "destination": "/concepts/metric/rouge"
+    },
+    {
+      "source": "/concepts/metric-type/spatial-match",
+      "destination": "/concepts/metric/spatial-match"
+    },
+    {
+      "source": "/concepts/metric-type/text-match",
+      "destination": "/concepts/metric/text-match"
+    },
+    {
+      "source": "/concepts/metric-type/text-similarity",
+      "destination": "/concepts/metric/text-similarity"
+    },
+    {
+      "source": "/concepts/metric-type/unbiased",
+      "destination": "/concepts/metric/unbiased"
+    },
+    {
+      "source": "/concepts/metric-type/url-validation",
+      "destination": "/concepts/metric/url-validation"
+    },
+    {
+      "source": "/concepts/product/version/session/evaluation/task",
+      "destination": "/concepts/product/version/session/evaluation"
+    },
+    {
+      "source": "/sdk/api/metrics",
+      "destination": "/sdk/api/metric"
+    },
+    {
+      "source": "/sdk/api/metrics/service",
+      "destination": "/sdk/api/metric/service"
+    },
+    {
+      "source": "/sdk/api/metrics/create",
+      "destination": "/sdk/api/metric/create"
+    },
+    {
+      "source": "/sdk/api/metrics/list",
+      "destination": "/sdk/api/metric/list"
+    },
+    {
+      "source": "/sdk/api/metrics/get",
+      "destination": "/sdk/api/metric/get"
+    },
+    {
+      "source": "/sdk/api/metrics/get-by-name",
+      "destination": "/sdk/api/metric/get-by-name"
+    },
+    {
+      "source": "/sdk/api/metrics/delete",
+      "destination": "/sdk/api/metric/delete"
+    },
+    {
+      "source": "/sdk/api/evaluation-task",
+      "destination": "/sdk/api/evaluation"
+    },
+    {
+      "source": "/sdk/api/evaluation-task/service",
+      "destination": "/sdk/api/evaluation/service"
+    },
+    {
+      "source": "/sdk/api/evaluation-task/create-single-turn",
+      "destination": "/sdk/api/evaluation/create-single-turn"
+    },
+    {
+      "source": "/sdk/api/evaluation-task/create",
+      "destination": "/sdk/api/evaluation/create"
+    },
+    {
+      "source": "/sdk/api/evaluation-task/list",
+      "destination": "/sdk/api/evaluation/list"
+    },
+    {
+      "source": "/sdk/api/evaluation-task/get",
+      "destination": "/sdk/api/evaluation/get"
+    },
+    {
+      "source": "/sdk/api/evaluation-task/delete",
+      "destination": "/sdk/api/evaluation/delete"
+    }
+  ]
 }
