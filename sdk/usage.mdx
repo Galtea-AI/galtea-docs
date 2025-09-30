@@ -60,14 +60,14 @@ test = galtea.tests.create(
 </Info>
 
 
-### Creating a Metric Type
+### Creating a Metric
 
-[Metric Types](/concepts/metric-type) help you define the criteria for evaluating the performance of your [product](/concepts/product).
-You can create custom [Metric Types](/concepts/metric-type) tailored to your specific use cases.
+[Metrics](/concepts/metric) help you define the criteria for evaluating the performance of your [product](/concepts/product).
+You can create custom [Metrics](/concepts/metric) tailored to your specific use cases.
 
 ```python
-# Create a standard metric type via API
-metric_type_from_api = galtea.metrics.create(
+# Create a standard metric via API
+metric_from_api = galtea.metrics.create(
     name="accuracy_v1",
     test_type="QUALITY",
     evaluator_model_name="GPT-4.1",
@@ -78,7 +78,7 @@ metric_type_from_api = galtea.metrics.create(
 from galtea import CustomScoreEvaluationMetric
 
 # First, it needs to be created in the platform
-metric_type_from_api = galtea.metrics.create(
+metric_from_api = galtea.metrics.create(
     name="keyword-check",
     description="Checks if the 'actual output' contains the keyword 'expected'.",
 )
@@ -104,15 +104,15 @@ keyword_metric = MyKeywordMetric()
 </Info>
 
 
-### Launching Evaluation Tasks
+### Launching Evaluations
 
-[Evaluation tasks](/concepts/product/version/session/evaluation-task) assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metric types](/concepts/metric-type). They are now directly linked to [sessions](/concepts/product/version/session) that contain all inference results.
+[Evaluations](/concepts/product/version/session/evaluation) assess the performance of a [product](/concepts/product) [version](/concepts/product/version) against [test cases](/concepts/product/test/case) using specific [metrics](/concepts/metric). They are now directly linked to [sessions](/concepts/product/version/session) that contain all inference results.
 
 ```python
 # Get test cases from the test
 test_cases = galtea.test_cases.list(test_id=test.id)
 
-# Run evaluation tasks for each test case
+# Run evaluations for each test case
 for test_case in test_cases:
     # Retrieve relevant context for RAG. This may not apply to all products.
     retrieval_context = your_retriever_function(test_case.input)
@@ -120,12 +120,12 @@ for test_case in test_cases:
     # Your product's actual response to the input
     actual_output = your_product_function(test_case.input, test_case.context, retrieval_context)
     
-    # Run evaluation task using both standard and custom metrics
-    galtea.evaluation_tasks.create_single_turn(
+    # Run evaluation using both standard and custom metrics
+    galtea.evaluations.create_single_turn(
         version_id=version.id,
         test_case_id=test_case.id,
         metrics=[
-            metric_type_from_api.name,   # Standard metric by name
+            metric_from_api.name,   # Standard metric by name
             keyword_metric               # Custom metric object
         ],
         actual_output=actual_output,
@@ -134,12 +134,12 @@ for test_case in test_cases:
 ```
 
 <Info>
-    More information about launching evaluation tasks can be found [here](/sdk/api/evaluation-task/service).
+    More information about launching evaluations can be found [here](/sdk/api/evaluation/service).
 </Info>
 
 ### Retrieving Evaluation Results
 
-Once the [evaluation tasks](/concepts/product/version/session/evaluation-task) are completed, you can retrieve them to analyze the results.
+Once the [evaluations](/concepts/product/version/session/evaluation) are completed, you can retrieve them to analyze the results.
 
 ```python
 # First, get all sessions for the product
@@ -147,9 +147,9 @@ sessions = galtea.sessions.list(product_id=product.id)
 
 # Iterate through all product sessions
 for session in sessions:
-    # Retrieve the evaluation tasks for this session
-    evaluation_tasks = galtea.evaluation_tasks.list(session_id=session.id)
-    # Print the evaluation tasks's ID and score
-    for task in evaluation_tasks:
-        print(f"Task ID: {task.id}, Score: {task.score}")
+    # Retrieve the evaluations for this session
+    evaluations = galtea.evaluations.list(session_id=session.id)
+    # Print the evaluations's ID and score
+    for evaluation in evaluations:
+        print(f"Evaluation ID: {evaluation.id}, Score: {evaluation.score}")
 ```

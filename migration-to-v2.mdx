@@ -10,9 +10,9 @@ The core workflow for running predefined tests against a version has been stream
 
 ### Key Changes for Test-Based Evaluations
 
-1. **Implicit Evaluation Creation**: You no longer need to explicitly call `galtea.evaluations.create()` before creating evaluation tasks.
+1. **Implicit Evaluation Creation**: You no longer need to explicitly call `galtea.evaluations.create()` before creating evaluations.
 
-2. **`evaluation_tasks.create()` Repurposed**: The old `evaluation_tasks.create()` method has been replaced by the new `create_single_turn()` method for test-based evaluations. The name `create()` is now used exclusively for the new session-based workflow to evaluate all turns in a conversation.
+2. **`evaluations.create()` Repurposed**: The old `evaluations.create()` method has been replaced by the new `create_single_turn()` method for test-based evaluations. The name `create()` is now used exclusively for the new session-based workflow to evaluate all turns in a conversation.
 
 3. **New Method `create_single_turn()`**: Use this method for single-turn, test-case-based evaluations. It now requires `version_id` instead of `evaluation_id`.
 
@@ -45,8 +45,8 @@ evaluation = galtea.evaluations.create(
     version_id=version.id
 )
 
-# 3. Create tasks using evaluation_id
-galtea.evaluation_tasks.create(
+# 3. Create evaluations using evaluation_id
+galtea.evaluations.create(
     evaluation_id=evaluation.id,
     test_case_id="YOUR_TEST_CASE_ID",
     metrics=["your_metric"],
@@ -69,8 +69,8 @@ version = galtea.versions.create(
 
 # 2. Skip explicit evaluation creation (it's automatic!)
 
-# 3. Create tasks using version_id
-galtea.evaluation_tasks.create_single_turn(
+# 3. Create evaluations using version_id
+galtea.evaluations.create_single_turn(
     version_id=version.id,
     test_case_id="YOUR_TEST_CASE_ID",
     metrics=["your_metric"],
@@ -79,16 +79,16 @@ galtea.evaluation_tasks.create_single_turn(
 ```
 
 <Note>
-    This example demonstrates how to create single-turn evaluation tasks for test cases. For production data logging, include the `input` parameter and set `is_production=True`. If you want to evaluate multi-turn conversations, refer to the new session-based workflow in Part 2.
+    This example demonstrates how to create single-turn evaluations for test cases. For production data logging, include the `input` parameter and set `is_production=True`. If you want to evaluate multi-turn conversations, refer to the new session-based workflow in Part 2.
 </Note>
 
-### Production Data Logging with Single-Turn Tasks
+### Production Data Logging with Single-Turn Evaluations
 
 For production monitoring, you can also use `create_single_turn()` without a test case:
 
 ```python
 # Production data logging (no test case required)
-galtea.evaluation_tasks.create_single_turn(
+galtea.evaluations.create_single_turn(
     version_id=version.id,
     input="User's actual input",
     actual_output="Model's actual output",
@@ -101,7 +101,7 @@ galtea.evaluation_tasks.create_single_turn(
 
 1. In `galtea.versions.create()` calls, remove the `optional_props` dictionary and pass its contents as direct keyword arguments.
 2. **Remove** all calls to `galtea.evaluations.create()`.
-3. Rename `galtea.evaluation_tasks.create()` calls to `galtea.evaluation_tasks.create_single_turn()`, **remove** the `evaluation_id` parameter, and **add** the `version_id` parameter.
+3. Rename `galtea.evaluations.create()` calls to `galtea.evaluations.create_single_turn()`, **remove** the `evaluation_id` parameter, and **add** the `version_id` parameter.
 
 <Note>
     Ensure all your code, including any examples you may be referencing from the SDK repository, is updated. The `optional_props` dictionary is fully deprecated in v2.0, and some examples in the codebase may not yet reflect the v2.0 changes.
@@ -117,7 +117,7 @@ SDK v2.0 introduces a powerful new way to log and evaluate multi-turn conversati
 
 * **Session**: A container for a sequence of interactions (a conversation) between a user and your AI product. You can create a session using `galtea.sessions.create()`.
 * **Inference Result**: A single turn within a session, containing the `input` and `output`. You log these using `galtea.inference_results.create()`.
-* **`evaluation_tasks.create()`**: A new way to run evaluations on all inference results within a given session. This allows for easy batch evaluation of entire conversations.
+* **`evaluations.create()`**: A new way to run evaluations on all inference results within a given session. This allows for easy batch evaluation of entire conversations.
 
 ### Example of the New Session-Based Workflow
 
@@ -177,12 +177,12 @@ print(f"Stored {len(conversation_turns)} inference results in session {session.i
 #         output=turn["output"]
 #     )
 
-# 3. When ready, create evaluation tasks for the entire session
-evaluation_tasks = galtea.evaluation_tasks.create(
+# 3. When ready, create evaluations for the entire session
+evaluations = galtea.evaluations.create(
     session_id=session.id,
     metrics=[YOUR_METRIC_NAME]
 )
-print(f"Submitted {len(evaluation_tasks)} evaluation tasks for session {session.id}")
+print(f"Submitted {len(evaluations)} evaluations for session {session.id}")
 ```
 
 <Note>
