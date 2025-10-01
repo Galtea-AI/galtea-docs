@@ -1,6 +1,6 @@
 ---
 title: "User Satisfaction"
-description: "Evaluates how satisfied the user was with the response of the model. It is a key indicator of user experience."
+description: "Evaluates how satisfied the user was with the conversation. It is a key indicator of user experience."
 ---
 
 The **User Satisfaction** metric is one of several [non-deterministic Metrics](/concepts/metric) Galtea uses to evaluate the end-user's perception of a chatbot interaction. This metric focuses on the *experience* itself—whether the user left the conversation feeling content or frustrated. Even if a goal was technically achieved, poor interaction quality (such as inefficiency or negative sentiment) can lead to low satisfaction.
@@ -16,7 +16,6 @@ To compute the `user_satisfaction` metric, the following parameter is required:
 - **`conversation_turns`**: The complete history of user inputs and chatbot responses.
 
 The evaluation considers the *entire conversation* rather than individual responses in isolation.
-
 
 ---
 
