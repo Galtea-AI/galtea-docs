@@ -132,7 +132,7 @@
               {
                 "group": "Conversational",
                 "icon": "message",
-                "pages": ["concepts/metric/knowledge-retention", "concepts/metric/role-adherence", "concepts/metric/conversation-completeness", "concepts/metric/conversation-relevancy"]
+                "pages": ["concepts/metric/knowledge-retention", "concepts/metric/role-adherence", "concepts/metric/conversation-completeness", "concepts/metric/conversation-relevancy", "concepts/metric/user-satisfaction", "concepts/metric/user-objective-accomplished"]
               },
               {
                 "group": "Red Teaming",
