@@ -142,8 +142,8 @@ for test_case in test_cases:
 Once the [evaluations](/concepts/product/version/session/evaluation) are completed, you can retrieve them to analyze the results.
 
 ```python
-# First, get all sessions for the product
-sessions = galtea.sessions.list(product_id=product.id)
+# First, get all sessions for the version
+sessions = galtea.sessions.list(version_id=version.id, sortByCreatedAt="desc")
 
 # Iterate through all product sessions
 for session in sessions:

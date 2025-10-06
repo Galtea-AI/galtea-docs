@@ -14,12 +14,30 @@ session_evaluations = galtea.evaluations.list(session_id="YOUR_SESSION_ID")
 ```
 
 ## Parameters
-<ResponseField name="session_id" type="string" required>
-  The ID of the session for which you want to list evaluations.
+<ResponseField name="session_id" type="Optional[str | list[str]]" default="None">
+  The ID or IDs of the session(s) for which you want to list evaluations.
 </ResponseField>
-<ResponseField name="offset" type="int">
+<ResponseField name="version_id" type="Optional[str | list[str]]" default="None">
+  The ID or IDs of the version(s) for which you want to list evaluations.
+</ResponseField>
+<ResponseField name="test_case_id" type="Optional[str | list[str]]" default="None">
+  The ID or IDs of the test case(s) for which you want to list evaluations.
+</ResponseField>
+<ResponseField name="test_id" type="Optional[str | list[str]]" default="None">
+  The ID or IDs of the test(s) for which you want to list evaluations.
+</ResponseField>
+<ResponseField name="metric_id" type="Optional[str | list[str]]" default="None">
+  The ID or IDs of the metric(s) for which you want to list evaluations.
+</ResponseField>
+<ResponseField name="sortByCreatedAt" type="string" optional>
+  Sort evaluations by creation date. Valid values are "asc" and "desc".
+</ResponseField>
+<ResponseField name="sortByScore" type="string" optional>
+  Sort evaluations by score. Valid values are "asc" and "desc".
+</ResponseField>
+<ResponseField name="offset" type="int" optional>
   The number of evaluations to skip before starting to collect the result set.
 </ResponseField>
-<ResponseField name="limit" type="int">
+<ResponseField name="limit" type="int" optional>
   The maximum number of evaluations to return.
 </ResponseField>

@@ -12,10 +12,12 @@ products = galtea.products.list()
 ```
 
 ## Parameters
+<ResponseField name="sortByCreatedAt" type="string" optional>
+  Sort products by creation date. Valid values are "asc" and "desc".
+</ResponseField>
 <ResponseField name="offset" type="int">
   The number of products to skip before starting to collect the result set.
 </ResponseField>
-
 <ResponseField name="limit" type="int">
   The maximum number of products to return.
 </ResponseField>

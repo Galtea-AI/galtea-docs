@@ -16,8 +16,11 @@ paginated_test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID", offset=10,
 ```
 
 ## Parameters
-<ResponseField name="test_id" type="string" required>
-  The ID of the test you want to get the test cases from.
+<ResponseField name="test_id" type="string | list[string]" required>
+  The ID or IDs of the test you want to get the test cases from.
+</ResponseField>
+<ResponseField name="sortByCreatedAt" type="string" optional>
+  Sort test cases by creation date. Valid values are "asc" and "desc".
 </ResponseField>
 <ResponseField name="offset" type="int" optional>
   The number of test cases to skip before starting to collect the result set.
