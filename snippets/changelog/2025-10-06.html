@@ -20,48 +20,56 @@
                     <img src="https://galtea.ai/img/galtea_mod.png" style="width: 250px; height: auto" />
                   </a>
                 </div>
-                <h1 style="color: #171717; font-size: 26px; margin-bottom: 0px">Platform Simplification, New Conversational Metrics, and Major Usability Upgrades</h1>
+                <h1 style="color: #171717; font-size: 26px; margin-bottom: 0px">Platform Simplification, New Metrics, Scenarios & Performance Boost</h1>
                 <a style="color: #5286ff; font-size: 12px; text-decoration: none" href="https://docs.galtea.ai/changelog#2025-10-06">2025-10-06</a>
 
                 <br />
                 <h3 style="color: #171717">Platform Simplification and SDK v3.0</h3>
                 <p style="color: #171717; font-size: 16px">
-                  We've simplified our core concepts to make the platform more intuitive. For example, `Evaluation Tasks` are now simply <a href="https://docs.galtea.ai/concepts/product/version/session/evaluation" style="color: #5286ff">Evaluations</a>. These changes come with a new major SDK
-                  version. Please see the <a href="https://docs.galtea.ai/migration-to-v3" style="color: #5286ff">Migration to v3.0 guide</a> for a smooth transition.
+                  We've simplified core concepts to make the platform more intuitive. For example, `Evaluation Tasks` are now simply <a href="https://docs.galtea.ai/concepts/product/version/session/evaluation" style="color: #5286ff">Evaluations</a>. These changes come with a major SDK release — see
+                  the <a href="https://docs.galtea.ai/migration-to-v3" style="color: #5286ff">Migration to v3.0 guide</a> for details.
                 </p>
 
                 <br />
                 <h3 style="color: #171717">New Conversational Metrics</h3>
                 <p style="color: #171717; font-size: 16px">
-                  We're excited to introduce two new metrics for evaluating conversational AI: <a href="https://docs.galtea.ai/concepts/metric/user-objective-accomplished" style="color: #5286ff">User Objective Accomplished</a> and
-                  <a href="https://docs.galtea.ai/concepts/metric/user-satisfaction" style="color: #5286ff">User Satisfaction</a>.
+                  Introducing two conversational metrics: <a href="https://docs.galtea.ai/concepts/metric/user-objective-accomplished" style="color: #5286ff">User Objective Accomplished</a> and
+                  <a href="https://docs.galtea.ai/concepts/metric/user-satisfaction" style="color: #5286ff">User Satisfaction</a>, to better capture multi-turn success and perceived quality.
                 </p>
 
                 <br />
-                <h3 style="color: #171717">Enhanced Test Case Feedback</h3>
-                <p style="color: #171717; font-size: 16px">You can now add a "user score reason" when upvoting or downvoting a <a href="https://docs.galtea.ai/concepts/product/test/case" style="color: #5286ff">Test Case</a> to provide more context. You can also filter by score in the SDK.</p>
-
-                <br />
-                <h3 style="color: #171717">Dashboard & SDK Usability Upgrades</h3>
+                <h3 style="color: #171717">Generate Scenarios from Quality Tests</h3>
                 <p style="color: #171717; font-size: 16px">
-                  We've rolled out several updates to make your workflow smoother. In the Dashboard, you can now single-click table rows to copy text, and right-click to navigate to details. In the SDK, you can now fetch objects by passing a list of IDs, making batch operations much easier.
+                  You can now create multi-turn <a href="https://docs.galtea.ai/concepts/product/test/scenario-tests" style="color: #5286ff">Scenario Based Tests</a> directly from existing <a href="https://docs.galtea.ai/concepts/product/test/quality-tests" style="color: #5286ff">Quality Tests</a>,
+                  turning single-turn gold tests into realistic conversational flows for deeper evaluation.
                 </p>
 
                 <br />
-                <h3 style="color: #171717">General Improvements</h3>
-                <p style="color: #171717; font-size: 16px">This release also includes numerous performance optimizations and UI/UX enhancements across the entire platform to provide a faster and more polished experience.</p>
+                <h3 style="color: #171717">URL Validation & Deterministic Checks</h3>
+                <p style="color: #171717; font-size: 16px">
+                  Added a deterministic <a href="https://docs.galtea.ai/concepts/metric/url-validation" style="color: #5286ff">URL Validation</a> metric that verifies HTTPS, formatting, resolvability and includes SSRF protections — useful when models emit external links.
+                </p>
 
                 <br />
-                <p style="color: #171717; font-size: 16px">Enjoy the improvements!</p>
-                <p style="color: #171717; font-size: 16px"><strong>We'd love to hear your thoughts</strong> on these new features. Just reply to this email or ping us in the Slack channel.</p>
+                <h3 style="color: #171717">Enhanced Test Case Feedback & SDK Filters</h3>
+                <p style="color: #171717; font-size: 16px">
+                  You can now add a "user score reason" when voting on a <a href="https://docs.galtea.ai/concepts/product/test/case" style="color: #5286ff">Test Case</a>, and the SDK supports filtering by score and fetching objects in batches (pass a list of IDs).
+                </p>
+
+                <br />
+                <h3 style="color: #171717">Dashboard Usability & Performance</h3>
+                <p style="color: #171717; font-size: 16px">Dashboard UX improvements include one-click copy of table rows and right-click navigation. We also shipped platform-wide performance boosts, especially in analytics views, for a snappier experience.</p>
+
+                <br />
+                <p style="color: #171717; font-size: 16px">Enjoy the improvements! <strong>We'd love to hear your feedback</strong> — reply to this email or ping us in Slack.</p>
 
                 <hr style="margin-top: 40px; width: 20%; border: 1px solid #e4e4e7" />
 
                 <h3 style="color: #171717; margin-top: 40px">Coming Next</h3>
-                <p style="color: #171717; font-size: 16px">We're not stopping here! Exciting new features are on the horizon:</p>
+                <p style="color: #171717; font-size: 16px">A few things on the near horizon:</p>
                 <ul style="color: #171717; font-size: 16px">
-                  <li>Dynamic Export of Test Cases (via a CSV file) instead of the original static one.</li>
-                  <li>UX improvements with the edit and deletion of entities (Test Cases, Evaluations, Versions...).</li>
+                  <li>Dynamic export of Test Cases (CSV) and improved entity editing/deletion UX.</li>
+                  <li>New red‑teaming strategies and easier navigation across results.</li>
                 </ul>
                 <p style="margin-top: 35px; color: #171717; font-size: 16px">Stay tuned!</p>
                 <p style="margin-left: 35px"><strong> - Galtea Team</strong></p>
