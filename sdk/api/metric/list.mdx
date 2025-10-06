@@ -1,0 +1,23 @@
+---
+title: 'Listing Metrics'
+description: "List all metrics."
+---
+
+## Returns
+Returns a list of [Metric](/concepts/metric) objects.
+
+## Example
+```python
+metrics = galtea.metrics.list()
+```
+
+## Parameters
+<ResponseField name="sortByCreatedAt" type="string" optional>
+  Sort metrics by creation date. Valid values are "asc" and "desc".
+</ResponseField>
+<ResponseField name="offset" type="int">
+  The number of metrics to skip before starting to collect the result set.
+</ResponseField>
+<ResponseField name="limit" type="int">
+  The maximum number of metrics to return.
+</ResponseField>

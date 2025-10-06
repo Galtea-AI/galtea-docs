@@ -12,8 +12,11 @@ inference_results = galtea.inference_results.list(session_id="YOUR_SESSION_ID")
 ```
 
 ## Parameters
-<ResponseField name="session_id" type="string" required>
-  The ID of the session to get inference results for.
+<ResponseField name="session_id" type="string | list[string]" required>
+  The ID or IDs of the session(s) to get inference results for.
+</ResponseField>
+<ResponseField name="sortByCreatedAt" type="string" optional>
+  Sort inference results by creation date. Valid values are "asc" and "desc".
 </ResponseField>
 <ResponseField name="offset" type="int" optional>
   Number of results to skip.

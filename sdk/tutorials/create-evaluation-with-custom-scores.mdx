@@ -5,7 +5,7 @@ icon: "vial-circle-check"
 iconType: "solid"
 ---
 
-Galtea allows you to define and use your own custom metrics for evaluation tasks. This is particularly useful for:
+Galtea allows you to define and use your own custom metrics for evaluations. This is particularly useful for:
 -   **Deterministic Metrics**: When you have custom, rule-based logic to score outputs (e.g., checking for specific keywords, validating JSON structure).
 -   **Integrating External Models**: When you use your own models for evaluation and want to store their scores in Galtea.
 
@@ -52,9 +52,9 @@ galtea.metrics.create(name=accuracy_metric.name, description='checks for the pre
 # Your product's response
 actual_output = "This response contains the correct keyword."
 
-# 3. Run evaluation task with your custom metric
+# 3. Run evaluation with your custom metric
 # You can mix it with standard metrics as well.
-galtea.evaluation_tasks.create_single_turn(
+galtea.evaluations.create_single_turn(
     version_id=VERSION_ID,
     test_case_id=TEST_CASE_ID,
     actual_output=actual_output,
@@ -64,5 +64,5 @@ galtea.evaluation_tasks.create_single_turn(
     ],
 )
 
-print("Evaluation task with custom metric submitted.")
+print("Evaluation with custom metric submitted.")
 ```

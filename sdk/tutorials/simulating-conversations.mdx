@@ -22,7 +22,7 @@ Galtea's [Conversation Simulator](/concepts/conversation-simulator) allows you t
     Use <code>SimulatorService.simulate()</code> to execute the conversation between your agent and the synthetic user, for each session.
   </Step>
   <Step title="5. Evaluate the Results">
-    After simulation, analyze results and optionally trigger evaluations via <code>evaluation_tasks.create()</code>.
+    After simulation, analyze results and optionally trigger evaluations via <code>evaluations.create()</code>.
   </Step>
 </Steps>
 
@@ -124,12 +124,12 @@ for test_case in test_cases:
 #### 4. Evaluate the Session
 
 ```python
-evaluation_tasks = galtea_client.evaluation_tasks.create(
+evaluations = galtea_client.evaluations.create(
     session_id=session.id,
     metrics=["Role Adherence"],  # Replace with your metrics
 )
-for task in evaluation_tasks:
-    print(f"Evaluation task created: {task.id}")
+for evaluation in evaluations:
+    print(f"Evaluation created: {evaluation.id}")
 ```
 ---
 

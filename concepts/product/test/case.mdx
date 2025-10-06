@@ -21,7 +21,7 @@ You can **create**, view and manage your test cases on the [Galtea dashboard](ht
 
 ## Using Test Cases in Evaluations
 
-Test cases are used with [evaluation tasks](/concepts/product/version/session/evaluation/task), but first wou will have to create an [evaluation](/concepts/product/version/session/evaluation) using the Galtea dashboard or the SDK.
+Test cases are used with [evaluations](/concepts/product/version/session/evaluation). Sessions are created automatically when running evaluations.
 
 <Card title="Create an Evaluation" icon="badge-check" iconType="solid" href="/concepts/product/version/session/evaluation">
   Learn how to use tests in evaluations
@@ -40,7 +40,7 @@ The Galtea SDK allows you to create, view, and manage test cases programmaticall
 </ResponseField>
 
 <ResponseField name="Expected Output" type="Text">
-  The expected output for the evaluation task. This represents the ideal response you want your AI model to provide. **Example**: "The operating system of the Samsung Galaxy A8 is Android 8.1."
+  The expected output for the evaluation. This represents the ideal response you want your AI model to provide. **Example**: "The operating system of the Samsung Galaxy A8 is Android 8.1."
 </ResponseField>
 
 <ResponseField name="Context" type="Text">
@@ -57,6 +57,22 @@ The Galtea SDK allows you to create, view, and manage test cases programmaticall
 
 <ResponseField name="Human Reviewed" type="Boolean">
   Indicates if a test case has been manually reviewed and approved by a user. This is useful for tracking which test cases are considered reliable and validated. The system stores the ID of the user who reviewed the test case, upon creation or update, the one who created or updated the test case is set as the reviewer.
+</ResponseField>
+
+<ResponseField name="User Score" type="Integer" optional>
+  User vote for the test case quality. Possible values are `1` (upvote), `-1` (downvote), or `0` (unreviewed).
+</ResponseField>
+
+<ResponseField name="User Score Reason" type="Text" optional>
+  A justification for the user score, providing context on why a test case was downvoted (or upvoted).
+</ResponseField>
+
+<ResponseField name="Confidence" type="Float" optional>
+  The confidence level of the test case.
+</ResponseField>
+
+<ResponseField name="Confidence Reason" type="Text" optional>
+  A justification for the confidence level of the test case.
 </ResponseField>
 
 ## Scenario-Based Test Case Properties

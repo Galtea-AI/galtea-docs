@@ -23,7 +23,7 @@ def handle_user_query(user_query, retrieval_context=None):
     model_response = your_product_function(user_query, retrieval_context)
     
     # Log and evaluate the interaction in Galtea
-    galtea.evaluation_tasks.create_single_turn(
+    galtea.evaluations.create_single_turn(
       version_id=VERSION_ID,
       is_production=True,
       metrics=["Role Adherence", "Answer Relevancy", "Faithfulness"],
@@ -124,7 +124,7 @@ galtea.inference_results.create_batch(
 Finally, once the conversation is complete and all turns are logged, you can run an evaluation on the entire session.
 
 ```python
-galtea.evaluation_tasks.create(
+galtea.evaluations.create(
     session_id=session.id,
     metrics=METRICS_TO_EVALUATE
 )

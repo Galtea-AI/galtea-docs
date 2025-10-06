@@ -7,7 +7,7 @@ The following is an example of an MDX file that contains the changelog of one re
 <Update label="2025-04-28" description="Monitorization and UI improvements">
 ## Monitoring Is Live!
 
-Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users. [Read more here](/sdk/api/evaluation-task/service#monitoring-user-interactions-in-production).
+Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users. [Read more here](/sdk/api/evaluation/service#monitoring-user-interactions-in-production).
 
 ## Improved Galtea Red Teaming Tests
 
@@ -30,8 +30,8 @@ The new design not only raises the clarity and density of data presentation but 
 
 We're continuously refining the platform based on your feedback. This week's improvements include:
 
-- **Customizable Evaluation Tasks List:**  
-  You can now select which metrics you are interested in, so the evaluation tasks list only shows the ones you need.
+- **Customizable Evaluations List:**  
+  You can now select which metrics you are interested in, so the evaluations list only shows the ones you need.
 
 - **Enhanced Evaluation List Filtering:**  
   Easily filter evaluations by versions, evaluations, tests and test groups.
@@ -81,7 +81,7 @@ This is an example of the HTML email version for the same changelog:
                 <h3 style="color: #171717">Monitoring Is Live!</h3>
                 <p style="color: #171717; font-size: 16px">
                   Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users.
-                  <a href="https://docs.galtea.ai/sdk/api/evaluation-task/service#monitoring-user-interactions-in-production" style="color: #5286ff">Read more here</a>.
+                  <a href="https://docs.galtea.ai/sdk/api/evaluation/service#monitoring-user-interactions-in-production" style="color: #5286ff">Read more here</a>.
                 </p>
 
                 <br />
@@ -107,7 +107,7 @@ This is an example of the HTML email version for the same changelog:
                 <h3 style="color: #171717">User Experience Enhancements</h3>
                 <p style="color: #171717; font-size: 16px">We're continuously refining the platform based on your feedback. This week's improvements include:</p>
                 <ul style="color: #171717; font-size: 16px">
-                  <li><strong>Customizable Evaluation Tasks List:</strong> Show only the metrics you need.</li>
+                  <li><strong>Customizable Evaluations List:</strong> Show only the metrics you need.</li>
                   <li><strong>Enhanced Evaluation List Filtering:</strong> Filter by versions, evaluations, tests, and test groups.</li>
                   <li><strong>Enhanced Test List Filtering:</strong> Filter tests by their group.</li>
                   <li><strong>Smart Table Sorting:</strong> Automatically disables default sorting when custom sorting is applied.</li>
@@ -169,12 +169,16 @@ The following are the change notes for this release. You can re-write them to se
 
 ## Changelog:
 In this release:
-- Now you can create User Scenarios based on Test Cases of quality/golden test cases
-- New metric: URL Validation
-- Major performance improvements across the platform, especially in the analytics views.
-- Visual fixes like some icons not switching colors depending on the theme when inside a button
+- Breaking changes and renames: `Evaluation Tasks` --> `Evaluations`, `Metric Types` --> `Metrics` and the old `Evaluations` entity no longer exists. This way using the platform is clearer and simpler. You can read more about these changes in the [Migration to v3.0 guide](migration-to-v3.mdx).
+- New Metrics "User Objective Accomplished" and "User Satisfaction".
+- Test Cases now have a "user score reason" to go along with the upvote/downvote. This way you can give more context on why you downvoted a Test Case and help improve the overall quality of the testing process.
+- Improved and facilitated the navigation between the different entities within the Dashboard (Tests, Test Cases, Evaluations, Versions, Metrics, ...).
+- Now you can click on table rows without navigating so you can copy-paste information more easily. To navigate you can now right-click and select "show details".
+- Be able to filter Test Cases by the given score (upvote/downvote) in the SDK.
+- Improved the SDK usability by allowing to fetch objects by list of IDs instead of just one ID at a time. Example: fetch Test Cases by a list of Test IDs instead of Test by Test.
+- General performance and UI/UX improvements across the full suite.
+
 
 ## Coming Soon:
-* New and improved red teaming strategies
-* Simplification of the platform's concepts, improvements throughout the platform to make it easier to analyze the results, navigate through it, ...
-* Be able to filter Test Cases by the given score (upvote/downvote) using the SDK.
+* Dynamic Export of Test Cases (via a CSV file) instead of the original static one.
+* UX improvements with the edit and deletion of entities (Test Cases, Evaluations, Versions...).

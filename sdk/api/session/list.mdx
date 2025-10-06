@@ -13,14 +13,20 @@ sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID")
 ```
 
 ## Parameters
-<ResponseField name="version_id" type="string" optional>
-  The ID of the version to filter sessions by.
+<ResponseField name="version_id" type="string | list[string]" optional>
+  The ID or IDs of the version(s) to filter sessions by.
 </ResponseField>
-<ResponseField name="test_case_id" type="string" optional>
-  The ID of the test case to filter sessions by.
+<ResponseField name="test_case_id" type="string | list[string]" optional>
+  The ID or IDs of the test case(s) to filter sessions by.
 </ResponseField>
-<ResponseField name="custom_id" type="string" optional>
-  A custom ID to filter sessions by.
+<ResponseField name="custom_id" type="string | list[string]" optional>
+  The custom ID or IDs to filter sessions by.
+</ResponseField>
+<ResponseField name="test_id" type="string | list[string]" optional>
+  The ID or IDs of the test(s) to filter sessions by.
+</ResponseField>
+<ResponseField name="sortByCreatedAt" type="string" optional>
+  Sort sessions by creation date. Valid values are "asc" and "desc".
 </ResponseField>
 <Note>
   At least one of the 3 parameters (filters) described above must be passed to the method
