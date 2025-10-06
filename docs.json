@@ -198,7 +198,7 @@
               {
                 "group": "Metric",
                 "icon": "function",
-                "pages": ["sdk/api/metrics/service", "sdk/api/metrics/create", "sdk/api/metrics/list", "sdk/api/metrics/get", "sdk/api/metrics/get-by-name", "sdk/api/metrics/delete"]
+                "pages": ["sdk/api/metric/service", "sdk/api/metric/create", "sdk/api/metric/list", "sdk/api/metric/get", "sdk/api/metric/get-by-name", "sdk/api/metric/delete"]
               },
               {
                 "group": "Session",
