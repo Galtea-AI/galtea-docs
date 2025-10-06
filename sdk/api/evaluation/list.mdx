@@ -14,19 +14,19 @@ session_evaluations = galtea.evaluations.list(session_id="YOUR_SESSION_ID")
 ```
 
 ## Parameters
-<ResponseField name="session_id" type="Optional[str | list[str]]" default="None">
+<ResponseField name="session_id" type="str | list[str]" default="None">
   The ID or IDs of the session(s) for which you want to list evaluations.
 </ResponseField>
-<ResponseField name="version_id" type="Optional[str | list[str]]" default="None">
-  The ID or IDs of the version(s) for which you want to list evaluations.
+<ResponseField name="version_id" type="str" default="None">
+  The ID of the version for which you want to list evaluations.
 </ResponseField>
-<ResponseField name="test_case_id" type="Optional[str | list[str]]" default="None">
+<ResponseField name="test_case_id" type="str | list[str]" default="None">
   The ID or IDs of the test case(s) for which you want to list evaluations.
 </ResponseField>
-<ResponseField name="test_id" type="Optional[str | list[str]]" default="None">
+<ResponseField name="test_id" type="str | list[str]" default="None">
   The ID or IDs of the test(s) for which you want to list evaluations.
 </ResponseField>
-<ResponseField name="metric_id" type="Optional[str | list[str]]" default="None">
+<ResponseField name="metric_id" type="str | list[str]" default="None">
   The ID or IDs of the metric(s) for which you want to list evaluations.
 </ResponseField>
 <ResponseField name="sortByCreatedAt" type="string" optional>
