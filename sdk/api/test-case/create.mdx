@@ -36,3 +36,20 @@ test_case = galtea.test_cases.create(
 <ResponseField name="reviewed_by_id" type="string" optional>
   The ID of the user who has reviewed and validated this test case.
 </ResponseField>
+<ResponseField name="language" type="str" optional>
+  Language for the test case.
+  Follow this list to know the supported ones:
+  - https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
+</ResponseField>
+<ResponseField name="user_score" type="int" optional>
+  User vote for the test case (1 for good quality, -1 for bad quality, 0 for unreviewed).
+</ResponseField>
+<ResponseField name="user_score_reason" type="str" optional>
+  Reason for the user vote given.
+</ResponseField>
+<ResponseField name="confidence" type="float" optional>
+  Confidence for the test case.
+</ResponseField>
+<ResponseField name="confidence_reason" type="str" optional>
+  Reason for the confidence given.
+</ResponseField>
