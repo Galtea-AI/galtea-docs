@@ -169,13 +169,16 @@ The following are the change notes for this release. You can re-write them to se
 
 ## Changelog:
 In this release:
-- Now you can create User Scenarios based on Test Cases of quality/golden test cases
-- New metric: URL Validation
-- Major performance improvements across the platform, especially in the analytics views.
-- Visual fixes like some icons not switching colors depending on the theme when inside a button
+- Breaking changes and renames: `Evaluation Tasks` --> `Evaluations`, `Metric Types` --> `Metrics` and the old `Evaluations` entity no longer exists. This way using the platform is clearer and simpler.
+- New Metrics "User Objective Accomplished" and "User Satisfaction".
+- Test Cases now have a "user score reason" to go along with the upvote/downvote. This way you can give more context on why you downvoted a Test Case and help improve the overall quality of the testing process.
+- Improved and facilitated the navigation between the different entities within the Dashboard (Tests, Test Cases, Evaluations, Versions, Metrics, ...).
+- Now you can click on table rows without navigating so you can copy-paste information more easily. To navigate you can now right-click and select "show details".
+- Be able to filter Test Cases by the given score (upvote/downvote) in the SDK.
+- Improved the SDK usability by allowing to fetch objects by list of IDs instead of just one ID at a time. Example: fetch Test Cases by a list of Test IDs instead of Test by Test.
+- General performance and UI/UX improvements across the full suite.
 
 
 ## Coming Soon:
-* New and improved red teaming strategies
-* Simplification of the platform's concepts, improvements throughout the platform to make it easier to analyze the results, navigate through it, ...
-* Be able to filter Test Cases by the given score (upvote/downvote) using the SDK.
+* Dynamic Export of Test Cases (via a CSV file) instead of the original static one.
+* UX improvements with the edit and deletion of entities (Test Cases, Evaluations, Versions...).
