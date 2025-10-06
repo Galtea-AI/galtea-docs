@@ -62,8 +62,8 @@
           "icon": "list-check"
         },
         {
-          "anchor": "Migration To V2",
-          "href": "https://docs.galtea.ai/migration-to-v2",
+          "anchor": "Migration To V3",
+          "href": "https://docs.galtea.ai/migration-to-v3",
           "icon": "right-left"
         }
       ]
