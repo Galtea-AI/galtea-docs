@@ -169,7 +169,7 @@ The following are the change notes for this release. You can re-write them to se
 
 ## Changelog:
 In this release:
-- Breaking changes and renames: `Evaluation Tasks` --> `Evaluations`, `Metric Types` --> `Metrics` and the old `Evaluations` entity no longer exists. This way using the platform is clearer and simpler.
+- Breaking changes and renames: `Evaluation Tasks` --> `Evaluations`, `Metric Types` --> `Metrics` and the old `Evaluations` entity no longer exists. This way using the platform is clearer and simpler. You can read more about these changes in the [Migration to v3.0 guide](migration-to-v3.mdx).
 - New Metrics "User Objective Accomplished" and "User Satisfaction".
 - Test Cases now have a "user score reason" to go along with the upvote/downvote. This way you can give more context on why you downvoted a Test Case and help improve the overall quality of the testing process.
 - Improved and facilitated the navigation between the different entities within the Dashboard (Tests, Test Cases, Evaluations, Versions, Metrics, ...).
