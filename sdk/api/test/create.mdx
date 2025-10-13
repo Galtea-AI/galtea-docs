@@ -113,7 +113,6 @@ test = galtea.tests.create(
 </ResponseField>
 <ResponseField name="variants" type="list[string]" optional>
   A list of strings that specifies how to generate test cases related to its objectives. The meaning of this parameter depends on the `type` of the test:
-  - **For `QUALITY` tests**: Specifies the **Evolutions** to apply to the base test cases (e.g., `["paraphrased", "typos"]`). See the full list of available evolutions in the [Quality Test Evolutions documentation](/concepts/product/test/quality-evolutions).
   - **For `RED_TEAMING` tests**: Specifies the **Threat** category to generate test cases for (e.g., `["data_leakage"]`). See the full list in the [Red Teaming Threats documentation](/concepts/product/test/red-teaming-threats).
 </ResponseField>
 <ResponseField name="strategies" type="list[string]" optional>
