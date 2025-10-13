@@ -5,7 +5,7 @@ icon: "bullseye"
 iconType: "solid"
 ---
 
-**Product context** forms the cornerstone of your AI evaluation strategy in Galtea. It clearly defines what your AI system is intended to accomplish, allowing the platform to generate relevant test cases, deliver meaningful evaluations, and provide actionable insights tailored to your use case. Galtea organizes product context into four key categories: **product description, capabilities, inabilities**, and **security boundaries**. Below, we explain how to effectively provide each category for optimal evaluation results.
+**Product context** forms the cornerstone of your AI evaluation strategy in Galtea. It clearly defines what your AI system is intended to accomplish, allowing the platform to generate relevant test cases, deliver meaningful evaluations, and provide actionable insights tailored to your use case. Galtea organizes product context into four key categories: **product description, capabilities, inabilities**, **security boundaries** and **policies**. Below, we explain how to effectively provide each category for optimal evaluation results.
 
 ## What Is a Product Description?
 
@@ -109,13 +109,27 @@ Clearly list technical limitations, including information and tools the product 
 ### Security Boundaries
 Things that the product must not do, although theoretically it has the capability to do so.
 <Info>
-  Security boundaries consist of **must not** or **should not** statements to outline the security and policy requirements of the product 
+  Security boundaries consist of **must not** or **should not** statements to outline the security requirements of the product 
 </Info>
 ```
 * Should refuse requests for market manipulation strategies or insider information
 * Must not provide advice on illegal tax avoidance schemes
 * Should decline to share proprietary trading algorithms or investment firm strategies
 ```
+
+### Policies
+These are very specific instructions that the product needs to do, when it is faced with certain situations or user inputs.
+<Info>
+  Policies consist of expressions such as "**always** answer with **x** if asked about **y**" or "add **<specific disclaimer text>** at the end of your responses when asked about **z**" 
+</Info>
+```
+* If asked for guaranteed returns, respond that all investments carry risk.
+* Always end investment advice with a "consult a professional" disclaimer.
+* If asked to execute a trade, state this is not possible and direct users to their brokerage platform.
+* Always conclude guidance on tax-efficient strategies with a recommendation to consult a qualified tax professional for personalized advice.
+* Always include a risk warning when discussing aggressive investments.
+```
+
 
 ## Testing Your Product Context, and extended Description
 
