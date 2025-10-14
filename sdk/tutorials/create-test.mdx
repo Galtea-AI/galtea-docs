@@ -66,17 +66,11 @@ The Galtea SDK provides methods to create both [Quality Tests](/concepts/product
         product_id="YOUR_PRODUCT_ID",
         ground_truth_file_path="path/to/your/legal_document.pdf",
         language="english",
-        # Generate variations to improve test robustness
-        variants=["paraphrased", "incorrect", "typos"], 
         max_test_cases=50 # Limit the number of generated test cases
     )
 
     print(f"Test generated from knowledge base with ID: {test.id}")
     ```
-
-    <Info>
-    The `variants` parameter instructs Galtea to create evolved versions of the base test cases. See the [Quality Test Evolutions](/concepts/product/test/quality-evolutions) documentation for more details. For Red Teaming, `variants` specify [threats](/concepts/product/test/red-teaming-threats) and you can also add `strategies`.
-    </Info>
   </Tab>
 </Tabs>
 
