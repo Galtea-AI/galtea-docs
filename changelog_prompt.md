@@ -61,6 +61,23 @@ This is an example of the HTML email version for the same changelog:
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+    <style>
+      /* Add a bit of vertical spacing between list items */
+      ul li {
+        margin-bottom: 8px;
+      }
+      /* Avoid extra space after the last item in a list */
+      ul li:last-child {
+        margin-bottom: 0;
+      }
+      h3 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+      }
+      p {
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body style="margin: 0; padding: 0; text-align: center; font-family: Geist, Poppins, Arial, sans-serif; background-color: #f6f6f5">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -77,21 +94,18 @@ This is an example of the HTML email version for the same changelog:
                 <h1 style="color: #171717; font-size: 26px; margin-bottom: 0px">Monitorization and UI Improvements</h1>
                 <a style="color: #5286ff; font-size: 12px; text-decoration: none" href="https://docs.galtea.ai/changelog#2025-04-28">2025-04-28</a>
 
-                <br />
                 <h3 style="color: #171717">Monitoring Is Live!</h3>
                 <p style="color: #171717; font-size: 16px">
                   Real-world user interactions with your products can now be fully monitored and analyzed. Using the Galtea SDK, you can trigger evaluations in a production environment and view how different versions perform with real users.
                   <a href="https://docs.galtea.ai/sdk/api/evaluation/service#monitoring-user-interactions-in-production" style="color: #5286ff">Read more here</a>.
                 </p>
 
-                <br />
                 <h3 style="color: #171717">Improved Galtea Red Teaming Tests</h3>
                 <p style="color: #171717; font-size: 16px">
                   Our simulation-generated tests have been upgraded—delivering higher-quality outcomes. Red teaming tests can now validate more specific aspects of standards such as OWASP, MITRE ATLAS, and NIST. We've improved <strong>jailbreak</strong> attacks, and added new
                   <strong>financial attacks</strong> and <strong>toxicity</strong> prompts.
                 </p>
 
-                <br />
                 <h3 style="color: #171717">New Analytics Page</h3>
                 <p style="color: #171717; font-size: 16px">A completely redesigned analytics page is now available! It features:</p>
                 <ul style="color: #171717; font-size: 16px">
@@ -103,7 +117,6 @@ This is an example of the HTML email version for the same changelog:
                 </div>
                 <blockquote style="color: #6f6f6e; font-style: italic; font-size: 14px; margin-top: 10px">And with monitoring active, you can see production evaluation results in real time on this page!</blockquote>
 
-                <br />
                 <h3 style="color: #171717">User Experience Enhancements</h3>
                 <p style="color: #171717; font-size: 16px">We're continuously refining the platform based on your feedback. This week's improvements include:</p>
                 <ul style="color: #171717; font-size: 16px">
@@ -168,17 +181,14 @@ At the end of the message, after providing the files, you must provide a list of
 The following are the change notes for this release. You can re-write them to seem more natural, appealing and easier to read, but without changing the meaning nor the core information.
 
 ## Changelog:
-In this release:
-- Breaking changes and renames: `Evaluation Tasks` --> `Evaluations`, `Metric Types` --> `Metrics` and the old `Evaluations` entity no longer exists. This way using the platform is clearer and simpler. You can read more about these changes in the [Migration to v3.0 guide](migration-to-v3.mdx).
-- New Metrics "User Objective Accomplished" and "User Satisfaction".
-- Test Cases now have a "user score reason" to go along with the upvote/downvote. This way you can give more context on why you downvoted a Test Case and help improve the overall quality of the testing process.
-- Improved and facilitated the navigation between the different entities within the Dashboard (Tests, Test Cases, Evaluations, Versions, Metrics, ...).
-- Now you can click on table rows without navigating so you can copy-paste information more easily. To navigate you can now right-click and select "show details".
-- Be able to filter Test Cases by the given score (upvote/downvote) in the SDK.
-- Improved the SDK usability by allowing to fetch objects by list of IDs instead of just one ID at a time. Example: fetch Test Cases by a list of Test IDs instead of Test by Test.
-- General performance and UI/UX improvements across the full suite.
+- Products accept a set of policies describing how they should behave.
+- Added several new red teaming strategies: Persuasive Content, Creative Writing, Data Analysis, Bait and Switch, and Empathetic Framing.
+- New Quality test generator engine: Improved test case quality with the possibility to follow product policies.
+- Improved the reliability and speed of test generation for Red Teaming
+- Improved performance and user experience of tables and their filters.
+- Now the platform will expect a confirmation when deleting entities (Test Cases, Evaluations, Versions...).
 
 
 ## Coming Soon:
 * Dynamic Export of Test Cases (via a CSV file) instead of the original static one.
-* UX improvements with the edit and deletion of entities (Test Cases, Evaluations, Versions...).
+* General UX improvements plus capacity to edit entities from within the tables (Test Cases, Evaluations, Versions...).
