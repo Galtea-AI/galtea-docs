@@ -4,6 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galtea Update - 2025-07-21</title>
+    <style>
+      /* Add a bit of vertical spacing between list items */
+      ul li {
+        margin-bottom: 8px;
+      }
+      /* Avoid extra space after the last item in a list */
+      ul li:last-child {
+        margin-bottom: 0;
+      }
+      h3 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+      }
+      p {
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body style="margin: 0; padding: 0; text-align: center; font-family: Poppins, Arial, sans-serif">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -20,7 +37,6 @@
                 <h1 style="color: #333; font-size: 26px; margin-top: 30px; margin-bottom: 0px">Synthetic User Simulation, New Data Leakage Metric, and Platform Enhancements</h1>
                 <a style="color: #5c5bdd; font-size: 12px; text-decoration: none" href="https://docs.galtea.ai/changelog#2025-07-21">2025-07-21</a>
 
-                <br />
                 <h3 style="color: #333">Test Your Chatbots with Synthetic Users and Scenarios</h3>
                 <p style="color: #444; font-size: 16px">
                   It is now possible to generate tests that simulate realistic, multi-turn user interactions. Our new <strong><a href="https://docs.galtea.ai/concepts/product/test/scenario-tests" style="color: #5c5bdd">Scenario Based Tests</a></strong> allow you to define synthetic user personas and
@@ -28,14 +44,12 @@
                   <a href="https://docs.galtea.ai/sdk/tutorials/simulating-conversations" style="color: #5c5bdd">tutorial</a>.
                 </p>
 
-                <br />
                 <h3 style="color: #333">New Red Teaming Metric: Data Leakage</h3>
                 <p style="color: #444; font-size: 16px">
                   We've added the <strong><a href="https://docs.galtea.ai/concepts/metric/data-leakage" style="color: #5c5bdd">Data Leakage</a></strong> metric to our suite of Red Teaming evaluations. This metric assesses whether your LLM returns content that could contain sensitive information,
                   such as PII, financial data, or proprietary business data. It is crucial for ensuring your applications are secure and privacy-compliant.
                 </p>
 
-                <br />
                 <h3 style="color: #333">Enhanced Metric Management</h3>
                 <p style="color: #444; font-size: 16px">We've rolled out several improvements to make metric creation and management more powerful and intuitive:</p>
                 <ul style="color: #444; font-size: 16px">
@@ -48,7 +62,6 @@
                   </li>
                 </ul>
 
-                <br />
                 <h3 style="color: #333">Support for Larger Inputs and Outputs</h3>
                 <p style="color: #444; font-size: 16px">To better support applications that handle large documents or complex queries, we have increased the maximum character size for evaluation inputs and outputs to 250,000 characters.</p>
 

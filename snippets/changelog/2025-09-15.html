@@ -7,6 +7,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+    <style>
+      /* Add a bit of vertical spacing between list items */
+      ul li {
+        margin-bottom: 8px;
+      }
+      /* Avoid extra space after the last item in a list */
+      ul li:last-child {
+        margin-bottom: 0;
+      }
+      h3 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+      }
+      p {
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body style="margin: 0; padding: 0; text-align: center; font-family: Geist, Poppins, Arial, sans-serif; background-color: #f6f6f5">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -23,13 +40,11 @@
                 <h1 style="color: #171717; font-size: 26px; margin-bottom: 0px">Test Case Confidence, Custom Judges for Conversations, and More</h1>
                 <a style="color: #5286ff; font-size: 12px; text-decoration: none" href="https://docs.galtea.ai/changelog#2025-09-15">2025-09-15</a>
 
-                <br />
                 <h3 style="color: #171717">Confidence Scores for Generated Test Cases</h3>
                 <p style="color: #171717; font-size: 16px">
                   We're introducing confidence scores for all generated <a href="https://docs.galtea.ai/concepts/product/test/case" style="color: #5286ff">Test Cases</a>. This provides a clear indicator of test case quality, helping you prioritize human review and better understand your test suites.
                 </p>
 
-                <br />
                 <h3 style="color: #171717">Simplified and More Flexible Metric Creation</h3>
                 <p style="color: #171717; font-size: 16px">
                   Creating <a href="https://docs.galtea.ai/concepts/metric" style="color: #5286ff">Metrics</a> is now more intuitive. Metrics are now directly linked to a specific test (<code
@@ -40,14 +55,12 @@
                   updated <a href="https://docs.galtea.ai/sdk/api/metrics/create" style="color: #5286ff">creation guide</a> for more details.
                 </p>
 
-                <br />
                 <h3 style="color: #171717">Custom Judges for Conversational Evaluation</h3>
                 <p style="color: #171717; font-size: 16px">
                   You can now create your own <a href="https://docs.galtea.ai/concepts/metric/custom-judge" style="color: #5286ff">Custom Judges</a> specifically for evaluating multi-turn conversations. This allows you to define complex evaluation logic to assess nuanced aspects like conversation
                   completion, context retention, and persona adherence across an entire dialogue.
                 </p>
 
-                <br />
                 <h3 style="color: #171717">Conversation Simulator Enhancements</h3>
                 <p style="color: #171717; font-size: 16px">We've added more control and realism to the <a href="https://docs.galtea.ai/concepts/product/test/case/conversation-simulator" style="color: #5286ff">Conversation Simulator</a>:</p>
                 <ul style="color: #171717; font-size: 16px">
