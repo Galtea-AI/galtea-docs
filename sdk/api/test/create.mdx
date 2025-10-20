@@ -31,8 +31,8 @@ test = galtea.tests.create(
     name="security-red-team-test",
     type="RED_TEAMING",
     product_id="YOUR_PRODUCT_ID",
-    variants=["Toxicity", "Misuse", "Data Leakage"],
-    strategies=["Roleplay", "Base64"],
+    variants=["Toxicity", "Misuse", "data_leakage"],
+    strategies=["Original", "Roleplay", "Base64"], # original must always be included
     max_test_cases=50
 )
 ```
