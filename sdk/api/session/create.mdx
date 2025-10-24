@@ -32,5 +32,5 @@ session = galtea.sessions.create(
   The context provided to the AI product during the session.
 </ResponseField>
 <ResponseField name="is_production" type="boolean" optional>
-  A flag to indicate if the session is from a production environment. Defaults to `False`.
+  A flag to indicate if the session is from a production environment. When `True`, a `test_case_id` is not required. Defaults to `False`.
 </ResponseField>
