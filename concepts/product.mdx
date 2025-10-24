@@ -72,28 +72,12 @@ The SDK allows you to list existing products, retrieve specific products by thei
     <strong>Example:</strong> "Must not expose customer payment data, personal contact information, or internal inventory systems. Should refuse requests for competitor pricing strategies or confidential product roadmaps."
 </ResponseField>
 
-<ResponseField name="RAG" type="Boolean" required>
-  Indicates if the product uses Retrieval-Augmented Generation (RAG).
-</ResponseField>
-
-<ResponseField name="Conversational" type="Boolean" required>
-  Indicates if the product is a chatbot or designed as conversational AI.
-</ResponseField>
-
-<ResponseField name="Function Calling" type="Boolean" required>
-  Indicates if the product has function-calling capabilities.
-</ResponseField>
-
-<ResponseField name="External User Interaction" type="Boolean" required>
-  Indicates if the product is aimed at interacting with external users.
-</ResponseField>
-
-<ResponseField name="Quality Testing Priority" type="Boolean" required>
-  Indicates if quality and robustness testing is a priority for the product.
-</ResponseField>
-
-<ResponseField name="Red Teaming Priority" type="Boolean" required>
-  Indicates if red teaming (security, safety, and bias) is a priority for the product.
+<ResponseField name="Policies" type="Text" optional>
+  Define specific rules and instructions for how the product must behave in certain situations. Policies ensure consistent, safe, and compliant responses.
+  <Info>
+    Policies consist of clear instructions, such as "**always** answer with **x** if asked about **y**" or "add **[specific disclaimer text]** at the end of your responses when asked about **z**."
+  </Info>
+    <strong>Example:</strong> "If asked for guaranteed investment returns, respond that all investments carry risk. Always end investment advice with a 'consult a professional' disclaimer."
 </ResponseField>
 
 <ResponseField name="Risk Level" type="Enum" required>
