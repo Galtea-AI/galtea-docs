@@ -141,7 +141,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
     <tbody>
       <tr>
         <td>**input**</td>
-        <td>The prompt or query sent to the model. (Always required in the list).</td>
+        <td>The prompt or query sent to the model.</td>
         <td>All metrics</td>
       </tr>
       <tr>
@@ -167,17 +167,17 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       <tr>
         <td>**product_description**</td>
         <td>The description of the product.</td>
-        <td>Yes</td>
+        <td>All metrics</td>
       </tr>
       <tr>
         <td>**product_capabilities**</td>
         <td>The capabilities of the product.</td>
-        <td>Yes</td>
+        <td>All metrics</td>
       </tr>
       <tr>
         <td>**product_inabilities**</td>
         <td>The product's known inabilities or restrictions.</td>
-        <td>Yes</td>
+        <td>All metrics</td>
       </tr>
       <tr>
         <td>**product_security_boundaries**</td>
@@ -211,10 +211,6 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       </tr>
     </tbody>
   </table>
-
-  <Note>
-    `input` (lowercase) must always be included in this list.
-  </Note>
 
   <Info>
     You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the *Actual Output* contains factually correct information that aligns with verified sources in the *Retrieval Context*."
