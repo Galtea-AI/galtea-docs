@@ -115,6 +115,10 @@ test = galtea.tests.create(
   A list of strings that specifies how to generate test cases. The meaning of this parameter depends on the test `type`:
   - **For `RED_TEAMING` tests**: Specifies which [threat categories](/concepts/product/test/red-teaming-threats) to generate test cases for (e.g., `["data_leakage", "Misuse"]`).
   - **For `QUALITY` tests**: Specifies which [evolutions](/concepts/product/test/quality-evolutions) to apply to the base test cases, creating variations like paraphrased questions or adding typos (e.g., `["paraphrased", "typos"]`).
+  
+  <Info>
+    **Note on Terminology:** In the context of Red Teaming, this parameter is used to select "Threats" (as described in [Threat Categories](/concepts/product/test/red-teaming-threats)). In other test types, it refers to specific variations or evolutions.
+  </Info>
 </ResponseField>
 <ResponseField name="strategies" type="list[string]" optional>
   A list of strings that specifies how to generate test cases related to its style. 
@@ -135,4 +139,10 @@ test = galtea.tests.create(
   - **SCENARIOS**: Conversation simulator format with `goal`, `user_persona`, `initial_prompt`, `stopping_criterias`, `max_iterations`, `scenario` columns
   
   See the [Conversation Simulator Tutorial](/sdk/tutorials/simulating-conversations) for detailed SCENARIOS CSV format examples.
+</ResponseField>
+<ResponseField name="source_test_id" type="string" optional>
+  The ID of an existing `QUALITY` test. If provided when creating a `SCENARIOS` test, Galtea will use the approved test cases from the source quality test to generate conversational scenarios. This allows you to transform single-turn Q&A pairs into multi-turn dialogues.
+  <Note>
+    This parameter is only applicable when `type` is `SCENARIOS` and cannot be used with `ground_truth_file_path` or `test_file_path`.
+  </Note>
 </ResponseField>

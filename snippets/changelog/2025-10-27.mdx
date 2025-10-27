@@ -1,0 +1,23 @@
+<Update label="2025-10-27" description="Simplified Metric Creation, Smarter Simulations, and UX Polish">
+## Introducing Partial Prompts: Create Custom Metrics Faster
+
+We're making it easier than ever to create custom judge metrics with our new **Partial Prompt** validation method. Now, you can focus solely on defining your evaluation criteria and simply select the data parameters you need—like `input` or `retrieval_context`. Galtea automatically constructs the full, correctly formatted judge prompt for you, saving you time and reducing complexity.
+
+This new approach streamlines the creation of powerful, tailored [Metrics](/concepts/metric), allowing you to concentrate on what matters most: the evaluation logic itself.
+
+<Frame>
+  <img src="/images/changelog/2025-10-27_partial-prompt-metric.png" alt="Creating a metric with the new Partial Prompt method" />
+</Frame>
+
+## Conversation Simulator Now Validates Grounded Responses
+
+Our **[Conversation Simulator](/concepts/product/test/case/conversation-simulator)** just got smarter. It now takes the agent's `retrieval_context` into account, enabling the synthetic user to react dynamically to the information your agent provides.
+
+For example, if your RAG-based agent hallucinates a fact that isn't in the provided context, the simulator can now challenge that response (e.g., "I don't see that mentioned in the document you shared."). This provides a powerful new way to test the groundedness and reliability of your conversational AI systems.
+
+## Platform Experience Enhancements
+
+We've also rolled out several quality-of-life improvements and bug fixes for a smoother experience. A notable update is that tables across the platform now refresh instantly after you delete an item with a right-click, making data management more fluid and intuitive.
+
+Enjoy the improvements!
+</Update>
