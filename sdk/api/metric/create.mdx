@@ -46,14 +46,16 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
   The name of the model used to evaluate the metric. Required for metrics using `judge_prompt`.
   
   **Available models:**
+  - `"Claude-Sonnet-4.O"`
+  - `"Claude-Sonnet-3.7"`
+  - `"GPT-4.1-mini"`
   - `"GPT-35-turbo"`
-  - `"GPT-4o"`
-  - `"GPT-4o-mini"`
-  - `"GPT-4.1"`
-  - `"Gemini-2.0-flash"`
-  - `"Gemini-2.5-Flash"`
   - `"Gemini-2.5-Flash-Lite"`
-  
+  - `"Gemini-2.5-Flash"`
+  - `"Gemini-2.O-flash"`
+  - `"GPT-4o"`
+  - `"GPT-4.1"`
+
   <Note>
     It should not be provided if the metric is "self hosted" (has no `judge_prompt`) since it does not require a model for evaluation.
   </Note>

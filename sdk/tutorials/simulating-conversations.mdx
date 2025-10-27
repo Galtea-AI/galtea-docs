@@ -46,8 +46,12 @@ class MyGalteaAgent(galtea.Agent):
         # Generate a response using your own logic/model
         response = my_agent.generate_response(user_message)
 
-        # Return a structured response (optionally with metadata)
-        return galtea.AgentResponse(content=response)
+        # Return a structured response (optionally with metadata and retrieval context)
+        return galtea.AgentResponse(
+            content=response,
+            retrieval_context=None,  # Optional: context retrieved by the agent (e.g., for RAG)
+            metadata=None  # Optional: additional metadata
+        )
 ```
 
 #### 2. Create a Test and Sessions
@@ -131,6 +135,43 @@ evaluations = galtea_client.evaluations.create(
 for evaluation in evaluations:
     print(f"Evaluation created: {evaluation.id}")
 ```
+
+---
+
+## Advanced Usage: RAG Agents with Retrieval Context
+
+For Retrieval-Augmented Generation (RAG) agents, you can return the context that was retrieved and used to generate the response. This context will be logged with the inference result, enabling powerful evaluations with metrics like `Faithfulness` and `Contextual Relevancy`.
+
+```python
+class MyRAGAgent(galtea.Agent):
+    def __init__(self, vector_store, llm):
+        self.vector_store = vector_store
+        self.llm = llm
+
+    def call(self, input_data: galtea.AgentInput) -> galtea.AgentResponse:
+        user_message = input_data.last_user_message_str()
+        
+        # Your RAG logic to retrieve context and generate a response
+        retrieved_docs = self.vector_store.search(user_message)
+        response_content = self.llm.generate(
+            prompt=user_message,
+            context=retrieved_docs
+        )
+        
+        return galtea.AgentResponse(
+            content=response_content,
+            retrieval_context=retrieved_docs,
+            metadata={"docs_retrieved": len(retrieved_docs)}
+        )
+```
+
+The `retrieval_context` field is optional and can contain:
+- Retrieved document snippets or full documents
+- Formatted context strings
+- JSON-serializable data structures
+
+By providing retrieval context, you enable Galtea to evaluate the faithfulness of your model's responses relative to the retrieved information, which is crucial for assessing RAG system quality.
+
 ---
 
 By using the agent wrapper and simulation method, you can quickly evaluate your conversational AI models in realistic, repeatable conditions, leveraging Galtea's powerful simulation and analytics tools.

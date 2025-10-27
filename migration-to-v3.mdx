@@ -10,11 +10,11 @@ The core workflow for running predefined tests against a version has been stream
 
 ### Key Changes for Test-Based Evaluations
 
-1. **New Terminology**: The old `EvaluationTask` entity is now simply called `Evaluation`. The concept of a parent `Evaluation` container has been removed to simplify the workflow.
+1. **New Terminology**: The old `EvaluationTask` entity is now simply called `Evaluation`. Similarly, `MetricType` is now called `Metric`. The concept of a parent `Evaluation` container has been removed to simplify the workflow.
 
 2. **Simplified Workflow**: The previous two-step process of creating an `Evaluation` container and then adding `EvaluationTask`s to it is now a single method call.
 
-3. **New Method `create_single_turn()`**: The old methods for creating tasks (e.g., `galtea.evaluation_tasks.create()`) are replaced by `galtea.evaluations.create_single_turn()`. This new method directly creates evaluations without needing a pre-existing container.
+3. **New Method `create_single_turn()`**: The old methods for creating tasks (e.g., `galtea.evaluation_tasks.create()`) are replaced by `galtea.evaluations.create_single_turn()`. This new method directly creates evaluations without needing a pre-existing container. Similarly, the old `galtea.metric_types` service is now `galtea.metrics`.
 
 4. **Updated Parameters**: The `create_single_turn()` method now requires a `version_id` instead of an `evaluation_id`, as the direct link is now to the version being tested.
 
@@ -104,6 +104,7 @@ galtea.evaluations.create_single_turn(
 1. In `galtea.versions.create()` calls, remove the `optional_props` dictionary and pass its contents as direct keyword arguments.
 2. **Remove** all calls to `galtea.evaluations.create()` that were used to create evaluation containers.
 3. Rename `galtea.evaluation_tasks.create()` calls to `galtea.evaluations.create_single_turn()`, **remove** the `evaluation_id` parameter, and **add** the `version_id` parameter.
+4. Replace all usages of `galtea.metric_types` with `galtea.metrics`. The method names within the service remain largely the same (e.g., `get`, `get_by_name`, `create`).
 
 <Note>
     Ensure all your code, including any examples you may be referencing from the SDK repository, is updated. The `optional_props` dictionary is fully deprecated in v3.0, and some examples in the codebase may not yet reflect the v3.0 changes.
