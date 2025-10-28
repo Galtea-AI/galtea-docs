@@ -89,6 +89,14 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
     This parameter is optional for now but may be required in the future to avoid confusion.
   </Note>
 </ResponseField>
+<ResponseField name="evaluation_params" type="list[string]" optional>
+  Evaluation parameters to be used when the metric is a Partial Prompt (LLM-as-a-Judge). These parameters will be prepended to the judge prompt to construct the final prompt.
+  To check the available evaluation parameters, see the [Evaluation Parameters](/concepts/metric#param-evaluation-parameters) section.
+
+  <Note>
+    It should not be provided if the metric is NOT a Partial Prompt (LLM-as-a-Judge).
+  </Note>
+</ResponseField>
 <ResponseField name="tags" type="list[string]" optional>
   Tags to categorize the metric.
 </ResponseField>
