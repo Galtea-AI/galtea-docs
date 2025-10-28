@@ -32,7 +32,7 @@ class MyAccuracy(CustomScoreEvaluationMetric):
 custom_score_accuracy = MyAccuracy()
 
 # If the metric does not exist yet in the platform, you can create it like this:
-galtea.metrics.create(name=custom_score_accuracy.name, description='checks for the presence of the keyword "paris" in the output')
+galtea.metrics.create(name=custom_score_accuracy.name, source='self_hosted', description='checks for the presence of the keyword "paris" in the output')
 
 # Create evaluations using a mix of standard and custom metrics
 evaluations = galtea.evaluations.create_single_turn(

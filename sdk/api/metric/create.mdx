@@ -16,6 +16,7 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
         name="accuracy_v1",
         test_type="QUALITY",
         evaluator_model_name="GPT-4.1",
+        source="full_prompt",
         judge_prompt="Determine whether the output is equivalent to the expected output. Output: \"{actual_output}\". Expected Output: \"{expected_output}.\"",
         tags=["custom", "accuracy"],
         description="A custom accuracy metric."
@@ -27,6 +28,7 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
     metric = galtea.metrics.create(
         name="accuracy_v1",
         test_type="QUALITY",
+        source="self_hosted",
         tags=["custom", "accuracy"],
         description="A custom accuracy metric calculated by our custom score function."
     )
@@ -62,6 +64,16 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
 </ResponseField>
 <ResponseField name="judge_prompt" type="string" optional>
   A custom prompt that defines the evaluation logic for an LLM-as-a-judge metric. You can use placeholders like `{input}`, `{actual_output}`, etc., which will be populated at evaluation time. If you provide a `judge_prompt`, the metric will be an LLM-based evaluation. If omitted, the metric is considered a deterministic "Custom Score" metric.
+</ResponseField>
+<ResponseField name="source" type="string" optional>
+  The source of the metric. Possible values are:
+  - `full_prompt`: /concepts/metric#creating-custom-metrics-via-full-prompt-llm
+  - `partial_prompt`: /concepts/metric#creating-custom-metrics-via-partial-prompt-llm
+  - `self_hosted`: /concepts/metric#self-hosted
+  
+  <Note>
+    This parameter is optional for now but may be required in the future to avoid confusion.
+  </Note>
 </ResponseField>
 <ResponseField name="tags" type="list[string]" optional>
   Tags to categorize the metric.

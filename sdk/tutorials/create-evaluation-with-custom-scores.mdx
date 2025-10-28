@@ -47,7 +47,7 @@ class ContainsKeyword(CustomScoreEvaluationMetric):
 accuracy_metric = ContainsKeyword(keyword="correct")
 
 # If the metric does not exist yet in the platform, you can create it like this:
-galtea.metrics.create(name=accuracy_metric.name, description='checks for the presence of the keyword "correct" in the output')
+galtea.metrics.create(name=accuracy_metric.name, source='self_hosted', description='checks for the presence of the keyword "correct" in the output')
 
 # Your product's response
 actual_output = "This response contains the correct keyword."
