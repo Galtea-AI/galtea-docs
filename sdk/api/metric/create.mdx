@@ -80,10 +80,10 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
   A custom prompt that defines the evaluation logic for an LLM-as-a-judge metric. You can use placeholders like `{input}`, `{actual_output}`, etc., which will be populated at evaluation time. If you provide a `judge_prompt`, the metric will be an LLM-based evaluation. If omitted, the metric is considered a deterministic "Custom Score" metric.
 </ResponseField>
 <ResponseField name="source" type="string" optional>
-  The source of the metric. Possible values are:
-  - `full_prompt`: /concepts/metric#creating-custom-metrics-via-full-prompt-llm
-  - `partial_prompt`: /concepts/metric#creating-custom-metrics-via-partial-prompt-llm
-  - `self_hosted`: /concepts/metric#self-hosted
+  The source of the metric. Possible values are: `full_prompt`, `partial_prompt` or `self_hosted`.
+  - [Full Prompt (LLM-as-a-Judge)](/concepts/metric#creating-custom-metrics-via-full-prompt-llm): Gives you maximum control by providing a complete judge prompt template with placeholders (e.g., `{input}`, `{actual_output}`). Galtea populates the template and uses an LLM to evaluate based on your exact instructions.
+  - [Partial Prompt (LLM-as-a-Judge)](/concepts/metric#creating-custom-metrics-via-partial-prompt-llm): Simplifies prompt creation by providing only the core evaluation criteria or rubric. Galtea dynamically constructs the final prompt by prepending selected evaluation parameters to your criteria.
+  - [Self Hosted](/concepts/metric#self-hosted): For deterministic metrics scored locally using the SDK's `CustomScoreEvaluationMetric`. Your custom logic runs on your infrastructure, and the resulting score is uploaded to the platform.
   
   <Note>
     This parameter is optional for now but may be required in the future to avoid confusion.
