@@ -18,7 +18,6 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
         evaluator_model_name="GPT-4.1",
         source="full_prompt",
         judge_prompt="Determine whether the output is equivalent to the expected output. Output: \"{actual_output}\". Expected Output: \"{expected_output}.\"",
-        evaluation_params=["actual_output", "expected_output"],
         tags=["custom", "accuracy"],
         description="A custom accuracy metric."
     )
@@ -32,6 +31,7 @@ Returns a [Metric](/concepts/metric) object for the given parameters, or `None` 
         evaluator_model_name="GPT-4.1",
         source="partial_prompt",
         judge_prompt="Determine whether the actual output is equivalent to the expected output",
+        evaluation_params=["actual_output", "expected_output"],
         tags=["custom", "accuracy"],
         description="A custom accuracy metric."
     )
