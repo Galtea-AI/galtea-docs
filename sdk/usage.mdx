@@ -71,6 +71,7 @@ metric_from_api = galtea.metrics.create(
     name="accuracy_v1",
     test_type="QUALITY",
     evaluator_model_name="GPT-4.1",
+    source="full_prompt",
     judge_prompt="Determine whether the output is equivalent to the expected output. Output: \"{actual_output}\". Expected Output: \"{expected_output}.\""
 )
 
@@ -80,6 +81,7 @@ from galtea import CustomScoreEvaluationMetric
 # First, it needs to be created in the platform
 metric_from_api = galtea.metrics.create(
     name="keyword-check",
+    source="self_hosted",
     description="Checks if the 'actual output' contains the keyword 'expected'.",
 )
 
