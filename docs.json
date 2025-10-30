@@ -149,7 +149,7 @@
           {
             "group": "Test Types",
             "pages": [
-              { "group": "Quality", "icon": "star", "pages": ["concepts/product/test/quality-tests", "concepts/product/test/quality-evolutions"] },
+              { "group": "Quality", "icon": "star", "pages": ["concepts/product/test/quality-tests"] },
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
