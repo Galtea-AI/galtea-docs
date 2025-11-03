@@ -46,7 +46,6 @@ We're continuously refining the platform based on your feedback. This week's imp
     <img src="/images/changelog/2025-04-28_additional-filters.png" alt="Additional Filters" />
 </Frame>
 
-Enjoy the improvements!
 </Update>
 ```
 
@@ -181,14 +180,13 @@ At the end of the message, after providing the files, you must provide a list of
 The following are the change notes for this release. You can re-write them to seem more natural, appealing and easier to read, but without changing the meaning nor the core information.
 
 ## Changelog:
-- Products accept a set of policies describing how they should behave.
-- Added several new red teaming strategies: Persuasive Content, Creative Writing, Data Analysis, Bait and Switch, and Empathetic Framing.
-- New Quality test generator engine: Improved test case quality with the possibility to follow product policies.
-- Improved the reliability and speed of test generation for Red Teaming
-- Improved performance and user experience of tables and their filters.
-- Now the platform will expect a confirmation when deleting entities (Test Cases, Evaluations, Versions...).
-
+- Improved Dashboard's UI from Colors to icons and dialogs for a better user experience and consistency.
+- Improved platform's over-all security and user authentication mechanisms.
+- Improved the handling of concurrent requests to enhance performance during high traffic periods.
+- Red Teaming tests have more robust language control while being generated when none is specified.
+- Optimize Red Teaming generation latency for much faster test creation
 
 ## Coming Soon:
-* Dynamic Export of Test Cases (via a CSV file) instead of the original static one.
-* General UX improvements plus capacity to edit entities from within the tables (Test Cases, Evaluations, Versions...).
+* Transparency on the models used to generate each Test.
+* Further improved authentication security.
+* Increment over-all platform's reliability.
