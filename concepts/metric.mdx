@@ -98,6 +98,10 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   A URL pointing to more detailed documentation about the metric.
 </ResponseField>
 
+<ResponseField name="Legacy At" type="Timestamp" optional>
+  A timestamp indicating when the metric was marked as legacy or deprecated. This field will be `null` for active metrics.
+</ResponseField>
+
 <ResponseField name="Evaluator Model" type="Text" optional>
   The name of the model used to evaluate the metric. This model will be used to assess the quality of the outputs based on the metric's criteria. **Example**: "GPT-4.1".
   <Note>

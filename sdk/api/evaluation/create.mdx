@@ -38,6 +38,11 @@ evaluations = galtea.evaluations.create(
 <ResponseField name="session_id" type="string" required>
   The ID of the session containing the inference results to be evaluated.
 </ResponseField>
-<ResponseField name="metrics" type="List[string]" required>
-  A list of standard metrics to use. It is not possible to use metrics with custom scores with this method.
+<ResponseField name="metrics" type="List[string]" optional>
+  A list of standard metrics to use, specified by name. It is not possible to use metrics with custom scores with this method.
+  <Note>Either `metrics` or `metric_ids` must be provided.</Note>
+</ResponseField>
+
+<ResponseField name="metric_ids" type="List[string]" optional>
+  A list of metric IDs to use for the evaluation. This can be used as an alternative to the `metrics` parameter.
 </ResponseField>
