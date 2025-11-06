@@ -121,7 +121,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       This method, formerly known as "LLM as a Judge," gives you maximum control. You provide a complete judge prompt template with placeholders (e.g., `{input}`, `{actual_output}`). Galtea will populate the template and use an LLM to evaluate the output based on your exact instructions.
     </Tab>
     <Tab title="Partial Prompt">
-      This method simplifies prompt creation. You provide only the core evaluation criteria or rubric in the judge prompt. Then, you select the necessary data (like `input`, `context`, etc.) from the **Evaluation Parameters** list. Galtea dynamically constructs the final prompt by prepending the selected data to your criteria, ensuring a consistent structure.
+      This method simplifies prompt creation. You provide the core evaluation logic (your criteria and rubric) in the `judge_prompt`. Then, you select the necessary data (like `input`, `context`, etc.) from the **Evaluation Parameters** list. Galtea dynamically constructs the final prompt by prepending the selected data to the content of your `judge_prompt`, ensuring a consistent structure for the evaluator model.
     </Tab>
     <Tab title="Self Hosted">
       This method is for deterministic metrics that you score locally using the SDK's `CustomScoreEvaluationMetric`. No evaluation prompt is sent to Galtea. Instead, your custom logic runs on your infrastructure, and the resulting score is uploaded to the platform for tracking and analysis.
@@ -217,11 +217,11 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   </table>
 
   <Info>
-    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the *Actual Output* contains factually correct information that aligns with verified sources in the *Retrieval Context*."
+    When using the `Partial Prompt` validation method, you can reference these parameters by name in your `judge_prompt`. For example: "Evaluate if the *Actual Output* aligns with the *Retrieval Context*." When using `Full Prompt`, you must use placeholders like `{actual_output}`.
   </Info>
 
   <Warning>
-    To ensure accurate evaluation results, include only parameters that you've explicitly referenced in your criteria or evaluation steps.
+    To ensure accurate evaluation results, only select parameters in the `Evaluation Parameters` list that you need for your evaluation. For `Partial Prompt`, these parameters will be automatically prepended to your `judge_prompt`. For `Full Prompt`, ensure you have corresponding placeholders (e.g., `{input}`) for each selected parameter.
   </Warning>
 </ResponseField>
 
