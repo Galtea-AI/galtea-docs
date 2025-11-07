@@ -335,6 +335,45 @@ Scoring Guidelines:
 When designing judge prompts, be specific about your scoring criteria and reference the evaluation parameters explicitly. This ensures consistent and reliable evaluations.
 </Info>
 
+### Example Judge Prompt with `conversation_turns`
+
+When evaluating a `SCENARIOS` test, you can use the `{conversation_turns}` placeholder to analyze the entire dialogue. The placeholder will be replaced with a formatted string representing the conversation.
+
+**Example Prompt:**
+```python
+judge_prompt = """
+Evaluate the following conversation for consistency. The agent should not contradict itself across the conversation.
+
+**Conversation History:**
+{conversation_turns}
+
+**Evaluation Criteria:**
+- Does the agent's final response contradict any of its previous statements?
+- Are the agent's responses logically consistent throughout the conversation?
+
+**Scoring Guidelines:**
+- Score 1: The agent is fully consistent with no contradictions across all turns.
+- Score 0.5: The agent has minor inconsistencies that don't significantly impact the conversation quality.
+- Score 0: The agent clearly contradicts itself or provides conflicting information.
+"""
+```
+
+**Formatted `conversation_turns`:**
+
+When the prompt is sent for evaluation, the `{conversation_turns}` placeholder will be replaced with a formatted string like this:
+```text
+user: Hello, what can you do?
+assistant: I can help with your queries and provide information.
+user: What's your return policy?
+assistant: Returns are accepted within 30 days of purchase.
+user: Can I return items after a month?
+assistant: No, our return window is 30 days.
+```
+
+<Info>
+The `conversation_turns` parameter is only available for `SCENARIOS` tests and can only be used with the **Full Prompt** validation method. It provides the complete conversation history, allowing you to evaluate contextual consistency, knowledge retention, and other conversational qualities.
+</Info>
+
 
 ## SDK Integration
 

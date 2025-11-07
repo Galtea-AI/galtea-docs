@@ -18,9 +18,11 @@ The core workflow for running predefined tests against a version has been stream
 
 4. **Updated Parameters**: The `create_single_turn()` method now requires a `version_id` instead of an `evaluation_id`, as the direct link is now to the version being tested.
 
-5. **Simplified Version Creation**: The `galtea.versions.create()` method now accepts all properties as direct keyword arguments, removing the need for the `optional_props` dictionary.
+5. **New `MetricInput` Format**: SDK v3.0 introduces a flexible dictionary format for specifying metrics. You can now pass metrics as dictionaries with optional `id`, `name`, and `score` fields. For self-hosted metrics, you can either provide pre-computed scores as floats or use CustomScoreEvaluationMetric instances for dynamic score calculation—both approaches are equally valid. The old formats (strings and top-level CustomScoreEvaluationMetric objects) are still supported for backward compatibility.
 
-6. **Added Sessions**: The new `galtea.sessions.create()` method allows you to create sessions to group multiple inference results (conversation turns) under a single session, making it easier to track multi-turn interactions.
+6. **Simplified Version Creation**: The `galtea.versions.create()` method now accepts all properties as direct keyword arguments, removing the need for the `optional_props` dictionary.
+
+7. **Added Sessions**: The new `galtea.sessions.create()` method allows you to create sessions to group multiple inference results (conversation turns) under a single session, making it easier to track multi-turn interactions.
 
 ### Migration Diff: Test-Case Workflow
 
@@ -86,15 +88,28 @@ galtea.evaluations.create_single_turn(
 
 ### Production Data Logging with Single-Turn Evaluations
 
-For production monitoring, you can also use `create_single_turn()` without a test case:
+For production monitoring, you can also use `create_single_turn()` without a test case. Here's an example using the new recommended `MetricInput` dictionary format:
 
 ```python
 # Production data logging (no test case required)
+# Using the recommended MetricInput dictionary format
 galtea.evaluations.create_single_turn(
     version_id=version.id,
     input="User's actual input",
     actual_output="Model's actual output",
-    metrics=["your_metric"],
+    metrics=[
+        {"name": "your_metric"},
+        {"name": "custom-metric", "score": 0.95}  # Pre-computed score for self-hosted metric
+    ],
+    is_production=True
+)
+
+# Alternative: String format (still supported)
+galtea.evaluations.create_single_turn(
+    version_id=version.id,
+    input="User's actual input",
+    actual_output="Model's actual output",
+    metrics=["your_metric"],  # Simple string format
     is_production=True
 )
 ```
@@ -105,6 +120,35 @@ galtea.evaluations.create_single_turn(
 2. **Remove** all calls to `galtea.evaluations.create()` that were used to create evaluation containers.
 3. Rename `galtea.evaluation_tasks.create()` calls to `galtea.evaluations.create_single_turn()`, **remove** the `evaluation_id` parameter, and **add** the `version_id` parameter.
 4. Replace all usages of `galtea.metric_types` with `galtea.metrics`. The method names within the service remain largely the same (e.g., `get`, `get_by_name`, `create`).
+5. **Recommended**: Update your metrics specifications to use the new `MetricInput` dictionary format for better clarity and to leverage the ability to provide pre-computed scores for self-hosted metrics.
+
+### New MetricInput Format
+
+SDK v3.0 introduces a powerful new way to specify metrics using dictionaries:
+
+```python
+# Legacy formats (still supported)
+metrics=["Role Adherence", CustomMetricClass()]
+
+# Current format (recommended)
+metrics=[
+    {"name": "Role Adherence"},                    # Galtea-hosted metric by name
+    {"id": "metric_xyz"},                          # Galtea-hosted metric by ID
+    {"name": "custom", "score": 0.95},             # Self-hosted with pre-computed score
+    {"score": CustomScoreEvaluationMetric(name="custom")}  # Self-hosted with dynamic scoring
+]
+```
+
+**Benefits of MetricInput format:**
+- **Clearer intent**: Explicitly specify whether you're referencing by name or ID
+- **Flexibility for self-hosted metrics**: Choose between pre-computing scores or using CustomScoreEvaluationMetric for dynamic calculation—both are equally valid
+- **Better maintainability**: More declarative and structured than legacy formats
+
+For self-hosted metrics, you have two equal options:
+1. **Pre-compute scores**: Calculate the score yourself and provide it as a float
+2. **Dynamic scoring**: Use a CustomScoreEvaluationMetric instance to calculate scores on-the-fly
+
+The legacy formats (plain strings like `"Role Adherence"` and top-level `CustomScoreEvaluationMetric` objects) continue to work for backward compatibility.
 
 <Note>
     Ensure all your code, including any examples you may be referencing from the SDK repository, is updated. The `optional_props` dictionary is fully deprecated in v3.0, and some examples in the codebase may not yet reflect the v3.0 changes.

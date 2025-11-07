@@ -11,6 +11,10 @@ Returns a list of [Evaluation](/concepts/product/version/session/evaluation) obj
 
 ## Example
 ```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
 # First, create a session and log inference results
 session = galtea.sessions.create(version_id="YOUR_VERSION_ID")
 galtea.inference_results.create_batch(
@@ -23,26 +27,44 @@ galtea.inference_results.create_batch(
     ]
 )
 
-# Now, evaluate the entire session
+# Now, evaluate the entire session using MetricInput format (recommended)
+evaluations = galtea.evaluations.create(
+    session_id=session.id,
+    metrics=[
+        {"name": "Role Adherence"}, 
+        {"name": "Conversation Relevancy"}
+    ]
+)
+
+# Alternative: String format (legacy, still supported)
 evaluations = galtea.evaluations.create(
     session_id=session.id,
     metrics=["Role Adherence", "Conversation Relevancy"]
 )
 ```
 
-<Warning>
-  This method does not support `CustomScoreEvaluationMetric` objects. Attempting to use a custom metric will result in a `ValueError`. For custom scoring, please use the `create_single_turn` method for each turn of the conversation.
-</Warning>
-
 ## Parameters
 <ResponseField name="session_id" type="string" required>
   The ID of the session containing the inference results to be evaluated.
 </ResponseField>
-<ResponseField name="metrics" type="List[string]" optional>
-  A list of standard metrics to use, specified by name. It is not possible to use metrics with custom scores with this method.
-  <Note>Either `metrics` or `metric_ids` must be provided.</Note>
-</ResponseField>
+<ResponseField name="metrics" type="List[Union[str, Dict]]" required>
+  A list of metrics to use for the evaluation. 
+  
+  **Recommended:** `MetricInput` dictionary format:
+  ```python
+  metrics=[
+      {"name": "Role Adherence"},              # By name
+      {"id": "metric_xyz"},                    # By ID
+      {"name": "custom", "score": 0.95}        # With pre-computed score (for self-hosted metrics)
+  ]
+  ```
+  
+  **Also supported (legacy):**
+  - **By name** (string): `metrics=["Role Adherence"]`
+  
+  The `MetricInput` dictionary supports the following keys:
+  - `id` (string, optional): The ID of an existing metric
+  - `name` (string, optional): The name of the metric (either `id` or `name` must be provided)
+  - `score` (float, optional): A pre-computed score (0.0 to 1.0) for self-hosted metrics
 
-<ResponseField name="metric_ids" type="List[string]" optional>
-  A list of metric IDs to use for the evaluation. This can be used as an alternative to the `metrics` parameter.
 </ResponseField>
