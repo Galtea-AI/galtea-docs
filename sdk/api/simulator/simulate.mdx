@@ -16,7 +16,11 @@ import galtea
 class MyAgent(galtea.Agent):
     def call(self, input_data: galtea.AgentInput) -> galtea.AgentResponse:
         user_message = input_data.last_user_message_str()
-        return galtea.AgentResponse(role="assistant", content=f"Echo: {user_message}")
+        return galtea.AgentResponse(
+            content=f"Echo: {user_message}",
+            retrieval_context=None,  # Optional: context retrieved by the agent (e.g., for RAG)
+            metadata=None  # Optional: additional metadata
+        )
 
 # Create a session and run the simulation
 session = galtea.sessions.create(version_id="your_version_id")

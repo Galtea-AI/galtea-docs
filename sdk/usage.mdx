@@ -122,13 +122,16 @@ for test_case in test_cases:
     # Your product's actual response to the input
     actual_output = your_product_function(test_case.input, test_case.context, retrieval_context)
     
-    # Run evaluation using both standard and custom metrics
+    # Run evaluation
     galtea.evaluations.create_single_turn(
         version_id=version.id,
         test_case_id=test_case.id,
         metrics=[
-            metric_from_api.name,   # Standard metric by name
-            keyword_metric               # Custom metric object
+            # Standard Galtea-hosted metric, referenced by name
+            {"name": metric_from_api.name},
+            
+            # Self-hosted metric with dynamic scoring
+            {"score": keyword_metric} 
         ],
         actual_output=actual_output,
         retrieval_context=retrieval_context, 

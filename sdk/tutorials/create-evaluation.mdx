@@ -40,8 +40,8 @@ galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 YOUR_VERSION_ID = "your_version_id"
 YOUR_TEST_ID = "your_test_id"
 METRICS_TO_EVALUATE = [
-    "Factual Accuracy",
-    "Role Adherence",
+    {"name": "Factual Accuracy"},
+    {"name": "Role Adherence"},
 ]
 
 # --- Your Product's Logic (Placeholder) ---

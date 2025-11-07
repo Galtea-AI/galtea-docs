@@ -124,7 +124,13 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       This method simplifies prompt creation. You provide the core evaluation logic (your criteria and rubric) in the `judge_prompt`. Then, you select the necessary data (like `input`, `context`, etc.) from the **Evaluation Parameters** list. Galtea dynamically constructs the final prompt by prepending the selected data to the content of your `judge_prompt`, ensuring a consistent structure for the evaluator model.
     </Tab>
     <Tab title="Self Hosted">
-      This method is for deterministic metrics that you score locally using the SDK's `CustomScoreEvaluationMetric`. No evaluation prompt is sent to Galtea. Instead, your custom logic runs on your infrastructure, and the resulting score is uploaded to the platform for tracking and analysis.
+      This method is for deterministic metrics that you score locally. No evaluation prompt is sent to Galtea. Instead, your custom logic runs on your infrastructure, and the resulting score is uploaded to the platform for tracking and analysis. You can provide the score in two ways via the SDK:
+
+      - **Pre-calculated score**: Pass a `float` value directly in the `score` field of a `MetricInput` dictionary. This is the simplest method.  
+        Example: `{'name': 'my-custom-metric', 'score': 0.85}`
+
+      - **Dynamic score calculation**: Use the SDK's `CustomScoreEvaluationMetric` class to encapsulate your scoring logic, which will be executed at runtime.  
+        Example: `{'score': MyCustomMetric(name='my-custom-metric')}`
     </Tab>
   </Tabs>
 </ResponseField>
