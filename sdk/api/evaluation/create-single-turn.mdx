@@ -12,48 +12,140 @@ This method is versatile and can be used for two main scenarios:
 2.  **Production Monitoring**: When you set `is_production=True` and provide an `input`, Galtea logs and evaluates real user interactions.
 
 
-### Example: Test-Based Evaluation with Standard and Custom Metrics
+### Example: Using the MetricInput Dictionary Format (Recommended)
+
+The recommended way to specify metrics in SDK v3.0 is using the `MetricInput` dictionary format. For self-hosted metrics, you have two equally valid options:
+
+**Option 1: Pre-computed scores**
+```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Pre-compute your custom score
+def check_accuracy(output: str) -> float:
+    return 1.0 if "paris" in output.lower() else 0.0
+
+actual_output = "The capital of France is Paris."
+custom_score = check_accuracy(actual_output)
+
+# Create the metric in the platform if it doesn't exist yet
+galtea.metrics.create(
+    name="my-accuracy",
+    source="self_hosted",
+    description="Checks if 'paris' appears in the output"
+)
+
+evaluations = galtea.evaluations.create_single_turn(
+    version_id="YOUR_VERSION_ID",
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output=actual_output,
+    metrics=[
+        {"name": "Role Adherence"},                    # Galtea-hosted metric
+        {"name": "my-accuracy", "score": custom_score} # Self-hosted with pre-computed score
+    ]
+)
+```
+
+**Option 2: CustomScoreEvaluationMetric for dynamic scoring**
 ```python
 from galtea import Galtea, CustomScoreEvaluationMetric
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Define scoring logic as a class
+class MyAccuracy(CustomScoreEvaluationMetric):
+    def __init__(self):
+        super().__init__(name="my-accuracy")
+        
+    def measure(self, *args, actual_output: str | None = None, **kwargs) -> float:
+        if actual_output is None:
+            return 0.0
+        return 1.0 if "paris" in actual_output.lower() else 0.0
+
+# Create the metric in the platform if it doesn't exist yet
+galtea.metrics.create(
+    name="my-accuracy",
+    source="self_hosted",
+    description="Checks if 'paris' appears in the output"
+)
+
+evaluations = galtea.evaluations.create_single_turn(
+    version_id="YOUR_VERSION_ID",
+    test_case_id="YOUR_TEST_CASE_ID",
+    actual_output="The capital of France is Paris.",
+    metrics=[
+        {"name": "Role Adherence"},         # Galtea-hosted metric
+        {"score": MyAccuracy()}             # Self-hosted with dynamic scoring
+        # Note: No 'name' or 'id' in dict - it comes from MyAccuracy(name="...")
+    ]
+)
+```
+
+<Note>
+  Both options are equally valid for self-hosted metrics. Choose based on your preference: pre-compute for simplicity, or use CustomScoreEvaluationMetric for encapsulation and reusability.
+</Note>
+
+### Example: Legacy Format (Not Recommended)
+
+<Warning>
+  The following format is maintained for backward compatibility only. New code should use the MetricInput dictionary format shown above.
+</Warning>
+
+```python
+from galtea import Galtea, CustomScoreEvaluationMetric
+
+galtea = Galtea(api_key="YOUR_API_KEY")
 
 # Define your custom metric
 class MyAccuracy(CustomScoreEvaluationMetric):
     def __init__(self):
         super().__init__(name="my-accuracy")
     def measure(self, *args, actual_output: str | None = None, **kwargs) -> float:
-        """
-        Returns 1.0 if 'paris' is in actual_output (case-insensitive), else 0.0.
-        All other args/kwargs are accepted but ignored.
-        """
         if actual_output is None:
             return 0.0
         return 1.0 if "paris" in actual_output.lower() else 0.0
 
 custom_score_accuracy = MyAccuracy()
 
-# If the metric does not exist yet in the platform, you can create it like this:
-galtea.metrics.create(name=custom_score_accuracy.name, source='self_hosted', description='checks for the presence of the keyword "paris" in the output')
-
-# Create evaluations using a mix of standard and custom metrics
+# Legacy format - passing directly without MetricInput dict wrapper
 evaluations = galtea.evaluations.create_single_turn(
     version_id="YOUR_VERSION_ID",
     test_case_id="YOUR_TEST_CASE_ID",
     actual_output="The capital of France is Paris.",
     metrics=[
-        "Role Adherence",            # Standard metric
-        custom_score_accuracy   # Your custom metric object
+        "Role Adherence",       # Legacy: string format
+        custom_score_accuracy   # Legacy: CustomScoreEvaluationMetric directly
     ]
 )
 ```
 
 ### Example: Production Monitoring
 ```python
+from galtea import Galtea
+
+galtea = Galtea(api_key="YOUR_API_KEY")
+
+# Using the recommended MetricInput dictionary format
 evaluations = galtea.evaluations.create_single_turn(
     version_id="YOUR_VERSION_ID",
     is_production=True,
     input="A real user's query from production",
     actual_output="The model's live response.",
-    metrics=["Contextual Relevancy", "Non-Toxic"],
+    metrics=[
+        {"name": "Contextual Relevancy"}, 
+        {"name": "Non-Toxic"}
+    ],
+    retrieval_context="Context retrieved by RAG for this query."
+)
+
+# Alternative: String format (legacy, still supported)
+evaluations = galtea.evaluations.create_single_turn(
+    version_id="YOUR_VERSION_ID",
+    is_production=True,
+    input="A real user's query from production",
+    actual_output="The model's live response.",
+    metrics=["Contextual Relevancy", "Non-Toxic"],  # Legacy string format
     retrieval_context="Context retrieved by RAG for this query."
 )
 ```
@@ -62,10 +154,33 @@ evaluations = galtea.evaluations.create_single_turn(
 <ResponseField name="version_id" type="string" required>
   The ID of the version you want to evaluate.
 </ResponseField>
-<ResponseField name="metrics" type="List[string | CustomScoreEvaluationMetric]" required>
-  A list of metrics to use for evaluation. You can provide:
-  - Standard metrics as strings (e.g., "Role Adherence").
-  - Custom, locally-scored metrics as objects inheriting from `CustomScoreEvaluationMetric`.
+<ResponseField name="metrics" type="List[Union[str, CustomScoreEvaluationMetric, Dict]]" required>
+  A list of metrics to use for evaluation. 
+  
+  **Recommended:** `MetricInput` dictionary format:
+  ```python
+  metrics=[
+      {"name": "Role Adherence"},              # Galtea-hosted metric by name
+      {"id": "metric_xyz"},                    # Galtea-hosted metric by ID
+      {"name": "custom", "score": 0.95},       # Self-hosted with pre-computed score
+      {"score": CustomScoreEvaluationMetric(name="custom")}  # Self-hosted with dynamic scoring
+  ]
+  ```
+  
+  **Also supported (legacy):**
+  - **By name** (string): `metrics=["Role Adherence"]`
+  - **By custom class** (top-level): `metrics=[MyCustomMetric()]`
+  
+  The `MetricInput` dictionary supports the following keys:
+  - `id` (string, optional): The ID of an existing metric
+  - `name` (string, optional): The name of the metric
+  - `score` (float | CustomScoreEvaluationMetric, optional): For self-hosted metrics only
+    - If `float`: Pre-computed score (0.0 to 1.0). Requires `id` or `name` in the dict.
+    - If `CustomScoreEvaluationMetric`: Score will be calculated dynamically. The CustomScoreEvaluationMetric instance must be initialized with `name` or `id`. Do NOT provide `id` or `name` in the dict when using this option.
+  
+  <Note>
+    For self-hosted metrics, both score options are equally valid: pre-compute as a float, or use CustomScoreEvaluationMetric for dynamic calculation. Galtea-hosted metrics automatically compute scores and should not include a `score` field.
+  </Note>
 </ResponseField>
 <ResponseField name="actual_output" type="string" required>
   The actual output produced by the product.

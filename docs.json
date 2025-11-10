@@ -137,7 +137,7 @@
               {
                 "group": "Red Teaming",
                 "icon": "shield-check",
-                "pages": ["concepts/metric/misuse-resilience", "concepts/metric/non-toxic", "concepts/metric/unbiased", "concepts/metric/jailbreak-resilience", "concepts/metric/jailbreak-resilience-v2", "concepts/metric/data-leakage"]
+                "pages": ["concepts/metric/misuse-resilience", "concepts/metric/non-toxic", "concepts/metric/unbiased", "concepts/metric/jailbreak-resilience", "concepts/metric/data-leakage"]
               },
               {
                 "group": "Deterministic metrics",
@@ -291,7 +291,11 @@
     },
     {
       "source": "/concepts/metric-type/jailbreak-resilience-v2",
-      "destination": "/concepts/metric/jailbreak-resilience-v2"
+      "destination": "/concepts/metric/jailbreak-resilience"
+    },
+    {
+      "source": "/concepts/metric/jailbreak-resilience-v2",
+      "destination": "/concepts/metric/jailbreak-resilience"
     },
     {
       "source": "/concepts/metric-type/knowledge-retention",

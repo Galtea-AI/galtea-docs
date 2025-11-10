@@ -51,7 +51,9 @@ The Galtea SDK allows you to create, view, and manage evaluations programmatical
 
 ## Evaluation Properties
 
-To trigger an evaluation in Galtea, you provide the following information:
+The properties required for an evaluation depend on which method you use:
+
+### For `create_single_turn()` (Single-Turn Evaluations)
 
 <ResponseField name="Version ID" type="string" required>
   The ID of the version you want to evaluate.
@@ -61,8 +63,8 @@ To trigger an evaluation in Galtea, you provide the following information:
   The ID of the session containing the inference results to be evaluated.
 </ResponseField>
 
-<ResponseField name="Metrics" type="list[string | CustomScoreEvaluationMetric]" required>
-  A list specifying the metrics to use for the evaluation. Each element should be a `string` or a `CustomScoreEvaluationMetric` object.
+<ResponseField name="Metrics IDs" type="list[Metrics]" required>
+  A list of the metrics used for the evaluation.
 </ResponseField>
 
 <ResponseField name="Actual Output" type="Text" required>
@@ -70,11 +72,15 @@ To trigger an evaluation in Galtea, you provide the following information:
 </ResponseField>
 
 <ResponseField name="Test Case ID" type="Test Case" optional>
-  The test case to be evaluated. Required for non-production, single-turn evaluations.
+  The test case to be evaluated. Required for non-production evaluations.
 </ResponseField>
 
 <ResponseField name="Input" type="Text" optional>
-  The user query that your model needs to answer. Required for production, single-turn evaluations where no `test_case_id` is provided.
+  The user query that your model needs to answer. Required for production evaluations where no `test_case_id` is provided.
+</ResponseField>
+
+<ResponseField name="Is Production" type="boolean" optional>
+  Set to `True` to indicate the evaluation is from a production environment. Defaults to `False`.
 </ResponseField>
 
 <ResponseField name="Retrieval Context" type="Text" optional>
