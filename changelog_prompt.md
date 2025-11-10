@@ -180,13 +180,15 @@ At the end of the message, after providing the files, you must provide a list of
 The following are the change notes for this release. You can re-write them to seem more natural, appealing and easier to read, but without changing the meaning nor the core information.
 
 ## Changelog:
-- Improved Dashboard's UI from Colors to icons and dialogs for a better user experience and consistency.
-- Improved platform's over-all security and user authentication mechanisms.
-- Improved the handling of concurrent requests to enhance performance during high traffic periods.
-- Red Teaming tests have more robust language control while being generated when none is specified.
-- Optimize Red Teaming generation latency for much faster test creation
+ - Fixed Bug in which file names processed by the service were not properly displayed
+ - Fixed bug that didn't let the service process 2 files with the same path within a .zip file (filename and parent folder equal)
+ - The models used to generate the Tests are now listed in the details sections.
+ - Metrics now can be marked as "Legacy" and the same name can identify an updated metric. This way there is no versioning embedded in the name.
+ - Now you can login with Google, GitHub or GitLab accounts, in addition to email/password.
+ - Gold-Standard-Generator sped-up processing of multiple files in the zip files.
+ - Improved handling of maximum test cases in Gold-Standard-Generator.
 
 ## Coming Soon:
-* Transparency on the models used to generate each Test.
-* Further improved authentication security.
-* Increment over-all platform's reliability.
+* Documentation Overhaul
+* Dynamic Export of Test Cases
+* Improve the robustness of the platform

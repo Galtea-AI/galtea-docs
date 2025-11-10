@@ -80,8 +80,7 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 | **[Unbiased](/concepts/metric/unbiased)** | Red Teaming | Determine whether your LLM output is free of gender, racial, or political bias. |
 | **[Misuse Resilience](/concepts/metric/misuse-resilience)** | Red Teaming | Evaluates whether the generated output is resilient to misuse and remains aligned with the product description. |
 | **[Data Leakage](/concepts/metric/data-leakage)** | Red Teaming | Evaluates whether the LLM returns content that may include sensitive information. |
-| **[Jailbreak Resilience](/concepts/metric/jailbreak-resilience)** | Red Teaming | A previous version of the [Jailbreak Resilience v2](/concepts/metric/jailbreak-resilience-v2) Metric. |
-| **[Jailbreak Resilience v2](/concepts/metric/jailbreak-resilience-v2)** | Red Teaming | Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. |
+| **[Jailbreak Resilience](/concepts/metric/jailbreak-resilience)** | Red Teaming | Evaluates the ability of an LLM-based product to resist attempts at breaking or manipulating its intended behavior. |
 
 
 ## Metric Properties
@@ -96,6 +95,10 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
 
 <ResponseField name="Documentation URL" type="URL" optional>
   A URL pointing to more detailed documentation about the metric.
+</ResponseField>
+
+<ResponseField name="Legacy At" type="Timestamp" optional>
+  A timestamp indicating when the metric was marked as legacy or deprecated. This field will be `null` for active metrics.
 </ResponseField>
 
 <ResponseField name="Evaluator Model" type="Text" optional>
@@ -117,10 +120,16 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
       This method, formerly known as "LLM as a Judge," gives you maximum control. You provide a complete judge prompt template with placeholders (e.g., `{input}`, `{actual_output}`). Galtea will populate the template and use an LLM to evaluate the output based on your exact instructions.
     </Tab>
     <Tab title="Partial Prompt">
-      This method simplifies prompt creation. You provide only the core evaluation criteria or rubric in the judge prompt. Then, you select the necessary data (like `input`, `context`, etc.) from the **Evaluation Parameters** list. Galtea dynamically constructs the final prompt by prepending the selected data to your criteria, ensuring a consistent structure.
+      This method simplifies prompt creation. You provide the core evaluation logic (your criteria and rubric) in the `judge_prompt`. Then, you select the necessary data (like `input`, `context`, etc.) from the **Evaluation Parameters** list. Galtea dynamically constructs the final prompt by prepending the selected data to the content of your `judge_prompt`, ensuring a consistent structure for the evaluator model.
     </Tab>
     <Tab title="Self Hosted">
-      This method is for deterministic metrics that you score locally using the SDK's `CustomScoreEvaluationMetric`. No evaluation prompt is sent to Galtea. Instead, your custom logic runs on your infrastructure, and the resulting score is uploaded to the platform for tracking and analysis.
+      This method is for deterministic metrics that you score locally. No evaluation prompt is sent to Galtea. Instead, your custom logic runs on your infrastructure, and the resulting score is uploaded to the platform for tracking and analysis. You can provide the score in two ways via the SDK:
+
+      - **Pre-calculated score**: Pass a `float` value directly in the `score` field of a `MetricInput` dictionary. This is the simplest method.  
+        Example: `{'name': 'my-custom-metric', 'score': 0.85}`
+
+      - **Dynamic score calculation**: Use the SDK's `CustomScoreEvaluationMetric` class to encapsulate your scoring logic, which will be executed at runtime.  
+        Example: `{'score': MyCustomMetric(name='my-custom-metric')}`
     </Tab>
   </Tabs>
 </ResponseField>
@@ -213,11 +222,11 @@ At Galtea, we use two types of metrics to evaluate large language model (LLM) ou
   </table>
 
   <Info>
-    You can directly reference these parameters in your criteria or evaluation steps. For example: "Evaluate if the *Actual Output* contains factually correct information that aligns with verified sources in the *Retrieval Context*."
+    When using the `Partial Prompt` validation method, you can reference these parameters by name in your `judge_prompt`. For example: "Evaluate if the *Actual Output* aligns with the *Retrieval Context*." When using `Full Prompt`, you must use placeholders like `{actual_output}`.
   </Info>
 
   <Warning>
-    To ensure accurate evaluation results, include only parameters that you've explicitly referenced in your criteria or evaluation steps.
+    To ensure accurate evaluation results, only select parameters in the `Evaluation Parameters` list that you need for your evaluation. For `Partial Prompt`, these parameters will be automatically prepended to your `judge_prompt`. For `Full Prompt`, ensure you have corresponding placeholders (e.g., `{input}`) for each selected parameter.
   </Warning>
 </ResponseField>
 
@@ -329,6 +338,45 @@ Scoring Guidelines:
 
 <Info>
 When designing judge prompts, be specific about your scoring criteria and reference the evaluation parameters explicitly. This ensures consistent and reliable evaluations.
+</Info>
+
+### Example Judge Prompt with `conversation_turns`
+
+When evaluating a `SCENARIOS` test, you can use the `{conversation_turns}` placeholder to analyze the entire dialogue. The placeholder will be replaced with a formatted string representing the conversation.
+
+**Example Prompt:**
+```python
+judge_prompt = """
+Evaluate the following conversation for consistency. The agent should not contradict itself across the conversation.
+
+**Conversation History:**
+{conversation_turns}
+
+**Evaluation Criteria:**
+- Does the agent's final response contradict any of its previous statements?
+- Are the agent's responses logically consistent throughout the conversation?
+
+**Scoring Guidelines:**
+- Score 1: The agent is fully consistent with no contradictions across all turns.
+- Score 0.5: The agent has minor inconsistencies that don't significantly impact the conversation quality.
+- Score 0: The agent clearly contradicts itself or provides conflicting information.
+"""
+```
+
+**Formatted `conversation_turns`:**
+
+When the prompt is sent for evaluation, the `{conversation_turns}` placeholder will be replaced with a formatted string like this:
+```text
+user: Hello, what can you do?
+assistant: I can help with your queries and provide information.
+user: What's your return policy?
+assistant: Returns are accepted within 30 days of purchase.
+user: Can I return items after a month?
+assistant: No, our return window is 30 days.
+```
+
+<Info>
+The `conversation_turns` parameter is only available for `SCENARIOS` tests and can only be used with the **Full Prompt** validation method. It provides the complete conversation history, allowing you to evaluate contextual consistency, knowledge retention, and other conversational qualities.
 </Info>
 
 
