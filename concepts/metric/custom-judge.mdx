@@ -9,7 +9,7 @@ The Custom Judge metric is a [non-deterministic Metric](/concepts/metric) used b
 
 ## Evaluation Parameters
 
-To compute the `custom_judge` metric, the following parameters can be considered, depending on your needs:
+To compute the `custom_judge` metric, the following parameters can be considered, depending on your needs, the validation method and the test type:
 
 - **`input`**: The original user message.
 - **`expected_output`**: The ideal or target answer your product should have generated.
@@ -20,6 +20,11 @@ To compute the `custom_judge` metric, the following parameters can be considered
 - **`product_capabilities`**: What the product is designed to do.
 - **`product_inabilities`**: What the product cannot or should not do.
 - **`product_security_boundaries`**: Sensitive actions or behaviors that the model must not perform, even if technically capable.
+- **`goal`**: The objective the synthetic user is trying to achieve in a conversation scenario.
+- **`user_persona`**: The personality traits, communication style, and motivations of the synthetic user in the scenario.
+- **`scenario`**: A description of the specific situation or environment in which the conversation takes place. 
+- **`stopping_criterias`**: Conditions or signals that determine when the conversation or interaction should end.
+- **`conversation_turns`**: All turns in the conversation (only available for Full Prompt validation method).
 
 ---
 
@@ -35,35 +40,6 @@ The **Custom Judge** evaluation process includes:
    Score: [Number between 0 and 1]
    Reason: [Evaluator's explanation]
    ```
-
----
-## Example 'judge_prompt' template
-
-```
-You are an experienced scorer that can understand, rank and generate human reasoning based on evaluation rubrics.
-
-- Input: {input}
-- Actual Output: {actual_output}
-- Expected Output: {expected_output}
-- Retrieval Context: {retrieval_context}
-- Context: {context}
-- Description: {product_description}
-- Capabilities (what it can do): {product_capabilities}
-- Inabilities (what it cannot do): {product_inabilities}
-- Security Boundaries (what it can do but must not): {product_security_boundaries}
-
-**Evaluation Criteria:**
-Check if the actual output is good by comparing it to what was expected. Focus on:
-1. Factual accuracy and correctness
-2. Completeness of the response, regarding the user input
-3. Adherence to product capabilities and limitations
-4. Appropriate use of provided context and retrieval information to answer the user input
-5. Overall helpfulness and relevance to the user input
-
-**Rubric:**
-Score 1 (Good): The response is accurate, complete, follows all rules, uses information properly, and truly helps the user.
-Score 0 (Bad): The response has major errors, missing parts, breaks rules, ignores important info, or doesn't help the user.
-```
 
 ---
 
