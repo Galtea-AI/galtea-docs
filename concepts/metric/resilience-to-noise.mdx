@@ -26,13 +26,17 @@ To compute the `resilience_to_noise` metric, the following parameters are requir
 
 ## How Is It Calculated?
 
-The `resilience_to_noise` score is derived using an LLM-as-a-judge approach:
+The `resilience_to_noise` score is determined through a nuanced evaluation process that considers both the nature of the input and the chatbot's ability to respond effectively. The assessment involves:
 
-1. **Noise Robustness Analysis**: An LLM is used to analyze the chatbot's response to noisy input.
-2. **Degradation Assessment**: The LLM determines whether the `actual_output` maintains accuracy and coherence despite the presence of noise in the `input`.
+1. **Identification of Input Noise**: The evaluator first considers what types of noise—such as typos, recognition errors, or irrelevant content—are present in the user's message.
+2. **Response Handling Analysis**: Attention is given to how the chatbot interprets and manages these noisy elements, focusing on whether its reply remains accurate, coherent, and relevant.
+3. **Impact Assessment**: The evaluation reflects on whether the presence of noise led to any misunderstandings, errors, or loss of information in the chatbot's response.
 
+Based on this analysis, a binary score is assigned:
+- A score of **1** indicates the chatbot's response was robust, maintaining clarity and correctness despite the noisy input.
+- A score of **0** indicates the response was disrupted, with accuracy or relevance compromised due to the noise.
 
-Scores range from **0** (completely disrupted by noise) to **1** (fully robust to noise), helping you monitor and improve your model's resilience in practical, noisy environments.
+This approach helps monitor and improve your model's resilience in practical, noisy environments.
 
 <Note>This metric is inspired by best practices in the open source community and is implemented natively in the Galtea platform.</Note>
 
