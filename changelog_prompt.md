@@ -180,15 +180,13 @@ At the end of the message, after providing the files, you must provide a list of
 The following are the change notes for this release. You can re-write them to seem more natural, appealing and easier to read, but without changing the meaning nor the core information.
 
 ## Changelog:
- - Fixed Bug in which file names processed by the service were not properly displayed
- - Fixed bug that didn't let the service process 2 files with the same path within a .zip file (filename and parent folder equal)
- - The models used to generate the Tests are now listed in the details sections.
- - Metrics now can be marked as "Legacy" and the same name can identify an updated metric. This way there is no versioning embedded in the name.
- - Now you can login with Google, GitHub or GitLab accounts, in addition to email/password.
- - Gold-Standard-Generator sped-up processing of multiple files in the zip files.
- - Improved handling of maximum test cases in Gold-Standard-Generator.
+ - When generating Quality Tests via the Dashboard, the uploaded files are now validated to ensure they are of the expected types to mitigate errors during test generation.
+ - Galtea metrics now use "Partial Prompt" instead of "Full Prompt" both simplifying prompt templates and more importantly increasing quality of the metrics.
+ - Improved the LLM usage for better concurrency, scalability and robustness.
+ - Factual accuracy, jailbreak resilience and data leakage metrics have been binarized to align more to the objective of galtea of validation, and avoiding 0.5 scores, that did not provide so much information for some edge test cases.
+ - Increased the robustness of the process used to validate emails.
 
 ## Coming Soon:
-* Documentation Overhaul
-* Dynamic Export of Test Cases
-* Improve the robustness of the platform
+ - Subscription-based pricing available.
+ - Improve platform security.
+ - Tutorials and instructions to integrate Galtea with observability tools.
