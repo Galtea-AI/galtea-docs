@@ -5,8 +5,6 @@ description: "Evaluates whether the user's stated objective was successfully and
 
 The **User Objective Accomplished** metric is one of several [non-deterministic Metrics](/concepts/metric) Galtea uses to evaluate whether a conversation led to the user’s intended goal being fulfilled. Unlike satisfaction-based measures, this metric centers on *objective correctness*—whether the agent actually met the user’s stated objective.  
 
-Because LLMs often produce responses that *sound correct* even when they are not, this metric emphasizes verifying factual and goal-aligned outcomes, optionally using an `expected_output` when available. This ensures that evaluation is not based solely on conversational flow, but on actual task completion.  
-
 This metric is particularly useful for use cases where accuracy and goal fulfillment matter more than tone or fluency, such as customer support resolutions, fact-based Q&A, or task execution scenarios.
 
 ---
@@ -15,22 +13,19 @@ This metric is particularly useful for use cases where accuracy and goal fulfill
 
 To compute the `user_objective_accomplished` metric, the following parameters are required:
 
+- **`input`**: The user messages sent to the chatbot.
+- **`actual_output`**: The chatbot's corresponding responses.
 - **`goal`**: The stated objective or intent of the user.  
-- **`conversation_turns`**: The complete history of user inputs and chatbot responses.  
-
-Additionally, an **optional parameter** can be included:  
-
-- **`expected_output`**: A ground-truth answer that can be used to verify correctness. If not provided, evaluation is based solely on whether the conversation indicates the user’s objective was achieved.  
 
 ---
 
 ## How Is It Calculated?
 
-The `user_objective_accomplished` score is derived using an LLM-as-a-judge approach with strict correctness criteria:
+The `user_objective_accomplished` score is derived using an LLM-as-a-judge approach with strict correctness criteria and a chain-of-thought style evaluation:
 
 1. **Goal Identification**: Determine the user’s stated objective.  
-2. **Agent Response Evaluation**: Analyze how the agent attempted to fulfill the goal.  
-3. **Correctness Check**: If an `expected_output` is provided, confirm that the agent’s response aligns exactly with it. If not, rely on the conversational outcome to judge whether the user’s objective was achieved.  
+2. **Agent Response Evaluation**: Analyze how the agent attempted to fulfill the goal across the conversation and examine the final `actual_output`.  
+3. **Correctness Check**: Judge whether the final `actual_output` correctly, completely, and directly fulfills the user's stated `goal`. Identify any factual errors, omissions, or misunderstandings that prevent accomplishment.  
 
 Based on this process, the LLM assigns a **binary score**:
 
