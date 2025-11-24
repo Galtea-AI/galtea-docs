@@ -1,0 +1,83 @@
+---
+title: 'How to create your LLM-as-a-judge prompt?'
+description: "A comprehensive framework for constructing LLM-as-a-judge prompts through the specification of objective evaluation criteria and the definition of unambiguous scoring rubrics with precise thresholds."
+icon: "comments"
+---
+
+You can use galtea to [Evaluate with Custom Metrics](/sdk/tutorials/create-evaluation-with-custom-scores) and tailor your evaluation with a high degree of flexibility. However, this raises an important question: how do you translate the idea you want to evaluate into an effective, usable prompt?
+
+## Key Components of a Judge Prompt
+
+### 1. **Role (Context)**
+- Clearly state what the evaluator is assessing
+
+### 2. **Evaluation Criteria (The "What")**
+
+**Best Practices:**
+- **Be specific and measurable:** Avoid vague terms like "good quality" - define what quality means
+- **Break down into discrete checks:** Each criterion should evaluate one distinct aspect
+- **Use objective indicators:** Focus on observable behaviors rather than subjective judgments
+- **Provide examples:** Include what to look for (positive) and what to avoid (negative)
+- **Number your criteria:** Makes them easier to reference and ensures completeness
+
+**Structure:**
+```
+For each [unit of analysis]:
+1. Check that [specific condition A]
+2. Verify that [specific condition B]
+3. Ensure that [specific condition C]
+```
+
+### 3. **Scoring Rubric (The "How to Score")**
+
+**Key Principles:**
+
+**A. Define clear thresholds:**
+- Binary (0/1): Specify exactly what constitutes pass vs. fail
+
+**B. Use consistent logic:**
+- **All-or-nothing:** "ALL criteria must be met" vs "AT LEAST ONE failure"
+- **Counting-based:** "Score based on number of criteria satisfied"
+- **Severity-based:** "Critical failures = 0, minor issues = partial credit"
+
+**C. Cover edge cases:**
+- What if criteria conflict?
+- What if data is missing or ambiguous?
+- Explicit handling of boundary conditions
+
+**Structure for Binary:**
+```
+- Score 1: [Positive condition - what success looks like]
+- Score 0: [Negative condition - specific failure modes]
+```
+
+## Common Pitfalls to Avoid
+
+1. **Vague criteria:** "Check if response is good" → Instead: "Check if response addresses all parts of the user's question"
+2. **Ambiguous thresholds:** "Mostly correct" → Instead: "At least 3 out of 4 criteria met"
+3. **Missing edge cases:** Not specifying what happens with partial matches or ambiguous data
+4. **Subjective language:** "Natural" or "appropriate" without defining what that means
+5. **Overlapping criteria:** Multiple criteria testing the same thing differently
+
+## Template
+
+```
+**Role:** You are evaluating [what aspect] of [what system/output].
+
+**Task:** Analyze [data source] to assess [specific goal].
+
+**Evaluation Criteria:**
+
+For each [unit of analysis], verify:
+
+1. **[Criterion name]:** [Specific, measurable condition with examples]
+2. **[Criterion name]:** [Specific, measurable condition with examples]
+3. **[Criterion name]:** [Specific, measurable condition with examples]
+
+**Scoring Rubric:**
+
+- **Score [X]:** [Clear threshold with specific conditions]
+- **Score [Y]:** [Clear threshold with specific failure modes/edge cases]
+```
+
+The key is: **If you can't program it as a rule-based system, your criteria aren't specific enough for an LLM judge either.**
