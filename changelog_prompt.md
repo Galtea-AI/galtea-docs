@@ -180,13 +180,11 @@ At the end of the message, after providing the files, you must provide a list of
 The following are the change notes for this release. You can re-write them to seem more natural, appealing and easier to read, but without changing the meaning nor the core information.
 
 ## Changelog:
- - When generating Quality Tests via the Dashboard, the uploaded files are now validated to ensure they are of the expected types to mitigate errors during test generation.
- - Galtea metrics now use "Partial Prompt" instead of "Full Prompt" both simplifying prompt templates and more importantly increasing quality of the metrics.
- - Improved the LLM usage for better concurrency, scalability and robustness.
- - Factual accuracy, jailbreak resilience and data leakage metrics have been binarized to align more to the objective of galtea of validation, and avoiding 0.5 scores, that did not provide so much information for some edge test cases.
- - Increased the robustness of the process used to validate emails.
+ - More granular credit consumption and transparency on the origin of the consumed credits
+ - Improved platform robusntess (and increased safety by rate limiting auth endpoints)
+ - Improved validation of uploaded files and related error messages when using the SDK
 
 ## Coming Soon:
- - Subscription-based pricing available.
- - Improve platform security.
+ - Documentation overhoul for better clarity and easier navigation
  - Tutorials and instructions to integrate Galtea with observability tools.
+ - Ability to log trcess.
