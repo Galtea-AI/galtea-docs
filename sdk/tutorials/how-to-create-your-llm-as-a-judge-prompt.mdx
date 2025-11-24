@@ -64,8 +64,6 @@ For each [unit of analysis]:
 ```
 **Role:** You are evaluating [what aspect] of [what system/output].
 
-**Task:** Analyze [data source] to assess [specific goal].
-
 **Evaluation Criteria:**
 
 For each [unit of analysis], verify:
@@ -80,4 +78,51 @@ For each [unit of analysis], verify:
 - **Score [Y]:** [Clear threshold with specific failure modes/edge cases]
 ```
 
+<Note>
+  This template serves as a starting skeleton that you can adapt and modify based on your specific evaluation needs. Feel free to add more criteria, adjust the scoring scale, or restructure sections to better fit your use case.
+</Note>
+
 The key is: **If you can't program it as a rule-based system, your criteria aren't specific enough for an LLM judge either.**
+
+## How to implement it with Galtea?
+
+Here's an example of how to create a custom metric using the template above:
+
+```python
+
+from datetime import datetime
+from galtea import Galtea
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+galtea = Galtea(api_key=os.getenv("API_KEY"))
+
+# Create a new metric
+metric = galtea.metrics.create(
+    name="Generic Metric",
+    test_type="QUALITY",  # or "RED_TEAMING", "SCENARIO"
+    source="partial_prompt",
+    judge_prompt="""
+    **Role:** You are evaluating [what aspect] of [what system/output].
+
+    **Evaluation Criteria:**
+
+    For each [unit of analysis], verify:
+
+    1. **[Criterion name]:** [Specific, measurable condition with examples]
+    2. **[Criterion name]:** [Specific, measurable condition with examples]
+    3. **[Criterion name]:** [Specific, measurable condition with examples]
+
+    **Scoring Rubric:**
+
+    - **Score [X]:** [Clear threshold with specific conditions]
+    - **Score [Y]:** [Clear threshold with specific failure modes/edge cases]
+    """,
+    evaluator_model_name="GPT-4o",
+    evaluation_params=["input", "actual_output"],
+    description="Genertic Metric",
+    tags=["quality"],
+)
+``` 
