@@ -1,7 +1,8 @@
 ---
 title: 'How to create your judge prompt?'
 description: "A practical guide for writing LLM-as-a-judge prompts: define objective evaluation criteria, unambiguous scoring rubrics, and machine-friendly outputs."
-icon: "pen"
+icon: "gavel"
+iconType: "solid"
 ---
 
 You can use Galtea to [Evaluate with Custom Metrics](/sdk/tutorials/create-evaluation-with-custom-scores) and tailor your evaluation with full flexibility. However, this can be highly complex or even impossible in some cases. In this guide we will explain how to translate the idea you want to evaluate into an effective, usable prompt so an LLM can do the judging.
@@ -26,7 +27,7 @@ Evaluation criteria are the clear rules or checkpoints you want the judge to use
 - **Break it down (itemization):** Break down your criteria into separate, clearly defined points. Make them easier to check, score, and understand. Each criterion should focus on one thing at a time.
 - **Use objective signals:** Look for things you can see or measure, not just opinions or feelings.
 - **Give examples:** Show what a good answer looks like, and what a bad answer looks like, for each criterion.
-- **Number your criteria:** This makes them easier to reference and ensures anything important is missed.
+- **Number your criteria:** This makes them easier to reference and ensures nothing important is missed.
 
 *Example Structure:*
 ```
