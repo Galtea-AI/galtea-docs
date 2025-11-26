@@ -8,17 +8,26 @@ You can use Galtea to [Evaluate with Custom Metrics](/sdk/tutorials/create-evalu
 
 ## Key Components of a Judge Prompt
 
-### 1. **Role (Context)**
-- Clearly state what the evaluator is assessing
+### 1. **Role (Optional)**
 
-### 2. **Evaluation Criteria (The "What")**
+Clearly state what the evaluator is assessing:
 
-**Best Practices:**
-- **Be specific and measurable:** Avoid vague terms like "good quality" - define what quality means
-- **Break down into discrete checks:** Each criterion should evaluate one distinct aspect
-- **Use objective indicators:** Focus on observable behaviors rather than subjective judgments
-- **Provide examples:** Include what to look for (positive) and what to avoid (negative)
-- **Number your criteria:** Makes them easier to reference and ensures completeness
+```
+**Role:** You are evaluating the _accuracy_ of the _ACTUAL_OUTPUT_.
+
+### 2. **Evaluation Criteria (Essential)**
+
+
+**What are Evaluation Criteria?**
+
+Evaluation criteria are the clear rules or checkpoints you want the judge (LLM or human) to use when reviewing an output. They help make your evaluation process fair, repeatable, and easy to understand.
+
+**Recommendations:**
+- **Be specific:** Do not use vague terms like "good quality." Instead, explain exactly what quality means for your use case.
+- **Break it down (itemization):** Breaking down your criteria into separate, clearly defined points makes them easier to check, score, and understand. Each criterion should focus on one thing at a time.
+- **Use objective signals:** Look for things you can see or measure, not just opinions or feelings.
+- **Give examples:** Show what a good answer looks like, and what a bad answer looks like, for each criterion.
+- **Number your criteria:** This makes them easier to reference and ensures you don't miss anything important.
 
 **Structure:**
 ```
@@ -28,27 +37,22 @@ For each [unit of analysis]:
 3. Ensure that [specific condition C]
 ```
 
-### 3. **Scoring Rubric (The "How to Score")**
+### 3. **Scoring Rubric (Essential)**
 
-**Key Principles:**
+The scoring rubric is how you decide what score to give for each output. It sets the rules for what counts as a pass or fail, and helps make your evaluation fair and consistent. Here are the main things to keep in mind:
 
-**A. Define clear thresholds:**
-- Binary (0/1): Specify exactly what constitutes pass vs. fail
+**A. Define clear thresholds.** Binary (0/1): Specify exactly what counts as a pass or a fail. Make your scoring rules easy to understand and apply.
 
 **B. Use consistent logic:**
-- **All-or-nothing:** "ALL criteria must be met" vs "AT LEAST ONE failure"
-- **Counting-based:** "Score based on number of criteria satisfied"
-- **Severity-based:** "Critical failures = 0, minor issues = partial credit"
+- **All-or-nothing (recommended for direct validation of your system):** Decide whether all criteria must be met for a passing score, or if a single failure results in a fail.
+- **Counting-based:** You can also score based on how many criteria are satisfied.
 
-**C. Cover edge cases:**
-- What if criteria conflict?
-- What if data is missing or ambiguous?
-- Explicit handling of boundary conditions
+**C. Cover edge cases:** Think about what happens if criteria conflict, if data is missing, or if something is unclear. Make sure your rubric explains how to handle these situations.
 
 **Structure for Binary:**
 ```
-- Score 1: [Positive condition - what success looks like]
-- Score 0: [Negative condition - specific failure modes]
+- Score 1: The ACTUAL_OUTPUT meets all the evaluation criteria you listed above. For example, it is accurate, complete, and follows all instructions.
+- Score 0: The ACTUAL_OUTPUT fails one or more of the evaluation criteria. For example, it is missing key information, contains errors, or does not follow a specific instructions.
 ```
 
 ## Common Pitfalls to Avoid
@@ -62,7 +66,7 @@ For each [unit of analysis]:
 ## Template
 
 ```
-**Role:** You are evaluating [what aspect] of [what system/output].
+**Role:** You are evaluating [aspect] of [parameter].
 
 **Evaluation Criteria:**
 
