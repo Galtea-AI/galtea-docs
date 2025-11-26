@@ -85,7 +85,8 @@
               "sdk/tutorials/monitor-production-responses-to-user-queries",
               "sdk/tutorials/evaluating-conversations",
               "sdk/tutorials/simulating-conversations",
-              "sdk/tutorials/create-evaluation-with-custom-scores"
+              "sdk/tutorials/create-evaluation-with-custom-scores",
+              "sdk/tutorials/how-to-create-your-llm-as-a-judge-prompt"
             ]
           },
           {
