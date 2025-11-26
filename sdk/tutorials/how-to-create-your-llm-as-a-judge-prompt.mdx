@@ -53,7 +53,7 @@ Here are the main things to keep in mind:
 *Example Structure for Binary:*
 ```
 - Score 1: The ACTUAL_OUTPUT meets all the evaluation criteria you listed above. For example, it is accurate, complete, and follows all instructions.
-- Score 0: The ACTUAL_OUTPUT fails one or more of the evaluation criteria. For example, it is missing key information, contains errors, or does not follow a specific instructions.
+- Score 0: The ACTUAL_OUTPUT fails one or more of the evaluation criteria. For example, it is missing key information, contains errors, or does not follow specific instructions.
 ```
 
 You can also use graded rubrics (for example, 0-2 or 0-5). When using graded rubrics, define each numeric level explicitly and include a short example for each level so the judge behaves consistently.
@@ -100,15 +100,13 @@ You can create your custom metric in Galtea using the [Dashboard ](https://platf
 Here's an example of how to create a custom metric using the SDK with the template shown above:
 
 ```python
-
-from datetime import datetime
 from galtea import Galtea
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-galtea = Galtea(api_key=os.getenv("API_KEY"))
+galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 
 # Create a new metric
 metric = galtea.metrics.create(
