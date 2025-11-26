@@ -43,9 +43,7 @@ The scoring rubric is how you decide what score to give for each output. It sets
 
 **A. Define clear thresholds.** Binary (0/1): Specify exactly what counts as a pass or a fail. Make your scoring rules easy to understand and apply.
 
-**B. Use consistent logic:**
-- **All-or-nothing (recommended for direct validation of your system):** Decide whether all criteria must be met for a passing score, or if a single failure results in a fail.
-- **Counting-based:** You can also score based on how many criteria are satisfied.
+**B. All-or-nothing logic (recommended for direct system validation):** Assign a passing score only when *every* instruction or criterion is fully satisfied. In other words, if all requirements are met, score 1; if any requirement is not met, score 0.
 
 **C. Cover edge cases:** Think about what happens if criteria conflict, if data is missing, or if something is unclear. Make sure your rubric explains how to handle these situations.
 
