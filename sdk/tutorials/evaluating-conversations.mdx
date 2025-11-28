@@ -96,9 +96,9 @@ session = galtea.sessions.create(
 )
 
 conversation_turns = [
-    {"role": "user", "content": "What are some less risk investment strategies?"},
+    {"role": "user", "content": "What are some lower-risk investment strategies?"},
     {"role": "assistant", "content": "For lower-risk investments, consider diversified index funds, bonds, or Treasury securities.", "retrieval_context": "Low-risk investment options include index funds, government bonds, and Treasury securities."},
-    {"role": "user", "content": "With age, should the investment strategy change??"},
+    {"role": "user", "content": "With age, should the investment strategy change?"},
     {"role": "assistant", "content": "Yes, many advisors recommend shifting to more conservative investments as you approach retirement.", "retrieval_context": "Financial advisors typically recommend a more conservative asset allocation as investors near retirement age."},
 ]
 
@@ -146,7 +146,7 @@ def handle_turn(user_input: str) -> str:
   <Tab title="Log turns in a batch">
 ```python
 conversation_turns = [
-    {"role": "user", "content": "What are some less risk investment strategies?"},
+    {"role": "user", "content": "What are some lower-risk investment strategies?"},
     {"role": "assistant", "content": "For lower-risk investments, consider diversified index funds, bonds, or Treasury securities."},
 ]
 

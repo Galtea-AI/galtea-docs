@@ -78,8 +78,8 @@ def get_model_response(user_input):
 
 # This would happen dynamically in your application.
 user_questions = [
-    "What are some less risk investment strategies?",
-    "With age, should the invetment stratagy change??",
+    "What are some lower-risk investment strategies?",
+    "With age, should the investment strategy change?",
     "Great, thanks!"
 ]
 
@@ -100,9 +100,9 @@ If you have the entire conversation history, you can log all turns at once for e
 ```python
 # The conversation must be in the standard format: a list of role/content dictionaries
 conversation_turns = [
-    {'role': 'user', 'content': "What are some less risk investment strategies?"},
+    {'role': 'user', 'content': "What are some lower-risk investment strategies?"},
     {'role': 'assistant', 'content': "For lower-risk investments, consider diversified index funds, bonds, or Treasury securities."},
-    {'role': 'user', 'content': "With age, should the invetment stratagy change??"},
+    {'role': 'user', 'content': "With age, should the investment strategy change?"},
     {'role': 'assistant', 'content': "Yes, many advisors recommend shifting to more conservative investments as you approach retirement."},
     {'role': 'user', 'content': "Great, thanks!"},
     {'role': 'assistant', 'content': "You're welcome!"}
