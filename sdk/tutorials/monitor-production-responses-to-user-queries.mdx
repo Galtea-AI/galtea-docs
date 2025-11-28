@@ -51,10 +51,7 @@ galtea = Galtea(api_key=os.getenv("GALTEA_API_KEY"))
 VERSION_ID = "YOUR_ACTIVE_VERSION_ID"
 METRICS_TO_EVALUATE = [
     "Conversation Relevancy",
-    "Knowledge Retention
-
-
-"
+    "Knowledge Retention"
 ]
 
 # Use is_production=True for real user interactions
@@ -81,8 +78,8 @@ def get_model_response(user_input):
 
 # This would happen dynamically in your application.
 user_questions = [
-    "What's the weather like in Paris?",
-    "Is it expected to rain later?",
+    "What are some lower-risk investment strategies?",
+    "With age, should the investment strategy change?",
     "Great, thanks!"
 ]
 
@@ -103,10 +100,10 @@ If you have the entire conversation history, you can log all turns at once for e
 ```python
 # The conversation must be in the standard format: a list of role/content dictionaries
 conversation_turns = [
-    {'role': 'user', 'content': "What's the weather like in Paris?"},
-    {'role': 'assistant', 'content': "It's sunny and 22°C in Paris."},
-    {'role': 'user', 'content': "Is it expected to rain later?"},
-    {'role': 'assistant', 'content': "No, the forecast shows clear skies for the rest of the day."},
+    {'role': 'user', 'content': "What are some lower-risk investment strategies?"},
+    {'role': 'assistant', 'content': "For lower-risk investments, consider diversified index funds, bonds, or Treasury securities."},
+    {'role': 'user', 'content': "With age, should the investment strategy change?"},
+    {'role': 'assistant', 'content': "Yes, many advisors recommend shifting to more conservative investments as you approach retirement."},
     {'role': 'user', 'content': "Great, thanks!"},
     {'role': 'assistant', 'content': "You're welcome!"}
 ]

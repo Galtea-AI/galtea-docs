@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-description: "All you need to get started with Galtea evaluations"
+description: "See how good your product really is with Galtea evaluations"
 icon: "rocket"
 ---
 
@@ -13,28 +13,35 @@ import EvaluationCard from '/snippets/cards/evaluation-card.mdx';
 import MetricCard from '/snippets/cards/metric-card.mdx';
 import ModelCard from '/snippets/cards/model-card.mdx';
 
-This guide will walk you through the steps to begin evaluating and monitoring the reliability of your AI products with Galtea as quickly as possible.
+So, you've built an amazing product – maybe an LLM, a RAG system, or another AI model – and you want to know just how good it truly is? That's exactly where the Galtea platform comes in! We're here to help you thoroughly test your product, uncover its strengths, and even spot those tricky edge cases you might not have considered.
+
+Let's walk through the steps you'll take to test your product with Galtea and understand why each part is so important.
 
 ## Evaluation Workflow Overview
 
 <Steps>
-  <Step title="Create a Product">Define what functionality or service you want to evaluate on the Galtea platform.</Step>
+  <Step title="Tell Us About Your Product">Provide details about your product so our models can create tailored testing content.</Step>
   <Step title="Install SDK & Connect">Set up the Galtea Python SDK to interact with the platform.</Step>
-  <Step title="Register a Version">Document a specific implementation of your product using the SDK.</Step>
-  <Step title="Select a Test">Use a default Galtea test (or create your own) to challenge your product.</Step>
-  <Step title="Select a Metric">Use a default Galtea metric (or define your own) to evaluate your product's version.</Step>
-  <Step title="Run Evaluations">Test your product version with the selected test and metrics, then analyze results.</Step>
+  <Step title="Version Your Product">Track different implementations to compare improvements over time.</Step>
+  <Step title="Create Your Tests">Build test datasets with input and ground truth pairs to challenge your product.</Step>
+  <Step title="Choose Your Metrics">Select from our metrics library or bring your own custom metrics.</Step>
+  <Step title="Run Evaluations">Test your product version with the selected test and metrics.</Step>
+  <Step title="See Your Results">Explore detailed insights and compare versions on the dashboard.</Step>
 </Steps>
 
-## 1. Create a Product
+## 1. Tell Us About Your Product
+
+To test your product effectively, our state-of-the-art LLMs and other models need to understand it inside and out. The more information you provide, the better equipped our models will be to create unique and highly specific testing content tailored just for your product.
 
 Create a [product](/concepts/product) in the Galtea dashboard. Navigate to **[Products](https://platform.galtea.ai/) > Create New Product** and complete the form.
 
 <Info>
-  The product description is important as it may be used to generate synthetic test data.
+  The product description is crucial – it powers our ability to generate synthetic test data that's specific to your use case.
 </Info>
 
-## 2. Install the SDK and Connect
+## 2. Get Started with the SDK
+
+Just like with many other AI tools, you have options! You can do everything through our intuitive dashboard GUI, or you can get programmatic with our Python SDK. For this quickstart, we'll focus on using the Python SDK.
 
 <Steps>
   <Step title="Get your API key">
@@ -59,7 +66,11 @@ Create a [product](/concepts/product) in the Galtea dashboard. Navigate to **[Pr
   </Step>
 </Steps>
 
-## 3. Create a Version
+## 3. Version Your Product
+
+Imagine this: Galtea shows you that your product doesn't perform perfectly on certain edge cases you hadn't anticipated. Naturally, you go back, make some tweaks, and now you have a new, improved version! You test your new version again on Galtea. But how do you compare if the new model is better than the previous one?
+
+Galtea provides a robust way to version your product – attach a version name, ID, and metadata to each of your product/model versions. This means you can easily compare the results of different versions, filter your findings, and clearly see if your new version is, in fact, an improvement over the old one.
 
 Create a [version](/concepts/product/version) to track a specific implementation of your product.
 
@@ -72,9 +83,18 @@ version = galtea.versions.create(
 print(f"Created Version with ID: {version.id}")
 ```
 
-## 4. Use a Default Test
+## 4. Create Your Tests
 
-For this quickstart, we'll use the default "Jailbreak" [test](/concepts/product/test), which is a type of [Red Teaming Test](/concepts/product/test/red-teaming-tests).
+This is where we build the core of your evaluation: the test dataset. This dataset consists of input and ground truth pairs. We'll feed the input to your product/model, and then compare its prediction against the ground truth to see how well it performed.
+
+We offer two main ways to generate this crucial test data:
+
+1. **Using Your Product Description:** If, for example, your product is a RAG system designed for financial data, we'll automatically generate a test dataset that a RAG system for financial data should excel at.
+2. **Using Your Specific Data:** Do you have very particular PDFs or text files that your product absolutely *must* handle correctly? No problem! You can upload these files, and we'll generate a test dataset directly from them, ensuring your product is tested on your critical content.
+
+In Galtea, this entire test dataset is simply called a "[test](/concepts/product/test)," and each individual row within it is a "[test case](/concepts/product/test/case)."
+
+For this quickstart, we'll use the default "Jailbreak" test, which is a type of [Red Teaming Test](/concepts/product/test/red-teaming-tests).
 
 ```python
 test = galtea.tests.get_by_name(product_id=YOUR_PRODUCT_ID, test_name="Jailbreak")
@@ -82,15 +102,21 @@ test_cases = galtea.test_cases.list(test_id=test.id)
 print(f"Using test '{test.name}' with {len(test_cases)} test cases.")
 ```
 
-## 5. Use a Default Metric
+## 5. Choose Your Metrics
 
-To evaluate the "Jailbreak" test, we'll use the "Jailbreak Resilience" [metric](concepts/metric/jailbreak-resilience).
+Anyone familiar with machine learning knows that after comparing predictions to ground truth, you get a "loss," but you also need a meaningful metric to interpret that loss. This step is all about selecting the right metrics for your evaluation.
+
+You can bring your own custom metrics to the table, or you can choose from our wide array of available [metrics](/concepts/metric) (like QA, text-specific metrics, IOU, and many more).
+
+To evaluate the "Jailbreak" test, we'll use the "[Jailbreak Resilience](/concepts/metric/jailbreak-resilience)" metric.
 
 ```python
 metric = galtea.metrics.get_by_name(name="Jailbreak Resilience")
 ```
 
-## 6. Run Evaluations
+## 6. Run the Evaluation
+
+This step is exactly what it sounds like! We take each test case from your created tests, pass its input through your product/model, compare the output to the ground truth, and calculate the metric values. You'll get detailed metric values for every single test case within your tests.
 
 Now, run [evaluations](/concepts/product/version/session/evaluation) against your test cases.
 
@@ -120,9 +146,13 @@ for test_case in test_cases:
 print(f"Submitted evaluations for version {version.id} using test '{test.name}'.")
 ```
 
-## 7. View Results
+## 7. See Your Results
 
-You can view results on the [Galtea dashboard](https://platform.galtea.ai/). Navigate to your product's "Analytics" tab to see detailed analysis and compare versions.
+Once you've run evaluations across all your tests and thoroughly tested your product/model, it's time to dive into the insights! You can view all your results on the [Galtea platform](https://platform.galtea.ai/) in a highly intuitive way.
+
+Our dashboard allows you to filter and explore your data however you like – by versions, metrics, specific tests, and more. You can see aggregate scores for an overall picture or drill down into the results of individual test cases.
+
+Navigate to your product's "Analytics" tab to see detailed analysis and compare versions.
 
 ```python
 print(f"View results at: https://platform.galtea.ai/product/{YOUR_PRODUCT_ID}?tab=1")

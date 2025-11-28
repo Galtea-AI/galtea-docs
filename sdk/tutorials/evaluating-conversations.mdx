@@ -96,10 +96,10 @@ session = galtea.sessions.create(
 )
 
 conversation_turns = [
-    {"role": "user", "content": "Hello, what can you do?"},
-    {"role": "assistant", "content": "I can help with your queries.", "retrieval_context": None},
-    {"role": "user", "content": "What's your return policy?"},
-    {"role": "assistant", "content": "Returns within 30 days.", "retrieval_context": "Returns are accepted within 30 days of purchase."},
+    {"role": "user", "content": "What are some lower-risk investment strategies?"},
+    {"role": "assistant", "content": "For lower-risk investments, consider diversified index funds, bonds, or Treasury securities.", "retrieval_context": "Low-risk investment options include index funds, government bonds, and Treasury securities."},
+    {"role": "user", "content": "With age, should the investment strategy change?"},
+    {"role": "assistant", "content": "Yes, many advisors recommend shifting to more conservative investments as you approach retirement.", "retrieval_context": "Financial advisors typically recommend a more conservative asset allocation as investors near retirement age."},
 ]
 
 # Log all turns at once
@@ -146,8 +146,8 @@ def handle_turn(user_input: str) -> str:
   <Tab title="Log turns in a batch">
 ```python
 conversation_turns = [
-    {"role": "user", "content": "What's the weather like in Paris?"},
-    {"role": "assistant", "content": "It's sunny and 22°C in Paris."},
+    {"role": "user", "content": "What are some lower-risk investment strategies?"},
+    {"role": "assistant", "content": "For lower-risk investments, consider diversified index funds, bonds, or Treasury securities."},
 ]
 
 galtea.inference_results.create_batch(
