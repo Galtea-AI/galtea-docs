@@ -61,10 +61,10 @@ The Galtea SDK provides methods to create both [Quality Tests](/concepts/product
 
     # Generate a test from a PDF knowledge base
     test = galtea.tests.create(
-        name="legal-document-test-from-pdf",
+        name="financial-qa-test",
         type="QUALITY",
         product_id="YOUR_PRODUCT_ID",
-        ground_truth_file_path="path/to/your/legal_document.pdf",
+        ground_truth_file_path="path/to/your/financial_document.pdf",
         language="english",
         max_test_cases=50 # Limit the number of generated test cases
     )
