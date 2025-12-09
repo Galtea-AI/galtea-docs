@@ -139,12 +139,16 @@ for test_case in test_cases:
     galtea.evaluations.create_single_turn(
         version_id=version.id,
         test_case_id=test_case.id,
-        metrics=[metric.name],
+        metrics=[{"name": metric.name}],
         actual_output=actual_output
     )
 
 print(f"Submitted evaluations for version {version.id} using test '{test.name}'.")
 ```
+
+<Note>
+  **Metrics Format:** We recommend using the MetricInput dictionary format `[{"name": "metric_name"}]` for metrics. While the legacy string format `["metric_name"]` is still supported for backward compatibility, it will be deprecated in a future release. The dictionary format also allows you to pass pre-computed scores using `{"name": "metric_name", "score": 0.85}`.
+</Note>
 
 ## 7. See Your Results
 
