@@ -35,9 +35,14 @@ session_evaluations = galtea.evaluations.list(session_id="YOUR_SESSION_ID")
 <ResponseField name="sort_by_score" type="string" optional>
   Sort evaluations by score. Valid values are "asc" and "desc".
 </ResponseField>
-<ResponseField name="offset" type="int" optional>
-  The number of evaluations to skip before starting to collect the result set.
+<ResponseField name="offset" type="int" default="0" optional>
+  Number of evaluations to skip before starting to collect results. Use for pagination.
+  
+  **Default:** `0` (start from the beginning)
 </ResponseField>
-<ResponseField name="limit" type="int" optional>
-  The maximum number of evaluations to return.
+
+<ResponseField name="limit" type="int" default="1000" optional>
+  Maximum number of evaluations to return in a single request.
+  
+  **Default:** `1000`
 </ResponseField>
