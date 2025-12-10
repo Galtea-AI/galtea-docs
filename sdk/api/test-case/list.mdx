@@ -39,9 +39,14 @@ paginated_test_cases = galtea.test_cases.list(test_id="YOUR_TEST_ID", offset=10,
 <ResponseField name="sort_by_created_at" type="string" optional>
   Sort test cases by creation date. Valid values are "asc" and "desc".
 </ResponseField>
-<ResponseField name="offset" type="int" optional>
-  The number of test cases to skip before starting to collect the result set.
+<ResponseField name="offset" type="int" default="0" optional>
+  Number of test cases to skip before starting to collect results. Use for pagination.
+  
+  **Default:** `0` (start from the beginning)
 </ResponseField>
-<ResponseField name="limit" type="int" optional>
-  The maximum number of test cases to return.
+
+<ResponseField name="limit" type="int" default="1000" optional>
+  Maximum number of test cases to return in a single request.
+  
+  **Default:** `1000`
 </ResponseField>

@@ -69,7 +69,11 @@ for test_case in test_cases:
     # 5) Evaluate the full conversation
     galtea_client.evaluations.create(
         session_id=session.id,
-        metrics=["Conversation Relevancy", "Role Adherence", "Knowledge Retention"],
+        metrics=[
+            {"name": "Conversation Relevancy"}, 
+            {"name": "Role Adherence"}, 
+            {"name": "Knowledge Retention"}
+        ],
     )
 ```
 
@@ -111,7 +115,11 @@ galtea.inference_results.create_batch(
 # Evaluate the full session
 galtea.evaluations.create(
     session_id=session.id,
-    metrics=["Role Adherence", "Knowledge Retention", "Conversation Relevancy"],
+    metrics=[
+        {"name": "Role Adherence"}, 
+        {"name": "Knowledge Retention"}, 
+        {"name": "Conversation Relevancy"}
+    ],
 )
 ```
   </Tab>

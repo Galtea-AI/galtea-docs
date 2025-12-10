@@ -31,6 +31,11 @@ inference_results = galtea.inference_results.create_batch(
     The `retrieval_context` key is optional and can be sent to our platform if you have used it when calling your AI product.
     For this reason, it only makes sense to send it when we have a message with role `assistant`.
   </Note>
+
+    <Warning>
+    Maximum batch size recommended: **100 turns**. For longer conversations, split into 
+    multiple batches or use the individual `create()` method.
+  </Warning>
 </ResponseField>
 
 <ResponseField name="conversation_simulator_version" type="string" optional>

@@ -130,7 +130,7 @@ for test_case in test_cases:
 ```python
 evaluations = galtea_client.evaluations.create(
     session_id=session.id,
-    metrics=["Role Adherence"],  # Replace with your metrics
+    metrics=[{"name": "Role Adherence"}],  # Replace with your metrics
 )
 for evaluation in evaluations:
     print(f"Evaluation created: {evaluation.id}")

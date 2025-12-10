@@ -158,3 +158,83 @@ for session in sessions:
     for evaluation in evaluations:
         print(f"Evaluation ID: {evaluation.id}, Score: {evaluation.score}")
 ```
+
+### Working with Pagination
+
+When listing resources that may contain many items (products, tests, sessions, evaluations, etc.), the Galtea SDK uses pagination with a **default limit of 1,000 items** per request.
+
+#### Basic Pagination Example
+
+```python
+# Get all test cases for a test using pagination
+test_id = "your_test_id"
+all_test_cases = []
+offset = 0
+limit = 100  # Fetch 100 at a time for better performance
+
+while True:
+    batch = galtea.test_cases.list(
+        test_id=test_id,
+        offset=offset,
+        limit=limit
+    )
+    
+    if not batch:
+        break
+        
+    all_test_cases.extend(batch)
+    
+    # If we got fewer results than the limit, we've reached the end
+    if len(batch) < limit:
+        break
+        
+    offset += limit
+
+print(f"Retrieved {len(all_test_cases)} test cases total")
+```
+
+#### Understanding Pagination Parameters
+
+All list methods in the Galtea SDK accept two pagination parameters:
+
+- **`offset`**: Number of items to skip before starting to collect results (default: `0`)
+- **`limit`**: Maximum number of items to return in a single request (default: `1000`)
+
+```python
+# Get first 10 products
+first_page = galtea.products.list(offset=0, limit=10)
+
+# Get next 10 products
+second_page = galtea.products.list(offset=10, limit=10)
+
+# Get default number of products (up to 1000)
+products = galtea.products.list()  # Returns up to 1000 items
+```
+
+#### Pagination Best Practices
+
+1. **For large datasets**: Use smaller `limit` values (e.g., 100) to reduce memory usage and improve response times
+2. **For complete data retrieval**: Implement pagination loops as shown in the example above
+3. **For small datasets**: If you know there are fewer than 1000 items, you can omit pagination parameters
+
+<Warning>
+  If you don't specify a `limit` and have more than 1,000 items, only the first 1,000 will be returned. Always implement pagination for complete data retrieval when working with large datasets.
+</Warning>
+
+#### Pagination Across Different Resources
+
+The same pagination pattern works for all list operations:
+
+```python
+# Paginate through products
+products = galtea.products.list(offset=0, limit=50)
+
+# Paginate through versions
+versions = galtea.versions.list(product_id="YOUR_PRODUCT_ID", offset=0, limit=50)
+
+# Paginate through sessions
+sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID", offset=0, limit=50)
+
+# Paginate through evaluations
+evaluations = galtea.evaluations.list(session_id="YOUR_SESSION_ID", offset=0, limit=50)
+```
