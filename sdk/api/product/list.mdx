@@ -15,9 +15,14 @@ products = galtea.products.list()
 <ResponseField name="sort_by_created_at" type="string" optional>
   Sort products by creation date. Valid values are "asc" and "desc".
 </ResponseField>
-<ResponseField name="offset" type="int">
-  The number of products to skip before starting to collect the result set.
+<ResponseField name="offset" type="int" default="0" optional>
+  Number of products to skip before starting to collect results. Use for pagination.
+  
+  **Default:** `0` (start from the beginning)
 </ResponseField>
-<ResponseField name="limit" type="int">
-  The maximum number of products to return.
+
+<ResponseField name="limit" type="int" default="1000" optional>
+  Maximum number of products to return in a single request.
+  
+  **Default:** `1000`
 </ResponseField>

@@ -31,9 +31,14 @@ sessions = galtea.sessions.list(version_id="YOUR_VERSION_ID")
 <Note>
   At least one of the 3 parameters (filters) described above must be passed to the method
 </Note>
-<ResponseField name="offset" type="int" optional>
-  The number of sessions to skip before starting to collect the result set.
+<ResponseField name="offset" type="int" default="0" optional>
+  Number of sessions to skip before starting to collect results. Use for pagination.
+  
+  **Default:** `0` (start from the beginning)
 </ResponseField>
-<ResponseField name="limit" type="int" optional>
-  The maximum number of sessions to return.
+
+<ResponseField name="limit" type="int" default="1000" optional>
+  Maximum number of sessions to return in a single request.
+  
+  **Default:** `1000`
 </ResponseField>
